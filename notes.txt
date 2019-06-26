@@ -37,3 +37,7 @@
 ✔ Setting Roxygen field in DESCRIPTION to 'list(markdown = TRUE)'
 ✔ Setting RoxygenNote field in DESCRIPTION to '6.1.1'
 ● Run `devtools::document()`
+
+> use_readme_md()
+✔ Writing 'README.md'
+● Modify 'README.md'
