@@ -57,3 +57,28 @@ Warning: `recursive` is deprecated, please use `recurse` instead
 ✔ Increasing 'testthat' version to '>= 2.1.0' in DESCRIPTION
 ✔ Writing 'tests/testthat/test-compile_make_data.R'
 ● Modify 'tests/testthat/test-compile_make_data.R'
+
+> proj_sitrep()
+*   working_directory: '/home/lolow/Seafile/WITCH/witchdata'
+* active_usethis_proj: '/home/lolow/Seafile/WITCH/witchdata'
+* active_rstudio_proj: '/home/lolow/Seafile/WITCH/witchdata'
+
+> git_sitrep()
+Git user
+* Name: 'Laurent Drouet'
+* Email: 'ldrouet@gmail.com'
+* Vaccinated: FALSE
+usethis + git2r
+* Default usethis protocol: <unset>
+* git2r supports SSH: TRUE
+* Credentials: '<usethis + git2r default behaviour>'
+GitHub
+* Personal access token: '<found in env var>'
+* User: 'lolow'
+* Name: 'Laurent Drouet'
+Repo
+* Path: '/home/lolow/Seafile/WITCH/witchdata/.git'
+* Local branch -> remote tracking branch: 'master' -> '<unset>'
+GitHub pull request readiness
+ℹ This repo has neither 'origin' nor 'upstream' remote on GitHub.com.
+
