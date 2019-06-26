@@ -1,0 +1,39 @@
+> use_apl2_license("Laurent Drouet")
+✔ Setting active project to '/home/lolow/Seafile/WITCH/witchdata'
+✔ Setting License field in DESCRIPTION to 'Apache License (>= 2.0)'
+✔ Writing 'LICENSE.md'
+✔ Adding '^LICENSE\\.md$' to '.Rbuildignore'
+
+> use_package("here")
+✔ Adding 'here' to Imports field in DESCRIPTION
+● Refer to functions with `here::fun()`
+
+> use_package("data.table")
+✔ Adding 'data.table' to Imports field in DESCRIPTION
+● Refer to functions with `data.table::fun()`
+
+> use_package("stringr")
+✔ Adding 'stringr' to Imports field in DESCRIPTION
+● Refer to functions with `stringr::fun()`
+
+> use_package("docopt")
+✔ Adding 'docopt' to Imports field in DESCRIPTION
+● Refer to functions with `docopt::fun()`
+
+> use_package("RSQLite")
+✔ Adding 'RSQLite' to Imports field in DESCRIPTION
+● Refer to functions with `RSQLite::fun()`
+
+> use_package("crayon")
+✔ Adding 'crayon' to Imports field in DESCRIPTION
+● Refer to functions with `crayon::fun()`
+
+> use_package("gdxtools","Suggests")
+✔ Adding 'gdxtools' to Suggests field in DESCRIPTION
+● Use `requireNamespace("gdxtools", quietly = TRUE)` to test if package is installed
+● Then directly refer to functons like `gdxtools::fun()` (replacing `fun()`).
+
+> use_roxygen_md()
+✔ Setting Roxygen field in DESCRIPTION to 'list(markdown = TRUE)'
+✔ Setting RoxygenNote field in DESCRIPTION to '6.1.1'
+● Run `devtools::document()`
