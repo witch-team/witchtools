@@ -1,0 +1,297 @@
+* EPA 16 regions for MAC Curves (NAME is excluded)
+
+set epa16 'Regions' /
+AUS_  # Australia    
+BRA_  # Brazil
+CAN_  # Canada
+CHN_  # China  
+IND_  # India
+IDN_  # Indonesia
+MEX_  # Mexico
+RUS_  # Russia
+TUR_  # Turkey
+USA_  # United States of America
+AFRC  # Africa
+CSAM  # Central and South America
+MIEA  # Middle East
+EURO  # Europe
+EURA  # Eurasia
+ASIA  # Asia
+/;
+
+$batinclude 'regions/iso3.inc'
+
+set map_epa16_iso3(epa16,iso3) 'Mapping between EPA regions and countries/territories'/
+
+CAN_.CAN # Canada
+
+ASIA.JPN # Japan
+ASIA.NZL # New Zealand
+
+CHN_.CHN  # China
+CHN_.HKG  # Small countries: Honk Kong
+CHN_.MAC  #                  Macao
+CHN_.TWN  #                  Taiwan
+
+IDN_.IDN # Indonesia
+
+ASIA.ASM  # East Asia
+ASIA.BRN
+ASIA.CCK
+ASIA.FJI
+ASIA.FSM
+ASIA.GUM
+
+ASIA.KHM
+ASIA.KIR
+ASIA.PRK
+ASIA.LAO
+ASIA.MHL
+ASIA.MMR
+ASIA.MNG
+ASIA.MNP
+ASIA.MYS
+ASIA.NCL
+ASIA.PHL
+ASIA.PLW
+ASIA.PNG
+ASIA.PYF
+ASIA.SGP
+ASIA.SLB
+ASIA.THA
+ASIA.TLS
+ASIA.TON
+ASIA.VNM
+ASIA.VUT
+ASIA.WSM
+
+AUS_.AUS # Australia
+ASIA.KOR # South Korea
+AFRC.ZAF # South Africa
+
+MEX_.MEX
+BRA_.BRA
+
+CSAM.ABW
+CSAM.AIA
+CSAM.ARG
+CSAM.ATG
+CSAM.BES
+CSAM.BHS
+CSAM.BLM
+CSAM.BLZ
+CSAM.BOL
+CSAM.BRB
+CSAM.CHL
+CSAM.COL
+CSAM.CRI
+CSAM.CUB
+CSAM.CUW
+CSAM.CYM
+CSAM.DMA
+CSAM.DOM
+CSAM.ECU
+CSAM.FLK
+CSAM.GLP
+CSAM.GRD
+CSAM.GTM
+CSAM.GUF
+CSAM.GUY
+CSAM.HND
+CSAM.HTI
+CSAM.JAM
+CSAM.KNA
+CSAM.LCA
+CSAM.MAF
+CSAM.MSR
+CSAM.MTQ
+CSAM.NIC
+CSAM.PAN
+CSAM.PER
+CSAM.PRI
+CSAM.PRY
+CSAM.SLV
+CSAM.SUR
+CSAM.SXM
+CSAM.TTO
+CSAM.URY
+CSAM.VCT
+CSAM.VEN
+
+IND_.IND # India
+
+MIEA.ARE
+MIEA.BHR
+AFRC.DJI
+AFRC.DZA
+AFRC.EGY
+AFRC.ESH
+MIEA.IRN
+MIEA.IRQ
+MIEA.ISR
+MIEA.JOR
+MIEA.KWT
+MIEA.LBN
+AFRC.LBY
+AFRC.MAR
+MIEA.OMN
+MIEA.PSE
+MIEA.QAT
+MIEA.SAU
+MIEA.SYR
+AFRC.TUN
+MIEA.YEM
+
+EURO.BGR # EU countries (except EU-15+Malta)
+EURO.CYP #
+EURO.CZE #
+EURO.EST #
+EURO.HUN #
+EURO.LTU #
+EURO.LVA #
+EURO.POL #
+EURO.ROU #
+EURO.SVK #
+EURO.SVN #
+EURO.MLT # Malta was formely in mena
+EURO.HRV # Croatia was formely in TE
+
+EURO.AUT # EU-15 Countries
+EURO.BEL #
+EURO.DEU #
+EURO.DNK #
+EURO.ESP #
+EURO.FIN #
+EURO.FRA #
+EURO.GBR #
+EURO.GRC #
+EURO.KSV #
+EURO.IRL #
+EURO.ITA #
+EURO.LUX #
+EURO.NLD #
+EURO.PRT #
+EURO.SWE #
+EURO.LIE # Liechtenstein
+EURO.NOR # Norway
+EURO.CHE # Switzerland
+EURO.GRL # Greenland (to Denmark)
+EURO.ISL # Iceland
+EURO.FRO # Island Feroe
+EURO.ALA # Small islands countries
+EURO.AND #
+EURO.GGY #
+EURO.GIB #
+EURO.IMN #
+EURO.JEY #
+EURO.MCO #
+EURO.SJM #
+EURO.SMR #
+EURO.VAT #
+EURO.SPM # St Pierre et Miquelon (to France)
+
+ASIA.AFG
+ASIA.BGD
+ASIA.BTN
+ASIA.LKA
+ASIA.MDV
+ASIA.NPL
+ASIA.PAK
+
+AFRC.AGO
+AFRC.BEN
+AFRC.BWA
+AFRC.BFA
+AFRC.BDI
+AFRC.CMR
+AFRC.CPV
+AFRC.CAF
+AFRC.TCD
+AFRC.COM
+AFRC.COG
+AFRC.COD
+AFRC.CIV
+AFRC.GNQ
+AFRC.ERI
+AFRC.ETH
+AFRC.GAB
+AFRC.GMB
+AFRC.GHA
+AFRC.GIN
+AFRC.GNB
+AFRC.KEN
+AFRC.LSO
+AFRC.LBR
+AFRC.MDG
+AFRC.MWI
+AFRC.MLI
+AFRC.MRT
+AFRC.MUS
+AFRC.MYT
+AFRC.MOZ
+AFRC.NAM
+AFRC.NER
+AFRC.NGA
+AFRC.REU
+AFRC.RWA
+AFRC.STP
+AFRC.SEN
+AFRC.SYC
+AFRC.SHN
+AFRC.SLE
+AFRC.SOM
+AFRC.SSD
+AFRC.SDN
+AFRC.SWZ
+AFRC.TZA
+AFRC.TGO
+AFRC.UGA
+AFRC.ZMB
+AFRC.ZWE
+
+EURA.ARM
+EURA.AZE
+EURA.BLR
+EURA.GEO
+EURA.KAZ
+EURA.KGZ
+EURA.MDA
+EURA.TJK
+EURA.TKM
+EURA.UKR
+EURA.UZB
+EURO.ALB
+EURO.BIH
+EURO.MKD
+EURO.MNE
+EURO.SRB
+RUS_.RUS
+TUR_.TUR
+
+USA_.USA
+
+* other small territories
+AUS_.CXR # Christmas Island (to Australia)
+CSAM.ATA # Antarctica
+AFRC.ATF # French Southern Territories
+CSAM.BMU # Bermuda
+AFRC.BVT # Bouvet Island
+ASIA.COK # Cook Islands
+ASIA.HMD # Heard Island and McDonald Islands
+AFRC.IOT # British Indian Ocean Territory
+ASIA.NFK # Norfolk Island
+ASIA.NIU # Niue
+ASIA.NRU # Nauru
+ASIA.PCN # Pitcairn
+CSAM.SGS # South Georgia and the South Sandwich Islands
+CSAM.TCA # Turks and Caicos Islands
+ASIA.TKL # Tokelau
+ASIA.TUV # Tuvalu
+ASIA.UMI # United States Minor Outlying Islands
+CSAM.VGB # Virgin Islands, British
+CSAM.VIR # Virgin Islands, U.S.
+ASIA.WLF # Wallis and Futuna
+
+/;
+
+
