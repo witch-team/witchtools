@@ -41,3 +41,19 @@
 > use_readme_md()
 ✔ Writing 'README.md'
 ● Modify 'README.md'
+
+> use_news_md()
+✔ Writing 'NEWS.md'
+● Modify 'NEWS.md'
+✔ Adding files
+✔ Commit with message 'Add NEWS.md'
+
+> use_test("compile_make_data")
+✔ Adding 'testthat' to Suggests field in DESCRIPTION
+Warning: `recursive` is deprecated, please use `recurse` instead
+✔ Creating 'tests/testthat/'
+✔ Writing 'tests/testthat.R'
+● Call `use_test()` to initialize a basic test file and open it for editing.
+✔ Increasing 'testthat' version to '>= 2.1.0' in DESCRIPTION
+✔ Writing 'tests/testthat/test-compile_make_data.R'
+● Modify 'tests/testthat/test-compile_make_data.R'
