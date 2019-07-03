@@ -3,6 +3,8 @@
 <!-- badges: start -->
 <!-- badges: end -->
 
+**DEVELOPMENT VERSION** 
+
 The goal of witchdata is to ...
 
 ## Installation

@@ -1,5 +1,5 @@
 Package: witchdata
-Title: Convert data in time and space, for the WITCH integrated assessment model.
+Title: Convert dataset in time and space. 
 Version: 0.0.0.9000
 Authors@R: 
     person(given = "Laurent",
@@ -11,8 +11,8 @@ Description: What the package does (one paragraph).
 License: Apache License (>= 2.0)
 Encoding: UTF-8
 LazyData: true
+Depends: R (>= 3.2.0)
 Imports: 
-    here,
     data.table,
     stringr,
     docopt,
