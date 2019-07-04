@@ -108,7 +108,7 @@ witch_translate_data <- function(witch_dir = ".", region = "witch17", timescale 
   weights = load_weights(data_directory, region_mappings)
 
   # convert all gdx
-  if (!requireNamespace('gdxtools', quietly = TRUE)) {
+  if (requireNamespace('gdxtools', quietly = TRUE)) {
     for (gdxfile in gdxlist) {
       convert_gdx(
         gdxfile,
