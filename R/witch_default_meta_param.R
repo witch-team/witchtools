@@ -1,7 +1,11 @@
-# witch default meta param
-
-# default meta param
+#' WITCH default meta_param information. Useful if they are missing in the input files.
+#'
+#'
 #' @export
+#' @examples
+#' \dontrun{
+#' witch_default_meta_param()
+#' }
 witch_default_meta_param <- function() {
 "parameter,value
 I,sum

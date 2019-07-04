@@ -1,3 +1,5 @@
+
+#' @importFrom stats approx
 # Main function to convert GLOBIOM DATA
 
 convert_globiom <- function(gbfile,

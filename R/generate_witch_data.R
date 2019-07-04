@@ -1,11 +1,23 @@
-# Translate witch data
+#' Translate WITCH data (run make_data files and convert data).
+#'
+#' @param witch_dir WITCH main directory
+#' @param region final regional aggregation
+#' @param timescale final timescale aggregation
+#' @param data_dir witch-data folder (weights and to be pass to make_data files)
+#' @param output_dir output folder (to overidde default WITCH data folder name)
+#'
 #' @export
-translate_witch_data <- function(witch_dir = ".", region = "witch17", timescale = "t30", data_dir = NULL, output_dir = NULL, input_files = NULL) {
+#' @examples
+#' \dontrun{
+#' witch_translate_data(region = "r5")
+#' witch_translate_data(region = "r5", data_dir = 'witch-data', output_dir = 'data_r5')
+#' }
+witch_translate_data <- function(witch_dir = ".", region = "witch17", timescale = "t30", data_dir = NULL, output_dir = NULL) {
 
-  cat(crayon::silver$bold("● Initialisation\n"))
+  cat(crayon::silver$bold("\U1F311 Initialisation\n"))
 
   # Check if gdxtool is available and working
-  if ("gdxtools" %in% rownames(installed.packages())) {
+  if (!requireNamespace('gdxtools', quietly = TRUE)) {
     gdxtools::igdx(dirname(Sys.which('gams'))) # Please have gams in your PATH!
   }
 
@@ -42,7 +54,7 @@ translate_witch_data <- function(witch_dir = ".", region = "witch17", timescale 
     warning(paste0("data directory '", data_directory, "' does not exist; this might causes some problems."))
   }
 
-  cat(crayon::silver$bold("● Regional and timescale mappings\n"))
+  cat(crayon::silver$bold("\U1F311 Regional and timescale mappings\n"))
 
   cat(crayon::blue(paste("  - Output timescale:", time_id, "\n")))
   cat(crayon::blue(paste("  - Output region:", reg_id, "\n")))
@@ -59,33 +71,25 @@ translate_witch_data <- function(witch_dir = ".", region = "witch17", timescale 
   time_mappings = lapply(time_mapping_files, load_timescale_mapping)
   names(time_mappings) = stringr::str_sub(basename(time_mapping_files), 1, -5)
 
-  if (is.null(input_files)) {
+  cat(crayon::silver$bold("\U1F311 Run make_data files\n"))
 
-    cat(crayon::silver$bold("● Run make_data files\n"))
+  input_directory = file.path(witch_dir,"input","build")
+  if (!dir.exists(input_directory)) dir.create(input_directory)
 
-    input_directory = file.path(witch_dir,"input","build")
-    if (!dir.exists(input_directory)) dir.create(input_directory)
-
-    # GAMS files make_data_*.gms
-    gamsfiles = Sys.glob(file.path(witch_dir,'input','make_data_*.gms'))
-    gamsfiles = gamsfiles[gamsfiles != "make_data_template.gms"]
-    res <- for (gamsfile in gamsfiles) {
-      make_data_gms(gamsfile, data_directory, witch_dir)
-    }
-
-    # Rscript files make_data_*.gms
-    Rfiles = Sys.glob(file.path(witch_dir,'input','make_data_*.R'))
-    res <- for (Rfile in Rfiles) {
-      make_data_R(Rfile, data_directory, witch_dir)
-    }
-
-  } else {
-
-    writeLines("● Run make_data files (skipped)")
-
+  # GAMS files make_data_*.gms
+  gamsfiles = Sys.glob(file.path(witch_dir,'input','make_data_*.gms'))
+  gamsfiles = gamsfiles[gamsfiles != "make_data_template.gms"]
+  res <- for (gamsfile in gamsfiles) {
+    make_data_gms(gamsfile, data_directory, witch_dir)
   }
 
-  cat(crayon::silver$bold("● Process input gdx(s)\n"))
+  # Rscript files make_data_*.gms
+  Rfiles = Sys.glob(file.path(witch_dir,'input','make_data_*.R'))
+  res <- for (Rfile in Rfiles) {
+    make_data_R(Rfile, data_directory, witch_dir)
+  }
+
+  cat(crayon::silver$bold("\U1F311 Process input gdx(s)\n"))
 
   # TODO move outside this function
   find_modified_gdx = function(input_directory,
@@ -99,16 +103,12 @@ translate_witch_data <- function(witch_dir = ".", region = "witch17", timescale 
     return(input_gdx[is.na(todo) | todo])
   }
 
-  if (is.null(input_files)) {
-    gdxlist = sort(find_modified_gdx(input_directory, output_directory, force = F))
-  } else {
-    gdxlist = Sys.glob(input_files)
-  }
+  gdxlist = sort(find_modified_gdx(input_directory, output_directory, force = F))
 
   weights = load_weights(data_directory, region_mappings)
 
   # convert all gdx
-  if ("gdxtools" %in% rownames(installed.packages())) {
+  if (!requireNamespace('gdxtools', quietly = TRUE)) {
     for (gdxfile in gdxlist) {
       convert_gdx(
         gdxfile,
@@ -142,7 +142,7 @@ translate_witch_data <- function(witch_dir = ".", region = "witch17", timescale 
                            output_directory)
   }
 
-  cat(crayon::silver$bold(paste("● Create additional gams files for WITCH\n")))
+  cat(crayon::silver$bold(paste("\U1F311 Create additional gams files for WITCH\n")))
 
   write_gams(reg_id,
              time_id,
@@ -151,6 +151,5 @@ translate_witch_data <- function(witch_dir = ".", region = "witch17", timescale 
              time_mappings,
              weights,
              output_directory)
-
 
 }

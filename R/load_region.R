@@ -1,6 +1,14 @@
-# Load region files
-#' @import data.table
+#' Load region definition from a regional WITCH GAMS file.
+#'
+#' @param f Regional WITCH GAMS file
+#'
 #' @export
+#' @import data.table
+#' @examples
+#' \dontrun{
+#' load_region_definition('input/regions/witch17.inc')
+#' }
+#'
 load_region_definition = function(f){
 
   region_inc_file <- readLines(f)
@@ -23,7 +31,17 @@ load_region_definition = function(f){
 
 }
 
+#' Load region mapping from a regional WITCH GAMS file.
+#'
+#' @param f Regional WITCH GAMS file
+#'
 #' @export
+#' @import data.table
+#' @examples
+#' \dontrun{
+#' load_region_mapping('input/regions/witch17.inc')
+#' }
+#'
 load_region_mapping = function(f){
 
   region_inc_file <- readLines(f)

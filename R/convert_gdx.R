@@ -1,4 +1,5 @@
 # Main function to convert GDX
+#' @importFrom stats approx
 
 convert_gdx <- function(gdxfile, reg_id, time_id, region_mappings, region_definitions, time_mappings, weights, output_directory,
                         guess_input_n = "witch17", guess_input_t = "t30", default_missing_values = "zero",

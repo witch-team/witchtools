@@ -1,5 +1,5 @@
 Package: witchdata
-Title: Convert dataset in time and space. 
+Title: Convert dataset in time and space 
 Version: 0.0.0.9000
 Authors@R: 
     person(given = "Laurent",
@@ -19,7 +19,8 @@ Imports:
     RSQLite,
     crayon
 Suggests: 
-    gdxtools,
-    testthat (>= 2.1.0)
+    gdxtools (>= 0.4.0),
+    testthat (>= 2.1.0),
+    devtools
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 6.1.1
