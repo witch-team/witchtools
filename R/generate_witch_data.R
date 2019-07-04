@@ -14,7 +14,7 @@
 #' }
 witch_translate_data <- function(witch_dir = ".", region = "witch17", timescale = "t30", data_dir = NULL, output_dir = NULL) {
 
-  cat(crayon::silver$bold("\U1F311 Initialisation\n"))
+  cat(crayon::silver$bold("\U26AB Initialisation\n"))
 
   # Check if gdxtool is available and working
   if (!requireNamespace('gdxtools', quietly = TRUE)) {
@@ -54,7 +54,7 @@ witch_translate_data <- function(witch_dir = ".", region = "witch17", timescale 
     warning(paste0("data directory '", data_directory, "' does not exist; this might causes some problems."))
   }
 
-  cat(crayon::silver$bold("\U1F311 Regional and timescale mappings\n"))
+  cat(crayon::silver$bold("\U26AB Regional and timescale mappings\n"))
 
   cat(crayon::blue(paste("  - Output timescale:", time_id, "\n")))
   cat(crayon::blue(paste("  - Output region:", reg_id, "\n")))
@@ -71,7 +71,7 @@ witch_translate_data <- function(witch_dir = ".", region = "witch17", timescale 
   time_mappings = lapply(time_mapping_files, load_timescale_mapping)
   names(time_mappings) = stringr::str_sub(basename(time_mapping_files), 1, -5)
 
-  cat(crayon::silver$bold("\U1F311 Run make_data files\n"))
+  cat(crayon::silver$bold("\U26AB Run make_data files\n"))
 
   input_directory = file.path(witch_dir,"input","build")
   if (!dir.exists(input_directory)) dir.create(input_directory)
@@ -89,7 +89,7 @@ witch_translate_data <- function(witch_dir = ".", region = "witch17", timescale 
     make_data_R(Rfile, data_directory, witch_dir)
   }
 
-  cat(crayon::silver$bold("\U1F311 Process input gdx(s)\n"))
+  cat(crayon::silver$bold("\U26AB Process input gdx(s)\n"))
 
   # TODO move outside this function
   find_modified_gdx = function(input_directory,
@@ -142,7 +142,7 @@ witch_translate_data <- function(witch_dir = ".", region = "witch17", timescale 
                            output_directory)
   }
 
-  cat(crayon::silver$bold(paste("\U1F311 Create additional gams files for WITCH\n")))
+  cat(crayon::silver$bold(paste("\U26AB Create additional gams files for WITCH\n")))
 
   write_gams(reg_id,
              time_id,

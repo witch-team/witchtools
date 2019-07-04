@@ -9,7 +9,7 @@
 #' require_package("devtools", loading = F)
 #' }
 require_package <- function(package, loading = T){
-  if (!requireNamespace(package, quietly = TRUE)) {
+  if (!package %in% rownames(installed.packages())) {
     if (package == 'gdxtools') {
       require_package("devtools", loading = F)
       devtools::install_github('lolow/gdxtools')
