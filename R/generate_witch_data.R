@@ -17,7 +17,7 @@ witch_translate_data <- function(witch_dir = ".", region = "witch17", timescale 
   cat(crayon::silver$bold("\U26AB Initialisation\n"))
 
   # Check if gdxtool is available and working
-  if (!requireNamespace('gdxtools', quietly = TRUE)) {
+  if (requireNamespace('gdxtools', quietly = TRUE)) {
     gdxtools::igdx(dirname(Sys.which('gams'))) # Please have gams in your PATH!
   }
 

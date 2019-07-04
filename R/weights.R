@@ -21,7 +21,7 @@ load_weights <- function(data_dir,region_mappings){
   w <- list()
 
   # load from gdx
-  if (!requireNamespace('gdxtools', quietly = TRUE)) {
+  if (requireNamespace('gdxtools', quietly = TRUE)) {
 
     # population_ssp2_2005
     mygdx <- gdxtools::gdx(file.path(data_dir, "ssp", "ssp_gdp_pop.gdx"))
