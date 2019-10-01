@@ -5,6 +5,7 @@
 
 **DEVELOPMENT VERSION** 
 
+<!--
 The goal of witchtools is to ...
 
 ## Installation
@@ -24,3 +25,4 @@ library(witchtools)
 ## basic example code
 ```
 
+-->
