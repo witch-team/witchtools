@@ -1,5 +1,5 @@
 Package: witchtools
-Title: Set of tools for the WITCH modeling framework, to convert datasets in time and in regions, to access the data
+Title: Set of tools for the WITCH modeling framework for data conversion, formatting and validation
 Version: 0.0.0.9000
 Authors@R: 
     person(given = "Laurent",
