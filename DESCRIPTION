@@ -1,5 +1,5 @@
-Package: witchdata
-Title: Convert dataset in time and space 
+Package: witchtools
+Title: Set of tools for the WITCH modeling framework, to convert datasets in time and in regions, to access the data
 Version: 0.0.0.9000
 Authors@R: 
     person(given = "Laurent",
@@ -7,7 +7,7 @@ Authors@R:
            role = c("aut", "cre"),
            email = "ldrouet@gmail.com",
            comment = c(ORCID = "0000-0002-4087-7662"))
-Description: What the package does (one paragraph).
+Description: The package gathers tools and script useful for integrated assessment models. It converts input datasets in time and in regions, it provides diagnostic and validation tools and it provides easy access to outputs. The package has been develop in the WITCH modeling framework but it is not limited to it.
 License: Apache License (>= 2.0)
 Encoding: UTF-8
 LazyData: true
