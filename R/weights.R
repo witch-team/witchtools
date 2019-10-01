@@ -7,7 +7,7 @@
 #' @import data.table
 #' @examples
 #' \dontrun{
-#' region_mapping_files = Sys.glob(file.path(system.file("regions", package = "witchdata"),"*.inc"))
+#' region_mapping_files = Sys.glob(file.path(system.file("regions", package = "witchtools"),"*.inc"))
 #' region_mappings <- lapply(region_mapping_files, load_region_mapping)
 #' names(region_mappings) <- stringr::str_sub(basename(region_mapping_files), 1, -5)
 #' load_weights('../witch-data',load_region_mapping(region_mappings))

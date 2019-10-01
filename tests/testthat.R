@@ -1,4 +1,4 @@
 library(testthat)
-library(witchdata)
+library(witchtools)
 
-test_check("witchdata")
+test_check("witchtools")

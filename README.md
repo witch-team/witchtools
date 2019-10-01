@@ -5,14 +5,14 @@
 
 **DEVELOPMENT VERSION** 
 
-The goal of witchdata is to ...
+The goal of witchtools is to ...
 
 ## Installation
 
 You can install the released version of witchdata from [CRAN](https://CRAN.R-project.org) with:
 
 ``` r
-install.packages("witchdata")
+install.packages("witchtools")
 ```
 
 ## Example
@@ -20,7 +20,7 @@ install.packages("witchdata")
 This is a basic example which shows you how to solve a common problem:
 
 ``` r
-library(witchdata)
+library(witchtools)
 ## basic example code
 ```
 

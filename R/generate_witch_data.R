@@ -23,13 +23,13 @@ witch_translate_data <- function(witch_dir = ".", region = "witch17", timescale 
 
   # Region mapping
   reg_id = stringr::str_replace(as.character(region), ".inc", "")
-  if (!file.exists(system.file("regions", paste0(reg_id, ".inc"), package = "witchdata"))) {
+  if (!file.exists(system.file("regions", paste0(reg_id, ".inc"), package = "witchtools"))) {
     stop(paste("Region mapping", reg_id,"has no definition in the package."))
   }
 
   # Time mapping
   time_id = as.character(timescale)
-  if (!file.exists(system.file("timescale", paste0(time_id, ".csv"), package = "witchdata"))) {
+  if (!file.exists(system.file("timescale", paste0(time_id, ".csv"), package = "witchtools"))) {
     stop(paste("Time mapping", time_id, "has no definition in the package."))
   }
 
@@ -61,13 +61,13 @@ witch_translate_data <- function(witch_dir = ".", region = "witch17", timescale 
   cat(crayon::blue(paste("  - Output directory:", output_directory, "\n")))
 
   # Region mappings
-  region_mapping_files = Sys.glob(file.path(system.file("regions", package = "witchdata"),"*.inc"))
+  region_mapping_files = Sys.glob(file.path(system.file("regions", package = "witchtools"),"*.inc"))
   region_mappings <- lapply(region_mapping_files, load_region_mapping)
   region_definitions <- lapply(region_mapping_files, load_region_definition)
   names(region_mappings) <- names(region_definitions) <- stringr::str_sub(basename(region_mapping_files), 1, -5)
 
   # Timescale mappings
-  time_mapping_files = Sys.glob(file.path(system.file("timescale", package = "witchdata"), "*.csv"))
+  time_mapping_files = Sys.glob(file.path(system.file("timescale", package = "witchtools"), "*.csv"))
   time_mappings = lapply(time_mapping_files, load_timescale_mapping)
   names(time_mappings) = stringr::str_sub(basename(time_mapping_files), 1, -5)
 
