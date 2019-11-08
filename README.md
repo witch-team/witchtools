@@ -1,4 +1,4 @@
-# witchdata
+# witchtools
 
 <!-- badges: start -->
 <!-- badges: end -->
