@@ -9,8 +9,8 @@ write_gams <- function(reg_id,
                        output_directory) {
 
   #write region conf
-  filename = file.path(output_directory, 'regions.conf')
-  fconf = file(filename, "w")
+  filename <- file.path(output_directory, 'regions.conf')
+  fconf <- file(filename, "w")
 
   #setglobal nmapping
   writeLines(paste("$setglobal nmapping", reg_id), fconf)
@@ -20,25 +20,25 @@ write_gams <- function(reg_id,
   ###############################################################################
 
   #write region mapping
-  filename = file.path(output_directory, 'n.inc')
-  finc = file(filename, "w")
-  reg = sort(region_definitions[[reg_id]][, get(reg_id)])
+  filename <- file.path(output_directory, 'n.inc')
+  finc <- file(filename, "w")
+  reg <- sort(region_definitions[[reg_id]][, get(reg_id)])
   writeLines(reg, finc)
   close(finc)
 
   ###############################################################################
 
   #write region mapping for database report
-  filename = file.path(output_directory, 'map_nrep_n.inc')
-  finc = file(filename, "w")
+  filename <- file.path(output_directory, 'map_nrep_n.inc')
+  finc <- file(filename, "w")
   writeLines(paste(reg,reg,sep = "."), finc)
   writeLines(paste0("WORLD.(",paste(reg,collapse = ","),")"), finc)
   close(finc)
 
   ###############################################################################
 
-  filename = file.path(output_directory, 'regions.inc')
-  finc = file(filename, "w")
+  filename <- file.path(output_directory, 'regions.inc')
+  finc <- file(filename, "w")
   #set iso3
   writeLines("set iso3 'Country definition in ISO_3166-1_alpha-3' /",finc)
   writeLines(sort(region_mappings[[reg_id]]$iso3), finc)
@@ -59,11 +59,11 @@ write_gams <- function(reg_id,
 
   ###############################################################################
 
-  ttt = time_mappings[[time_id]][year == refyear]
+  ttt <- time_mappings[[time_id]][year == refyear]
 
   #write time mapping
   filename = file.path(output_directory, 'time.inc')
-  finc = file(filename, "w")
+  finc <- file(filename, "w")
 
   #set t
   writeLines("set t /", finc)
@@ -92,7 +92,7 @@ write_gams <- function(reg_id,
     repeat {
       if (ttt[t == x]$pred == "") break
       x <- ttt[t == x]$pred
-      pred = c(x,pred)
+      pred <- c(x,pred)
     }
     return(c(pred))
   }
@@ -120,7 +120,7 @@ write_gams <- function(reg_id,
 
   close(fconf)
 
-  ###############################################################################
+  #############################################################################
 
   #write noncoop inc
   filename = file.path(output_directory, 'noncoop.inc')
@@ -128,14 +128,13 @@ write_gams <- function(reg_id,
 
   #set clt
   writeLines("set clt 'Coalitions' /", finc)
-  writeLines(stringr::str_c("c_", region_definitions[[reg_id]][, get(reg_id)]), finc)
+  reg_def <- region_definitions[[reg_id]][, get(reg_id)]
+  writeLines(stringr::str_c("c_", reg_def), finc)
   writeLines("/;", finc)
 
   #set map_clt+n
-  writeLines("set map_clt_n(clt,n) 'Mapping between all coalitions and regions' /",
-             finc)
-  writeLines(stringr::str_c("c_", region_definitions[[reg_id]][, get(reg_id)], ".", region_definitions[[reg_id]][, get(reg_id)]),
-             finc)
+  writeLines("set map_clt_n(clt,n) /", finc)
+  writeLines(stringr::str_c("c_", reg_def, ".", reg_def), finc)
   writeLines("/;", finc)
 
   close(finc)

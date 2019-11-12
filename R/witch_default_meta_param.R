@@ -1,4 +1,5 @@
-#' WITCH default meta_param information. Useful if they are missing in the input files.
+#' WITCH default meta_param information.
+#' Useful if they are missing in the input files.
 #'
 #'
 #' @export
@@ -73,7 +74,7 @@ temp_valid_hadcrut4,mean
 " -> defmap
   dm <- fread(defmap)
   dm[, type := "nagg"]
-  dm = rbind(dm,
+  dm <- rbind(dm,
              data.table(
                parameter = dm$parameter,
                type = "nweight",

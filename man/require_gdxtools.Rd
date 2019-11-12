@@ -4,7 +4,7 @@
 \alias{require_gdxtools}
 \title{Install, if necessary, and load the gdxtools library}
 \usage{
-require_gdxtools(loading = T)
+require_gdxtools(loading = TRUE)
 }
 \arguments{
 \item{loading}{if TRUE, package is loaded}

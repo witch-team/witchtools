@@ -52,20 +52,20 @@ load_weights <- function(data_dir,region_mappings){
   co2_ffi <-
     hemi[entity == "CO2" & category %in% c("CAT1", "CAT2") &
            year == 2005,
-         .(e = "co2ffi", value = sum(value, na.rm = T) * 12 / 44 *
+         .(e = "co2ffi", value = sum(value, na.rm = TRUE) * 12 / 44 *
              1e-6), by = c("year", "iso3")]
   w = c(w, list(co2ffi_emissions_2005 = co2_ffi[, .(iso3, weight = value)]))
   ch4_lu <-
     hemi[entity == "CH4" &
            category %in% c("CAT4", "CAT5")  & year == 2005,
          .(e = "ch4lu",
-           value = sum(value, na.rm = T) * emi_gwp_ch4 * 12 / 44 * 1e-6), by = c("year", "iso3")]
+           value = sum(value, na.rm = TRUE) * emi_gwp_ch4 * 12 / 44 * 1e-6), by = c("year", "iso3")]
   w = c(w, list(ch4lu_emissions_2005 = ch4_lu[, .(iso3, weight = value)]))
   n2o_lu <-
     hemi[entity == "N2O" & category %in% c("CAT4", "CAT5") &
            year == 2005,
          .(e = "n2olu",
-           value = sum(value, na.rm = T) * emi_gwp_n2o * 12 / 44 * 1e-6), by = c("year", "iso3")]
+           value = sum(value, na.rm = TRUE) * emi_gwp_n2o * 12 / 44 * 1e-6), by = c("year", "iso3")]
   w = c(w, list(n2olu_emissions_2005 = n2o_lu[, .(iso3, weight = value)]))
 
   # wbio_2005
@@ -117,7 +117,7 @@ load_weights <- function(data_dir,region_mappings){
 
   # Make weights consistent
   tidy_weights <- function(dd) {
-    dd <- rbind(dd, data.table(iso3 = iso3_list[!iso3_list %in% dd$iso3]), fill = T)
+    dd <- rbind(dd, data.table(iso3 = iso3_list[!iso3_list %in% dd$iso3]), fill = TRUE)
     dd <- dd[iso3 %in% iso3_list]
     dd[is.na(weight), weight := 1e-10]
     dd[weight == 0, weight := 1e-10]

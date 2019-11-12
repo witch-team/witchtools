@@ -1,6 +1,6 @@
 # run make data files
 
-make_data_gms <- function(gamsfile, data_directory, witch_dir, force = F){
+make_data_gms <- function(gamsfile, data_directory, witch_dir, force = FALSE){
 
   # generated gdx
   gengdx = file.path(witch_dir,'input','build',paste0(stringr::str_sub(basename(gamsfile),6,-5),'.gdx'))
@@ -23,7 +23,7 @@ make_data_gms <- function(gamsfile, data_directory, witch_dir, force = F){
 
 }
 
-make_data_R <- function(Rfile, data_directory, witch_dir, force = F){
+make_data_R <- function(Rfile, data_directory, witch_dir, force = FALSE){
 
   # generated gdx
   gengdx = file.path(witch_dir,'input','build',paste0(stringr::str_sub(basename(Rfile),6,-3),'.gdx'))

@@ -13,7 +13,7 @@ load_timescale_mapping = function(f){
   tab = data.table::fread(f,colClasses = "character")
   setnames(tab,'year','refyear')
   # Expand year
-  tab = data.table::rbindlist(lapply(1:nrow(tab), function(i){tab[i,.(t,
+  tab = data.table::rbindlist(lapply(seq_len(nrow(tab)), function(i){tab[i,.(t,
                                                               year = begyear:endyear,
                                                               refyear,
                                                               pred,

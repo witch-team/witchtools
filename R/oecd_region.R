@@ -45,7 +45,7 @@ oecd_regions = function(reg_id,
     region_mappings[[reg_id]],
     data.table(iso3 = oecd_iso3, oecd = 1),
     by = "iso3",
-    all.x = T
+    all.x = TRUE
   )
   tab[is.na(oecd), oecd := 0]
   tab = merge(tab, weights[[w]], by = "iso3")

@@ -94,7 +94,7 @@ witch_translate_data <- function(witch_dir = ".", region = "witch17", timescale 
   # TODO move outside this function
   find_modified_gdx = function(input_directory,
                                output_directory,
-                               force = F) {
+                               force = FALSE) {
     input_gdx = Sys.glob(file.path(input_directory, "data_*.gdx"))
     if (force)
       return(input_gdx)
@@ -103,7 +103,7 @@ witch_translate_data <- function(witch_dir = ".", region = "witch17", timescale 
     return(input_gdx[is.na(todo) | todo])
   }
 
-  gdxlist = sort(find_modified_gdx(input_directory, output_directory, force = F))
+  gdxlist = sort(find_modified_gdx(input_directory, output_directory, force = FALSE))
 
   weights = load_weights(data_directory, region_mappings)
 
@@ -126,7 +126,7 @@ witch_translate_data <- function(witch_dir = ".", region = "witch17", timescale 
   # Translate GLOBIOM dataset
   input_gb = file.path(input_directory,'data_globiom.sqlite')
   output_gb = file.path(output_directory,'data_globiom.sqlite')
-  todo = F
+  todo = FALSE
   todo = !file.exists(output_gb)
   if (!todo) {
     todo = file.mtime(input_gb) > file.mtime(output_gb)

@@ -58,7 +58,7 @@ convert_globiom <- function(gbfile,
 
   for (item in items) {
 
-    .data = .globiom[,c(input_reg_id,"ssp","bio_price","co2_price","year",item),with = F]
+    .data = .globiom[,c(input_reg_id,"ssp","bio_price","co2_price","year",item),with = FALSE]
     setnames(.data,item,"value")
     .data[is.na(value),value := 1e-7]
     .data[abs(value) < 1e-7 & value >= 0,value := 1e-7]
@@ -169,7 +169,7 @@ convert_globiom <- function(gbfile,
 
   }
 
-  params = rbindlist(params,use.names = T)
+  params = rbindlist(params,use.names = TRUE)
 
   cat(crayon::blue(paste(" -","writing db\n")))
 

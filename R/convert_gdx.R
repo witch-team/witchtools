@@ -1,8 +1,13 @@
 # Main function to convert GDX
 #' @importFrom stats approx
 
-convert_gdx <- function(gdxfile, reg_id, time_id, region_mappings, region_definitions, time_mappings, weights, output_directory,
-                        guess_input_n = "witch17", guess_input_t = "t30", default_missing_values = "zero",
+convert_gdx <- function(gdxfile,
+                        reg_id, time_id,
+                        region_mappings, region_definitions,
+                        time_mappings, weights,
+                        output_directory,
+                        guess_input_n = "witch17", guess_input_t = "t30",
+                        default_missing_values = "zero",
                         default_meta_param = witch_default_meta_param()){
 
   if (!file.exists(gdxfile)) stop(paste(gdxfile, "does not exist!"))
@@ -13,32 +18,32 @@ convert_gdx <- function(gdxfile, reg_id, time_id, region_mappings, region_defini
   .gdx <- gdxtools::gdx(gdxfile)
 
   # parameter collector
-  params = list()
-  vars = list()
+  params <- list()
+  vars <- list()
 
   # load meta_data
-  meta_param = default_meta_param
+  meta_param <- default_meta_param
   if ("meta_param" %in% .gdx$sets$name) {
-    dt_meta_param = data.table(.gdx["meta_param"])
-    names(dt_meta_param) = c("parameter","type","value")
-    meta_param = rbind(meta_param,dt_meta_param)
+    dt_meta_param <- data.table(.gdx["meta_param"])
+    names(dt_meta_param) <- c("parameter","type","value")
+    meta_param <- rbind(meta_param,dt_meta_param)
   }
 
-  items = c(.gdx$parameters$name, .gdx$variables$name)
+  items <- c(.gdx$parameters$name, .gdx$variables$name)
 
   #Loop over all parameters and variables in the file
   for (item in items) {
 
-    item_type = ifelse(item %in% .gdx$parameters$name, "parameter", "variable")
+    item_type <- ifelse(item %in% .gdx$parameters$name, "parameter", "variable")
 
     .data <- as.data.table(.gdx[item]) # uses as.data.table to keep attribute 'gams'
-    text = attributes(.data)[["gams"]]
+    text <- attributes(.data)[["gams"]]
 
     if ("n" %in% colnames(.data)) {
       setnames(.data, "n", guess_input_n)
     }
     if ("t" %in% colnames(.data) & guess_input_t == "t30") {
-      setnames(.data, "t", "year");
+      setnames(.data, "t", "year")
       .data[,year := paste(as.numeric(.data$year) * 5 + 2000)]
     }
 
@@ -104,7 +109,7 @@ convert_gdx <- function(gdxfile, reg_id, time_id, region_mappings, region_defini
       .data[, year := NULL]
 
       # Take the average value over time range
-      .data <- .data[, .(value = mean(value,na.rm = T)),
+      .data <- .data[, .(value = mean(value,na.rm = TRUE)),
                      by = c(colnames(.data)[!colnames(.data) %in% c('value')])]
       .data[is.nan(value),value := NA]
 
@@ -114,21 +119,21 @@ convert_gdx <- function(gdxfile, reg_id, time_id, region_mappings, region_defini
 
     # Region conversion
     input_reg_id = intersect(colnames(.data), names(region_definitions))
-    param_agg = ""
+    param_agg <- ""
 
     # Region has been identified?
     if (length(input_reg_id) == 1) {
 
       # Detect the type of missing value
-      missing_values = default_missing_values
+      missing_values <- default_missing_values
       if (nrow(meta_param[parameter == item & type == "missing_values"]) > 0) {
-        missing_values = meta_param[parameter == item & type == "missing_values"][1,value]
+        missing_values <- meta_param[parameter == item & type == "missing_values"][1,value]
       }
 
       if (input_reg_id != "iso3") {
-        .data[[which(input_reg_id == colnames(.data))]] = tolower(.data[,get(input_reg_id)])
+        .data[[which(input_reg_id == colnames(.data))]] <- tolower(.data[,get(input_reg_id)])
       } else {
-        .data$iso3 = toupper(.data$iso3)
+        .data$iso3 <- toupper(.data$iso3)
       }
 
       # Select aggregation type (sum or mean)
@@ -195,11 +200,11 @@ convert_gdx <- function(gdxfile, reg_id, time_id, region_mappings, region_defini
 
         # informed share
         if (param_agg %in% c("sumby")) {
-          .w = merge(region_mappings[[reg_id]],weights[[param_w]],by = "iso3")
-          .w = .w[,.(sum_weight = sum(weight)),by = reg_id]
+          .w <- merge(region_mappings[[reg_id]],weights[[param_w]],by = "iso3")
+          .w <- .w[,.(sum_weight = sum(weight)),by = reg_id]
           setnames(.w, reg_id, "reg_id")
-          .data = merge(.data,.w,by = "reg_id")
-          .info_share = .data[,.(value = sum(weight) / mean(sum_weight)),by = c(dkeys(.data))]
+          .data <- merge(.data,.w,by = "reg_id")
+          .info_share <- .data[,.(value = sum(weight) / mean(sum_weight)),by = c(dkeys(.data))]
           setnames(.info_share, "reg_id", "n")
         }
 
@@ -291,7 +296,7 @@ convert_gdx <- function(gdxfile, reg_id, time_id, region_mappings, region_defini
         .info_share[, year := NULL]
 
         # Take the average value over time range
-        .info_share <- .info_share[, .(value = mean(value,na.rm = T)), by = c(colnames(.info_share)[!colnames(.info_share) %in% c('value')])]
+        .info_share <- .info_share[, .(value = mean(value,na.rm = TRUE)), by = c(colnames(.info_share)[!colnames(.info_share) %in% c('value')])]
         .info_share[is.nan(value),value := NA]
 
       }

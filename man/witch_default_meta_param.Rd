@@ -2,12 +2,14 @@
 % Please edit documentation in R/witch_default_meta_param.R
 \name{witch_default_meta_param}
 \alias{witch_default_meta_param}
-\title{WITCH default meta_param information. Useful if they are missing in the input files.}
+\title{WITCH default meta_param information.
+Useful if they are missing in the input files.}
 \usage{
 witch_default_meta_param()
 }
 \description{
-WITCH default meta_param information. Useful if they are missing in the input files.
+WITCH default meta_param information.
+Useful if they are missing in the input files.
 }
 \examples{
 \dontrun{

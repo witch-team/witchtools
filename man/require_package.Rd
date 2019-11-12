@@ -4,7 +4,7 @@
 \alias{require_package}
 \title{Install, if necessary, and load a R library}
 \usage{
-require_package(package, loading = T)
+require_package(package, loading = TRUE)
 }
 \arguments{
 \item{package}{package name}
@@ -16,6 +16,6 @@ Install, if necessary, and load a R library
 }
 \examples{
 \dontrun{
-require_package("devtools", loading = F)
+require_package("devtools", loading = FALSE)
 }
 }
