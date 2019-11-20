@@ -21,9 +21,9 @@ oceania       # Australia, New Zealand, and oceania islands
 southafrica   # South Africa
 /;
 
-$batinclude 'regions/iso3.inc'
+$if not declared iso3 $batinclude 'regions/iso3.inc'
 
-set map_witch17_iso3(witch17,iso3) 'Mapping between WITCH regions and countries/territories'/
+set map_witch18eu_iso3(witch18eu,iso3) 'Mapping between WITCH regions and countries/territories'/
 
 canada.CAN # Canada
 canada.SPM # St Pierre et Miquelon
