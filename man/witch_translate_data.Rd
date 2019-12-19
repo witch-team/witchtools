@@ -4,8 +4,13 @@
 \alias{witch_translate_data}
 \title{Translate WITCH data (run make_data files and convert data).}
 \usage{
-witch_translate_data(witch_dir = ".", region = "witch17",
-  timescale = "t30", data_dir = NULL, output_dir = NULL)
+witch_translate_data(
+  witch_dir = ".",
+  region = "witch17",
+  timescale = "t30",
+  idir = NULL,
+  output_dir = NULL
+)
 }
 \arguments{
 \item{witch_dir}{WITCH main directory}
@@ -14,7 +19,7 @@ witch_translate_data(witch_dir = ".", region = "witch17",
 
 \item{timescale}{final timescale aggregation}
 
-\item{data_dir}{witch-data folder (weights and to be pass to make_data files)}
+\item{idir}{input data folder (for weights and to be pass to make_data files)}
 
 \item{output_dir}{output folder (to overidde default WITCH data folder name)}
 }
@@ -24,6 +29,6 @@ Translate WITCH data (run make_data files and convert data).
 \examples{
 \dontrun{
 witch_translate_data(region = "r5")
-witch_translate_data(region = "r5", data_dir = 'witch-data', output_dir = 'data_r5')
+witch_translate_data(region = "r5", output_dir = 'data_r5')
 }
 }
