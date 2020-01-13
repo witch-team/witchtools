@@ -5,6 +5,18 @@
 
 **DEVELOPMENT VERSION** 
 
+witchtools is providing a set of tools to manage input and output data of the WITCH Integrated Assessment Model (but is not limited to it).
+
+
+## Installation
+
+Using devtools:
+
+``` r
+devtools::install_github("witch-team/witchtools")
+```
+
+
 <!--
 The goal of witchtools is to ...
 
