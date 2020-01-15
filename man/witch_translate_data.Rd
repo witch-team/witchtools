@@ -4,8 +4,13 @@
 \alias{witch_translate_data}
 \title{Translate WITCH data (run make_data files and convert data).}
 \usage{
-witch_translate_data(witch_dir = ".", region = "witch17",
-  timescale = "t30", data_dir = NULL, output_dir = NULL)
+witch_translate_data(
+  witch_dir = ".",
+  region = "witch17",
+  timescale = "t30",
+  data_dir = NULL,
+  output_dir = NULL
+)
 }
 \arguments{
 \item{witch_dir}{WITCH main directory}
