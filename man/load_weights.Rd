@@ -4,10 +4,10 @@
 \alias{load_weights}
 \title{Load weights using witch-data folder}
 \usage{
-load_weights(idir, region_mappings)
+load_weights(data_dir, region_mappings)
 }
 \arguments{
-\item{idir}{input data directory, where data are downloaded or already present}
+\item{data_dir}{witch-data folder}
 
 \item{region_mappings}{named list of region mappings}
 }

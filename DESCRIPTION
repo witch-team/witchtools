@@ -1,6 +1,6 @@
 Package: witchtools
 Title: Set of tools for the WITCH modeling framework for data conversion, formatting and validation
-Version: 0.0.99
+Version: 0.1.0
 Authors@R: 
     person(given = "Laurent",
            family = "Drouet",
@@ -17,8 +17,7 @@ Imports:
     stringr,
     docopt,
     RSQLite,
-    crayon,
-    piggyback
+    crayon
 Suggests: 
     gdxtools (>= 0.4.0),
     testthat (>= 2.1.0),

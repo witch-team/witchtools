@@ -30,8 +30,8 @@ convert_globiom <- function(gbfile,
   Q_PES_WBIO,nweight,wbio_2010
   co2aff,nweight,forest
   co2fmg,nweight,forest
-  ch4lu,nweight,ch4lu_emissions_2005
-  n2olu,nweight,n2olu_emissions_2005
+  ch4_agr,nweight,ch4lu_emissions_2005
+  n2o_agr,nweight,n2olu_emissions_2005
   land_crop,nweight,agland
   land_crop_cereal,nweight,agland
   land_crop_energy,nweight,agland

@@ -1,6 +1,6 @@
 # run make data files
 
-make_data_gms <- function(gamsfile, idir, witch_dir, force = FALSE){
+make_data_gms <- function(gamsfile, data_directory, witch_dir, force = FALSE){
 
   # generated gdx
   gengdx = file.path(witch_dir,'input','build',paste0(stringr::str_sub(basename(gamsfile),6,-5),'.gdx'))
@@ -14,7 +14,7 @@ make_data_gms <- function(gamsfile, idir, witch_dir, force = FALSE){
   cat(crayon::blue$bold(paste("Compiling", basename(gamsfile), "\n")))
   lst = paste0(stringr::str_sub(gamsfile,1,-5),'.lst')
 
-  if (system(paste0('gams "',gamsfile,'" output="',lst,'" cdir="',normalizePath(file.path(witch_dir,'input')),'" --data="',idir,'"')) != 0) {
+  if (system(paste0('gams "',gamsfile,'" output="',lst,'" cdir="',normalizePath(file.path(witch_dir,'input')),'" --data="',data_directory,'"')) != 0) {
     stop(paste('gams execution error with',gamsfile))
   }
   if (file.exists(lst)) file.remove(lst)
@@ -23,7 +23,7 @@ make_data_gms <- function(gamsfile, idir, witch_dir, force = FALSE){
 
 }
 
-make_data_R <- function(Rfile, idir, witch_dir, force = FALSE){
+make_data_R <- function(Rfile, data_directory, witch_dir, force = FALSE){
 
   # generated gdx
   gengdx = file.path(witch_dir,'input','build',paste0(stringr::str_sub(basename(Rfile),6,-3),'.gdx'))
@@ -36,7 +36,7 @@ make_data_R <- function(Rfile, idir, witch_dir, force = FALSE){
   }
 
   cat(crayon::blue$bold(paste("Compiling", basename(Rfile), "\n")))
-  res <- system(paste0('Rscript --vanilla "', Rfile, '" -i "', normalizePath(idir), '" -w "', normalizePath(witch_dir), '"'))
+  res <- system(paste0('Rscript --vanilla "', Rfile, '" -d "', normalizePath(data_directory), '" -w "', normalizePath(witch_dir), '"'))
   stopifnot(res == 0)
 
   return(Rfile)
