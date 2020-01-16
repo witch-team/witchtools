@@ -54,6 +54,7 @@ witch_translate_data <- function(witch_dir = ".",
   } else {
     idir = normalizePath(as.character(idir))
   }
+  stopifnot(!dir.exists(idir))
 
   cat(crayon::silver$bold("\U26AB Regional and timescale mappings\n"))
 
