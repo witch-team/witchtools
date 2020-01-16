@@ -27,7 +27,8 @@ Imports:
     stringr,
     docopt,
     RSQLite,
-    crayon
+    crayon,
+    piggyback
 Suggests: 
     gdxtools (>= 0.4.0),
     testthat (>= 2.1.0),
