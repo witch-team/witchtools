@@ -26,3 +26,17 @@ library(witchtools)
 ```
 
 -->
+
+## Installation
+
+```
+if (!requireNamespace("remotes"))
+  install.packages("remotes")
+
+remotes::install_github("witch-team/witchtools")
+```
+
+## CHANGELOG
+
+* v0.1.1: Add piggyback support
+* v0.1.0: First release version

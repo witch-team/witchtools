@@ -1,12 +1,22 @@
 Package: witchtools
 Title: Set of tools for the WITCH modeling framework for data conversion, formatting and validation
-Version: 0.1.0
+Version: 0.1.1
 Authors@R: 
-    person(given = "Laurent",
+    c(person(given = "Laurent",
            family = "Drouet",
            role = c("aut", "cre"),
            email = "ldrouet@gmail.com",
-           comment = c(ORCID = "0000-0002-4087-7662"))
+           comment = c(ORCID = "0000-0002-4087-7662")),
+    person(given = "Johannes",
+           family = "Emmerling",
+           role = c("aut"),
+           email = "johannes.emmerling@cmcc.it",
+           comment = c(ORCID = "0000-0003-0916-9913")),
+    person(given = "Giacomo",
+           family = "Marangoni",
+           role = c("ctb"),
+           email = "jackjackk@gmail.com")
+           )
 Description: The package gathers tools and script useful for integrated assessment models. It converts input datasets in time and in regions, it provides diagnostic and validation tools and it provides easy access to outputs. The package has been develop in the WITCH modeling framework but it is not limited to it.
 License: Apache License (>= 2.0)
 Encoding: UTF-8
