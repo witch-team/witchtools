@@ -1,5 +1,5 @@
 Package: witchtools
-Title: Set of tools for the WITCH modeling framework for data conversion, formatting and validation
+Title: Data Management for Integrated Assessment Models.
 Version: 0.1.1
 Authors@R: 
     c(person(given = "Laurent",
@@ -17,7 +17,7 @@ Authors@R:
            role = c("ctb"),
            email = "jackjackk@gmail.com")
            )
-Description: The package gathers tools and script useful for integrated assessment models. It converts input datasets in time and in regions, it provides diagnostic and validation tools and it provides easy access to outputs. The package has been develop in the WITCH modeling framework but it is not limited to it.
+Description: The package gathers tools and scripts useful for integrated assessment models. It converts input datasets in time and in regions, it provides diagnostic and validation tools and it provides easy access to outputs. The package has been developed in the WITCH modelling framework but it is not limited to it.
 License: Apache License (>= 2.0)
 Encoding: UTF-8
 LazyData: true
@@ -33,5 +33,7 @@ Suggests:
     gdxtools (>= 0.4.0),
     testthat (>= 2.1.0),
     devtools
+URL: https://github.com/witch-team/witchtools
+BugReports: https://github.com/witch-team/witchtools/issues
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.0.2

@@ -5,27 +5,8 @@
 
 **DEVELOPMENT VERSION** 
 
-<!--
-The goal of witchtools is to ...
-
-## Installation
-
-You can install the released version of witchdata from [CRAN](https://CRAN.R-project.org) with:
-
-``` r
-install.packages("witchtools")
-```
-
-## Example
-
-This is a basic example which shows you how to solve a common problem:
-
-``` r
-library(witchtools)
-## basic example code
-```
-
--->
+Witchtools is a tool to manage data for integrated assessment models, 
+with a primarly focus on the [WITCH integrated assessment model](https://www.witchmodel.org).
 
 ## Installation
 
@@ -36,7 +17,11 @@ if (!requireNamespace("remotes"))
 remotes::install_github("witch-team/witchtools")
 ```
 
-## CHANGELOG
+## Example
 
-* v0.1.1: Add piggyback support
-* v0.1.0: First release version
+This is a basic example which shows you how to solve a common problem:
+
+``` r
+library(witchtools)
+## basic example code
+```
