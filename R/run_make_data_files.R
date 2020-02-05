@@ -1,5 +1,6 @@
 # run make data files
 
+# NOTE: require gams>=25.2 if there is a space in the full path of witch or data
 make_data_gms <- function(gamsfile, data_directory, witch_dir, force = FALSE){
 
   # generated gdx
