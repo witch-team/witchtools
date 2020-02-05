@@ -9,9 +9,9 @@
 #' @export
 #' @examples
 #' \dontrun{
-#' witch_data("ssp/ssp_population.csv")
+#' witch_data("ssp/ssp_population.csv", version = 'v0.0.1')
 #' witch_data("ssp/ssp_population.csv", method = 'witch-data')
-#' witch_data("ssp/ssp_population.csv", noCheck)
+#' witch_data("ssp/ssp_population.csv", noCheck = TRUE)
 #' }
 witch_data <- function(file, version = NULL,
                        idir = getOption('witchtools.idir'),
@@ -33,7 +33,7 @@ witch_data <- function(file, version = NULL,
   }
 
   if (!dir.exists(idir)) {
-    stop(paste("Directoiry", idir, "does not exist."))
+    stop(paste("Directory", idir, "does not exist."))
   }
 
   if (method == "piggyback") {

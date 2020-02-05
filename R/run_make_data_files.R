@@ -14,7 +14,9 @@ make_data_gms <- function(gamsfile, idir, witch_dir, force = FALSE){
   cat(crayon::blue$bold(paste("Compiling", basename(gamsfile), "\n")))
   lst = paste0(stringr::str_sub(gamsfile,1,-5),'.lst')
 
-  if (system(paste0('gams "',gamsfile,'" output="',lst,'" cdir="',normalizePath(file.path(witch_dir,'input')),'" --data="',idir,'"')) != 0) {
+  cmd <- paste0('gams "',gamsfile,'" output="',lst,'" cdir="',normalizePath(file.path(witch_dir,'input')),'" --data="',idir,'" --method=',getOption("witchtools.method"))
+
+  if (system(cmd) != 0) {
     stop(paste('gams execution error with',gamsfile))
   }
   if (file.exists(lst)) file.remove(lst)

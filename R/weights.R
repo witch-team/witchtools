@@ -24,7 +24,7 @@ load_weights <- function(idir,region_mappings){
   if (requireNamespace('gdxtools', quietly = TRUE)) {
 
     # population_ssp2_2005
-    mygdx <- gdxtools::gdx(witch_data('ssp/ssp_gdp_pop.gdx','v0.0.1',idir))
+    mygdx <- gdxtools::gdx(witch_data('ssp/ssp_gdp_pop.gdx','v0.0.1',idir = idir))
     pop <- data.table(mygdx["pop_base_oecd"])
     setnames(pop, 1:4, c("ssp", "iso3", "year", "value"))
     w = c(w, list(population_ssp2_2005 = pop[year == 2005 &
@@ -43,7 +43,7 @@ load_weights <- function(idir,region_mappings){
 
   # co2ffi_emissions_2005
   sqldb <-
-    RSQLite::dbConnect(RSQLite::SQLite(), dbname = witch_data('primap/primap-hist.sqlite','v0.0.1',idir))
+    RSQLite::dbConnect(RSQLite::SQLite(), dbname = witch_data('primap/primap-hist.sqlite','v0.0.1',idir = idir))
   hemi = as.data.table(RSQLite::dbGetQuery(sqldb, 'select * from primap'))
   RSQLite::dbDisconnect(sqldb)
   emi_gwp_ch4 = 25
@@ -68,7 +68,7 @@ load_weights <- function(idir,region_mappings){
   w = c(w, list(n2olu_emissions_2005 = n2o_lu[, .(iso3, weight = value)]))
 
   # wbio_2005
-  weo = fread(witch_data('weo/weo2018_energy_balances.csv','v0.0.1',idir))
+  weo = fread(witch_data('weo/weo2018_energy_balances.csv','v0.0.1',idir = idir))
   w = c(w, list(wbio_2010 = weo[var == "Q_PES_WBIO" &
                                   time == 2010, .(iso3, weight = value)]))
   w = c(w, list(extr_coal_2000 = weo[var == "Q_OUT_COAL" &
@@ -92,19 +92,19 @@ load_weights <- function(idir,region_mappings){
   w = c(w, list(extr_oil_gas_2000 = oil_gas_out))
 
   #add weights from CAIT
-  ghg.cait = fread(witch_data('wri/world_resources_institute_cait.csv','v0.0.1',idir),
-                   header = TRUE)
+  f <- witch_data('wri/world_resources_institute_cait.csv','v0.0.1',idir = idir)
+  ghg.cait = data.table::fread(f, header = TRUE)
   ghg.cait = ghg.cait[!is.na(iso3) &
                         !is.na(GHG), .(iso3, weight = GHG)]
   w = c(w, list(ghg_cait = ghg.cait))
 
   #add weights from WDI
-  wdi = fread(witch_data('wdi/wdi_variables.csv','v0.0.1',idir))
-  w = c(w, split(wdi[year == 2005, .(iso3, weight = value)], wdi[year ==
-                                                                   2005]$variable))
+  wdi = fread(witch_data('wdi/wdi_variables.csv','v0.0.1',idir = idir))
+  w = c(w, split(wdi[year == 2005, .(iso3, weight = value)],
+                 wdi[year == 2005]$variable))
 
   #add weights from WEO
-  weo = fread(witch_data('imf/weo_variables.csv','v0.0.1',idir))
+  weo = fread(witch_data('imf/weo_variables.csv','v0.0.1',idir = idir))
   weo = split(weo[year == 2005, .(iso3, weight = value)], weo[year == 2005]$variable)
   names(weo)  = stringr::str_c(names(weo), "_2005_weo")
   w = c(w, weo)

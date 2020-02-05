@@ -31,8 +31,8 @@ after downloading it from github if necessary using the piggyback library.
 }
 \examples{
 \dontrun{
-witch_data("ssp/ssp_population.csv")
+witch_data("ssp/ssp_population.csv", version = 'v0.0.1')
 witch_data("ssp/ssp_population.csv", method = 'witch-data')
-witch_data("ssp/ssp_population.csv", noCheck)
+witch_data("ssp/ssp_population.csv", noCheck = TRUE)
 }
 }
