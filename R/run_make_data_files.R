@@ -11,10 +11,14 @@ make_data_gms <- function(gamsfile, idir, witch_dir, force = FALSE){
       return()
     }
   }
+
   cat(crayon::blue$bold(paste("Compiling", basename(gamsfile), "\n")))
   lst = paste0(stringr::str_sub(gamsfile,1,-5),'.lst')
-
-  cmd <- paste0('gams "',gamsfile,'" output="',lst,'" cdir="',normalizePath(file.path(witch_dir,'input')),'" --data="',idir,'" --method=',getOption("witchtools.method"))
+  cmd <- paste0('gams "',gamsfile,
+                '" output="',lst,
+                '" cdir="',normalizePath(file.path(witch_dir,'input')),
+                '" --data="',idir,
+                '" --method=',getOption("witchtools.method"))
 
   if (system(cmd) != 0) {
     stop(paste('gams execution error with',gamsfile))
@@ -38,7 +42,12 @@ make_data_R <- function(Rfile, idir, witch_dir, force = FALSE){
   }
 
   cat(crayon::blue$bold(paste("Compiling", basename(Rfile), "\n")))
-  res <- system(paste0('Rscript --vanilla "', Rfile, '" -i "', normalizePath(idir), '" -w "', normalizePath(witch_dir), '"'))
+  cmd <- paste0('Rscript --vanilla "', Rfile,
+                '" -i "', normalizePath(idir),
+                '" -w "', normalizePath(witch_dir),
+                '" -m ',getOption("witchtools.method"))
+
+  res <- system(cmd)
   stopifnot(res == 0)
 
   return(Rfile)

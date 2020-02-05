@@ -20,15 +20,15 @@ witch_data <- function(file, version = NULL,
                        repo = getOption('witchtools.witch_data_repo')) {
 
   # Check method name
-  if (!method %in% c("piggyback","repository")) {
-    warning(paste(method, "does not exist."))
+  if (!method %in% c("piggyback","witch-data")) {
+    warning(paste("Method", method, "does not exist."))
   }
 
   # default values for idir
   if (method == "piggyback" & is.null(idir)) {
     idir = normalizePath(file.path("input","data"))
   }
-  if (method == "repository" & is.null(idir)) {
+  if (method == "witch-data" & is.null(idir)) {
     idir = normalizePath(file.path("..","witch-data"))
   }
 
