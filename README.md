@@ -3,9 +3,7 @@
 <!-- badges: start -->
 <!-- badges: end -->
 
-**DEVELOPMENT VERSION** 
-
-Witchtools is a tool to manage data for integrated assessment models, 
+witchtools manages input and output data for integrated assessment models, 
 with a primarly focus on the [WITCH integrated assessment model](https://www.witchmodel.org).
 
 ## Installation
