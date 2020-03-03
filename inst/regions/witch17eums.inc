@@ -2,7 +2,6 @@
 
 set witch17eums 'Regions' /
 usa           # United States of America
-europe        # Europe (EU+EFTA+Balkan countries and Turkey)
 te            # Non-EU Eastern European and transition countries
 mena          # Middle East and North Africa
 ssa           # Sub Saharan Africa
@@ -18,6 +17,36 @@ brazil        # Brazil
 canada        # Canada
 oceania       # Australia, New Zealand, and oceania islands
 southafrica   # South Africa
+BGR
+CYP
+CZE
+EST
+HUN
+LTU
+LVA
+POL
+ROU
+SVK
+SVN
+MLT
+HRV
+BEL
+DEU
+DNK
+ESP
+FIN
+FRA
+GBR
+GRC
+IRL
+ITA
+LUX
+NLD
+PRT
+SWE
+NOR
+CHE
+ISL
 /;
 
 $batinclude 'regions/iso3.inc'
@@ -53,7 +82,7 @@ LUX.LUX #
 NLD.NLD #
 PRT.PRT #
 SWE.SWE #
-SWE.LIE # Liechtenstein
+CHE.LIE # Liechtenstein
 NOR.NOR # Norway
 CHE.CHE # Switzerland
 DNK.GRL # Greenland (to Denmark)
