@@ -1,3 +1,7 @@
+# witchdata 0.1.2
+
+* Fix use of multi subdirectories in witch-data
+
 # witchdata 0.1.1
 
 * Add piggyback support

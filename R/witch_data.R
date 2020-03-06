@@ -37,7 +37,7 @@ witch_data <- function(file, version = NULL,
   }
 
   if (method == "piggyback") {
-    file = stringr::str_replace(file,"/","-")
+    file = stringr::str_replace_all(file,"/","-")
 
     if (!noCheck) {
       piggyback::pb_download(repo = repo,tag = version,file = file, dest = idir)
