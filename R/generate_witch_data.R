@@ -66,13 +66,17 @@ witch_translate_data <- function(witch_dir = ".",
   cat(crayon::blue(paste("  - Output directory:", output_directory, "\n")))
 
   # Region mappings
-  region_mapping_files <- Sys.glob(file.path(system.file("regions", package = "witchtools"),"*.inc"))
+  region_mapping_files <- Sys.glob(file.path(system.file("regions",
+                                                         package = "witchtools"),
+                                             "*.inc"))
   region_mappings <- lapply(region_mapping_files, load_region_mapping)
   region_definitions <- lapply(region_mapping_files, load_region_definition)
   names(region_mappings) <- names(region_definitions) <- stringr::str_sub(basename(region_mapping_files), 1, -5)
 
   # Timescale mappings
-  time_mapping_files <- Sys.glob(file.path(system.file("timescale", package = "witchtools"), "*.csv"))
+  time_mapping_files <- Sys.glob(file.path(system.file("timescale",
+                                                       package = "witchtools"),
+                                           "*.csv"))
   time_mappings <- lapply(time_mapping_files, load_timescale_mapping)
   names(time_mappings) <- stringr::str_sub(basename(time_mapping_files), 1, -5)
 
@@ -108,7 +112,8 @@ witch_translate_data <- function(witch_dir = ".",
     return(input_gdx[is.na(todo) | todo])
   }
 
-  gdxlist <- sort(find_modified_gdx(input_directory, output_directory, force = FALSE))
+  gdxlist <- sort(find_modified_gdx(input_directory, output_directory,
+                                    force = FALSE))
 
   weights <- load_weights(idir, region_mappings)
 
@@ -147,7 +152,7 @@ witch_translate_data <- function(witch_dir = ".",
                            output_directory)
   }
 
-  cat(crayon::silver$bold(paste("\U26AB Create additional gams files for WITCH\n")))
+  cat(crayon::silver$bold(paste("\U26AB Create gams files for WITCH\n")))
 
   write_gams(reg_id,
              time_id,
