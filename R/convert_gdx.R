@@ -36,7 +36,8 @@ convert_gdx <- function(gdxfile,
 
     item_type <- ifelse(item %in% .gdx$parameters$name, "parameter", "variable")
 
-    .data <- as.data.table(.gdx[item]) # uses as.data.table to keep attribute 'gams'
+    # uses as.data.table to keep attribute 'gams'
+    .data <- as.data.table(.gdx[item])
     text <- attributes(.data)[["gams"]]
 
     if ("n" %in% colnames(.data)) {
@@ -54,14 +55,17 @@ convert_gdx <- function(gdxfile,
     if ("year" %in% colnames(.data) & !stringr::str_detect(basename(gdxfile),"hist")) {
 
       # Check if skip extrapolation
-      skip_extrap = nrow(meta_param[parameter == item & type == "extrap"]) > 0
-      skip_interp = nrow(meta_param[parameter == item & type == "interp"]) > 0
+      skip_extrap <- nrow(meta_param[parameter == item &
+                                       type == "extrap"]) > 0
+      skip_interp <- nrow(meta_param[parameter == item &
+                                       type == "interp"]) > 0
 
       # Add time mapping
       .data[,year := as.numeric(year)]
-      .data <- merge(.data, time_mappings[[time_id]][,.(t,year)], by = "year", allow.cartesian = TRUE)
+      .data <- merge(.data, time_mappings[[time_id]][,.(t,year)], by = "year",
+                     allow.cartesian = TRUE)
 
-      #Check if linear interpolation/constant extrapolation are needed (missing t)
+      #Check if linear interpolation/constant extrapolation is required
       .ry <- as.numeric(unique(time_mappings[[time_id]]$refyear))
       .dy <- unique(.data$year)
       if (nrow(.data) > 0 & !stringr::str_detect(time_id, "branch")) {
@@ -92,10 +96,10 @@ convert_gdx <- function(gdxfile,
         }
         inter_extra <- function(sd){
           if (nrow(sd) == 1) {
-            v = sd$value
+            v <- sd$value
           } else {
-            v = approx(x = sd$year, y = sd$value,
-                       xout = missing_time$year, rule = 2)$y
+            v <- approx(x = sd$year, y = sd$value,
+                        xout = missing_time$year, rule = 2)$y
           }
           return(list(year = missing_time$year,
                       t = missing_time$t,
@@ -114,11 +118,11 @@ convert_gdx <- function(gdxfile,
       .data[is.nan(value),value := NA]
 
       # Update indices
-      data_indices[data_indices == "year"] = "t"
+      data_indices[data_indices == "year"] <- "t"
     }
 
     # Region conversion
-    input_reg_id = intersect(colnames(.data), names(region_definitions))
+    input_reg_id <- intersect(colnames(.data), names(region_definitions))
     param_agg <- ""
 
     # Region has been identified?
@@ -137,24 +141,24 @@ convert_gdx <- function(gdxfile,
       }
 
       # Select aggregation type (sum or mean)
-      find_w = meta_param[parameter == item & type == "nagg"]
+      find_w <- meta_param[parameter == item & type == "nagg"]
       if (nrow(find_w) > 0) {
-        param_agg = find_w[1,value]
+        param_agg <- find_w[1,value]
       }else{
-        param_agg = "sum"
+        param_agg <- "sum"
       }
 
       # Select weighting
-      find_w = meta_param[parameter == item & type == "nweight"]
+      find_w <- meta_param[parameter == item & type == "nweight"]
       if (nrow(find_w) > 0) {
-        param_w = find_w[1,value]
+        param_w <- find_w[1,value]
       }else{
-        param_w = ifelse(param_agg == "mean","cst","gdp")
+        param_w <- ifelse(param_agg == "mean","cst","gdp")
       }
 
       # Ensure max and min have cst weight
       if (param_agg %in% c("min","max")) {
-        param_w = "cst"
+        param_w <- "cst"
       }
 
       # Same mapping input-data, do nothing
@@ -162,17 +166,17 @@ convert_gdx <- function(gdxfile,
 
         # Add iso3 and data_reg mapping
         if (input_reg_id != "iso3") {
-          .r = merge(region_mappings[[input_reg_id]],region_mappings[[reg_id]], by = "iso3")
-          .data = merge(.data, .r, by = input_reg_id, allow.cartesian = TRUE)
+          .r <- merge(region_mappings[[input_reg_id]],region_mappings[[reg_id]], by = "iso3")
+          .data <- merge(.data, .r, by = input_reg_id, allow.cartesian = TRUE)
         } else {
-          .data = merge(.data, region_mappings[[reg_id]], by = "iso3")
+          .data <- merge(.data, region_mappings[[reg_id]], by = "iso3")
         }
 
         cat(crayon::blue(paste0(" - ", item_type, " ", item, " [agg: ", param_agg, ", wgt: ", param_w, "]\n")))
 
         # Add weight
-        .data = merge(.data, weights[[param_w]], by = "iso3")
-        .data = .data[!is.na(get(reg_id))]
+        .data <- merge(.data, weights[[param_w]], by = "iso3")
+        .data <- .data[!is.na(get(reg_id))]
 
         dkeys <- function(dd){
           return(c(colnames(dd)[!colnames(dd) %in% c("value","weight","sum_weight",names(region_definitions))]))
@@ -182,14 +186,14 @@ convert_gdx <- function(gdxfile,
         if (input_reg_id != "iso3") {
           if (param_agg %in% c("sum","sumby")) {
             # total weights are computed because of missing zeros values
-            .w = merge(region_mappings[[input_reg_id]],weights[[param_w]],by = "iso3")
-            .w = .w[iso3 %in% unique(.data$iso3)]
-            .w = .w[,.(sum_weight = sum(weight)),by = input_reg_id]
-            .data = merge(.data,.w,by = input_reg_id)
-            .data = .data[, .(iso3,reg_id = get(reg_id),value = value * weight / sum_weight), by = c(dkeys(.data),input_reg_id) ]
+            .w <- merge(region_mappings[[input_reg_id]],weights[[param_w]],by = "iso3")
+            .w <- .w[iso3 %in% unique(.data$iso3)]
+            .w <- .w[,.(sum_weight = sum(weight)),by = input_reg_id]
+            .data <- merge(.data,.w,by = input_reg_id)
+            .data <- data[, .(iso3,reg_id = get(reg_id),value = value * weight / sum_weight), by = c(dkeys(.data),input_reg_id) ]
           } else {
             if (param_agg %in% c("mean","set1","min","minw","max","maxw")) {
-              .data = .data[, .(iso3,reg_id = get(reg_id),value = value,weight), by = c(dkeys(.data),input_reg_id) ]
+              .data <- .data[, .(iso3,reg_id = get(reg_id),value = value,weight), by = c(dkeys(.data),input_reg_id) ]
             } else {
               stop(paste("Disaggregation",param_agg,"not implemented"))
             }
@@ -210,30 +214,30 @@ convert_gdx <- function(gdxfile,
 
         # Aggregation
         if (param_agg %in% c("sum","sumby")) {
-          .data = .data[, .(value = sum(value)), by = c(dkeys(.data)) ]
+          .data <- .data[, .(value = sum(value)), by = c(dkeys(.data)) ]
         } else {
-          .w = merge(region_mappings[[reg_id]],weights[[param_w]],by = "iso3")
-          .w = .w[,.(sum_weight = sum(weight)),by = reg_id]
+          .w <- merge(region_mappings[[reg_id]],weights[[param_w]],by = "iso3")
+          .w <- .w[,.(sum_weight = sum(weight)),by = reg_id]
           setnames(.w, reg_id, "reg_id")
-          .data = merge(.data,.w,by = "reg_id")
+          .data <- merge(.data,.w,by = "reg_id")
           if (param_agg == "mean") {
             if (missing_values == "zero") {
-              .data = .data[, .(value = sum(value * weight / sum_weight)), by = c(dkeys(.data)) ]
+              .data <- .data[, .(value = sum(value * weight / sum_weight)), by = c(dkeys(.data)) ]
             }
             if (missing_values == "NA") {
-              .data = .data[, .(value = sum(value * weight / sum(weight))), by = c(dkeys(.data)) ]
+              .data <- .data[, .(value = sum(value * weight / sum(weight))), by = c(dkeys(.data)) ]
             }
           } else if (param_agg == "set1") {
             if (missing_values == "zero") {
-              .data = .data[, .(value = round(sum(value * weight / sum_weight))), by = c(dkeys(.data)) ]
+              .data <- .data[, .(value = round(sum(value * weight / sum_weight))), by = c(dkeys(.data)) ]
             }
             if (missing_values == "NA") {
-              .data = .data[, .(value = round(sum(value * weight / sum(weight)))), by = c(dkeys(.data)) ]
+              .data <- .data[, .(value = round(sum(value * weight / sum(weight)))), by = c(dkeys(.data)) ]
             }
           } else if (param_agg %in% c("min","minw")) {
-            .data = .data[, .(value = min(value[which(weight == min(weight))])), by = c(dkeys(.data)) ]
+            .data <- .data[, .(value = min(value[which(weight == min(weight))])), by = c(dkeys(.data)) ]
           } else if (param_agg %in% c("max","maxw")) {
-            .data = .data[, .(value = max(value[which(weight == max(weight))])), by = c(dkeys(.data)) ]
+            .data <- .data[, .(value = max(value[which(weight == max(weight))])), by = c(dkeys(.data)) ]
           }  else {
             stop(paste("aggregation",param_agg,"not implemented"))
           }
@@ -252,7 +256,7 @@ convert_gdx <- function(gdxfile,
       }
 
       # Update indices
-      data_indices[data_indices == input_reg_id] = "n"
+      data_indices[data_indices == input_reg_id] <- "n"
 
     } else {
 
@@ -265,15 +269,15 @@ convert_gdx <- function(gdxfile,
 
     # Mask indices with dummy names with stars, to be understood by GAMS
     if (length(colnames(.data)) == 1) {
-      names(.data) = "value"
+      names(.data) <- "value"
     } else {
-      indices = subset(colnames(.data), colnames(.data) != "value")
-      indices = ifelse(indices %in% c("n","t"), indices, "*")
-      names(.data) = c(indices,"value")
+      indices <- subset(colnames(.data), colnames(.data) != "value")
+      indices <- ifelse(indices %in% c("n","t"), indices, "*")
+      names(.data) <- c(indices,"value")
     }
 
     # add to collector []
-    attributes(.data) = c(attributes(.data),gams = text)
+    attributes(.data) <- c(attributes(.data),gams = text)
 
     # add warnings if data contains NAs
     if (nrow(.data) > 0 & !item %in% c("carbonprice")) {
@@ -282,11 +286,11 @@ convert_gdx <- function(gdxfile,
       }
     }
 
-    .i = list(.data)
-    names(.i) = item
+    .i <- list(.data)
+    names(.i) <- item
 
-    if (item_type == "parameter") params = c(params, .i)
-    if (item_type == "variable") vars = c(vars, .i)
+    if (item_type == "parameter") params <- c(params, .i)
+    if (item_type == "variable") vars <- c(vars, .i)
 
     # add an additionnal parameter '_info' when using sumby
     if (param_agg %in% c("sumby")) {
@@ -301,10 +305,10 @@ convert_gdx <- function(gdxfile,
 
       }
       setcolorder(.info_share,data_indices)
-      names(.info_share) = c(indices,"value")
-      .i = list(.info_share)
-      names(.i) = paste0(item,'_info')
-      params = c(params, .i)
+      names(.info_share) <- c(indices,"value")
+      .i <- list(.info_share)
+      names(.i) <- paste0(item,'_info')
+      params <- c(params, .i)
     }
 
   }

@@ -26,10 +26,10 @@ witch_data <- function(file, version = NULL,
 
   # default values for idir
   if (method == "piggyback" & is.null(idir)) {
-    idir = normalizePath(file.path("input","data"))
+    idir <- normalizePath(file.path("input","data"))
   }
   if (method == "witch-data" & is.null(idir)) {
-    idir = normalizePath(file.path("..","witch-data"))
+    idir <- normalizePath(file.path("..","witch-data"))
   }
 
   if (!dir.exists(idir)) {
@@ -37,7 +37,7 @@ witch_data <- function(file, version = NULL,
   }
 
   if (method == "piggyback") {
-    file = stringr::str_replace_all(file,"/","-")
+    file <- stringr::str_replace_all(file,"/","-")
 
     if (!noCheck) {
       piggyback::pb_download(repo = repo,tag = version,file = file, dest = idir)
@@ -75,7 +75,8 @@ witch_data_upload <- function(file, version = NULL,
     if (is.null(version)) stop('version cannot be NULL')
 
     try(piggyback::pb_new_release(repo = repo, tag = version), silent = TRUE)
-    piggyback::pb_upload(file, name = stringr::str_replace_all(file,"/","-"), tag = version)
+    piggyback::pb_upload(file, name = stringr::str_replace_all(file,"/","-"),
+                         tag = version)
 
   }
 

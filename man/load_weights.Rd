@@ -7,7 +7,7 @@
 load_weights(idir, region_mappings)
 }
 \arguments{
-\item{idir}{input data directory, where data are downloaded or already present}
+\item{idir}{input data directory}
 
 \item{region_mappings}{named list of region mappings}
 }
@@ -16,9 +16,10 @@ Load weights using witch-data folder
 }
 \examples{
 \dontrun{
-region_mapping_files = Sys.glob(file.path(system.file("regions", package = "witchtools"),"*.inc"))
-region_mappings <- lapply(region_mapping_files, load_region_mapping)
-names(region_mappings) <- stringr::str_sub(basename(region_mapping_files), 1, -5)
+path <- system.file("regions", package = "witchtools")
+files <- Sys.glob(file.path(path,"*.inc"))
+region_mappings <- lapply(files, load_region_mapping)
+names(region_mappings) <- stringr::str_sub(basename(files), 1, -5)
 load_weights('../witch-data',load_region_mapping(region_mappings))
 }
 

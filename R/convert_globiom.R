@@ -16,16 +16,16 @@ convert_globiom <- function(gbfile,
   cat(crayon::blue$bold(paste("Processing", basename(gbfile), "\n")))
 
   sqldb <- RSQLite::dbConnect(RSQLite::SQLite(), dbname = gbfile)
-  .globiom = setDT(RSQLite::dbGetQuery(sqldb, 'select * from globiom'))
+  .globiom <- setDT(RSQLite::dbGetQuery(sqldb, 'select * from globiom'))
   RSQLite::dbDisconnect(sqldb)
 
   # Region conversion
-  input_reg_id = intersect(colnames(.globiom), names(region_definitions))
-  param_agg = ""
+  input_reg_id <- intersect(colnames(.globiom), names(region_definitions))
+  param_agg <- ""
 
-  .globiom[[which(input_reg_id == colnames(.globiom))]] = tolower(.globiom[,get(input_reg_id)])
+  .globiom[[which(input_reg_id == colnames(.globiom))]] <- tolower(.globiom[,get(input_reg_id)])
 
-  meta_param = fread('parameter,type,value
+  meta_param <- fread('parameter,type,value
   co2def,nweight,forest
   Q_PES_WBIO,nweight,wbio_2010
   co2aff,nweight,forest
@@ -53,47 +53,47 @@ convert_globiom <- function(gbfile,
   Avoided_CO2,nweight,co2
   Cost_REDD,nweight,co2')
 
-  items = colnames(.globiom)[!colnames(.globiom) %in% c(input_reg_id,"ssp","bio_price","co2_price","year")]
-  params = list()
+  items <- colnames(.globiom)[!colnames(.globiom) %in% c(input_reg_id,"ssp","bio_price","co2_price","year")]
+  params <- list()
 
   for (item in items) {
 
-    .data = .globiom[,c(input_reg_id,"ssp","bio_price","co2_price","year",item),with = FALSE]
+    .data <- .globiom[,c(input_reg_id,"ssp","bio_price","co2_price","year",item),with = FALSE]
     setnames(.data,item,"value")
     .data[is.na(value),value := 1e-7]
     .data[abs(value) < 1e-7 & value >= 0,value := 1e-7]
     .data[abs(value) < 1e-7 & value < 0,value := -1e-7]
     if (item %in% c("Avoided_CO2","Cost_REDD")) {
-      .data = .data[,.(value = mean(value)),by = c(input_reg_id,"ssp","co2_price","year")]
+      .data <- .data[,.(value = mean(value)),by = c(input_reg_id,"ssp","co2_price","year")]
       .data[,bio_price := NA]
     }
 
     # Select aggregation type (sum or mean)
-    find_w = meta_param[parameter == item & type == "nagg"]
+    find_w <- meta_param[parameter == item & type == "nagg"]
     if (nrow(find_w) > 0) {
-      param_agg = find_w[1,value]
+      param_agg <- find_w[1,value]
     }else{
-      param_agg = "sum"
+      param_agg <- "sum"
     }
 
     # Select weighting
-    find_w = meta_param[parameter == item & type == "nweight"]
+    find_w <- meta_param[parameter == item & type == "nweight"]
     if (nrow(find_w) > 0) {
-      param_w = find_w[1,value]
+      param_w <- find_w[1,value]
     }else{
-      param_w = ifelse(param_agg == "mean","cst","gdp")
+      param_w <- ifelse(param_agg == "mean","cst","gdp")
     }
 
     if (input_reg_id != reg_id) {
 
-      .r = merge(region_mappings[[input_reg_id]],region_mappings[[reg_id]], by = "iso3")
-      .data = merge(.data, .r, by = input_reg_id, allow.cartesian = TRUE)
+      .r <- merge(region_mappings[[input_reg_id]],region_mappings[[reg_id]], by = "iso3")
+      .data <- merge(.data, .r, by = input_reg_id, allow.cartesian = TRUE)
 
       cat(crayon::blue(paste0(" - parameter ", item, " [agg: ", param_agg, ", wgt: ", param_w, "]\n")))
 
       # Add weight
-      .data = merge(.data, weights[[param_w]], by = "iso3")
-      .data = .data[!is.na(get(reg_id))]
+      .data <- merge(.data, weights[[param_w]], by = "iso3")
+      .data <- .data[!is.na(get(reg_id))]
 
       dkeys <- function(dd){
         return(c(colnames(dd)[!colnames(dd) %in% c("value","weight","sum_weight",names(region_definitions))]))
@@ -102,18 +102,18 @@ convert_globiom <- function(gbfile,
       # Disaggregation
       if (param_agg %in% c("sum")) {
         # total weights are computed because of missing zeros values
-        .w = merge(region_mappings[[input_reg_id]],weights[[param_w]],by = "iso3")
-        .w = .w[iso3 %in% unique(.data$iso3)]
-        .w = .w[,.(sum_weight = sum(weight)),by = input_reg_id]
-        .data = merge(.data,.w,by = input_reg_id)
-        .data = .data[, .(iso3,reg_id = get(reg_id),value = value * weight / sum_weight), by = c(dkeys(.data),input_reg_id) ]
+        .w <- merge(region_mappings[[input_reg_id]],weights[[param_w]],by = "iso3")
+        .w <- .w[iso3 %in% unique(.data$iso3)]
+        .w <- .w[,.(sum_weight = sum(weight)),by = input_reg_id]
+        .data <- merge(.data,.w,by = input_reg_id)
+        .data <- .data[, .(iso3,reg_id = get(reg_id),value = value * weight / sum_weight), by = c(dkeys(.data),input_reg_id) ]
       } else {
         if (param_agg == "mean") {
-          .data = .data[, .(iso3,reg_id = get(reg_id),value = value,weight), by = c(dkeys(.data),input_reg_id) ]
+          .data <- .data[, .(iso3,reg_id = get(reg_id),value = value,weight), by = c(dkeys(.data),input_reg_id) ]
         } else if (param_agg == "set1") {
-          .data = .data[, .(iso3,reg_id = get(reg_id),value = value,weight), by = c(dkeys(.data),input_reg_id) ]
+          .data <- .data[, .(iso3,reg_id = get(reg_id),value = value,weight), by = c(dkeys(.data),input_reg_id) ]
         } else if (param_agg %in% c("min","max")) {
-          .data = .data[, .(iso3,reg_id = get(reg_id),value = value,weight), by = c(dkeys(.data),input_reg_id) ]
+          .data <- .data[, .(iso3,reg_id = get(reg_id),value = value,weight), by = c(dkeys(.data),input_reg_id) ]
         } else {
           stop(paste("Disaggregation",param_agg,"not implemented"))
         }
@@ -121,20 +121,20 @@ convert_globiom <- function(gbfile,
 
       # Aggregation
       if (param_agg %in% c("sum","sumby")) {
-        .data = .data[, .(value = sum(value)), by = c(dkeys(.data)) ]
+        .data <- .data[, .(value = sum(value)), by = c(dkeys(.data)) ]
       } else {
-        .w = merge(region_mappings[[reg_id]],weights[[param_w]],by = "iso3")
-        .w = .w[,.(sum_weight = sum(weight)),by = reg_id]
+        .w <- merge(region_mappings[[reg_id]],weights[[param_w]],by = "iso3")
+        .w <- .w[,.(sum_weight = sum(weight)),by = reg_id]
         setnames(.w, reg_id, "reg_id")
-        .data = merge(.data,.w,by = "reg_id")
+        .data <- merge(.data,.w,by = "reg_id")
         if (param_agg == "mean") {
-          .data = .data[, .(value = sum(value * weight / sum_weight)), by = c(dkeys(.data)) ]
+          .data <- .data[, .(value = sum(value * weight / sum_weight)), by = c(dkeys(.data)) ]
         } else if (param_agg == "set1") {
-          .data = .data[, .(value = round(sum(value * weight / sum_weight))), by = c(dkeys(.data)) ]
+          .data <- .data[, .(value = round(sum(value * weight / sum_weight))), by = c(dkeys(.data)) ]
         } else if (param_agg == "min") {
-          .data = .data[, .(value = min(value[which(weight == min(weight))])), by = c(dkeys(.data)) ]
+          .data <- .data[, .(value = min(value[which(weight == min(weight))])), by = c(dkeys(.data)) ]
         } else if (param_agg == "max") {
-          .data = .data[, .(value = max(value[which(weight == max(weight))])), by = c(dkeys(.data)) ]
+          .data <- .data[, .(value = max(value[which(weight == max(weight))])), by = c(dkeys(.data)) ]
         }  else {
           stop(paste("aggregation",param_agg,"not implemented"))
         }
@@ -154,8 +154,8 @@ convert_globiom <- function(gbfile,
 
     # interpolate
     .data[,year := as.numeric(year)]
-    years = as.numeric(unique(time_mappings[[time_id]]$refyear))
-    .data = .data[,.(year = years,
+    years <- as.numeric(unique(time_mappings[[time_id]]$refyear))
+    .data <- .data[,.(year = years,
                      value = approx(x = .SD$year, y = value, xout = years, rule = 2)$y),
                   by = c(colnames(.data)[!names(.data) %in% c("value","year")])]
 
@@ -163,13 +163,13 @@ convert_globiom <- function(gbfile,
     .data <- merge(.data, time_mappings[[time_id]][,.(t,year)], by = "year", allow.cartesian = TRUE)
     .data[, year := NULL]
 
-    .data$var = item
+    .data$var <- item
 
-    params = c(params, list(.data))
+    params <- c(params, list(.data))
 
   }
 
-  params = rbindlist(params,use.names = TRUE)
+  params <- rbindlist(params,use.names = TRUE)
 
   cat(crayon::blue(paste(" -","writing db\n")))
 
