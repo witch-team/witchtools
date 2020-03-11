@@ -1,6 +1,6 @@
 # oecd_region
 
-oecd_regions = function(reg_id,
+oecd_regions <- function(reg_id,
                         region_mappings,
                         weights,
                         threshold = 0.5,
@@ -41,14 +41,14 @@ oecd_regions = function(reg_id,
     "GBR",
     "USA"
   )
-  tab = merge(
+  tab <- merge(
     region_mappings[[reg_id]],
     data.table(iso3 = oecd_iso3, oecd = 1),
     by = "iso3",
     all.x = TRUE
   )
   tab[is.na(oecd), oecd := 0]
-  tab = merge(tab, weights[[w]], by = "iso3")
-  tab = tab[, .(is_oecd = sum(weight * oecd) / sum(weight)), by = reg_id]
+  tab <- merge(tab, weights[[w]], by = "iso3")
+  tab <- tab[, .(is_oecd = sum(weight * oecd) / sum(weight)), by = reg_id]
   return(tab[is_oecd > threshold, get(reg_id)])
 }

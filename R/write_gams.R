@@ -17,7 +17,7 @@ write_gams <- function(reg_id,
 
   close(fconf)
 
-  ###############################################################################
+  ##############################################################################
 
   #write region mapping
   filename <- file.path(output_directory, 'n.inc')
@@ -26,7 +26,7 @@ write_gams <- function(reg_id,
   writeLines(reg, finc)
   close(finc)
 
-  ###############################################################################
+  ##############################################################################
 
   #write region mapping for database report
   filename <- file.path(output_directory, 'map_nrep_n.inc')
@@ -35,7 +35,7 @@ write_gams <- function(reg_id,
   writeLines(paste0("WORLD.(",paste(reg,collapse = ","),")"), finc)
   close(finc)
 
-  ###############################################################################
+  ##############################################################################
 
   filename <- file.path(output_directory, 'regions.inc')
   finc <- file(filename, "w")
@@ -44,8 +44,10 @@ write_gams <- function(reg_id,
   writeLines(sort(region_mappings[[reg_id]]$iso3), finc)
   writeLines("/;", finc)
   #set map_n_iso3
-  writeLines("set map_n_iso3(n,iso3) 'Mapping between WITCH regions and countries/territories'/",finc)
-  writeLines(region_mappings[[reg_id]][, paste(get(reg_id), iso3, sep = ".")], finc)
+  writeLines("set map_n_iso3(n,iso3) 'Mapping between WITCH regions and iso3'/",
+             finc)
+  writeLines(region_mappings[[reg_id]][, paste(get(reg_id), iso3, sep = ".")],
+             finc)
   writeLines("/;", finc)
   #set oecd
   writeLines("set oecd(n) 'OECD regions' /", finc)
@@ -57,12 +59,12 @@ write_gams <- function(reg_id,
   close(finc)
 
 
-  ###############################################################################
+  ##############################################################################
 
   ttt <- time_mappings[[time_id]][year == refyear]
 
   #write time mapping
-  filename = file.path(output_directory, 'time.inc')
+  filename <- file.path(output_directory, 'time.inc')
   finc <- file(filename, "w")
 
   #set t
@@ -72,7 +74,8 @@ write_gams <- function(reg_id,
 
   #set pre
   writeLines("set pre(t,tp1) /", finc)
-  writeLines(ttt[!is.na(pred) & (stringr::str_length(pred) > 0), paste(pred, t, sep = ".")], finc)
+  writeLines(ttt[!is.na(pred) & (stringr::str_length(pred) > 0),
+                 paste(pred, t, sep = ".")], finc)
   writeLines("/;", finc)
 
   #param tperiod(t)
@@ -82,10 +85,13 @@ write_gams <- function(reg_id,
   writeLines(ttt[, paste0("year('", t, "')=", refyear, ";")], finc)
 
   #param tlen(t)
-  writeLines(ttt[, paste0("tlen('", t, "')=", as.numeric(endyear) - as.numeric(begyear) + 1, ";")], finc)
+  writeLines(ttt[, paste0("tlen('", t, "')=",
+                          as.numeric(endyear) - as.numeric(begyear) + 1, ";")],
+             finc)
 
   #param begyear(t)
-  writeLines(ttt[, paste0("begyear('", t, "')=", as.numeric(begyear), ";")], finc)
+  writeLines(ttt[, paste0("begyear('", t, "')=", as.numeric(begyear), ";")],
+             finc)
 
   get_predecessors <- function(x){
     pred <- c()
@@ -107,24 +113,24 @@ write_gams <- function(reg_id,
 
   close(finc)
 
-  ###############################################################################
+  ##############################################################################
 
   #write noncoop conf
-  filename = file.path(output_directory, 'noncoop.conf')
-  fconf = file(filename, "w")
+  filename <- file.path(output_directory, 'noncoop.conf')
+  fconf <- file(filename, "w")
 
   #setglobal nmapping
   writeLines(paste("$setglobal coalitions", paste(
-    stringr::str_c("c_", region_definitions[[reg_id]][, get(reg_id)]), collapse = " "
-  )), fconf)
+    stringr::str_c("c_", region_definitions[[reg_id]][, get(reg_id)]),
+    collapse = " ")), fconf)
 
   close(fconf)
 
-  #############################################################################
+  ##############################################################################
 
   #write noncoop inc
-  filename = file.path(output_directory, 'noncoop.inc')
-  finc = file(filename, "w")
+  filename <- file.path(output_directory, 'noncoop.inc')
+  finc <- file(filename, "w")
 
   #set clt
   writeLines("set clt 'Coalitions' /", finc)
