@@ -55,70 +55,19 @@ convert_gdx <- function(gdxfile,
     if ("year" %in% colnames(.data) & !stringr::str_detect(basename(gdxfile),"hist")) {
 
       # Check if skip extrapolation
-      skip_extrap <- nrow(meta_param[parameter == item &
-                                       type == "extrap"]) > 0
-      skip_interp <- nrow(meta_param[parameter == item &
-                                       type == "interp"]) > 0
+      do_extrap <- nrow(meta_param[parameter == item & type == "extrap"]) > 0
+      do_interp <- nrow(meta_param[parameter == item & type == "interp"]) > 0
 
-      # Add time mapping
-      .data[,year := as.numeric(year)]
-      .data <- merge(.data, time_mappings[[time_id]][,.(t,year)], by = "year",
-                     allow.cartesian = TRUE)
+      # no inter/extrapolation for stochastic branch
+      if(stringr::str_detect(time_id, "branch")) do_extrap <- do_interp <- FALSE
 
-      #Check if linear interpolation/constant extrapolation is required
-      .ry <- as.numeric(unique(time_mappings[[time_id]]$refyear))
-      .dy <- unique(.data$year)
-      if (nrow(.data) > 0 & !stringr::str_detect(time_id, "branch")) {
-        needs_extrapolation <- ((max(.ry) > max(.dy)) | (min(.ry) < min(.dy))) & !skip_extrap
-        needs_interpolation <- (length(setdiff(.ry[.ry >= min(.dy) & .ry <= max(.dy)],.dy)) > 0) & !skip_interp
-      } else {
-        needs_extrapolation <- needs_interpolation <- FALSE
-      }
+      time_mapping = time_mappings[[time_id]]
 
-      if (needs_extrapolation) {
-        cat(crayon::magenta(paste0(" - ", item_type, " ", item, " extrapolated outside [", min(.dy), ";", max(.dy),"].\n")))
-      }
-
-      if (needs_interpolation) {
-        cat(crayon::magenta(paste0(" - ", item_type, " ", item, " interpolated in ", paste(setdiff(.ry[.ry >= min(.dy) & .ry <= max(.dy)],.dy),collapse = ","),".\n")))
-      }
-
-      if ((needs_extrapolation | needs_interpolation)) {
-
-        .rt <- unique(time_mappings[[time_id]]$tperiod)
-        missing_t <- .rt[!.rt %in% .data$t]
-        missing_time <- subset(time_mappings[[time_id]],tperiod %in% missing_t & refyear == year)
-        if (skip_extrap) {
-          missing_time <- missing_time[year <= max(.dy)]
-        }
-        if (skip_interp) {
-          missing_time <- missing_time[!year %in% setdiff(.ry[.ry >= min(.dy) & .ry <= max(.dy)],.dy)]
-        }
-        inter_extra <- function(sd){
-          if (nrow(sd) == 1) {
-            v <- sd$value
-          } else {
-            v <- approx(x = sd$year, y = sd$value,
-                        xout = missing_time$year, rule = 2)$y
-          }
-          return(list(year = missing_time$year,
-                      t = missing_time$t,
-                      value = v))
-        }
-        .newdata <- .data[,inter_extra(.SD),
-                          by = c(colnames(.data)[!colnames(.data) %in% c("value","year","t")])]
-        .data <- rbind(.data,.newdata)
-      }
-
-      .data[, year := NULL]
-
-      # Take the average value over time range
-      .data <- .data[, .(value = mean(value,na.rm = TRUE)),
-                     by = c(colnames(.data)[!colnames(.data) %in% c('value')])]
-      .data[is.nan(value),value := NA]
+      .data <- convert_time(.data, time_mapping, do_extrap, do_interp)
 
       # Update indices
       data_indices[data_indices == "year"] <- "t"
+
     }
 
     # Region conversion
