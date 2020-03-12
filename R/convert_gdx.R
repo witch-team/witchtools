@@ -139,7 +139,7 @@ convert_gdx <- function(gdxfile,
             .w <- .w[iso3 %in% unique(.data$iso3)]
             .w <- .w[,.(sum_weight = sum(weight)),by = input_reg_id]
             .data <- merge(.data,.w,by = input_reg_id)
-            .data <- data[, .(iso3,reg_id = get(reg_id),value = value * weight / sum_weight), by = c(dkeys(.data),input_reg_id) ]
+            .data <- .data[, .(iso3,reg_id = get(reg_id),value = value * weight / sum_weight), by = c(dkeys(.data),input_reg_id) ]
           } else {
             if (param_agg %in% c("mean","set1","min","minw","max","maxw")) {
               .data <- .data[, .(iso3,reg_id = get(reg_id),value = value,weight), by = c(dkeys(.data),input_reg_id) ]

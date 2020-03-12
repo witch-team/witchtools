@@ -13,15 +13,14 @@ load_timescale_mapping <- function(f){
   tab <- data.table::fread(f,colClasses = "character")
   setnames(tab,'year','refyear')
   # Expand year
-  years <- begyear:endyear
   tab <- data.table::rbindlist(lapply(seq_len(nrow(tab)),
-                                      function(i){tab[i,.(t,
-                                                          year = years,
-                                                          refyear,
-                                                          pred,
-                                                          tperiod,
-                                                          begyear,
-                                                          endyear)]}))
+                                  function(i){tab[i,.(t,
+                                                    year = begyear:endyear,
+                                                    refyear,
+                                                    pred,
+                                                    tperiod,
+                                                    begyear,
+                                                    endyear)]}))
   tab[,year := as.numeric(year)]
   return(tab)
 }
