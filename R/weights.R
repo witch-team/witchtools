@@ -4,7 +4,6 @@
 #' @param region_mappings named list of region mappings
 #'
 #' @export
-#' @import data.table
 #' @examples
 #' \dontrun{
 #' path <- system.file("regions", package = "witchtools")
@@ -27,15 +26,15 @@ load_weights <- function(idir,region_mappings){
     # population_ssp2_2005
     mygdx <- gdxtools::gdx(witch_data('ssp/ssp_gdp_pop.gdx','v0.0.1',
                                       idir = idir))
-    pop <- data.table(mygdx["pop_base_oecd"])
-    setnames(pop, 1:4, c("ssp", "iso3", "year", "value"))
+    pop <- data.table::setDT(mygdx["pop_base_oecd"])
+    data.table::setnames(pop, 1:4, c("ssp", "iso3", "year", "value"))
     w <- c(w, list(population_ssp2_2005 = pop[year == 2005 &
                                                ssp == "SSP2",
                                               .(iso3, weight = value)]))
 
     # gdp_ssp2_2005
-    gdp <- data.table(mygdx["gdp_base_oecd"])
-    setnames(gdp, 1:4, c("ssp", "iso3", "year", "value"))
+    gdp <- data.table::setDT(mygdx["gdp_base_oecd"])
+    data.table::setnames(gdp, 1:4, c("ssp", "iso3", "year", "value"))
     w <- c(w, list(gdp_ssp2_2005 = gdp[year == 2005 &
                                        ssp == "SSP2", .(iso3, weight = value)]))
 
@@ -49,7 +48,7 @@ load_weights <- function(idir,region_mappings){
     RSQLite::dbConnect(RSQLite::SQLite(),
                        dbname = witch_data('primap/primap-hist.sqlite','v0.0.1',
                                            idir = idir))
-  hemi <- as.data.table(RSQLite::dbGetQuery(sqldb, 'select * from primap'))
+  hemi <- data.table::setDT(RSQLite::dbGetQuery(sqldb, 'select * from primap'))
   RSQLite::dbDisconnect(sqldb)
   emi_gwp_ch4 <- 25
   emi_gwp_n2o <- 298
@@ -75,7 +74,7 @@ load_weights <- function(idir,region_mappings){
   w <- c(w, list(n2olu_emissions_2005 = n2o_lu[, .(iso3, weight = value)]))
 
   # wbio_2005
-  weo <- fread(witch_data('weo/weo2018_energy_balances.csv','v0.0.1',
+  weo <- data.table::fread(witch_data('weo/weo2018_energy_balances.csv','v0.0.1',
                           idir = idir))
   w <- c(w, list(wbio_2010 = weo[var == "Q_PES_WBIO" &
                                  time == 2010, .(iso3, weight = value)]))
@@ -110,12 +109,12 @@ load_weights <- function(idir,region_mappings){
   w <- c(w, list(ghg_cait = ghg.cait))
 
   #add weights from WDI
-  wdi <- fread(witch_data('wdi/wdi_variables.csv','v0.0.1',idir = idir))
+  wdi <- data.table::fread(witch_data('wdi/wdi_variables.csv','v0.0.1',idir = idir))
   w <- c(w, split(wdi[year == 2005, .(iso3, weight = value)],
                   wdi[year == 2005]$variable))
 
   #add weights from WEO
-  weo <- fread(witch_data('imf/weo_variables.csv','v0.0.1',idir = idir))
+  weo <- data.table::fread(witch_data('imf/weo_variables.csv','v0.0.1',idir = idir))
   weo <- split(weo[year == 2005, .(iso3, weight = value)],
                weo[year == 2005]$variable)
   names(weo) <- stringr::str_c(names(weo), "_2005_weo")
@@ -123,12 +122,12 @@ load_weights <- function(idir,region_mappings){
 
   # Shortcuts
   #now all iso3 regions for full sums
-  w <- c(w, list(cst = data.table(iso3 = iso3_list, weight = 1)))
+  w <- c(w, list(cst = data.table::data.table(iso3 = iso3_list, weight = 1)))
   w <- c(w, list(co2 = w[["co2ffi_emissions_2005"]]))
 
   # Make weights consistent
   tidy_weights <- function(dd) {
-    dd <- rbind(dd, data.table(iso3 = iso3_list[!iso3_list %in% dd$iso3]),
+    dd <- rbind(dd, data.table::data.table(iso3 = iso3_list[!iso3_list %in% dd$iso3]),
                 fill = TRUE)
     dd <- dd[iso3 %in% iso3_list]
     dd[is.na(weight), weight := 1e-10]

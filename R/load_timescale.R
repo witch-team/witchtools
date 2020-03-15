@@ -3,7 +3,6 @@
 #' @param f times WITCH GAMS file
 #'
 #' @export
-#' @import data.table
 #' @examples
 #' \dontrun{
 #' load_timescale_mapping('input/time/t30.inc')
@@ -11,7 +10,7 @@
 #'
 load_timescale_mapping <- function(f){
   tab <- data.table::fread(f,colClasses = "character")
-  setnames(tab,'year','refyear')
+  data.table::setnames(tab,'year','refyear')
   # Expand year
   tab <- data.table::rbindlist(lapply(seq_len(nrow(tab)),
                                   function(i){tab[i,.(t,

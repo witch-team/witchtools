@@ -72,14 +72,14 @@ ken_policy,sum
 ren_share,mean
 temp_valid_hadcrut4,mean
 " -> defmap
-  dm <- fread(defmap)
+  dm <- data.table::fread(defmap)
   dm[, type := "nagg"]
   dm <- rbind(dm,
-             data.table(
+              data.table::data.table(
                parameter = dm$parameter,
                type = "nweight",
                value = "gdp"
              ))
-  setcolorder(dm, c("parameter", "type", "value"))
+  data.table::setcolorder(dm, c("parameter", "type", "value"))
   return(dm)
 }

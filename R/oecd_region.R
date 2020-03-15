@@ -43,7 +43,7 @@ oecd_regions <- function(reg_id,
   )
   tab <- merge(
     region_mappings[[reg_id]],
-    data.table(iso3 = oecd_iso3, oecd = 1),
+    data.table::data.table(iso3 = oecd_iso3, oecd = 1),
     by = "iso3",
     all.x = TRUE
   )

@@ -16,7 +16,7 @@ convert_globiom <- function(gbfile,
   cat(crayon::blue$bold(paste("Processing", basename(gbfile), "\n")))
 
   sqldb <- RSQLite::dbConnect(RSQLite::SQLite(), dbname = gbfile)
-  .globiom <- setDT(RSQLite::dbGetQuery(sqldb, 'select * from globiom'))
+  .globiom <- data.table::setDT(RSQLite::dbGetQuery(sqldb, 'select * from globiom'))
   RSQLite::dbDisconnect(sqldb)
 
   # Region conversion
@@ -25,7 +25,7 @@ convert_globiom <- function(gbfile,
 
   .globiom[[which(input_reg_id == colnames(.globiom))]] <- tolower(.globiom[,get(input_reg_id)])
 
-  meta_param <- fread('parameter,type,value
+  meta_param <- data.table::fread('parameter,type,value
   co2def,nweight,forest
   Q_PES_WBIO,nweight,wbio_2010
   co2aff,nweight,forest
@@ -59,7 +59,7 @@ convert_globiom <- function(gbfile,
   for (item in items) {
 
     .data <- .globiom[,c(input_reg_id,"ssp","bio_price","co2_price","year",item),with = FALSE]
-    setnames(.data,item,"value")
+    data.table::setnames(.data,item,"value")
     .data[is.na(value),value := 1e-7]
     .data[abs(value) < 1e-7 & value >= 0,value := 1e-7]
     .data[abs(value) < 1e-7 & value < 0,value := -1e-7]
@@ -125,7 +125,7 @@ convert_globiom <- function(gbfile,
       } else {
         .w <- merge(region_mappings[[reg_id]],weights[[param_w]],by = "iso3")
         .w <- .w[,.(sum_weight = sum(weight)),by = reg_id]
-        setnames(.w, reg_id, "reg_id")
+        data.table::setnames(.w, reg_id, "reg_id")
         .data <- merge(.data,.w,by = "reg_id")
         if (param_agg == "mean") {
           .data <- .data[, .(value = sum(value * weight / sum_weight)), by = c(dkeys(.data)) ]
@@ -141,14 +141,14 @@ convert_globiom <- function(gbfile,
       }
 
       # Change the region column name
-      setnames(.data, "reg_id", "n")
+      data.table::setnames(.data, "reg_id", "n")
 
     } else {
 
       cat(crayon::blue(paste(" - parameter", item, "[same]\n")))
 
       # Change the region column name and indices
-      setnames(.data, reg_id, "n")
+      data.table::setnames(.data, reg_id, "n")
 
     }
 
@@ -169,7 +169,7 @@ convert_globiom <- function(gbfile,
 
   }
 
-  params <- rbindlist(params,use.names = TRUE)
+  params <- data.table::rbindlist(params,use.names = TRUE)
 
   cat(crayon::blue(paste(" -","writing db\n")))
 

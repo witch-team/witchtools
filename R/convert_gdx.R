@@ -24,7 +24,7 @@ convert_gdx <- function(gdxfile,
   # load meta_data
   meta_param <- default_meta_param
   if ("meta_param" %in% .gdx$sets$name) {
-    dt_meta_param <- data.table(.gdx["meta_param"])
+    dt_meta_param <- data.table::setDT(.gdx["meta_param"])
     names(dt_meta_param) <- c("parameter","type","value")
     meta_param <- rbind(meta_param,dt_meta_param)
   }
@@ -37,14 +37,15 @@ convert_gdx <- function(gdxfile,
     item_type <- ifelse(item %in% .gdx$parameters$name, "parameter", "variable")
 
     # uses as.data.table to keep attribute 'gams'
-    .data <- as.data.table(.gdx[item])
+    .data <- data.table::setDT(.gdx[item])
     text <- attributes(.data)[["gams"]]
+    attributes(.data) <- c(attributes(.data), name = item)
 
     if ("n" %in% colnames(.data)) {
-      setnames(.data, "n", guess_input_n)
+      data.table::setnames(.data, "n", guess_input_n)
     }
     if ("t" %in% colnames(.data) & guess_input_t == "t30") {
-      setnames(.data, "t", "year")
+      data.table::setnames(.data, "t", "year")
       .data[,year := paste(as.numeric(.data$year) * 5 + 2000)]
     }
 
@@ -59,11 +60,11 @@ convert_gdx <- function(gdxfile,
       do_interp <- nrow(meta_param[parameter == item & type == "interp"]) > 0
 
       # no inter/extrapolation for stochastic branch
-      if(stringr::str_detect(time_id, "branch")) do_extrap <- do_interp <- FALSE
+      if (stringr::str_detect(time_id, "branch")) do_extrap <- do_interp <- FALSE
 
       time_mapping = time_mappings[[time_id]]
 
-      .data <- convert_time(.data, time_mapping, do_extrap, do_interp)
+      .data <- convert_time_period(.data, time_mapping, do_extrap, do_interp)
 
       # Update indices
       data_indices[data_indices == "year"] <- "t"
@@ -148,17 +149,17 @@ convert_gdx <- function(gdxfile,
             }
           }
         } else {
-          setnames(.data, reg_id, "reg_id")
+          data.table::setnames(.data, reg_id, "reg_id")
         }
 
         # informed share
         if (param_agg %in% c("sumby")) {
           .w <- merge(region_mappings[[reg_id]],weights[[param_w]],by = "iso3")
           .w <- .w[,.(sum_weight = sum(weight)),by = reg_id]
-          setnames(.w, reg_id, "reg_id")
+          data.table::setnames(.w, reg_id, "reg_id")
           .data <- merge(.data,.w,by = "reg_id")
           .info_share <- .data[,.(value = sum(weight) / mean(sum_weight)),by = c(dkeys(.data))]
-          setnames(.info_share, "reg_id", "n")
+          data.table::setnames(.info_share, "reg_id", "n")
         }
 
         # Aggregation
@@ -167,7 +168,7 @@ convert_gdx <- function(gdxfile,
         } else {
           .w <- merge(region_mappings[[reg_id]],weights[[param_w]],by = "iso3")
           .w <- .w[,.(sum_weight = sum(weight)),by = reg_id]
-          setnames(.w, reg_id, "reg_id")
+          data.table::setnames(.w, reg_id, "reg_id")
           .data <- merge(.data,.w,by = "reg_id")
           if (param_agg == "mean") {
             if (missing_values == "zero") {
@@ -193,14 +194,14 @@ convert_gdx <- function(gdxfile,
         }
 
         # Change the region column name
-        setnames(.data, "reg_id", "n")
+        data.table::setnames(.data, "reg_id", "n")
 
       } else {
 
         cat(crayon::blue(paste(" -", item_type, item, "[same]\n")))
 
         # Change the region column name and indices
-        setnames(.data, reg_id, "n")
+        data.table::setnames(.data, reg_id, "n")
 
       }
 
@@ -214,7 +215,7 @@ convert_gdx <- function(gdxfile,
     }
 
     # Ensure the order is kept
-    setcolorder(.data,data_indices)
+    data.table::setcolorder(.data,data_indices)
 
     # Mask indices with dummy names with stars, to be understood by GAMS
     if (length(colnames(.data)) == 1) {
@@ -253,7 +254,7 @@ convert_gdx <- function(gdxfile,
         .info_share[is.nan(value),value := NA]
 
       }
-      setcolorder(.info_share,data_indices)
+      data.table::setcolorder(.info_share,data_indices)
       names(.info_share) <- c(indices,"value")
       .i <- list(.info_share)
       names(.i) <- paste0(item,'_info')
