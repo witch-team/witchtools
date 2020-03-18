@@ -4,63 +4,60 @@
 #' @export
 
 convert_time_period <- function(.x, time_mapping,
-                                do_extrap = FALSE, do_interp = FALSE,
-                                year_name = "year", value_name = "value",
+                                do_interp = FALSE,
+                                do_extrap = FALSE,
+                                do_past_extrap = FALSE,
+                                year_name = "year",
+                                value_name = "value",
                                 period_name = "t",
                                 verbose = TRUE) {
+
+  if (!data.table::is.data.table(.x)) stop('.x should be a data.table')
 
   # Merge time mapping
   .x[[year_name]] = as.numeric(.x[[year_name]])
   .x <- merge(.x, time_mapping[,.(t,year)], by = year_name,
                  allow.cartesian = TRUE)
 
-  # Check if interpolation/extrapolation are required
-  .ry <- as.numeric(unique(time_mapping$refyear))
-  .dy <- unique(.x$year)
-  if (nrow(.x) > 0) {
-    do_extrap <- ((max(.ry) > max(.dy)) | (min(.ry) < min(.dy))) & do_extrap
-    do_interp <- (length(setdiff(.ry[.ry >= min(.dy) & .ry <= max(.dy)],.dy)) > 0) & do_interp
-  } else {
-    # if no rows, override
-    do_extrap <- do_interp <- FALSE
-  }
+  if (nrow(.x) > 0 & (do_extrap | do_interp)) {
 
-  if (do_extrap & verbose) {
-    cat(crayon::magenta(paste0(" - extrapolating outside [", min(.dy), ";",
-                               max(.dy),"].\n")))
-  }
+    .ry <- as.numeric(unique(time_mapping$refyear))
+    .dy <- unique(.x$year)
 
-  if (do_interp & verbose) {
-    interp_years = setdiff(.ry[.ry >= min(.dy) & .ry <= max(.dy)],.dy)
-    cat(crayon::magenta(paste0(" -  interpolating in ",
-                               paste(interp_years,collapse = ","),".\n")))
-  }
-
-  if ((do_extrap | do_interp)) {
-
+    if (!"tperiod" %in% names(time_mapping)) {
+      time_mapping[, tperiod := t]
+    }
     .rt <- unique(time_mapping$tperiod)
     missing_t <- .rt[!.rt %in% .x$t]
     missing_time <- subset(time_mapping,tperiod %in% missing_t & refyear == year)
+
     if (!do_extrap) {
-      missing_time <- missing_time[year <= max(.dy)]
+      missing_time <- missing_time[year >= min(.dy) & year <= max(.dy)]
     }
     if (!do_interp) {
       missing_time <- missing_time[!year %in% setdiff(.ry[.ry >= min(.dy) & .ry <= max(.dy)],.dy)]
     }
-    inter_extra <- function(sd){
-      if (nrow(sd) == 1) {
-        v <- sd[[value_name]]
-      } else {
-        v <- approx(x = sd[[year_name]], y = sd[[value_name]],
-                    xout = missing_time$year, rule = 2)$y
+
+    if (nrow(missing_time) > 0) {
+      if (verbose) {
+        cat(crayon::magenta(paste0(" -  fill values for ",paste(missing_time$year,collapse = ","),".\n")))
       }
-      return(list(year = missing_time$year,
-                  t = missing_time$t,
-                  value = v))
+
+      inter_extra <- function(sd){
+        if (nrow(sd) == 1) {
+          v <- sd[[value_name]]
+        } else {
+          v <- approx(x = sd[[year_name]], y = sd[[value_name]],
+                      xout = missing_time$year, rule = 2)$y
+        }
+        return(list(year = missing_time$year,
+                    t = missing_time$t,
+                    value = v))
+      }
+      .newdata <- .x[,inter_extra(.SD),
+                     by = c(colnames(.x)[!colnames(.x) %in% c(value_name,year_name,period_name)])]
+      .x <- rbind(.x,.newdata)
     }
-    .newdata <- .x[,inter_extra(.SD),
-                      by = c(colnames(.x)[!colnames(.x) %in% c(value_name,year_name,period_name)])]
-    .x <- rbind(.x,.newdata)
   }
 
   .x[, (year_name) := NULL]

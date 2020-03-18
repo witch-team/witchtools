@@ -56,15 +56,22 @@ convert_gdx <- function(gdxfile,
     if ("year" %in% colnames(.data) & !stringr::str_detect(basename(gdxfile),"hist")) {
 
       # Check if skip extrapolation
-      do_extrap <- nrow(meta_param[parameter == item & type == "extrap"]) > 0
-      do_interp <- nrow(meta_param[parameter == item & type == "interp"]) > 0
+      do_extrap <- (nrow(meta_param[parameter == item &
+                                      type == "extrap" &
+                                      value == "skip"]) == 0)
+      do_interp <- (nrow(meta_param[parameter == item &
+                                      type == "interp" &
+                                      value == "skip"]) == 0)
+      do_past_extrap <- TRUE
 
       # no inter/extrapolation for stochastic branch
       if (stringr::str_detect(time_id, "branch")) do_extrap <- do_interp <- FALSE
 
       time_mapping = time_mappings[[time_id]]
 
-      .data <- convert_time_period(.data, time_mapping, do_extrap, do_interp)
+      .data <- convert_time_period(.data, time_mapping,
+                                   do_interp, do_extrap,
+                                   do_past_extrap)
 
       # Update indices
       data_indices[data_indices == "year"] <- "t"
@@ -267,7 +274,7 @@ convert_gdx <- function(gdxfile,
 
   f <- file.path(output_directory,basename(gdxfile))
 
-  gdxtools::write.gdx(f, params = params, vars_l = vars)
+  gdxtools::write.gdx(f, params = params, vars_l = vars, removeLST = F, usetempdir = F)
 
   return(gdxfile)
 }
