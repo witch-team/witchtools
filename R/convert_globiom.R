@@ -16,7 +16,8 @@ convert_globiom <- function(gbfile,
   cat(crayon::blue$bold(paste("Processing", basename(gbfile), "\n")))
 
   sqldb <- RSQLite::dbConnect(RSQLite::SQLite(), dbname = gbfile)
-  .globiom <- data.table::setDT(RSQLite::dbGetQuery(sqldb, 'select * from globiom'))
+  .globiom <- data.table::setDT(RSQLite::dbGetQuery(sqldb,
+                                                    'select * from globiom'))
   RSQLite::dbDisconnect(sqldb)
 
   # Region conversion
@@ -64,7 +65,8 @@ convert_globiom <- function(gbfile,
     .data[abs(value) < 1e-7 & value >= 0,value := 1e-7]
     .data[abs(value) < 1e-7 & value < 0,value := -1e-7]
     if (item %in% c("Avoided_CO2","Cost_REDD")) {
-      .data <- .data[,.(value = mean(value)),by = c(input_reg_id,"ssp","co2_price","year")]
+      .data <- .data[,.(value = mean(value)),
+                     by = c(input_reg_id,"ssp","co2_price","year")]
       .data[,bio_price := NA]
     }
 

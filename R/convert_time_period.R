@@ -1,7 +1,43 @@
-# Convert from year to period t (mean value, interpolate, extrapolate)
-# time_mapping should have the columns year,tperiod,refyear
+#' Convert a formatted data.table from year to time period.
+#'
+#' \code{convert_time_period} returns a formatted data.table aggregating
+#' yearly values into several-year time periods.
+#' The input data.table should contain the columns "year" and "value",
+#' while the other columns are are considered as id columns.
+#' The resulting data.table will have a column "t" instead of "year.
+#' Note that the period, year and value column names can be specified.
+#' The time mapping between year and time period should be provided as
+#' a data.table with columns "year" and "t", and refyear for interpolation and
+#' extrapolation. In case of missing periods, these can be linearly interpolated
+#' or constantly interpolated. If several years are mapped into the same period,
+#' values are averaged or the function \code{fun.aggregate} is used.
+#'
+#' @param .x a well-formatted data.table.
+#' @param time_mapping a time mapping data.table.
+#' @param do_interp logical indicating whether linear interpolation should be done.
+#' @param do_extrap logical indicating whether constant extrapolation should be done.
+#' @param do_past_extrap logical indicating whether constant extrapolation should be done for past value.
+#' @param year_name string column name of year in original data.
+#' @param value_name string column name of value in original data.
+#' @param period_name string column name of period in original data.
+#' @param fun.aggregate function to aggregate yearly values in a period.
+#' @param na.rm logical indicating whether missing values should be removed.
+#' @param verbose logical indicating whether running in verbose mode.
+#' @return a converted data.table
 #' @importFrom stats approx
 #' @export
+#' @examples
+#' \dontrun{
+#'   # load time mapping t30
+#'   f <- file.path(system.file("timescale",package = "witchtools"),"t30.csv")
+#'   tm <- load_timescale_mapping(f)
+#'
+#'   # original data.table
+#'   dd <- data.table(year = c(2010,2020), value = 1:2)
+#'
+#'   # Convert into time period with linear interpolation
+#'   convert_time_period(dd, tm, do_interp = T)
+#' }
 
 convert_time_period <- function(.x, time_mapping,
                                 do_interp = FALSE,
@@ -10,14 +46,18 @@ convert_time_period <- function(.x, time_mapping,
                                 year_name = "year",
                                 value_name = "value",
                                 period_name = "t",
-                                verbose = TRUE) {
+                                fun.aggregate = mean,
+                                na.rm = TRUE,
+                                verbose = FALSE) {
 
   if (!data.table::is.data.table(.x)) stop('.x should be a data.table')
 
   # Merge time mapping
-  .x[[year_name]] = as.numeric(.x[[year_name]])
-  .x <- merge(.x, time_mapping[,.(t,year)], by = year_name,
-                 allow.cartesian = TRUE)
+  .x[, (year_name) := as.numeric(get(year_name))]
+  .x <- merge(.x, time_mapping[,.(t,year)],
+              by.x = year_name,
+              by.y = "year",
+              allow.cartesian = TRUE)
 
   if (nrow(.x) > 0 & (do_extrap | do_interp)) {
 
@@ -32,7 +72,11 @@ convert_time_period <- function(.x, time_mapping,
     missing_time <- subset(time_mapping,tperiod %in% missing_t & refyear == year)
 
     if (!do_extrap) {
-      missing_time <- missing_time[year >= min(.dy) & year <= max(.dy)]
+      if (do_past_extrap) {
+        missing_time <- missing_time[year <= max(.dy)]
+      } else {
+        missing_time <- missing_time[year >= min(.dy) & year <= max(.dy)]
+      }
     }
     if (!do_interp) {
       missing_time <- missing_time[!year %in% setdiff(.ry[.ry >= min(.dy) & .ry <= max(.dy)],.dy)]
@@ -63,7 +107,7 @@ convert_time_period <- function(.x, time_mapping,
   .x[, (year_name) := NULL]
 
   # Take the average value over time range
-  .x <- .x[, .(value = mean(value,na.rm = TRUE)),
+  .x <- .x[, .(value = fun.aggregate(value,na.rm = na.rm)),
                  by = c(colnames(.x)[colnames(.x) != value_name])]
   .x[is.nan(value),value := NA]
 

@@ -39,7 +39,6 @@ convert_gdx <- function(gdxfile,
     # uses as.data.table to keep attribute 'gams'
     .data <- data.table::setDT(.gdx[item])
     text <- attributes(.data)[["gams"]]
-    attributes(.data) <- c(attributes(.data), name = item)
 
     if ("n" %in% colnames(.data)) {
       data.table::setnames(.data, "n", guess_input_n)
@@ -52,10 +51,10 @@ convert_gdx <- function(gdxfile,
     data_indices <- colnames(.data)
 
     # Time conversion
-    # TODO add flag skip_timescale
-    if ("year" %in% colnames(.data) & !stringr::str_detect(basename(gdxfile),"hist")) {
+    if ("year" %in% colnames(.data) &
+        !stringr::str_detect(basename(gdxfile),"hist")) {
 
-      # Check if skip extrapolation
+      # Check inter/extrapolation parameters
       do_extrap <- (nrow(meta_param[parameter == item &
                                       type == "extrap" &
                                       value == "skip"]) == 0)
@@ -64,13 +63,17 @@ convert_gdx <- function(gdxfile,
                                       value == "skip"]) == 0)
       do_past_extrap <- TRUE
 
-      # no inter/extrapolation for stochastic branch
-      if (stringr::str_detect(time_id, "branch")) do_extrap <- do_interp <- FALSE
+      # No inter/extrapolation for stochastic branch
+      if (stringr::str_detect(time_id, "branch")) {
+        do_extrap <- FALSE
+        do_interp <- FALSE
+      }
 
-      time_mapping = time_mappings[[time_id]]
-
-      .data <- convert_time_period(.data, time_mapping,
-                                   do_interp, do_extrap,
+      # Convert years into time periods
+      .data <- convert_time_period(.data,
+                                   time_mappings[[time_id]],
+                                   do_interp,
+                                   do_extrap,
                                    do_past_extrap)
 
       # Update indices
@@ -88,7 +91,8 @@ convert_gdx <- function(gdxfile,
       # Detect the type of missing value
       missing_values <- default_missing_values
       if (nrow(meta_param[parameter == item & type == "missing_values"]) > 0) {
-        missing_values <- meta_param[parameter == item & type == "missing_values"][1,value]
+        missing_values <- meta_param[parameter == item &
+                                       type == "missing_values"][1,value]
       }
 
       if (input_reg_id != "iso3") {
@@ -123,7 +127,8 @@ convert_gdx <- function(gdxfile,
 
         # Add iso3 and data_reg mapping
         if (input_reg_id != "iso3") {
-          .r <- merge(region_mappings[[input_reg_id]],region_mappings[[reg_id]], by = "iso3")
+          .r <- merge(region_mappings[[input_reg_id]],region_mappings[[reg_id]],
+                      by = "iso3")
           .data <- merge(.data, .r, by = input_reg_id, allow.cartesian = TRUE)
         } else {
           .data <- merge(.data, region_mappings[[reg_id]], by = "iso3")
@@ -136,21 +141,28 @@ convert_gdx <- function(gdxfile,
         .data <- .data[!is.na(get(reg_id))]
 
         dkeys <- function(dd){
-          return(c(colnames(dd)[!colnames(dd) %in% c("value","weight","sum_weight",names(region_definitions))]))
+          return(c(colnames(dd)[!colnames(dd) %in% c("value","weight","sum_weight",
+                                                     names(region_definitions))]))
         }
 
         # Disaggregation
         if (input_reg_id != "iso3") {
           if (param_agg %in% c("sum","sumby")) {
             # total weights are computed because of missing zeros values
-            .w <- merge(region_mappings[[input_reg_id]],weights[[param_w]],by = "iso3")
+            .w <- merge(region_mappings[[input_reg_id]],weights[[param_w]],
+                        by = "iso3")
             .w <- .w[iso3 %in% unique(.data$iso3)]
-            .w <- .w[,.(sum_weight = sum(weight)),by = input_reg_id]
+            .w <- .w[,.(sum_weight = sum(weight)),
+                     by = input_reg_id]
             .data <- merge(.data,.w,by = input_reg_id)
-            .data <- .data[, .(iso3,reg_id = get(reg_id),value = value * weight / sum_weight), by = c(dkeys(.data),input_reg_id) ]
+            .data <- .data[, .(iso3,reg_id = get(reg_id),
+                               value = value * weight / sum_weight),
+                           by = c(dkeys(.data),input_reg_id) ]
           } else {
             if (param_agg %in% c("mean","set1","min","minw","max","maxw")) {
-              .data <- .data[, .(iso3,reg_id = get(reg_id),value = value,weight), by = c(dkeys(.data),input_reg_id) ]
+              .data <- .data[, .(iso3,reg_id = get(reg_id),
+                                 value = value,weight),
+                             by = c(dkeys(.data),input_reg_id) ]
             } else {
               stop(paste("Disaggregation",param_agg,"not implemented"))
             }
@@ -165,7 +177,8 @@ convert_gdx <- function(gdxfile,
           .w <- .w[,.(sum_weight = sum(weight)),by = reg_id]
           data.table::setnames(.w, reg_id, "reg_id")
           .data <- merge(.data,.w,by = "reg_id")
-          .info_share <- .data[,.(value = sum(weight) / mean(sum_weight)),by = c(dkeys(.data))]
+          .info_share <- .data[,.(value = sum(weight) / mean(sum_weight)),
+                               by = c(dkeys(.data))]
           data.table::setnames(.info_share, "reg_id", "n")
         }
 
@@ -179,22 +192,28 @@ convert_gdx <- function(gdxfile,
           .data <- merge(.data,.w,by = "reg_id")
           if (param_agg == "mean") {
             if (missing_values == "zero") {
-              .data <- .data[, .(value = sum(value * weight / sum_weight)), by = c(dkeys(.data)) ]
+              .data <- .data[, .(value = sum(value * weight / sum_weight)),
+                             by = c(dkeys(.data)) ]
             }
             if (missing_values == "NA") {
-              .data <- .data[, .(value = sum(value * weight / sum(weight))), by = c(dkeys(.data)) ]
+              .data <- .data[, .(value = sum(value * weight / sum(weight))),
+                             by = c(dkeys(.data)) ]
             }
           } else if (param_agg == "set1") {
             if (missing_values == "zero") {
-              .data <- .data[, .(value = round(sum(value * weight / sum_weight))), by = c(dkeys(.data)) ]
+              .data <- .data[, .(value = round(sum(value * weight / sum_weight))),
+                             by = c(dkeys(.data)) ]
             }
             if (missing_values == "NA") {
-              .data <- .data[, .(value = round(sum(value * weight / sum(weight)))), by = c(dkeys(.data)) ]
+              .data <- .data[, .(value = round(sum(value * weight / sum(weight)))),
+                             by = c(dkeys(.data)) ]
             }
           } else if (param_agg %in% c("min","minw")) {
-            .data <- .data[, .(value = min(value[which(weight == min(weight))])), by = c(dkeys(.data)) ]
+            .data <- .data[, .(value = min(value[which(weight == min(weight))])),
+                           by = c(dkeys(.data)) ]
           } else if (param_agg %in% c("max","maxw")) {
-            .data <- .data[, .(value = max(value[which(weight == max(weight))])), by = c(dkeys(.data)) ]
+            .data <- .data[, .(value = max(value[which(weight == max(weight))])),
+                           by = c(dkeys(.data)) ]
           }  else {
             stop(paste("aggregation",param_agg,"not implemented"))
           }
@@ -253,11 +272,13 @@ convert_gdx <- function(gdxfile,
     if (param_agg %in% c("sumby")) {
       if ("year" %in% colnames(.info_share)) {
         .info_share[,year := as.numeric(year)]
-        .info_share <- merge(.info_share, time_mappings[[time_id]][,.(t,year)], by = "year", allow.cartesian = TRUE)
+        .info_share <- merge(.info_share, time_mappings[[time_id]][,.(t,year)],
+                             by = "year", allow.cartesian = TRUE)
         .info_share[, year := NULL]
 
         # Take the average value over time range
-        .info_share <- .info_share[, .(value = mean(value,na.rm = TRUE)), by = c(colnames(.info_share)[!colnames(.info_share) %in% c('value')])]
+        .info_share <- .info_share[, .(value = mean(value,na.rm = TRUE)),
+                                   by = c(colnames(.info_share)[!colnames(.info_share) %in% c('value')])]
         .info_share[is.nan(value),value := NA]
 
       }
@@ -274,7 +295,7 @@ convert_gdx <- function(gdxfile,
 
   f <- file.path(output_directory,basename(gdxfile))
 
-  gdxtools::write.gdx(f, params = params, vars_l = vars, removeLST = F, usetempdir = F)
+  gdxtools::write.gdx(f, params = params, vars_l = vars)
 
   return(gdxfile)
 }

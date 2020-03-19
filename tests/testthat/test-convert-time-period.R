@@ -11,8 +11,34 @@ test_that("convert time simple use case", {
   res2 <- data.table::data.table(z = c(1,2),
                                  t = as.character(rep(1:10, each = 2)),
                                  value = rep(c(mean(1:3),
-                                               sapply(split(4:43, ceiling(seq_along(4:43)/5)),mean),
+                                               sapply(split(4:43,
+                                                            ceiling(seq_along(4:43)/5)),mean),
                                                mean(44:46)),
+                                             each = 2))
+
+  data.table::setkey(res1,z,t)
+  data.table::setkey(res2,z,t)
+
+  expect_equal(res1,res2)
+
+})
+
+test_that("convert time with sum", {
+
+  # load time mapping t30
+  f <- file.path(system.file("timescale",package = "witchtools"),"t30.csv")
+  tm <- load_timescale_mapping(f)
+
+  dd <- data.table::data.table(z = c(1,2), year = rep(2005:2050,each=2), value = rep(1:46,each=2))
+
+  res1 <- convert_time_period(dd, tm, fun.aggregate = sum)
+
+  res2 <- data.table::data.table(z = c(1,2),
+                                 t = as.character(rep(1:10, each = 2)),
+                                 value = rep(c(sum(1:3),
+                                               sapply(split(4:43,
+                                                            ceiling(seq_along(4:43)/5)),sum),
+                                               sum(44:46)),
                                              each = 2))
 
   data.table::setkey(res1,z,t)
