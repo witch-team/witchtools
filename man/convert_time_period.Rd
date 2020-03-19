@@ -2,7 +2,7 @@
 % Please edit documentation in R/convert_time_period.R
 \name{convert_time_period}
 \alias{convert_time_period}
-\title{Convert a formatted data.table from year to time period.}
+\title{Convert a data.table from year to time period.}
 \usage{
 convert_time_period(
   .x,
@@ -46,11 +46,15 @@ a converted data.table
 }
 \description{
 \code{convert_time_period} returns a formatted data.table aggregating
-yearly values into several-year time periods.
+values from years into time periods. The required format of the input data is
+described in Details.
+}
+\details{
 The input data.table should contain the columns "year" and "value",
 while the other columns are are considered as id columns.
 The resulting data.table will have a column "t" instead of "year.
 Note that the period, year and value column names can be specified.
+
 The time mapping between year and time period should be provided as
 a data.table with columns "year" and "t", and refyear for interpolation and
 extrapolation. In case of missing periods, these can be linearly interpolated
@@ -70,3 +74,7 @@ values are averaged or the function \code{fun.aggregate} is used.
   convert_time_period(dd, tm, do_interp = T)
 }
 }
+\seealso{
+\code{\link{convert_gdx}} for WITCH gdx files.
+}
+\concept{conversion functions}
