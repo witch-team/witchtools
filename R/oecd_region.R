@@ -1,10 +1,6 @@
 # oecd_region
 
-oecd_regions <- function(reg_id,
-                        region_mappings,
-                        weights,
-                        threshold = 0.5,
-                        w = "gdp") {
+oecd_regions <- function(reg_id, region_mappings) {
   oecd_iso3 <- c(
     "AUS",
     "AUT",
@@ -48,7 +44,8 @@ oecd_regions <- function(reg_id,
     all.x = TRUE
   )
   tab[is.na(oecd), oecd := 0]
-  tab <- merge(tab, weights[[w]], by = "iso3")
+  tab <- merge(tab, default_weights[['gdp']], by = "iso3")
   tab <- tab[, .(is_oecd = sum(weight * oecd) / sum(weight)), by = reg_id]
+  threshold <- 0.5
   return(tab[is_oecd > threshold, get(reg_id)])
 }

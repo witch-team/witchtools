@@ -115,8 +115,6 @@ witch_translate_data <- function(witch_dir = ".",
   gdxlist <- sort(find_modified_gdx(input_directory, output_directory,
                                     force = FALSE))
 
-  weights <- load_weights(idir, region_mappings)
-
   # convert all gdx
   if (requireNamespace('gdxtools', quietly = TRUE)) {
     for (gdxfile in gdxlist) {
@@ -127,7 +125,7 @@ witch_translate_data <- function(witch_dir = ".",
         region_mappings,
         region_definitions,
         time_mappings,
-        weights,
+        default_weights,
         output_directory
       )
     }
@@ -148,7 +146,7 @@ witch_translate_data <- function(witch_dir = ".",
                            region_mappings,
                            region_definitions,
                            time_mappings,
-                           weights,
+                           weights = default_weights,
                            output_directory)
   }
 
@@ -159,7 +157,6 @@ witch_translate_data <- function(witch_dir = ".",
              region_mappings,
              region_definitions,
              time_mappings,
-             weights,
              output_directory)
 
 }

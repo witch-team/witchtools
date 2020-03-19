@@ -8,7 +8,7 @@ convert_globiom <- function(gbfile,
                             region_mappings,
                             region_definitions,
                             time_mappings,
-                            weights,
+                            weights = default_weights,
                             output_directory){
 
   if (!file.exists(gbfile)) stop(paste(gbfile, "does not exist!"))

@@ -5,7 +5,6 @@ write_gams <- function(reg_id,
                        region_mappings,
                        region_definitions,
                        time_mappings,
-                       weights,
                        output_directory) {
 
   #write region conf
@@ -51,9 +50,7 @@ write_gams <- function(reg_id,
   writeLines("/;", finc)
   #set oecd
   writeLines("set oecd(n) 'OECD regions' /", finc)
-  writeLines(oecd_regions(reg_id,
-                          region_mappings,
-                          weights), finc)
+  writeLines(oecd_regions(reg_id,region_mappings), finc)
   writeLines("/;", finc)
 
   close(finc)
