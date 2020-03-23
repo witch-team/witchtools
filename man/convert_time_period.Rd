@@ -76,5 +76,8 @@ values are averaged or the function \code{fun.aggregate} is used.
 }
 \seealso{
 \code{\link{convert_gdx}} for WITCH gdx files.
+
+Other conversion functions: 
+\code{\link{convert_region}()}
 }
 \concept{conversion functions}

@@ -1,6 +1,49 @@
+#' Convert a data.table from a regional mapping to another.
+#'
+#' \code{convert_region} returns a list containing a data.table where values are
+#' converted from one regional mapping to another. The conversion is done by
+#' downscaling values at country-level (if necessary) and updscaling them
+#' into the final regional mapping. The list also contain an
+#' optional data.table about the value coperture for the operator \code{sumby}.
+#' The required format of the input data is described in Details.
+#'
+#' The input data.table should contain a column "value" and a column named by
+#' the initial regional mapping \code{from_reg},
+#' while the other columns are are considered as id columns.
+#' The resulting data.table have a column named by the final regional
+#' mapping \code{to_reg}.
+#' Note that the value column name can be respecified.
+#'
+#' The regional mapping for \code{from_reg} and \code{to_reg} should be
+#' provided in a named list through the parameter \code{region_mappings}.
+#' The mappings are 2-columns data.table with a column named 'iso3'
+#' (for country ISO3)
+#' and another one named as the regional mapping (for region name).
+#' The name in the list should also be the regional mapping name.
+#'
+#' @family conversion functions
+#' @seealso \code{\link{convert_gdx}} for WITCH gdx files.
+#'
+#' @param .x a well-formatted data.table.
+#' @param from_reg initial regional mapping name.
+#' @param to_reg final regional mapping name.
+#' @param region_mappings list of region mappings (see Details for format)
+#' @param agg_operator aggregation operator (See Details for the list of
+#' possible values)
+#' @param agg_weight aggregation weight (See Details for the list of
+#' possible values)
+#' @param missing_values tells how to deal with missing values ("NA" or "zero")
 
-
-convert_region <- function(.x,from_reg,to_reg,
+#' @return a list containing a converted data.table and information about
+#'         the coperture if available.
+#' @export
+#' @examples
+#' \dontrun{
+#' }
+#'
+convert_region <- function(.x,
+                           from_reg,
+                           to_reg,
                            agg_operator = "sum",
                            agg_weight = "gdp",
                            region_mappings,
