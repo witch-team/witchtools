@@ -30,9 +30,9 @@ w <- c(w, list(pop = pop[year == 2005 & ssp == "SSP2",.(iso3, weight = value)]))
 ## gdp
 # Definition: 2005 GDP [T USD2005]
 # Source: SSP database v1
-#gdp <- setDT(mygdx["gdp_base_oecd"])
-#setnames(gdp, 1:4, c("ssp", "iso3", "year", "value"))
-#w <- c(w, list(gdp = gdp[year == 2005 & ssp == "SSP2", .(iso3, weight = value)]))
+gdp <- setDT(mygdx["gdp_base_oecd"])
+setnames(gdp, 1:4, c("ssp", "iso3", "year", "value"))
+w <- c(w, list(gdp = gdp[year == 2005 & ssp == "SSP2", .(iso3, weight = value)]))
 
 sqldb <-
   RSQLite::dbConnect(RSQLite::SQLite(),
