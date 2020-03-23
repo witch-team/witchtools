@@ -96,6 +96,7 @@ convert_gdx <- function(gdxfile,
                                        type == "missing_values"][1,value]
       }
 
+      # Ensure region/iso3 is lower case
       if (input_reg_id != "iso3") {
         .data[[which(input_reg_id == colnames(.data))]] <- tolower(.data[,get(input_reg_id)])
       } else {
@@ -126,98 +127,19 @@ convert_gdx <- function(gdxfile,
       # Same mapping input-data, do nothing
       if (input_reg_id != reg_id) {
 
-        # Add iso3 and data_reg mapping
-        if (input_reg_id != "iso3") {
-          .r <- merge(region_mappings[[input_reg_id]],region_mappings[[reg_id]],
-                      by = "iso3")
-          .data <- merge(.data, .r, by = input_reg_id, allow.cartesian = TRUE)
-        } else {
-          .data <- merge(.data, region_mappings[[reg_id]], by = "iso3")
-        }
-
         cat(crayon::blue(paste0(" - ", item_type, " ", item, " [agg: ", param_agg, ", wgt: ", param_w, "]\n")))
 
-        # Add weight
-        .data <- merge(.data, weights[[param_w]], by = "iso3")
-        .data <- .data[!is.na(get(reg_id))]
+        .data0 <- convert_region(.data,input_reg_id,reg_id,
+                                region_mappings,
+                                weights,
+                                param_agg,param_w,
+                                missing_values)
 
-        dkeys <- function(dd){
-          return(c(colnames(dd)[!colnames(dd) %in% c("value","weight","sum_weight",
-                                                     names(region_definitions))]))
-        }
-
-        # Disaggregation
-        if (input_reg_id != "iso3") {
-          if (param_agg %in% c("sum","sumby")) {
-            # total weights are computed because of missing zeros values
-            .w <- merge(region_mappings[[input_reg_id]],weights[[param_w]],
-                        by = "iso3")
-            .w <- .w[iso3 %in% unique(.data$iso3)]
-            .w <- .w[,.(sum_weight = sum(weight)),
-                     by = input_reg_id]
-            .data <- merge(.data,.w,by = input_reg_id)
-            .data <- .data[, .(iso3,reg_id = get(reg_id),
-                               value = value * weight / sum_weight),
-                           by = c(dkeys(.data),input_reg_id) ]
-          } else {
-            if (param_agg %in% c("mean","set1","min","minw","max","maxw")) {
-              .data <- .data[, .(iso3,reg_id = get(reg_id),
-                                 value = value,weight),
-                             by = c(dkeys(.data),input_reg_id) ]
-            } else {
-              stop(paste("Disaggregation",param_agg,"not implemented"))
-            }
-          }
-        } else {
-          data.table::setnames(.data, reg_id, "reg_id")
-        }
-
-        # informed share
         if (param_agg %in% c("sumby")) {
-          .w <- merge(region_mappings[[reg_id]],weights[[param_w]],by = "iso3")
-          .w <- .w[,.(sum_weight = sum(weight)),by = reg_id]
-          data.table::setnames(.w, reg_id, "reg_id")
-          .data <- merge(.data,.w,by = "reg_id")
-          .info_share <- .data[,.(value = sum(weight) / mean(sum_weight)),
-                               by = c(dkeys(.data))]
-          data.table::setnames(.info_share, "reg_id", "n")
-        }
-
-        # Aggregation
-        if (param_agg %in% c("sum","sumby")) {
-          .data <- .data[, .(value = sum(value)), by = c(dkeys(.data)) ]
+          .data <- .data0[[1]]
+          .info_share <- .data0[[2]]
         } else {
-          .w <- merge(region_mappings[[reg_id]],weights[[param_w]],by = "iso3")
-          .w <- .w[,.(sum_weight = sum(weight)),by = reg_id]
-          data.table::setnames(.w, reg_id, "reg_id")
-          .data <- merge(.data,.w,by = "reg_id")
-          if (param_agg == "mean") {
-            if (missing_values == "zero") {
-              .data <- .data[, .(value = sum(value * weight / sum_weight)),
-                             by = c(dkeys(.data)) ]
-            }
-            if (missing_values == "NA") {
-              .data <- .data[, .(value = sum(value * weight / sum(weight))),
-                             by = c(dkeys(.data)) ]
-            }
-          } else if (param_agg == "set1") {
-            if (missing_values == "zero") {
-              .data <- .data[, .(value = round(sum(value * weight / sum_weight))),
-                             by = c(dkeys(.data)) ]
-            }
-            if (missing_values == "NA") {
-              .data <- .data[, .(value = round(sum(value * weight / sum(weight)))),
-                             by = c(dkeys(.data)) ]
-            }
-          } else if (param_agg %in% c("min","minw")) {
-            .data <- .data[, .(value = min(value[which(weight == min(weight))])),
-                           by = c(dkeys(.data)) ]
-          } else if (param_agg %in% c("max","maxw")) {
-            .data <- .data[, .(value = max(value[which(weight == max(weight))])),
-                           by = c(dkeys(.data)) ]
-          }  else {
-            stop(paste("aggregation",param_agg,"not implemented"))
-          }
+          .data <- .data0
         }
 
         # Change the region column name
