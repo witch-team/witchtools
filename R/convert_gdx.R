@@ -14,7 +14,6 @@ convert_gdx <- function(gdxfile,
 
   cat(crayon::blue$bold(paste("Processing", basename(gdxfile),"\n")))
 
-  #define GDX file
   .gdx <- gdxtools::gdx(gdxfile)
 
   # parameter collector
@@ -129,21 +128,17 @@ convert_gdx <- function(gdxfile,
 
         cat(crayon::blue(paste0(" - ", item_type, " ", item, " [agg: ", param_agg, ", wgt: ", param_w, "]\n")))
 
-        .data0 <- convert_region(.data,input_reg_id,reg_id,
+        .conv <- convert_region(.data,
+                                from_reg = input_reg_id,
+                                to_reg = reg_id,
+                                agg_operator = param_agg,
+                                agg_weight = param_w,
                                 region_mappings,
                                 weights,
-                                param_agg,param_w,
                                 missing_values)
 
-        if (param_agg %in% c("sumby")) {
-          .data <- .data0[[1]]
-          .info_share <- .data0[[2]]
-        } else {
-          .data <- .data0
-        }
-
-        # Change the region column name
-        data.table::setnames(.data, "reg_id", "n")
+        .data <- .conv[['data']]
+        .info_share <- .conv[['info']]
 
       } else {
 
