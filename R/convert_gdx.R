@@ -62,6 +62,7 @@ convert_gdx <- function(gdxfile,
                                       type == "interp" &
                                       value == "skip"]) == 0)
       do_past_extrap <- TRUE
+      if (!do_extrap) do_past_extrap <- FALSE
 
       # No inter/extrapolation for stochastic branch
       if (stringr::str_detect(time_id, "branch")) {
