@@ -2,11 +2,14 @@
 #' @importFrom stats approx
 
 convert_gdx <- function(gdxfile,
-                        reg_id, time_id,
-                        region_mappings, region_definitions,
-                        time_mappings, weights = default_weights,
+                        reg_id,
+                        time_id,
+                        region_mappings,
+                        time_mappings,
+                        weights = default_weights,
                         output_directory,
-                        guess_input_n = "witch17", guess_input_t = "t30",
+                        guess_input_n = "witch17",
+                        guess_input_t = "t30",
                         default_missing_values = "zero",
                         default_meta_param = witch_default_meta_param()){
 
@@ -82,7 +85,7 @@ convert_gdx <- function(gdxfile,
     }
 
     # Region conversion
-    input_reg_id <- intersect(colnames(.data), names(region_definitions))
+    input_reg_id <- intersect(colnames(.data), names(region_mappings))
     param_agg <- ""
 
     # Region has been identified?

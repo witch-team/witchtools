@@ -6,7 +6,6 @@ convert_globiom <- function(gbfile,
                             reg_id,
                             time_id,
                             region_mappings,
-                            region_definitions,
                             time_mappings,
                             weights = default_weights,
                             output_directory){
@@ -21,7 +20,7 @@ convert_globiom <- function(gbfile,
   RSQLite::dbDisconnect(sqldb)
 
   # Region conversion
-  input_reg_id <- intersect(colnames(.globiom), names(region_definitions))
+  input_reg_id <- intersect(colnames(.globiom), names(region_mappings))
   param_agg <- ""
 
   .globiom[[which(input_reg_id == colnames(.globiom))]] <- tolower(.globiom[,get(input_reg_id)])
@@ -98,7 +97,7 @@ convert_globiom <- function(gbfile,
       .data <- .data[!is.na(get(reg_id))]
 
       dkeys <- function(dd){
-        return(c(colnames(dd)[!colnames(dd) %in% c("value","weight","sum_weight",names(region_definitions))]))
+        return(c(colnames(dd)[!colnames(dd) %in% c("value","weight","sum_weight",names(region_mappings))]))
       }
 
       # Disaggregation
