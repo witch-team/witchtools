@@ -14,9 +14,9 @@
 #' mapping \code{to_reg}.
 #' Note that the value column name can be respecified.
 #'
-#' The regional mapping for \code{from_reg} and \code{to_reg} should be
-#' provided in a named list through the parameter \code{region_mappings}.
-#' The mappings are 2-columns data.table with a column named 'iso3'
+#' The regional mapping for \code{from_reg} and \code{to_reg} can be
+#' provided in a named list through the parameter \code{regions}.
+#' Regional mappings are 2-columns data.table with a column named 'iso3'
 #' (for country ISO3)
 #' and another one named as the regional mapping (for region name).
 #' The name in the list should also be the regional mapping name.
@@ -25,13 +25,14 @@
 #' @seealso \code{\link{convert_gdx}} for WITCH gdx files.
 #'
 #' @param .x a well-formatted data.table.
-#' @param from_reg initial regional mapping name.
-#' @param to_reg final regional mapping name.
-#' @param region_mappings list of region mappings (see Details for format)
+#' @param from_reg initial regional mapping name or a data.table with
+#' the mapping.
+#' @param to_reg final regional mapping name  or a data.table with the mapping.
 #' @param agg_operator aggregation operator (See Details for the list of
 #' possible values)
 #' @param agg_weight aggregation weight (See Details for the list of
 #' possible values)
+#' @param regions optionnal list of region mappings (see Details for format)
 #' @param missing_values tells how to deal with missing values ("NA" or "zero")
 #' @param value_name string column name for value.
 #' @param region_name string column name for region.
@@ -48,103 +49,128 @@ convert_region <- function(.x,
                            to_reg,
                            agg_operator = "sum",
                            agg_weight = "gdp",
-                           region_mappings,
+                           regions = region_mappings,
                            weights = default_weights,
                            missing_values = "NA",
                            value_name = "value",
                            region_name = "n") {
 
-  # Same mapping input-data, do nothing
+  # Same mappings input-output, do nothing
   if (from_reg == to_reg) return(.x)
 
-  # region_mappings should contain from_reg or to_reg unless 'iso3'
-  if (!from_reg %in% c('iso3',names(region_mappings))) {
-    stop(paste0('region_mappings should contains ', from_reg,'.'))
+  # Initial mapping
+  if (is.character(from_reg)) {
+    if (!from_reg %in% c('iso3',names(regions))) {
+      stop(paste0('regions should contains the name ', from_reg,'.'))
+    }
+    if (from_reg == 'iso3') {
+      rmap0 <- NULL
+    } else {
+      rmap0 <- regions[[from_reg]]
+    }
+    rname0 <- from_reg
+  } else if (data.table::is.data.table(from_reg)) {
+    rmap0 <- from_reg
+    rname0 <- names(rmap0)[names(rmap0) != 'iso3'][1]
+  } else {
+    stop(paste0('from_reg should be a character or a data.table.'))
   }
-  if (!to_reg %in% c('iso3',names(region_mappings))) {
-    stop(paste0('region_mappings should contains ', to_reg,'.'))
+
+  # Final mapping
+  if (is.character(to_reg)) {
+    if (!to_reg %in% c('iso3',names(regions))) {
+      stop(paste0('regions should contains the name ', to_reg,'.'))
+    }
+    if (to_reg == 'iso3') {
+      rmap1 <- NULL
+    } else {
+      rmap1 <- regions[[to_reg]]
+    }
+    rname1 <- to_reg
+  } else if (data.table::is.data.table(to_reg)) {
+    rmap1 <- to_reg
+    rname1 <- names(rmap0)[names(rmap0) != 'iso3'][1]
+  } else {
+    stop(paste0('to_reg should be a character or a data.table.'))
   }
 
   # "sumby" requires from_reg="iso3
-  if (agg_operator == "sumby" & from_reg != "iso3") {
+  if (agg_operator == "sumby" & rname0 != "iso3") {
     stop(paste0('Operator sumby requires from_reg == iso3.'))
   }
 
   # Not yet implemented
-  if (to_reg == "iso3") {
+  if (rname1 == "iso3") {
     stop(paste0('to_reg == iso3 is not yet implemented.'))
   }
 
   # Add iso3 and data_reg mapping
-  if (from_reg != "iso3") {
-    .r <- merge(region_mappings[[from_reg]],region_mappings[[to_reg]],
-                by = "iso3")
-    .x <- merge(.x, .r, by = from_reg, allow.cartesian = TRUE)
+  if (rname0 != "iso3") {
+    .r <- merge(rmap0,rmap1,by = "iso3")
+    .x <- merge(.x, .r, by = rname0, allow.cartesian = TRUE)
   } else {
-    .x <- merge(.x, region_mappings[[to_reg]], by = "iso3")
+    .x <- merge(.x, rmap1, by = "iso3")
   }
 
   # Add weight
   .x <- merge(.x, weights[[agg_weight]], by = "iso3")
-  .x <- .x[!is.na(get(to_reg))]
+  .x <- .x[!is.na(get(rname1))]
 
   dkeys <- function(dd){
     return(c(colnames(dd)[!colnames(dd) %in% c(value_name,
                                                "weight","sum_weight",
-                                               "iso3",from_reg,to_reg)]))
+                                               "iso3",rname0,rname1)]))
   }
 
   # Disaggregation
-  if (from_reg != "iso3") {
+  if (rname0 != "iso3") {
     if (agg_operator %in% c("sum")) {
       # total weights are computed because of missing zeros values
-      .w <- merge(region_mappings[[from_reg]],weights[[agg_weight]],
-                  by = "iso3")
+      .w <- merge(rmap0,weights[[agg_weight]],by = "iso3")
       .w <- .w[iso3 %in% unique(.x$iso3)]
-      .w <- .w[,.(sum_weight = sum(weight)),
-               by = from_reg]
-      .x <- merge(.x,.w,by = from_reg)
+      .w <- .w[,.(sum_weight = sum(weight)),by = rname0]
+      .x <- merge(.x,.w,by = rname0)
       .x <- .x[, .(iso3,
-                   to_reg = get(to_reg),
+                   rname1 = get(rname1),
                    value = get(value_name) * weight / sum_weight),
-                   by = c(dkeys(.x),from_reg) ]
+                   by = c(dkeys(.x),rname0) ]
     } else {
       if (agg_operator %in% c("mean","set1","min","minw","max","maxw")) {
         .x <- .x[, .(iso3,
-                     to_reg = get(to_reg),
+                     rname1 = get(rname1),
                      value = get(value_name),
                      weight),
-                by = c(dkeys(.x),from_reg) ]
+                by = c(dkeys(.x),rname0) ]
       } else {
         stop(paste("Operator ",agg_operator,"not implemented"))
       }
     }
     data.table::setnames(.x, "value", value_name)
   } else {
-    data.table::setnames(.x, to_reg, "to_reg")
+    data.table::setnames(.x, rname1, "rname1")
   }
 
   # informed share
   .info_share <- NULL
   if (agg_operator %in% c("sumby")) {
-    .w <- merge(region_mappings[[to_reg]],weights[[agg_weight]],by = "iso3")
-    .w <- .w[,.(sum_weight = sum(weight)),by = to_reg]
-    data.table::setnames(.w, to_reg, "to_reg")
-    .x <- merge(.x,.w,by = "to_reg")
+    .w <- merge(rmap1,weights[[agg_weight]],by = "iso3")
+    .w <- .w[,.(sum_weight = sum(weight)),by = rname1]
+    data.table::setnames(.w, rname1, "rname1")
+    .x <- merge(.x,.w,by = "rname1")
     .info_share <- .x[,.(value = sum(weight) / mean(sum_weight)),
                     by = c(dkeys(.x))]
     data.table::setnames(.info_share, "value", value_name)
-    data.table::setnames(.info_share, "to_reg", region_name)
+    data.table::setnames(.info_share, "rname1", region_name)
   }
 
   # Aggregation
   if (agg_operator %in% c("sum","sumby")) {
     .x <- .x[, .(value = sum(get(value_name))), by = c(dkeys(.x)) ]
   } else {
-    .w <- merge(region_mappings[[to_reg]],weights[[agg_weight]],by = "iso3")
-    .w <- .w[,.(sum_weight = sum(weight)),by = to_reg]
-    data.table::setnames(.w, to_reg, "to_reg")
-    .x <- merge(.x,.w,by = "to_reg")
+    .w <- merge(rmap1,weights[[agg_weight]],by = "iso3")
+    .w <- .w[,.(sum_weight = sum(weight)),by = rname1]
+    data.table::setnames(.w, rname1, "rname1")
+    .x <- merge(.x,.w,by = "rname1")
     if (agg_operator == "mean") {
       if (missing_values == "zero") {
         .x <- .x[, .(value = sum(get(value_name) * weight / sum_weight)),
@@ -176,7 +202,7 @@ convert_region <- function(.x,
 
   # Change the region column name
   data.table::setnames(.x, "value", value_name)
-  data.table::setnames(.x, "to_reg", region_name)
+  data.table::setnames(.x, "rname1", region_name)
 
   return(list(data = .x, info = .info_share))
 

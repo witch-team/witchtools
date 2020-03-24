@@ -10,7 +10,7 @@ convert_region(
   to_reg,
   agg_operator = "sum",
   agg_weight = "gdp",
-  region_mappings,
+  regions = region_mappings,
   weights = default_weights,
   missing_values = "NA",
   value_name = "value",
@@ -20,9 +20,10 @@ convert_region(
 \arguments{
 \item{.x}{a well-formatted data.table.}
 
-\item{from_reg}{initial regional mapping name.}
+\item{from_reg}{initial regional mapping name or a data.table with
+the mapping.}
 
-\item{to_reg}{final regional mapping name.}
+\item{to_reg}{final regional mapping name  or a data.table with the mapping.}
 
 \item{agg_operator}{aggregation operator (See Details for the list of
 possible values)}
@@ -30,7 +31,7 @@ possible values)}
 \item{agg_weight}{aggregation weight (See Details for the list of
 possible values)}
 
-\item{region_mappings}{list of region mappings (see Details for format)}
+\item{regions}{optionnal list of region mappings (see Details for format)}
 
 \item{missing_values}{tells how to deal with missing values ("NA" or "zero")}
 
@@ -58,9 +59,9 @@ The resulting data.table have a column named by the final regional
 mapping \code{to_reg}.
 Note that the value column name can be respecified.
 
-The regional mapping for \code{from_reg} and \code{to_reg} should be
-provided in a named list through the parameter \code{region_mappings}.
-The mappings are 2-columns data.table with a column named 'iso3'
+The regional mapping for \code{from_reg} and \code{to_reg} can be
+provided in a named list through the parameter \code{regions}.
+Regional mappings are 2-columns data.table with a column named 'iso3'
 (for country ISO3)
 and another one named as the regional mapping (for region name).
 The name in the list should also be the regional mapping name.
