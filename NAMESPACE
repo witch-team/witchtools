@@ -2,8 +2,6 @@
 
 export(convert_region)
 export(convert_time_period)
-export(load_region_definition)
-export(load_region_mapping)
 export(load_timescale_mapping)
 export(require_gdxtools)
 export(require_package)

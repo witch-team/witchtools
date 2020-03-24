@@ -23,9 +23,9 @@
 #' @param do_interp logical indicating whether linear interpolation should be done.
 #' @param do_extrap logical indicating whether constant extrapolation should be done.
 #' @param do_past_extrap logical indicating whether constant extrapolation should be done for past value.
-#' @param year_name string column name of year in original data.
-#' @param value_name string column name of value in original data.
-#' @param period_name string column name of period in original data.
+#' @param year_name string column name of year.
+#' @param value_name string column name of value.
+#' @param period_name string column name of period.
 #' @param fun.aggregate function to aggregate yearly values in a period.
 #' @param na.rm logical indicating whether missing values should be removed.
 #' @param verbose logical indicating whether running in verbose mode.
@@ -116,6 +116,7 @@ convert_time_period <- function(.x, time_mapping,
   .x <- .x[, .(value = fun.aggregate(value,na.rm = na.rm)),
                  by = c(colnames(.x)[colnames(.x) != value_name])]
   .x[is.nan(value),value := NA]
+  data.table::setnames(.x, "value", value_name)
 
   return(.x)
 

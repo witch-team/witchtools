@@ -29,11 +29,11 @@ convert_time_period(
 
 \item{do_past_extrap}{logical indicating whether constant extrapolation should be done for past value.}
 
-\item{year_name}{string column name of year in original data.}
+\item{year_name}{string column name of year.}
 
-\item{value_name}{string column name of value in original data.}
+\item{value_name}{string column name of value.}
 
-\item{period_name}{string column name of period in original data.}
+\item{period_name}{string column name of period.}
 
 \item{fun.aggregate}{function to aggregate yearly values in a period.}
 

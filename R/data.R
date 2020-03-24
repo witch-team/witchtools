@@ -28,3 +28,15 @@ NULL
 #' \url{https://www.iea.org/reports/world-energy-outlook-2018},
 #' \url{https://databank.worldbank.org/source/world-development-indicators}
 "default_weights"
+
+#' Default regional mapping
+#'
+#' A collection of regional mappings for 250 ISO3.
+#'
+#' @format A named list of data.tables with 2 columns
+#' \describe{
+#'   \item{mapping_name}{Mapping name (example, witch17),
+#'   contains the region names in lower case}
+#'   \item{iso3}{ISO3 code in upper case}
+#' }
+"region_mappings"

@@ -3,9 +3,9 @@
 write_gams <- function(reg_id,
                        time_id,
                        region_mappings,
-                       region_definitions,
                        time_mappings,
-                       output_directory) {
+                       output_directory,
+                       prefix_coalition = "c_") {
 
   #write region conf
   filename <- file.path(output_directory, 'regions.conf')
@@ -21,7 +21,7 @@ write_gams <- function(reg_id,
   #write region mapping
   filename <- file.path(output_directory, 'n.inc')
   finc <- file(filename, "w")
-  reg <- sort(region_definitions[[reg_id]][, get(reg_id)])
+  reg <- sort(unique(region_mappings[[reg_id]][, get(reg_id)]))
   writeLines(reg, finc)
   close(finc)
 
@@ -117,9 +117,9 @@ write_gams <- function(reg_id,
   fconf <- file(filename, "w")
 
   #setglobal nmapping
+  reg_def <- sort(unique(region_mappings[[reg_id]][, get(reg_id)]))
   writeLines(paste("$setglobal coalitions", paste(
-    stringr::str_c("c_", region_definitions[[reg_id]][, get(reg_id)]),
-    collapse = " ")), fconf)
+    stringr::str_c(prefix_coalition, reg_def), collapse = " ")), fconf)
 
   close(fconf)
 
@@ -131,13 +131,13 @@ write_gams <- function(reg_id,
 
   #set clt
   writeLines("set clt 'Coalitions' /", finc)
-  reg_def <- region_definitions[[reg_id]][, get(reg_id)]
-  writeLines(stringr::str_c("c_", reg_def), finc)
+  reg_def <- sort(unique(region_mappings[[reg_id]][, get(reg_id)]))
+  writeLines(stringr::str_c(prefix_coalition, reg_def), finc)
   writeLines("/;", finc)
 
   #set map_clt+n
   writeLines("set map_clt_n(clt,n) /", finc)
-  writeLines(stringr::str_c("c_", reg_def, ".", reg_def), finc)
+  writeLines(stringr::str_c(prefix_coalition, reg_def, ".", reg_def), finc)
   writeLines("/;", finc)
 
   close(finc)

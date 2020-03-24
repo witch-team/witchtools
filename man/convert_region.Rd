@@ -12,7 +12,9 @@ convert_region(
   agg_weight = "gdp",
   region_mappings,
   weights = default_weights,
-  missing_values = "NA"
+  missing_values = "NA",
+  value_name = "value",
+  region_name = "n"
 )
 }
 \arguments{
@@ -31,6 +33,10 @@ possible values)}
 \item{region_mappings}{list of region mappings (see Details for format)}
 
 \item{missing_values}{tells how to deal with missing values ("NA" or "zero")}
+
+\item{value_name}{string column name for value.}
+
+\item{region_name}{string column name for region.}
 }
 \value{
 a list containing a converted data.table and information about
