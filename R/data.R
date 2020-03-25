@@ -40,3 +40,20 @@ NULL
 #'   \item{iso3}{ISO3 code in upper case}
 #' }
 "region_mappings"
+
+#' Default timescale mapping
+#'
+#' A collection of timescale mappings.
+#'
+#' @format A named list of data.tables with 7 columns
+#' \describe{
+#'   \item{t}{time period as a ordered numeric ID}
+#'   \item{year}{time year}
+#'   \item{refyear}{reference year for the time period}
+#'   \item{pred}{predecessor ID (t) of the time period}
+#'   \item{tperiod}{time step of the time period, used for stochastic branch,
+#'   equal to t when deterministic}
+#'   \item{begyear}{first year of the time period}
+#'   \item{endyear}{last year of the time period}
+#' }
+"time_mappings"

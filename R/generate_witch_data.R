@@ -30,10 +30,6 @@ witch_translate_data <- function(witch_dir = ".",
 
   # Time mapping
   time_id <- as.character(timescale)
-  if (!file.exists(system.file("timescale", paste0(time_id, ".csv"),
-                               package = "witchtools"))) {
-    stop(paste("Time mapping", time_id, "has no definition in the package."))
-  }
 
   # Paths
   if (is.null(output_dir)) {
@@ -60,13 +56,6 @@ witch_translate_data <- function(witch_dir = ".",
   cat(crayon::blue(paste("  - Output timescale:", time_id, "\n")))
   cat(crayon::blue(paste("  - Output region:", reg_id, "\n")))
   cat(crayon::blue(paste("  - Output directory:", output_directory, "\n")))
-
-  # Timescale mappings
-  time_mapping_files <- Sys.glob(file.path(system.file("timescale",
-                                                       package = "witchtools"),
-                                           "*.csv"))
-  time_mappings <- lapply(time_mapping_files, load_timescale_mapping)
-  names(time_mappings) <- stringr::str_sub(basename(time_mapping_files), 1, -5)
 
   cat(crayon::silver$bold("\U26AB Run make_data files\n"))
 

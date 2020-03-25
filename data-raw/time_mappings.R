@@ -1,19 +1,13 @@
-#' Load timescale mapping from a timescale CSV file.
-#'
-#' @param f times WITCH GAMS file
-#'
-#' @export
-#' @examples
-#' \dontrun{
-#' load_timescale_mapping('input/time/t30.inc')
-#' }
-#'
+# default time mappings
+
+library(data.table)
+
 load_timescale_mapping <- function(f){
   tab <- data.table::fread(f,colClasses = "character")
   data.table::setnames(tab,'year','refyear')
   # Expand year
-  tab <- data.table::rbindlist(lapply(seq_len(nrow(tab)),
-                                  function(i){tab[i,.(t,
+  tab <- rbindlist(lapply(seq_len(nrow(tab)),
+                                function(i){tab[i,.(t,
                                                     year = begyear:endyear,
                                                     refyear,
                                                     pred,
@@ -23,3 +17,10 @@ load_timescale_mapping <- function(f){
   tab[,year := as.numeric(year)]
   return(tab)
 }
+
+# Timescale mappings
+time_mapping_files <- Sys.glob(file.path("data-raw","timescale", "*.csv"))
+time_mappings <- lapply(time_mapping_files, load_timescale_mapping)
+names(time_mappings) <- stringr::str_sub(basename(time_mapping_files), 1, -5)
+
+usethis::use_data(time_mappings, compress = "xz", overwrite = T)
