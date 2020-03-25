@@ -30,10 +30,10 @@
 #' @param to_reg final regional mapping name  or a data.table with the mapping.
 #' @param agg_operator aggregation operator (See Details for the list of
 #' possible values)
-#' @param agg_weight aggregation weight (See Details for the list of
+#' @param agg_weight aggregation weight data.table (See Details for the list of
 #' possible values)
-#' @param regions optionnal list of region mappings (see Details for format)
-#' @param missing_values tells how to deal with missing values ("NA" or "zero")
+#' @param agg_missing tells how to deal with missing values ("NA" or "zero")
+#' @param regions optional list of region mappings (see Details for format)
 #' @param value_name string column name for value.
 #' @param region_name string column name for region.
 
@@ -48,26 +48,18 @@ convert_region <- function(.x,
                            from_reg,
                            to_reg,
                            agg_operator = "sum",
-                           agg_weight = "gdp",
+                           agg_weight = default_weights[["gdp"]],
+                           agg_missing = "NA",
                            regions = region_mappings,
-                           weights = default_weights,
-                           missing_values = "NA",
                            value_name = "value",
                            region_name = "n") {
-
-  # Same mappings input-output, do nothing
-  if (from_reg == to_reg) return(.x)
 
   # Initial mapping
   if (is.character(from_reg)) {
     if (!from_reg %in% c('iso3',names(regions))) {
       stop(paste0('regions should contains the name ', from_reg,'.'))
     }
-    if (from_reg == 'iso3') {
-      rmap0 <- NULL
-    } else {
-      rmap0 <- regions[[from_reg]]
-    }
+    rmap0 <- regions[[from_reg]]
     rname0 <- from_reg
   } else if (data.table::is.data.table(from_reg)) {
     rmap0 <- from_reg
@@ -81,18 +73,17 @@ convert_region <- function(.x,
     if (!to_reg %in% c('iso3',names(regions))) {
       stop(paste0('regions should contains the name ', to_reg,'.'))
     }
-    if (to_reg == 'iso3') {
-      rmap1 <- NULL
-    } else {
-      rmap1 <- regions[[to_reg]]
-    }
+    rmap1 <- regions[[to_reg]]
     rname1 <- to_reg
   } else if (data.table::is.data.table(to_reg)) {
     rmap1 <- to_reg
-    rname1 <- names(rmap0)[names(rmap0) != 'iso3'][1]
+    rname1 <- names(rmap1)[names(rmap1) != 'iso3'][1]
   } else {
     stop(paste0('to_reg should be a character or a data.table.'))
   }
+
+  # Same mappings input-output, do nothing
+  if (rname0 == rname1) return(.x)
 
   # "sumby" requires from_reg="iso3
   if (agg_operator == "sumby" & rname0 != "iso3") {
@@ -113,7 +104,7 @@ convert_region <- function(.x,
   }
 
   # Add weight
-  .x <- merge(.x, weights[[agg_weight]], by = "iso3")
+  .x <- merge(.x, agg_weight, by = "iso3")
   .x <- .x[!is.na(get(rname1))]
 
   dkeys <- function(dd){
@@ -126,7 +117,7 @@ convert_region <- function(.x,
   if (rname0 != "iso3") {
     if (agg_operator %in% c("sum")) {
       # total weights are computed because of missing zeros values
-      .w <- merge(rmap0,weights[[agg_weight]],by = "iso3")
+      .w <- merge(rmap0,agg_weight,by = "iso3")
       .w <- .w[iso3 %in% unique(.x$iso3)]
       .w <- .w[,.(sum_weight = sum(weight)),by = rname0]
       .x <- merge(.x,.w,by = rname0)
@@ -153,7 +144,7 @@ convert_region <- function(.x,
   # informed share
   .info_share <- NULL
   if (agg_operator %in% c("sumby")) {
-    .w <- merge(rmap1,weights[[agg_weight]],by = "iso3")
+    .w <- merge(rmap1,agg_weight,by = "iso3")
     .w <- .w[,.(sum_weight = sum(weight)),by = rname1]
     data.table::setnames(.w, rname1, "rname1")
     .x <- merge(.x,.w,by = "rname1")
@@ -167,25 +158,25 @@ convert_region <- function(.x,
   if (agg_operator %in% c("sum","sumby")) {
     .x <- .x[, .(value = sum(get(value_name))), by = c(dkeys(.x)) ]
   } else {
-    .w <- merge(rmap1,weights[[agg_weight]],by = "iso3")
+    .w <- merge(rmap1,agg_weight,by = "iso3")
     .w <- .w[,.(sum_weight = sum(weight)),by = rname1]
     data.table::setnames(.w, rname1, "rname1")
     .x <- merge(.x,.w,by = "rname1")
     if (agg_operator == "mean") {
-      if (missing_values == "zero") {
+      if (agg_missing == "zero") {
         .x <- .x[, .(value = sum(get(value_name) * weight / sum_weight)),
                        by = c(dkeys(.x)) ]
       }
-      if (missing_values == "NA") {
+      if (agg_missing == "NA") {
         .x <- .x[, .(value = sum(get(value_name) * weight / sum(weight))),
                        by = c(dkeys(.x)) ]
       }
     } else if (agg_operator == "set1") {
-      if (missing_values == "zero") {
+      if (agg_missing == "zero") {
         .x <- .x[, .(value = round(sum(get(value_name) * weight / sum_weight))),
                        by = c(dkeys(.x)) ]
       }
-      if (missing_values == "NA") {
+      if (agg_missing == "NA") {
         .x <- .x[, .(value = round(sum(get(value_name) * weight / sum(weight)))),
                        by = c(dkeys(.x)) ]
       }

@@ -9,10 +9,9 @@ convert_region(
   from_reg,
   to_reg,
   agg_operator = "sum",
-  agg_weight = "gdp",
+  agg_weight = default_weights[["gdp"]],
+  agg_missing = "NA",
   regions = region_mappings,
-  weights = default_weights,
-  missing_values = "NA",
   value_name = "value",
   region_name = "n"
 )
@@ -28,12 +27,12 @@ the mapping.}
 \item{agg_operator}{aggregation operator (See Details for the list of
 possible values)}
 
-\item{agg_weight}{aggregation weight (See Details for the list of
+\item{agg_weight}{aggregation weight data.table (See Details for the list of
 possible values)}
 
-\item{regions}{optionnal list of region mappings (see Details for format)}
+\item{agg_missing}{tells how to deal with missing values ("NA" or "zero")}
 
-\item{missing_values}{tells how to deal with missing values ("NA" or "zero")}
+\item{regions}{optional list of region mappings (see Details for format)}
 
 \item{value_name}{string column name for value.}
 

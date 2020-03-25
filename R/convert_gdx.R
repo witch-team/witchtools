@@ -131,14 +131,18 @@ convert_gdx <- function(gdxfile,
 
         cat(crayon::blue(paste0(" - ", item_type, " ", item, " [agg: ", param_agg, ", wgt: ", param_w, "]\n")))
 
+        if (input_reg_id == 'iso3') {
+          from_reg <- 'iso3'
+        } else {
+          from_reg <- region_mappings[[input_reg_id]]
+        }
+
         .conv <- convert_region(.data,
-                                from_reg = input_reg_id,
-                                to_reg = reg_id,
+                                from_reg = from_reg,
+                                to_reg = region_mappings[[reg_id]],
                                 agg_operator = param_agg,
-                                agg_weight = param_w,
-                                region_mappings,
-                                weights,
-                                missing_values)
+                                agg_weight = weights[[param_w]],
+                                agg_missing = missing_values)
 
         .data <- .conv[['data']]
         .info_share <- .conv[['info']]
