@@ -52,37 +52,38 @@ convert_gdx <- function(gdxfile,
 
     data_indices <- colnames(.data)
 
-    # Time conversion
-    if ("year" %in% colnames(.data) &
-        !stringr::str_detect(basename(gdxfile),"hist")) {
+    convpar <- list()
 
-      # Check inter/extrapolation parameters
-      do_extrap <- (nrow(meta_param[parameter == item &
-                                      type == "extrap" &
-                                      value == "skip"]) == 0)
-      do_interp <- (nrow(meta_param[parameter == item &
-                                      type == "interp" &
-                                      value == "skip"]) == 0)
-      do_past_extrap <- TRUE
-      if (!do_extrap) do_past_extrap <- FALSE
+    # conversion year to time period
+    do_time_period <- ("year" %in% colnames(.data) &
+                         !stringr::str_detect(basename(gdxfile),"hist"))
 
-      # No inter/extrapolation for stochastic branch
-      if (stringr::str_detect(time_id, "branch")) {
-        do_extrap <- FALSE
-        do_interp <- FALSE
-      }
-
-      # Convert years into time periods
-      .data <- convert_time_period(.data,
-                                   time_mappings[[time_id]],
-                                   do_interp,
-                                   do_extrap,
-                                   do_past_extrap)
-
-      # Update indices
+    if (do_time_period) {
       data_indices[data_indices == "year"] <- "t"
-
     }
+
+    convpar <- c(convpar,
+                 do_extrap = (nrow(meta_param[parameter == item &
+                                                type == "extrap" &
+                                                value == "skip"]) == 0),
+                 do_interp = (nrow(meta_param[parameter == item &
+                                                type == "interp" &
+                                                value == "skip"]) == 0),
+                 do_past_extrap = TRUE)
+
+    if (!convpar[['do_extrap']]) convpar[['do_past_extrap']] <- FALSE
+
+    # No inter/extrapolation for stochastic branch
+    if (stringr::str_detect(time_id, "branch")) {
+      convpar[['do_extrap']] <- FALSE
+      convpar[['do_interp']] <- FALSE
+    }
+
+    .data <- convert_DT(.data,
+                        time_mapping = time_mappings[[time_id]],
+                        params = convpar,
+                        do_time_period = do_time_period,
+                        do_region = F)
 
     # Region conversion
     input_reg_id <- intersect(colnames(.data), names(region_mappings))
