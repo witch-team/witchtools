@@ -71,9 +71,11 @@ The name in the list should also be the regional mapping name.
 
 }
 \seealso{
+\code{\link{convert_DT}} for data.table,
 \code{\link{convert_gdx}} for WITCH gdx files.
 
 Other conversion functions: 
+\code{\link{convert_DT}()},
 \code{\link{convert_time_period}()}
 }
 \concept{conversion functions}

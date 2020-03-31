@@ -15,7 +15,7 @@ NULL
 #'   \item{extr_oil_2000}{Oil extraction in 2000}
 #'   \item{tpes_2005}{TPES in 2005}
 #'   \item{prodelec_2005}{Electricity production in 2005}
-#'   \item{prodelec_hydro_2005}{Electricity production from hydroelectric plants in 2005}
+#'   \item{prodelec_hydro_2005}{Electricity production from hydroplants in 2005}
 #'   \item{extr_oil_gas_2000}{Extraction of oil and gas in 2000}
 #'   \item{forest}{Forest cover}
 #'   \item{land}{Forest cover}

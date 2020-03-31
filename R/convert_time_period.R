@@ -16,13 +16,17 @@
 #' values are averaged or the function \code{fun.aggregate} is used.
 #'
 #' @family conversion functions
-#' @seealso \code{\link{convert_gdx}} for WITCH gdx files.
+#' @seealso \code{\link{convert_DT}} for data.table,
+#' \code{\link{convert_gdx}} for WITCH gdx files.
 #'
 #' @param .x a well-formatted data.table.
 #' @param time_mapping a time mapping data.table.
-#' @param do_interp logical indicating whether linear interpolation should be done.
-#' @param do_extrap logical indicating whether constant extrapolation should be done.
-#' @param do_past_extrap logical indicating whether constant extrapolation should be done for past value.
+#' @param do_interp logical indicating whether linear interpolation
+#' should be done.
+#' @param do_extrap logical indicating whether constant extrapolation
+#' should be done.
+#' @param do_past_extrap logical indicating whether constant extrapolation
+#' should be done for past value.
 #' @param year_name string column name of year.
 #' @param value_name string column name of value.
 #' @param period_name string column name of period.
@@ -75,7 +79,8 @@ convert_time_period <- function(.x, time_mapping,
     }
     .rt <- unique(time_mapping$tperiod)
     missing_t <- .rt[!.rt %in% .x$t]
-    missing_time <- subset(time_mapping,tperiod %in% missing_t & refyear == year)
+    missing_time <- subset(time_mapping,
+                           tperiod %in% missing_t & refyear == year)
 
     if (!do_extrap) {
       if (do_past_extrap) {
@@ -85,12 +90,16 @@ convert_time_period <- function(.x, time_mapping,
       }
     }
     if (!do_interp) {
-      missing_time <- missing_time[!year %in% setdiff(.ry[.ry >= min(.dy) & .ry <= max(.dy)],.dy)]
+      missing_time <- missing_time[!year %in%
+                                     setdiff(.ry[.ry >= min(.dy) &
+                                                   .ry <= max(.dy)],.dy)]
     }
 
     if (nrow(missing_time) > 0) {
       if (verbose) {
-        cat(crayon::magenta(paste0(" -  fill values for ",paste(missing_time$year,collapse = ","),".\n")))
+        cat(crayon::magenta(paste0("   time_period: fill ",
+                                   paste(missing_time$year,collapse = ","),
+                                   ".\n")))
       }
 
       inter_extra <- function(sd){
@@ -105,7 +114,10 @@ convert_time_period <- function(.x, time_mapping,
                     value = v))
       }
       .newdata <- .x[,inter_extra(.SD),
-                     by = c(colnames(.x)[!colnames(.x) %in% c(value_name,year_name,period_name)])]
+                     by = c(colnames(.x)[!colnames(.x) %in%
+                                           c(value_name,
+                                             year_name,
+                                             period_name)])]
       .x <- rbind(.x,.newdata)
     }
   }

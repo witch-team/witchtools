@@ -157,11 +157,15 @@ convert_globiom <- function(gbfile,
     .data[,year := as.numeric(year)]
     years <- as.numeric(unique(time_mappings[[time_id]]$refyear))
     .data <- .data[,.(year = years,
-                     value = approx(x = .SD$year, y = value, xout = years, rule = 2)$y),
+                     value = approx(x = .SD$year,
+                                    y = value,
+                                    xout = years,
+                                    rule = 2)$y),
                   by = c(colnames(.data)[!names(.data) %in% c("value","year")])]
 
     # Map year - periods
-    .data <- merge(.data, time_mappings[[time_id]][,.(t,year)], by = "year", allow.cartesian = TRUE)
+    .data <- merge(.data, time_mappings[[time_id]][,.(t,year)],
+                   by = "year", allow.cartesian = TRUE)
     .data[, year := NULL]
 
     .data$var <- item
@@ -174,8 +178,11 @@ convert_globiom <- function(gbfile,
 
   cat(crayon::blue(paste(" -","writing db\n")))
 
-  sqldb <- RSQLite::dbConnect(RSQLite::SQLite(), dbname = file.path(output_directory,basename(gbfile)))
-  RSQLite::dbWriteTable(sqldb, "globiom", params, row.names = FALSE, overwrite = TRUE,
+  sqldb <- RSQLite::dbConnect(RSQLite::SQLite(),
+                              dbname = file.path(output_directory,
+                                                 basename(gbfile)))
+  RSQLite::dbWriteTable(sqldb, "globiom", params, row.names = FALSE,
+                        overwrite = TRUE,
                append = FALSE, field.types = NULL)
   RSQLite::dbDisconnect(sqldb)
 

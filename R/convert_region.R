@@ -22,7 +22,9 @@
 #' The name in the list should also be the regional mapping name.
 #'
 #' @family conversion functions
-#' @seealso \code{\link{convert_gdx}} for WITCH gdx files.
+#' @seealso \code{\link{convert_DT}} for data.table,
+#' \code{\link{convert_gdx}} for WITCH gdx files.
+#'
 #'
 #' @param .x a well-formatted data.table.
 #' @param from_reg initial regional mapping name or a data.table with
@@ -54,6 +56,11 @@ convert_region <- function(.x,
                            value_name = "value",
                            region_name = "n") {
 
+  # Check weight
+  if (is.null(agg_weight)) {
+    stop('agg_weight is NULL. Check if it is well-defined.')
+  }
+
   # Initial mapping
   if (is.character(from_reg)) {
     if (!from_reg %in% c('iso3',names(regions))) {
@@ -83,7 +90,10 @@ convert_region <- function(.x,
   }
 
   # Same mappings input-output, do nothing
-  if (rname0 == rname1) return(.x)
+  if (rname0 == rname1) {
+    data.table::setnames(.x, rname1, region_name)
+    return(.x)
+  }
 
   # "sumby" requires from_reg="iso3
   if (agg_operator == "sumby" & rname0 != "iso3") {

@@ -1,18 +1,14 @@
 test_that("convert time simple use case", {
 
-  # load time mapping t30
-  f <- file.path(system.file("timescale",package = "witchtools"),"t30.csv")
-  tm <- load_timescale_mapping(f)
-
   dd <- data.table::data.table(z = c(1,2), year = 2005:2050, value = 1:46)
 
-  res1 <- convert_time_period(dd, tm)
+  res1 <- convert_time_period(dd, time_mappings[['t30']])
 
   res2 <- data.table::data.table(z = c(1,2),
                                  t = as.character(rep(1:10, each = 2)),
                                  value = rep(c(mean(1:3),
-                                               sapply(split(4:43,
-                                                            ceiling(seq_along(4:43)/5)),mean),
+                                               vapply(split(4:43,
+                                              ceiling(seq_along(4:43)/5)),mean,c(0)),
                                                mean(44:46)),
                                              each = 2))
 
@@ -25,19 +21,17 @@ test_that("convert time simple use case", {
 
 test_that("convert time with sum", {
 
-  # load time mapping t30
-  f <- file.path(system.file("timescale",package = "witchtools"),"t30.csv")
-  tm <- load_timescale_mapping(f)
+  dd <- data.table::data.table(z = c(1,2),
+                               year = rep(2005:2050,each = 2),
+                               value = rep(1:46,each = 2))
 
-  dd <- data.table::data.table(z = c(1,2), year = rep(2005:2050,each=2), value = rep(1:46,each=2))
-
-  res1 <- convert_time_period(dd, tm, fun.aggregate = sum)
+  res1 <- convert_time_period(dd, time_mappings[['t30']], fun.aggregate = sum)
 
   res2 <- data.table::data.table(z = c(1,2),
                                  t = as.character(rep(1:10, each = 2)),
                                  value = rep(c(sum(1:3),
-                                               sapply(split(4:43,
-                                                            ceiling(seq_along(4:43)/5)),sum),
+                                               vapply(split(4:43,
+                                            ceiling(seq_along(4:43) / 5)),sum,c(0)),
                                                sum(44:46)),
                                              each = 2))
 
@@ -50,24 +44,17 @@ test_that("convert time with sum", {
 
 test_that("convert time needs data.table", {
 
-  # load time mapping t30
-  f <- file.path(system.file("timescale",package = "witchtools"),"t30.csv")
-  tm <- load_timescale_mapping(f)
-
   dd <- data.frame(z = c(1,2), year = 2005:2050, value = 1:46)
 
   expect_error(
-    convert_time_period(dd, tm)
+    convert_time_period(dd, time_mappings[['t30']])
   )
 
 })
 
 test_that("convert time no interpolation and no extrapolation", {
 
-  # load time mapping t30
-  f <- file.path(system.file("timescale",package = "witchtools"),"t30.csv")
-  tm <- load_timescale_mapping(f)
-
+  tm <- time_mappings[['t30']]
   tm <- tm[year %in% 2003:2027, .(year,t,refyear)]
 
   dd <- data.table::data.table(year = c(2010,2020), value = 1:2)
@@ -85,10 +72,7 @@ test_that("convert time no interpolation and no extrapolation", {
 
 test_that("convert time no interpolation and extrapolation", {
 
-  # load time mapping t30
-  f <- file.path(system.file("timescale",package = "witchtools"),"t30.csv")
-  tm <- load_timescale_mapping(f)
-
+  tm <- time_mappings[['t30']]
   tm <- tm[year %in% 2003:2027, .(year,t,refyear)]
 
   dd <- data.table::data.table(year = c(2010,2020), value = 1:2)
@@ -97,7 +81,8 @@ test_that("convert time no interpolation and extrapolation", {
 
   data.table::setkey(res1,t)
 
-  res2 <- data.table::data.table(t = as.character(c(1,2,4,5)), value = c(1,1,2,2))
+  res2 <- data.table::data.table(t = as.character(c(1,2,4,5)),
+                                 value = c(1,1,2,2))
   data.table::setkey(res2,t)
 
   expect_equal(res1,res2)
@@ -106,10 +91,7 @@ test_that("convert time no interpolation and extrapolation", {
 
 test_that("convert time interpolation and no extrapolation", {
 
-  # load time mapping t30
-  f <- file.path(system.file("timescale",package = "witchtools"),"t30.csv")
-  tm <- load_timescale_mapping(f)
-
+  tm <- time_mappings[['t30']]
   tm <- tm[year %in% 2003:2027, .(year,t,refyear)]
 
   dd <- data.table::data.table(year = c(2010,2020), value = 1:2)
@@ -125,17 +107,15 @@ test_that("convert time interpolation and no extrapolation", {
 
 })
 
-test_that("convert time interpolation and no extrapolation, but with past extrapolation", {
+test_that("convert time interpolation and no extrap, but with past extrap", {
 
-  # load time mapping t30
-  f <- file.path(system.file("timescale",package = "witchtools"),"t30.csv")
-  tm <- load_timescale_mapping(f)
-
+  tm <- time_mappings[['t30']]
   tm <- tm[year %in% 2003:2027, .(year,t,refyear)]
 
   dd <- data.table::data.table(year = c(2010,2020), value = 1:2)
 
-  res1 <- convert_time_period(dd, tm, do_interp = T, do_past_extrap = T, verbose = F)
+  res1 <- convert_time_period(dd, tm, do_interp = T, do_past_extrap = T,
+                              verbose = F)
 
   data.table::setkey(res1,t)
 
@@ -148,15 +128,13 @@ test_that("convert time interpolation and no extrapolation, but with past extrap
 
 test_that("convert time interpolation and extrapolation", {
 
-  # load time mapping t30
-  f <- file.path(system.file("timescale",package = "witchtools"),"t30.csv")
-  tm <- load_timescale_mapping(f)
-
+  tm <- time_mappings[['t30']]
   tm <- tm[year %in% 2003:2027, .(year,t,refyear)]
 
   dd <- data.table::data.table(year = c(2010,2020), value = 1:2)
 
-  res1 <- convert_time_period(dd, tm, do_interp = TRUE, do_extrap = TRUE, verbose = FALSE)
+  res1 <- convert_time_period(dd, tm, do_interp = TRUE, do_extrap = TRUE,
+                              verbose = FALSE)
 
   data.table::setkey(res1,t)
 

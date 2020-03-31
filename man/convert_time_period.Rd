@@ -23,11 +23,14 @@ convert_time_period(
 
 \item{time_mapping}{a time mapping data.table.}
 
-\item{do_interp}{logical indicating whether linear interpolation should be done.}
+\item{do_interp}{logical indicating whether linear interpolation
+should be done.}
 
-\item{do_extrap}{logical indicating whether constant extrapolation should be done.}
+\item{do_extrap}{logical indicating whether constant extrapolation
+should be done.}
 
-\item{do_past_extrap}{logical indicating whether constant extrapolation should be done for past value.}
+\item{do_past_extrap}{logical indicating whether constant extrapolation
+should be done for past value.}
 
 \item{year_name}{string column name of year.}
 
@@ -75,9 +78,11 @@ values are averaged or the function \code{fun.aggregate} is used.
 }
 }
 \seealso{
+\code{\link{convert_DT}} for data.table,
 \code{\link{convert_gdx}} for WITCH gdx files.
 
 Other conversion functions: 
+\code{\link{convert_DT}()},
 \code{\link{convert_region}()}
 }
 \concept{conversion functions}

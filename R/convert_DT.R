@@ -1,16 +1,49 @@
+#' Converttime periods and regions in a data.table.
+#'
+#' \code{convert_region} returns a list containing a data.table where values are
+#' converted from years into time periods and from one regional mapping to
+#' another. The function is calling \code{convert_time_period} and
+#' \code{convert_region}. More details about the parameters in these functions.
+#' The input data.table should contain a column "value".
+#'
+#' @family conversion functions
+#' @seealso \code{\link{convert_gdx}} for WITCH gdx files.
+#'
+#' @param .x a well-formatted data.table.
+#' @param options a list of parameters to send to convert_region or
+#' convert_time_period.
+#' @param time_mapping a time mapping data.table.
+#' @param from_reg initial regional mapping name or a data.table with
+#' the mapping.
+#' @param to_reg final regional mapping name  or a data.table with the mapping.
+#' @param agg_weight aggregation weight data.table
+#' @param regions optional list of region mappings (see Details for format)
+#' @param do_time_period logical indicating whether years should be converted.
+#' @param do_region logical indicating whether region should be converted.
 
+#' @return a list containing a converted data.table and information about
+#'         the coperture if available.
+#' @export
+#' @examples
+#' \dontrun{
+#' }
+#'
 
 convert_DT <- function(.x,
                     ...,
-                    params = list(),
+                    options = list(),
                     time_mapping = NULL,
-                    do_time_period = T,
-                    do_region = T
+                    from_reg = NULL,
+                    to_reg = NULL,
+                    agg_weight = NULL,
+                    regions = NULL,
+                    do_time_period = TRUE,
+                    do_region = TRUE
                     ) {
 
   dots <- list(...)
   ndots <- length(dots)
-  dots <- c(dots, params)
+  dots <- c(dots, options)
 
   if (do_time_period) {
     time_params <- dots[which(names(dots) %in% c("do_interp",
@@ -27,6 +60,28 @@ convert_DT <- function(.x,
                                          time_params))
   }
 
-  return(.x)
+  .info_share <- NULL
+
+  if (do_region) {
+
+    region_params <- dots[which(names(dots) %in% c("agg_operator",
+                                                 "agg_missing",
+                                                 "value_name",
+                                                 "region_name"
+                                                 ))]
+
+    .conv <- do.call(convert_region, c(list(.x = .x,
+                                            from_reg = from_reg,
+                                            to_reg = to_reg,
+                                            agg_weight = agg_weight,
+                                            regions = regions),
+                                       region_params))
+
+    .x <- .conv[['data']]
+    .info_share <- .conv[['info']]
+
+  }
+
+  return(list(data = .x, info = .info_share))
 
 }

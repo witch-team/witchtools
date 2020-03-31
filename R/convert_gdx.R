@@ -10,7 +10,7 @@ convert_gdx <- function(gdxfile,
                         output_directory,
                         guess_input_n = "witch17",
                         guess_input_t = "t30",
-                        default_missing_values = "zero",
+                        default_agg_missing = "zero",
                         default_meta_param = witch_default_meta_param()){
 
   if (!file.exists(gdxfile)) stop(paste(gdxfile, "does not exist!"))
@@ -38,6 +38,10 @@ convert_gdx <- function(gdxfile,
 
     item_type <- ifelse(item %in% .gdx$parameters$name, "parameter", "variable")
 
+    item_param <- meta_param[parameter == item]
+
+    cat(crayon::blue(paste(" -",item_type,item,"\n")))
+
     # uses as.data.table to keep attribute 'gams'
     .data <- data.table::setDT(.gdx[item])
     text <- attributes(.data)[["gams"]]
@@ -54,7 +58,7 @@ convert_gdx <- function(gdxfile,
 
     convpar <- list()
 
-    # conversion year to time period
+    # Time period conversion
     do_time_period <- ("year" %in% colnames(.data) &
                          !stringr::str_detect(basename(gdxfile),"hist"))
 
@@ -62,114 +66,111 @@ convert_gdx <- function(gdxfile,
       data_indices[data_indices == "year"] <- "t"
     }
 
-    convpar <- c(convpar,
-                 do_extrap = (nrow(meta_param[parameter == item &
-                                                type == "extrap" &
-                                                value == "skip"]) == 0),
-                 do_interp = (nrow(meta_param[parameter == item &
-                                                type == "interp" &
-                                                value == "skip"]) == 0),
-                 do_past_extrap = TRUE)
-
-    if (!convpar[['do_extrap']]) convpar[['do_past_extrap']] <- FALSE
-
-    # No inter/extrapolation for stochastic branch
-    if (stringr::str_detect(time_id, "branch")) {
-      convpar[['do_extrap']] <- FALSE
-      convpar[['do_interp']] <- FALSE
-    }
-
-    .data <- convert_DT(.data,
-                        time_mapping = time_mappings[[time_id]],
-                        params = convpar,
-                        do_time_period = do_time_period,
-                        do_region = F)
-
     # Region conversion
-    input_reg_id <- intersect(colnames(.data), names(region_mappings))
-    param_agg <- ""
+    data_reg <- intersect(colnames(.data), names(region_mappings))
+    do_region <- FALSE
+    # deal with case when data_reg == character(0)
+    if (length(data_reg) == 1) {
+      do_region <- (data_reg != reg_id)
+      data_indices[data_indices == data_reg] <- "n"
+    }
+    from_reg <- NULL
+    to_reg <- NULL
 
-    # Region has been identified?
-    if (length(input_reg_id) == 1) {
+    if (do_region) {
 
-      # Detect the type of missing value
-      missing_values <- default_missing_values
-      if (nrow(meta_param[parameter == item & type == "missing_values"]) > 0) {
-        missing_values <- meta_param[parameter == item &
-                                       type == "missing_values"][1,value]
-      }
-
-      # Ensure region/iso3 is lower case
-      if (input_reg_id != "iso3") {
-        .data[[which(input_reg_id == colnames(.data))]] <- tolower(.data[,get(input_reg_id)])
+      # Ensure region is lower case / iso3 is upper case
+      if (data_reg != "iso3") {
+        .idx <- which(data_reg == colnames(.data))
+        .data[[.idx]] <- tolower(.data[,get(data_reg)])
       } else {
         .data$iso3 <- toupper(.data$iso3)
       }
 
-      # Select aggregation type (sum or mean)
-      find_w <- meta_param[parameter == item & type == "nagg"]
-      if (nrow(find_w) > 0) {
-        param_agg <- find_w[1,value]
-      }else{
-        param_agg <- "sum"
-      }
-
-      # Select weighting
-      find_w <- meta_param[parameter == item & type == "nweight"]
-      if (nrow(find_w) > 0) {
-        param_w <- find_w[1,value]
-      }else{
-        param_w <- ifelse(param_agg == "mean","cst","gdp")
-      }
-
-      # Ensure max and min have cst weight
-      if (param_agg %in% c("min","max")) {
-        param_w <- "cst"
-      }
-
-      # Same mapping input-data, do nothing
-      if (input_reg_id != reg_id) {
-
-        cat(crayon::blue(paste0(" - ", item_type, " ", item, " [agg: ", param_agg, ", wgt: ", param_w, "]\n")))
-
-        if (input_reg_id == 'iso3') {
-          from_reg <- 'iso3'
-        } else {
-          from_reg <- region_mappings[[input_reg_id]]
-        }
-
-        .conv <- convert_region(.data,
-                                from_reg = from_reg,
-                                to_reg = region_mappings[[reg_id]],
-                                agg_operator = param_agg,
-                                agg_weight = weights[[param_w]],
-                                agg_missing = missing_values)
-
-        .data <- .conv[['data']]
-        .info_share <- .conv[['info']]
-
+      # Set initial regional mapping
+      if (data_reg != "iso3") {
+        from_reg <- region_mappings[[data_reg]]
       } else {
-
-        cat(crayon::blue(paste(" -", item_type, item, "[same]\n")))
-
-        # Change the region column name and indices
-        data.table::setnames(.data, reg_id, "n")
-
+        from_reg <- 'iso3'
       }
 
-      # Update indices
-      data_indices[data_indices == input_reg_id] <- "n"
-
-    } else {
-
-      cat(crayon::blue(paste(" -", item_type, item, "\n")))
+      # Set final regional mapping
+      to_reg <- region_mappings[[reg_id]]
 
     }
 
-    # Ensure the order is kept
+    # Conversion options
+    convopt <- c(convpar,
+                 do_extrap = (nrow(item_param[type == "extrap" &
+                                                value == "skip"]) == 0),
+                 do_interp = (nrow(item_param[type == "interp" &
+                                                value == "skip"]) == 0),
+                 do_past_extrap = TRUE)
+
+    if (!convopt[['do_extrap']]) {
+      convopt[['do_past_extrap']] <- FALSE
+    }
+
+    # No inter/extrapolation for stochastic branch
+    if (stringr::str_detect(time_id, "branch")) {
+      convopt[['do_extrap']] <- FALSE
+      convopt[['do_interp']] <- FALSE
+    }
+
+    # Missing values
+    convopt[['agg_missing']] <- default_agg_missing
+    if (nrow(item_param[type == "missing_values"]) > 0) {
+      convopt[['agg_missing']] <- item_param[type == "missing_values"][1,value]
+    }
+
+    # Aggregation operator
+    convopt[['agg_operator']] <- "sum"
+    if (nrow(item_param[type == "nagg"]) > 0) {
+      convopt[['agg_operator']] <- item_param[type == "nagg"][1,value]
+    }
+
+    # Aggregation weight
+    nweight <- "pop"
+    if (nrow(item_param[type == "nweight"]) > 0) {
+      nweight <- item_param[type == "nweight"][1,value]
+    } else {
+      nweight <- ifelse(convopt[['agg_operator']] %in% c("mean"),"cst","gdp")
+    }
+    # Ensure max and min have cst weight
+    if (convopt[['agg_operator']] %in% c("min","max")) {
+      nweight <- "cst"
+    }
+
+    if (!nweight %in% names(weights)) {
+      stop(paste(nweight,'not in weights!'))
+    }
+
+    .conv <- convert_DT(.data,
+                        time_mapping = time_mappings[[time_id]],
+                        from_reg = from_reg,
+                        to_reg = region_mappings[[reg_id]],
+                        agg_weight = weights[[nweight]],
+                        options = convopt,
+                        do_time_period = do_time_period,
+                        do_region = do_region,
+                        verbose = TRUE)
+
+    .data <- .conv[['data']]
+    .info_share <- .conv[['info']]
+
+    # rename reg_id in necessary (when no region conversion is required)
+    if (reg_id %in% colnames(.data)) {
+      cat(crayon::blue(paste("   [same]\n")))
+      data.table::setnames(.data, reg_id, "n")
+    } else if (do_region) {
+      cat(crayon::blue(paste0("   [agg: ", convopt[['agg_operator']], ", wgt: ",
+                              nweight, "]\n")))
+    }
+
+    # Ensure the original order is kept
     data.table::setcolorder(.data,data_indices)
 
-    # Mask indices with dummy names with stars, to be understood by GAMS
+    # Table indices are stars, except from t and n
     if (length(colnames(.data)) == 1) {
       names(.data) <- "value"
     } else {
@@ -195,19 +196,7 @@ convert_gdx <- function(gdxfile,
     if (item_type == "variable") vars <- c(vars, .i)
 
     # add an additionnal parameter '_info' when using sumby
-    if (param_agg %in% c("sumby")) {
-      if ("year" %in% colnames(.info_share)) {
-        .info_share[,year := as.numeric(year)]
-        .info_share <- merge(.info_share, time_mappings[[time_id]][,.(t,year)],
-                             by = "year", allow.cartesian = TRUE)
-        .info_share[, year := NULL]
-
-        # Take the average value over time range
-        .info_share <- .info_share[, .(value = mean(value,na.rm = TRUE)),
-                                   by = c(colnames(.info_share)[!colnames(.info_share) %in% c('value')])]
-        .info_share[is.nan(value),value := NA]
-
-      }
+    if (nweight %in% c("sumby")) {
       data.table::setcolorder(.info_share,data_indices)
       names(.info_share) <- c(indices,"value")
       .i <- list(.info_share)
