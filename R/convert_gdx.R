@@ -1,13 +1,40 @@
-# Main function to convert GDX
-#' @importFrom stats approx
+#! Batch convert parameters and variables in a GDX
+#'
+#' \code{convert_gdx} writes a converted GDX in the \code{output_directory}.
+#' All parameters and variables from the input \code{gdxfile} are converted
+#' using the \code{convert_table} function. Specific conversion options
+#' are read in the parameter \code{meta_param} also stored in the gdxfile.
+#'
+#'
+#' @family conversion functions
+#' @seealso \code{\link{convert_table}} for single data.table.
+#'
+#' @param gdxfile location of the GDX file.
+#' @param reg_id final regional aggregation.
+#' @param time_id final time_period aggregation.
+#' @param region_mappings a named list of region mapping data.table.
+#' @param time_mappings a named list of time mapping data.table.
+#' @param weights a named list of weights used by \code{convert_region}
+#' @param output_directory directory where to write the converted GDX
+#' @param guess_input_n input regional mapping if not explicitely defined
+#' @param guess_input_t input time mapping if not explicitely defined
+#' @param default_agg_missing default parameter to handle missing values in
+#' \code{convert_region}
+#' @param default_meta_param default meta_param
+#' @export
+#' @examples
+#' \dontrun{
+#' convert_gdx('input/build/data_climate.gdx','witch17','t30','data_witch17')
+#' }
+#'
 
 convert_gdx <- function(gdxfile,
                         reg_id,
                         time_id,
-                        region_mappings,
-                        time_mappings,
-                        weights = default_weights,
                         output_directory,
+                        region_mappings = region_mappings,
+                        time_mappings = time_mappings,
+                        weights = default_weights,
                         guess_input_n = "witch17",
                         guess_input_t = "t30",
                         default_agg_missing = "zero",
@@ -145,15 +172,15 @@ convert_gdx <- function(gdxfile,
       stop(paste(nweight,'not in weights!'))
     }
 
-    .conv <- convert_DT(.data,
-                        time_mapping = time_mappings[[time_id]],
-                        from_reg = from_reg,
-                        to_reg = region_mappings[[reg_id]],
-                        agg_weight = weights[[nweight]],
-                        options = convopt,
-                        do_time_period = do_time_period,
-                        do_region = do_region,
-                        verbose = TRUE)
+    .conv <- convert_table(.data,
+                            time_mapping = time_mappings[[time_id]],
+                            from_reg = from_reg,
+                            to_reg = region_mappings[[reg_id]],
+                            agg_weight = weights[[nweight]],
+                            options = convopt,
+                            do_time_period = do_time_period,
+                            do_region = do_region,
+                            verbose = TRUE)
 
     .data <- .conv[['data']]
     .info_share <- .conv[['info']]

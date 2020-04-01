@@ -1,10 +1,11 @@
-#' Converttime periods and regions in a data.table.
+#' Convert time periods and regions in a table.
 #'
-#' \code{convert_region} returns a list containing a data.table where values are
+#' \code{convert_table} returns a list containing a data.table where values are
 #' converted from years into time periods and from one regional mapping to
 #' another. The function is calling \code{convert_time_period} and
 #' \code{convert_region}. More details about the parameters in these functions.
-#' The input data.table should contain a column "value".
+#' The input table might be a data.table or a data.frame and
+#' should contain a column "value". All others columns are considered as indices.
 #'
 #' @family conversion functions
 #' @seealso \code{\link{convert_gdx}} for WITCH gdx files.
@@ -29,17 +30,17 @@
 #' }
 #'
 
-convert_DT <- function(.x,
-                    ...,
-                    options = list(),
-                    time_mapping = NULL,
-                    from_reg = NULL,
-                    to_reg = NULL,
-                    agg_weight = NULL,
-                    regions = NULL,
-                    do_time_period = TRUE,
-                    do_region = TRUE
-                    ) {
+convert_table <- function(.x,
+                          ...,
+                          options = list(),
+                          time_mapping = NULL,
+                          from_reg = NULL,
+                          to_reg = NULL,
+                          agg_weight = NULL,
+                          regions = NULL,
+                          do_time_period = TRUE,
+                          do_region = TRUE
+                          ) {
 
   dots <- list(...)
   ndots <- length(dots)
@@ -55,7 +56,7 @@ convert_DT <- function(.x,
                                                  "fun.aggregate",
                                                  "na.rm",
                                                  "verbose"))]
-    .x <- do.call(convert_time_period, c(list(.x = .x,
+    .x <- do.call(convert_time_period, c(list(.x = data.table::setDT(.x),
                                               time_mapping = time_mapping),
                                          time_params))
   }
@@ -70,7 +71,7 @@ convert_DT <- function(.x,
                                                  "region_name"
                                                  ))]
 
-    .conv <- do.call(convert_region, c(list(.x = .x,
+    .conv <- do.call(convert_region, c(list(.x = data.table::setDT(.x),
                                             from_reg = from_reg,
                                             to_reg = to_reg,
                                             agg_weight = agg_weight,
