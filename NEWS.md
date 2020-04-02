@@ -1,3 +1,7 @@
+# witchdata 0.2.0
+
+* Refactoring of the original functions for general use
+
 # witchdata 0.1.2
 
 * Fix use of multi subdirectories in witch-data

@@ -4,7 +4,8 @@
 \name{default_weights}
 \alias{default_weights}
 \title{Default weights.}
-\format{A list of data.table:
+\format{
+A list of data.table:
 \describe{
 \item{pop}{Population in 2005}
 \item{gdp}{GDP in 2005}
@@ -20,7 +21,8 @@
 \item{land}{Forest cover}
 \item{cst}{constant}
 
-}}
+}
+}
 \source{
 \url{https://tntcat.iiasa.ac.at/SspDb},
 \url{https://www.pik-potsdam.de/paris-reality-check/primap-hist/},

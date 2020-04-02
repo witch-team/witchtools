@@ -1,10 +1,20 @@
-# witchtools
+# witchtools: Data Management for IAMs<img src="man/figures/logo.png" align="right" alt="" width="120" />
 
 <!-- badges: start -->
+[![](https://img.shields.io/badge/devel%20version-0.2.0-green.svg)](https://github.com/witch-team/witchtools)[![](https://img.shields.io/badge/lifecycle-maturing-purple.svg)](https://github.com/witch-team/witchtools)
 <!-- badges: end -->
 
-witchtools manages input and output data for integrated assessment models, 
-with a primarly focus on the [WITCH integrated assessment model](https://www.witchmodel.org).
+
+## Overview
+
+The *witchtools* package provides a toolkit to manage data in integrated assessment models, 
+with a primary focus on the [WITCH model](https://www.witchmodel.org).
+
+## Features
+
+- Convert yearly data into time-period data.
+- Convert data from one regional mapping to another one.
+
 
 ## Installation
 
@@ -17,9 +27,6 @@ remotes::install_github("witch-team/witchtools")
 
 ## Example
 
-This is a basic example which shows you how to solve a common problem:
-
 ``` r
 library(witchtools)
-## basic example code
 ```

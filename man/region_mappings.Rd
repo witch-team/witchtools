@@ -4,12 +4,14 @@
 \name{region_mappings}
 \alias{region_mappings}
 \title{Default regional mapping}
-\format{A named list of data.tables with 2 columns
+\format{
+A named list of data.tables with 2 columns
 \describe{
 \item{mapping_name}{Mapping name (example, witch17),
 contains the region names in lower case}
 \item{iso3}{ISO3 code in upper case}
-}}
+}
+}
 \usage{
 region_mappings
 }

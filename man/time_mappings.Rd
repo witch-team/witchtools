@@ -4,7 +4,8 @@
 \name{time_mappings}
 \alias{time_mappings}
 \title{Default timescale mapping}
-\format{A named list of data.tables with 7 columns
+\format{
+A named list of data.tables with 7 columns
 \describe{
 \item{t}{time period as a ordered numeric ID}
 \item{year}{time year}
@@ -14,7 +15,8 @@
 equal to t when deterministic}
 \item{begyear}{first year of the time period}
 \item{endyear}{last year of the time period}
-}}
+}
+}
 \usage{
 time_mappings
 }

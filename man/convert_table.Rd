@@ -43,7 +43,7 @@ a list containing a converted data.table and information about
 the coperture if available.
 }
 \description{
-\code{convert_region} returns a list containing a data.table where values are
+\code{convert_table} returns a list containing a data.table where values are
 converted from years into time periods and from one regional mapping to
 another. The function is calling \code{convert_time_period} and
 \code{convert_region}. More details about the parameters in these functions.
@@ -59,6 +59,7 @@ should contain a column "value". All others columns are considered as indices.
 \code{\link{convert_gdx}} for WITCH gdx files.
 
 Other conversion functions: 
+\code{\link{convert_gdx}()},
 \code{\link{convert_region}()},
 \code{\link{convert_time_period}()}
 }
