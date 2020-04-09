@@ -1,16 +1,36 @@
 #' Translate WITCH data (run make_data files and convert data).
 #'
+#' \code{witch_translate_data} generates the input data for the WITCH model.
+#' First, it will run the R `make_data_files` and the gams `make_data_files`
+#' usually located in the input folder of WITCH. These make_data_files produce
+#' gdx and sqlite files in the `build` folder. Time-series should be yearly.
+#' Spatial data should be preferably described at ISO3 level, but the script
+#' will handle any regional-mapping contained in \code{regions}.
+#'
+#' The regional mappings should be
+#' provided in a named list through the parameter \code{regions}.
+#' Regional mappings are 2-columns data.table with a column named 'iso3'
+#' (for country ISO3)
+#' and another one named as the regional mapping (for region name).
+#' The name in the list should also be the regional mapping name.
+#'
+#' \code{times} is a list of time mapping between year and time period which
+#' should be provided as a data.table with columns "year" and "t",
+#' and refyear for interpolation and extrapolation. \code{times} should contain
+#' \code{timescale}
+#'
 #' @param witch_dir WITCH main directory
 #' @param region final regional aggregation
 #' @param timescale final timescale aggregation
 #' @param idir input data folder (for weights and to be pass to make_data files)
 #' @param output_dir output folder (to overidde default WITCH data folder name)
+#' @param regions optional list of region mappings (see Details for format)
+#'
 #'
 #' @export
 #' @examples
 #' \dontrun{
-#' witch_translate_data(region = "r5")
-#' witch_translate_data(region = "r5", output_dir = 'data_r5')
+#' witch_translate_data(region = "r5", timescale = 't30')
 #' }
 witch_translate_data <- function(witch_dir = ".",
                                  region,
@@ -77,24 +97,17 @@ witch_translate_data <- function(witch_dir = ".",
     make_data_gms(gamsfile, idir, witch_dir)
   }
 
-  cat(crayon::silver$bold("\U26AB Process input gdx(s)\n"))
+  cat(crayon::silver$bold("\U26AB Process input gdx file(s)\n"))
 
-  # TODO move outside this function
-  find_modified_gdx <- function(input_directory,
-                               output_directory,
-                               force = FALSE) {
-    input_gdx <- Sys.glob(file.path(input_directory, "data_*.gdx"))
-    if (force)
-      return(input_gdx)
+  # Find gdx files to be processed
+  gdxlist <- Sys.glob(file.path(input_directory, "data_*.gdx"))
+  if (!force) {
     output_gdx <- file.path(output_directory, basename(input_gdx))
     todo <- file.mtime(input_gdx) > file.mtime(output_gdx)
-    return(input_gdx[is.na(todo) | todo])
+    gdxlist <- input_gdxlist[is.na(todo) | todo]
   }
+  gdxlist <- sort(gdxlist)
 
-  gdxlist <- sort(find_modified_gdx(input_directory, output_directory,
-                                    force = FALSE))
-
-  # convert all gdx
   if (requireNamespace('gdxtools', quietly = TRUE)) {
     for (gdxfile in gdxlist) {
       convert_gdx(
@@ -110,6 +123,8 @@ witch_translate_data <- function(witch_dir = ".",
       )
     }
   }
+
+  cat(crayon::silver$bold("\U26AB Process input sqlite file(s)\n"))
 
   # Translate GLOBIOM dataset
   input_gb <- file.path(input_directory,'data_globiom.sqlite')
@@ -131,8 +146,6 @@ witch_translate_data <- function(witch_dir = ".",
 
   cat(crayon::silver$bold(paste("\U26AB Create gams files for WITCH\n")))
 
-  write_gams(regions[[reg_id]],
-             times[[time_id]],
-             output_directory)
+  witch_write_gams(regions[[reg_id]], times[[time_id]], output_directory)
 
 }

@@ -5,7 +5,8 @@
 #' another. The function is calling \code{convert_time_period} and
 #' \code{convert_region}. More details about the parameters in these functions.
 #' The input table might be a data.table or a data.frame and
-#' should contain a column "value". All others columns are considered as indices.
+#' should contain a column "value". All others columns are considered as
+#' indices.
 #'
 #' @family conversion functions
 #' @seealso \code{\link{convert_gdx}} for WITCH gdx files.

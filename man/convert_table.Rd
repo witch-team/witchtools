@@ -52,7 +52,8 @@ converted from years into time periods and from one regional mapping to
 another. The function is calling \code{convert_time_period} and
 \code{convert_region}. More details about the parameters in these functions.
 The input table might be a data.table or a data.frame and
-should contain a column "value". All others columns are considered as indices.
+should contain a column "value". All others columns are considered as
+indices.
 }
 \examples{
 \dontrun{

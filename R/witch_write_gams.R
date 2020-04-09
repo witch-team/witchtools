@@ -1,6 +1,6 @@
 # Write additionnal GAMS include file
 
-write_gams <- function(region_mapping,
+witch_write_gams <- function(region_mapping,
                        time_mapping,
                        output_directory,
                        prefix_coalition = "c_") {
