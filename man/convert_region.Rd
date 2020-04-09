@@ -6,14 +6,13 @@
 \usage{
 convert_region(
   .x,
-  from_reg,
+  from_reg = NULL,
   to_reg,
   agg_operator = "sum",
   agg_weight = default_weights[["gdp"]],
   agg_missing = "NA",
   regions = region_mappings,
-  value_name = "value",
-  region_name = "n"
+  info = FALSE
 )
 }
 \arguments{
@@ -34,9 +33,8 @@ possible values)}
 
 \item{regions}{optional list of region mappings (see Details for format)}
 
-\item{value_name}{string column name for value.}
-
-\item{region_name}{string column name for region.}
+\item{info}{logical indicating whether to include information, only necessary
+when the agg_operator is "sumby".}
 }
 \value{
 a list containing a converted data.table and information about
@@ -56,7 +54,6 @@ the initial regional mapping \code{from_reg},
 while the other columns are are considered as id columns.
 The resulting data.table have a column named by the final regional
 mapping \code{to_reg}.
-Note that the value column name can be respecified.
 
 The regional mapping for \code{from_reg} and \code{to_reg} can be
 provided in a named list through the parameter \code{regions}.
@@ -71,8 +68,8 @@ The name in the list should also be the regional mapping name.
 
 }
 \seealso{
-\code{\link{convert_DT}} for data.table,
-\code{\link{convert_gdx}} for WITCH gdx files.
+\code{\link{convert_table}},
+\code{\link{convert_gdx}}.
 
 Other conversion functions: 
 \code{\link{convert_gdx}()},

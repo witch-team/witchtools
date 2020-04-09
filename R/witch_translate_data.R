@@ -13,10 +13,12 @@
 #' witch_translate_data(region = "r5", output_dir = 'data_r5')
 #' }
 witch_translate_data <- function(witch_dir = ".",
-                                 region = "witch17",
-                                 timescale = "t30",
+                                 region,
+                                 timescale,
                                  idir = NULL,
-                                 output_dir = NULL) {
+                                 output_dir = NULL,
+                                 regions = region_mappings,
+                                 times = time_mappings) {
 
   cat(crayon::silver$bold("\U26AB Initialisation\n"))
 
@@ -99,10 +101,12 @@ witch_translate_data <- function(witch_dir = ".",
         gdxfile,
         reg_id,
         time_id,
-        region_mappings,
-        time_mappings,
-        default_weights,
-        output_directory
+        region_mappings = regions,
+        time_mappings = times,
+        weights = default_weights,
+        region_name = "n",
+        output_directory,
+        default_meta_param = witch_meta_param
       )
     }
   }
@@ -119,18 +123,16 @@ witch_translate_data <- function(witch_dir = ".",
     res <- convert_globiom(input_gb,
                            reg_id,
                            time_id,
-                           region_mappings,
-                           time_mappings,
+                           region_mappings = regions,
+                           time_mappings = times,
                            weights = default_weights,
                            output_directory)
   }
 
   cat(crayon::silver$bold(paste("\U26AB Create gams files for WITCH\n")))
 
-  write_gams(reg_id,
-             time_id,
-             region_mappings,
-             time_mappings,
+  write_gams(regions[[reg_id]],
+             times[[time_id]],
              output_directory)
 
 }

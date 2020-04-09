@@ -1,6 +1,22 @@
-# oecd_region
+#' OECD regions for a given region mapping.
+#'
+#' \code{oecd_region} returns a vector of region representing OECD. The
+#' selection is based on the GDP of countries. If the total GDP of OECD
+#' countries from the region is greater than 50% of total GDP of the region,
+#' the region is considered as belonging of the OECD.
+#'
+#' @family misc functions
+#'
+#' @param region_mapping a data.table of regional mapping.
+#' @return a vector of region name.
+#'
+#' @export
+#' @examples
+#' oecd_regions(region_mappings[['witch17']])
+#'
 
-oecd_regions <- function(reg_id, region_mappings) {
+oecd_regions <- function(region_mapping) {
+  reg_id <- region_id(region_mapping)
   oecd_iso3 <- c(
     "AUS",
     "AUT",
@@ -38,7 +54,7 @@ oecd_regions <- function(reg_id, region_mappings) {
     "USA"
   )
   tab <- merge(
-    region_mappings[[reg_id]],
+    region_mapping,
     data.table::data.table(iso3 = oecd_iso3, oecd = 1),
     by = "iso3",
     all.x = TRUE

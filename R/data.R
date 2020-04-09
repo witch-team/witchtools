@@ -57,3 +57,16 @@ NULL
 #'   \item{endyear}{last year of the time period}
 #' }
 "time_mappings"
+
+#' WITCH default meta parameter
+#'
+#' A table containing default behavior for the WITCH parameters and variables
+#' for regional conversion.
+#'
+#' @format A data.table with 3 columns
+#' \describe{
+#'   \item{parameter}{Name of the parameter or the variable}
+#'   \item{type}{meta-data parameter, here only nagg or nweight}
+#'   \item{value}{value of the meta-data parameter}
+#' }
+"witch_meta_param"

@@ -16,8 +16,8 @@
 #' values are averaged or the function \code{fun.aggregate} is used.
 #'
 #' @family conversion functions
-#' @seealso \code{\link{convert_DT}} for data.table,
-#' \code{\link{convert_gdx}} for WITCH gdx files.
+#' @seealso \code{\link{convert_table}},
+#' \code{\link{convert_gdx}}.
 #'
 #' @param .x a well-formatted data.table.
 #' @param time_mapping a time mapping data.table.
@@ -29,7 +29,6 @@
 #' should be done for past value.
 #' @param year_name string column name of year.
 #' @param value_name string column name of value.
-#' @param period_name string column name of period.
 #' @param fun.aggregate function to aggregate yearly values in a period.
 #' @param na.rm logical indicating whether missing values should be removed.
 #' @param verbose logical indicating whether running in verbose mode.
@@ -49,18 +48,28 @@
 #'   convert_time_period(dd, tm, do_interp = T)
 #' }
 
-convert_time_period <- function(.x, time_mapping,
+convert_time_period <- function(.x,
+                                time_mapping,
                                 do_interp = FALSE,
                                 do_extrap = FALSE,
                                 do_past_extrap = FALSE,
                                 year_name = "year",
                                 value_name = "value",
-                                period_name = "t",
                                 fun.aggregate = mean,
                                 na.rm = TRUE,
                                 verbose = FALSE) {
 
   if (!data.table::is.data.table(.x)) stop('.x should be a data.table')
+
+  # Guess time mapping if not directly provided
+  if (is.character(time_mapping)) {
+    if (!time_mapping %in% c(names(time_mappings))) {
+      stop(paste0('time_mapping should provided by time_mappings.'))
+    }
+    time_mapping <- time_mappings[[time_mapping]]
+  } else if (!data.table::is.data.table(time_mapping)) {
+    stop(paste0('time_mapping should be a character or a data.table.'))
+  }
 
   # Merge time mapping
   .x[, (year_name) := as.numeric(get(year_name))]
@@ -117,7 +126,7 @@ convert_time_period <- function(.x, time_mapping,
                      by = c(colnames(.x)[!colnames(.x) %in%
                                            c(value_name,
                                              year_name,
-                                             period_name)])]
+                                             "t")])]
       .x <- rbind(.x,.newdata)
     }
   }

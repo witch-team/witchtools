@@ -1,11 +1,11 @@
 # Write additionnal GAMS include file
 
-write_gams <- function(reg_id,
-                       time_id,
-                       region_mappings,
-                       time_mappings,
+write_gams <- function(region_mapping,
+                       time_mapping,
                        output_directory,
                        prefix_coalition = "c_") {
+
+  reg_id <- region_id(region_mapping)
 
   #write region conf
   filename <- file.path(output_directory, 'regions.conf')
@@ -21,7 +21,7 @@ write_gams <- function(reg_id,
   #write region mapping
   filename <- file.path(output_directory, 'n.inc')
   finc <- file(filename, "w")
-  reg <- sort(unique(region_mappings[[reg_id]][, get(reg_id)]))
+  reg <- sort(unique(region_mapping[, get(reg_id)]))
   writeLines(reg, finc)
   close(finc)
 
@@ -40,17 +40,17 @@ write_gams <- function(reg_id,
   finc <- file(filename, "w")
   #set iso3
   writeLines("set iso3 'Country definition in ISO_3166-1_alpha-3' /",finc)
-  writeLines(sort(region_mappings[[reg_id]]$iso3), finc)
+  writeLines(sort(region_mapping$iso3), finc)
   writeLines("/;", finc)
   #set map_n_iso3
   writeLines("set map_n_iso3(n,iso3) 'Mapping between WITCH regions and iso3'/",
              finc)
-  writeLines(region_mappings[[reg_id]][, paste(get(reg_id), iso3, sep = ".")],
+  writeLines(region_mapping[, paste(get(reg_id), iso3, sep = ".")],
              finc)
   writeLines("/;", finc)
   #set oecd
   writeLines("set oecd(n) 'OECD regions' /", finc)
-  writeLines(oecd_regions(reg_id,region_mappings), finc)
+  writeLines(oecd_regions(region_mapping), finc)
   writeLines("/;", finc)
 
   close(finc)
@@ -117,7 +117,7 @@ write_gams <- function(reg_id,
   fconf <- file(filename, "w")
 
   #setglobal nmapping
-  reg_def <- sort(unique(region_mappings[[reg_id]][, get(reg_id)]))
+  reg_def <- sort(unique(region_mapping[, get(reg_id)]))
   writeLines(paste("$setglobal coalitions", paste(
     stringr::str_c(prefix_coalition, reg_def), collapse = " ")), fconf)
 
@@ -131,7 +131,7 @@ write_gams <- function(reg_id,
 
   #set clt
   writeLines("set clt 'Coalitions' /", finc)
-  reg_def <- sort(unique(region_mappings[[reg_id]][, get(reg_id)]))
+  reg_def <- sort(unique(region_mapping[, get(reg_id)]))
   writeLines(stringr::str_c(prefix_coalition, reg_def), finc)
   writeLines("/;", finc)
 

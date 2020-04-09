@@ -12,7 +12,6 @@ convert_time_period(
   do_past_extrap = FALSE,
   year_name = "year",
   value_name = "value",
-  period_name = "t",
   fun.aggregate = mean,
   na.rm = TRUE,
   verbose = FALSE
@@ -35,8 +34,6 @@ should be done for past value.}
 \item{year_name}{string column name of year.}
 
 \item{value_name}{string column name of value.}
-
-\item{period_name}{string column name of period.}
 
 \item{fun.aggregate}{function to aggregate yearly values in a period.}
 
@@ -78,8 +75,8 @@ values are averaged or the function \code{fun.aggregate} is used.
 }
 }
 \seealso{
-\code{\link{convert_DT}} for data.table,
-\code{\link{convert_gdx}} for WITCH gdx files.
+\code{\link{convert_table}},
+\code{\link{convert_gdx}}.
 
 Other conversion functions: 
 \code{\link{convert_gdx}()},

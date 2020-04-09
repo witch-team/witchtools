@@ -100,6 +100,18 @@ should contain a column &quot;value&quot;. All others columns are considered as 
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/converting-time-regions.html">Region and Time Conversion</a>
+    </li>
+  </ul>
+</li>
 <li>
   <a href="../news/index.html">Changelog</a>
 </li>
@@ -148,7 +160,8 @@ should contain a column "value". All others columns are considered as indices.</
   <span class='kw'>agg_weight</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>regions</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>do_time_period</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>do_region</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+  <span class='kw'>do_region</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>info</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -157,6 +170,11 @@ should contain a column "value". All others columns are considered as indices.</
     <tr>
       <th>.x</th>
       <td><p>a well-formatted data.table.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>parameters to send to convert_region or
+convert_time_period.</p></td>
     </tr>
     <tr>
       <th>options</th>

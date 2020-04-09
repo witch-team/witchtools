@@ -7,7 +7,7 @@
 #'
 #'
 #' @family conversion functions
-#' @seealso \code{\link{convert_table}} for single data.table.
+#' @seealso \code{\link{convert_table}}.
 #'
 #' @param gdxfile location of the GDX file.
 #' @param reg_id final regional aggregation.
@@ -16,7 +16,8 @@
 #' @param time_mappings a named list of time mapping data.table.
 #' @param weights a named list of weights used by \code{convert_region}
 #' @param output_directory directory where to write the converted GDX
-#' @param guess_input_n input regional mapping if not explicitely defined
+#' @param region_name column name of the region, reg_id if null
+#' @param guess_region input regional mapping if not explicitely defined
 #' @param guess_input_t input time mapping if not explicitely defined
 #' @param default_agg_missing default parameter to handle missing values in
 #' \code{convert_region}
@@ -35,12 +36,14 @@ convert_gdx <- function(gdxfile,
                         region_mappings = region_mappings,
                         time_mappings = time_mappings,
                         weights = default_weights,
-                        guess_input_n = "witch17",
                         guess_input_t = "t30",
+                        region_name = NULL,
+                        guess_region = "witch17",
                         default_agg_missing = "zero",
-                        default_meta_param = witch_default_meta_param()){
+                        default_meta_param = NULL) {
 
   if (!file.exists(gdxfile)) stop(paste(gdxfile, "does not exist!"))
+  if (is.null(region_name)) region_name <- reg_id
 
   cat(crayon::blue$bold(paste("Processing", basename(gdxfile),"\n")))
 
@@ -51,10 +54,15 @@ convert_gdx <- function(gdxfile,
   vars <- list()
 
   # load meta_data
-  meta_param <- default_meta_param
+  meta_param <- data.table::data.table(parameter = character(),
+                                       type = character(),
+                                       value = character())
+  meta_param <- rbind(meta_param,default_meta_param)
   if ("meta_param" %in% .gdx$sets$name) {
     dt_meta_param <- data.table::setDT(.gdx["meta_param"])
     names(dt_meta_param) <- c("parameter","type","value")
+    new_param <- unique(dt_meta_param[['parameter']])
+    meta_param <- meta_param[!parameter %in% new_param]
     meta_param <- rbind(meta_param,dt_meta_param)
   }
 
@@ -73,8 +81,8 @@ convert_gdx <- function(gdxfile,
     .data <- data.table::setDT(.gdx[item])
     text <- attributes(.data)[["gams"]]
 
-    if ("n" %in% colnames(.data)) {
-      data.table::setnames(.data, "n", guess_input_n)
+    if (region_name %in% colnames(.data)) {
+      data.table::setnames(.data, region_name, guess_region)
     }
     if ("t" %in% colnames(.data) & guess_input_t == "t30") {
       data.table::setnames(.data, "t", "year")
@@ -99,7 +107,7 @@ convert_gdx <- function(gdxfile,
     # deal with case when data_reg == character(0)
     if (length(data_reg) == 1) {
       do_region <- (data_reg != reg_id)
-      data_indices[data_indices == data_reg] <- "n"
+      data_indices[data_indices == data_reg] <- region_name
     }
     from_reg <- NULL
     to_reg <- NULL
@@ -180,15 +188,19 @@ convert_gdx <- function(gdxfile,
                             options = convopt,
                             do_time_period = do_time_period,
                             do_region = do_region,
-                            verbose = TRUE)
+                            verbose = TRUE,
+                            info = TRUE)
 
     .data <- .conv[['data']]
     .info_share <- .conv[['info']]
 
+    if (reg_id %in% colnames(.data)) {
+      data.table::setnames(.data, reg_id, region_name)
+    }
+
     # rename reg_id in necessary (when no region conversion is required)
     if (reg_id %in% colnames(.data)) {
       cat(crayon::blue(paste("   [same]\n")))
-      data.table::setnames(.data, reg_id, "n")
     } else if (do_region) {
       cat(crayon::blue(paste0("   [agg: ", convopt[['agg_operator']], ", wgt: ",
                               nweight, "]\n")))
@@ -202,7 +214,7 @@ convert_gdx <- function(gdxfile,
       names(.data) <- "value"
     } else {
       indices <- subset(colnames(.data), colnames(.data) != "value")
-      indices <- ifelse(indices %in% c("n","t"), indices, "*")
+      indices <- ifelse(indices %in% c(region_name,"t"), indices, "*")
       names(.data) <- c(indices,"value")
     }
 

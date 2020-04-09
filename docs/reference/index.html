@@ -94,6 +94,18 @@
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/converting-time-regions.html">Region and Time Conversion</a>
+    </li>
+  </ul>
+</li>
 <li>
   <a href="../news/index.html">Changelog</a>
 </li>
@@ -132,8 +144,8 @@
     <tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-          <p class="section-desc"></p>
+          <h2 id="section-conversion" class="hasAnchor"><a href="#section-conversion" class="anchor"></a>Conversion</h2>
+          <p class="section-desc"><p>Conversion of well-formated data.table, including batch conversion for database files.</p></p>
         </th>
       </tr>
       
@@ -168,7 +180,20 @@ are read in the parameter <code>meta_param</code> also stored in the gdxfile.</p
           <p><code><a href="convert_time_period.html">convert_time_period()</a></code> </p>
         </td>
         <td><p>Convert a data.table from year to time period.</p></td>
-      </tr><tr>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-default-datasets" class="hasAnchor"><a href="#section-default-datasets" class="anchor"></a>Default datasets</h2>
+          <p class="section-desc"><p>Default datasets used for the building of inputs of the WITCH model.</p></p>
+        </th>
+      </tr>
+      
+      
+    </tbody><tbody>
+      
+      
+      <tr>
         
         <td>
           <p><code><a href="default_weights.html">default_weights</a></code> </p>
@@ -183,22 +208,29 @@ are read in the parameter <code>meta_param</code> also stored in the gdxfile.</p
       </tr><tr>
         
         <td>
-          <p><code><a href="require_gdxtools.html">require_gdxtools()</a></code> </p>
-        </td>
-        <td><p>Install, if necessary, and load the gdxtools library</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="require_package.html">require_package()</a></code> </p>
-        </td>
-        <td><p>Install, if necessary, and load a R library</p></td>
-      </tr><tr>
-        
-        <td>
           <p><code><a href="time_mappings.html">time_mappings</a></code> </p>
         </td>
         <td><p>Default timescale mapping</p></td>
       </tr><tr>
+        
+        <td>
+          <p><code><a href="witch_meta_param.html">witch_meta_param</a></code> </p>
+        </td>
+        <td><p>WITCH default meta parameter</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-witch" class="hasAnchor"><a href="#section-witch" class="anchor"></a>WITCH</h2>
+          <p class="section-desc"><p>WITCH specific functions.</p></p>
+        </th>
+      </tr>
+      
+      
+    </tbody><tbody>
+      
+      
+      <tr>
         
         <td>
           <p><code><a href="witch_data.html">witch_data()</a></code> </p>
@@ -214,16 +246,46 @@ after downloading it from github if necessary using the piggyback library.</p></
       </tr><tr>
         
         <td>
-          <p><code><a href="witch_default_meta_param.html">witch_default_meta_param()</a></code> </p>
-        </td>
-        <td><p>WITCH default meta_param information.
-Useful if they are missing in the input files.</p></td>
-      </tr><tr>
-        
-        <td>
           <p><code><a href="witch_translate_data.html">witch_translate_data()</a></code> </p>
         </td>
         <td><p>Translate WITCH data (run make_data files and convert data).</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-other-functions" class="hasAnchor"><a href="#section-other-functions" class="anchor"></a>Other functions</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      
+      
+    </tbody><tbody>
+      
+      
+      <tr>
+        
+        <td>
+          <p><code><a href="oecd_regions.html">oecd_regions()</a></code> </p>
+        </td>
+        <td><p>OECD regions for a given region mapping.</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="region_id.html">region_id()</a></code> </p>
+        </td>
+        <td><p>Region ID of a regional mapping.</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="require_gdxtools.html">require_gdxtools()</a></code> </p>
+        </td>
+        <td><p>Install, if necessary, and load the gdxtools library</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="require_package.html">require_package()</a></code> </p>
+        </td>
+        <td><p>Install, if necessary, and load a R library</p></td>
       </tr>
     </tbody>
     </table>

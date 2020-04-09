@@ -12,7 +12,6 @@
 #' while the other columns are are considered as id columns.
 #' The resulting data.table have a column named by the final regional
 #' mapping \code{to_reg}.
-#' Note that the value column name can be respecified.
 #'
 #' The regional mapping for \code{from_reg} and \code{to_reg} can be
 #' provided in a named list through the parameter \code{regions}.
@@ -22,8 +21,8 @@
 #' The name in the list should also be the regional mapping name.
 #'
 #' @family conversion functions
-#' @seealso \code{\link{convert_DT}} for data.table,
-#' \code{\link{convert_gdx}} for WITCH gdx files.
+#' @seealso \code{\link{convert_table}},
+#' \code{\link{convert_gdx}}.
 #'
 #'
 #' @param .x a well-formatted data.table.
@@ -36,9 +35,9 @@
 #' possible values)
 #' @param agg_missing tells how to deal with missing values ("NA" or "zero")
 #' @param regions optional list of region mappings (see Details for format)
-#' @param value_name string column name for value.
-#' @param region_name string column name for region.
-
+#' @param info logical indicating whether to include information, only necessary
+#'  when the agg_operator is "sumby".
+#'
 #' @return a list containing a converted data.table and information about
 #'         the coperture if available.
 #' @export
@@ -47,18 +46,25 @@
 #' }
 #'
 convert_region <- function(.x,
-                           from_reg,
+                           from_reg = NULL,
                            to_reg,
                            agg_operator = "sum",
                            agg_weight = default_weights[["gdp"]],
                            agg_missing = "NA",
                            regions = region_mappings,
-                           value_name = "value",
-                           region_name = "n") {
+                           info = FALSE) {
 
   # Check weight
   if (is.null(agg_weight)) {
     stop('agg_weight is NULL. Check if it is well-defined.')
+  }
+
+  # Guess initial region from column names
+  if (is.null(from_reg)) {
+    guess_reg <-  intersect(colnames(.x), unique(c("iso3",names(regions))))
+    if (length(guess_reg) == 1) {
+      from_reg <- guess_reg
+    }
   }
 
   # Initial mapping
@@ -70,7 +76,7 @@ convert_region <- function(.x,
     rname0 <- from_reg
   } else if (data.table::is.data.table(from_reg)) {
     rmap0 <- from_reg
-    rname0 <- names(rmap0)[names(rmap0) != 'iso3'][1]
+    rname0 <- region_id(rmap0)
   } else {
     stop(paste0('from_reg should be a character or a data.table.'))
   }
@@ -84,14 +90,13 @@ convert_region <- function(.x,
     rname1 <- to_reg
   } else if (data.table::is.data.table(to_reg)) {
     rmap1 <- to_reg
-    rname1 <- names(rmap1)[names(rmap1) != 'iso3'][1]
+    rname1 <- region_id(rmap1)
   } else {
     stop(paste0('to_reg should be a character or a data.table.'))
   }
 
   # Same mappings input-output, do nothing
   if (rname0 == rname1) {
-    data.table::setnames(.x, rname1, region_name)
     return(.x)
   }
 
@@ -100,17 +105,22 @@ convert_region <- function(.x,
     stop(paste0('Operator sumby requires from_reg == iso3.'))
   }
 
+  # "sumby" might need info
+  if (agg_operator == "sumby" & !info) {
+    warning(paste0('Operator sumby might need info = TRUE.'))
+  }
+
   # Not yet implemented
   if (rname1 == "iso3") {
     stop(paste0('to_reg == iso3 is not yet implemented.'))
   }
 
   # Add iso3 and data_reg mapping
-  if (rname0 != "iso3") {
+  if (rname0 == "iso3") {
+    .x <- merge(.x, rmap1, by = "iso3")
+  } else {
     .r <- merge(rmap0,rmap1,by = "iso3")
     .x <- merge(.x, .r, by = rname0, allow.cartesian = TRUE)
-  } else {
-    .x <- merge(.x, rmap1, by = "iso3")
   }
 
   # Add weight
@@ -118,7 +128,7 @@ convert_region <- function(.x,
   .x <- .x[!is.na(get(rname1))]
 
   dkeys <- function(dd){
-    return(c(colnames(dd)[!colnames(dd) %in% c(value_name,
+    return(c(colnames(dd)[!colnames(dd) %in% c("value",
                                                "weight","sum_weight",
                                                "iso3",rname0,rname1)]))
   }
@@ -133,20 +143,19 @@ convert_region <- function(.x,
       .x <- merge(.x,.w,by = rname0)
       .x <- .x[, .(iso3,
                    rname1 = get(rname1),
-                   value = get(value_name) * weight / sum_weight),
+                   value = value * weight / sum_weight),
                    by = c(dkeys(.x),rname0) ]
     } else {
       if (agg_operator %in% c("mean","set1","min","minw","max","maxw")) {
         .x <- .x[, .(iso3,
                      rname1 = get(rname1),
-                     value = get(value_name),
+                     value,
                      weight),
                 by = c(dkeys(.x),rname0) ]
       } else {
         stop(paste("Operator ",agg_operator,"not implemented"))
       }
     }
-    data.table::setnames(.x, "value", value_name)
   } else {
     data.table::setnames(.x, rname1, "rname1")
   }
@@ -160,13 +169,12 @@ convert_region <- function(.x,
     .x <- merge(.x,.w,by = "rname1")
     .info_share <- .x[,.(value = sum(weight) / mean(sum_weight)),
                     by = c(dkeys(.x))]
-    data.table::setnames(.info_share, "value", value_name)
-    data.table::setnames(.info_share, "rname1", region_name)
+    data.table::setnames(.info_share, "rname1", rname1)
   }
 
   # Aggregation
   if (agg_operator %in% c("sum","sumby")) {
-    .x <- .x[, .(value = sum(get(value_name))), by = c(dkeys(.x)) ]
+    .x <- .x[, .(value = sum(value)), by = c(dkeys(.x)) ]
   } else {
     .w <- merge(rmap1,agg_weight,by = "iso3")
     .w <- .w[,.(sum_weight = sum(weight)),by = rname1]
@@ -174,27 +182,27 @@ convert_region <- function(.x,
     .x <- merge(.x,.w,by = "rname1")
     if (agg_operator == "mean") {
       if (agg_missing == "zero") {
-        .x <- .x[, .(value = sum(get(value_name) * weight / sum_weight)),
+        .x <- .x[, .(value = sum(value * weight / sum_weight)),
                        by = c(dkeys(.x)) ]
       }
       if (agg_missing == "NA") {
-        .x <- .x[, .(value = sum(get(value_name) * weight / sum(weight))),
+        .x <- .x[, .(value = sum(value * weight / sum(weight))),
                        by = c(dkeys(.x)) ]
       }
     } else if (agg_operator == "set1") {
       if (agg_missing == "zero") {
-        .x <- .x[, .(value = round(sum(get(value_name) * weight / sum_weight))),
+        .x <- .x[, .(value = round(sum(value * weight / sum_weight))),
                        by = c(dkeys(.x)) ]
       }
       if (agg_missing == "NA") {
-        .x <- .x[, .(value = round(sum(get(value_name) * weight / sum(weight)))),
+        .x <- .x[, .(value = round(sum(value * weight / sum(weight)))),
                        by = c(dkeys(.x)) ]
       }
     } else if (agg_operator %in% c("min","minw")) {
-      .x <- .x[, .(value = min(get(value_name)[which(weight == min(weight))])),
+      .x <- .x[, .(value = min(value[which(weight == min(weight))])),
                      by = c(dkeys(.x)) ]
     } else if (agg_operator %in% c("max","maxw")) {
-      .x <- .x[, .(value = max(get(value_name)[which(weight == max(weight))])),
+      .x <- .x[, .(value = max(value[which(weight == max(weight))])),
                      by = c(dkeys(.x)) ]
     }  else {
       stop(paste("Operator",agg_operator,"not implemented"))
@@ -202,9 +210,12 @@ convert_region <- function(.x,
   }
 
   # Change the region column name
-  data.table::setnames(.x, "value", value_name)
-  data.table::setnames(.x, "rname1", region_name)
+  data.table::setnames(.x, "rname1", rname1)
 
-  return(list(data = .x, info = .info_share))
+  if (info) {
+    return(list(data = .x, info = .info_share))
+  } else {
+    return(.x)
+  }
 
 }

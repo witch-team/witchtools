@@ -11,6 +11,8 @@
 #' @seealso \code{\link{convert_gdx}} for WITCH gdx files.
 #'
 #' @param .x a well-formatted data.table.
+#' @param \dots parameters to send to convert_region or
+#' convert_time_period.
 #' @param options a list of parameters to send to convert_region or
 #' convert_time_period.
 #' @param time_mapping a time mapping data.table.
@@ -39,7 +41,8 @@ convert_table <- function(.x,
                           agg_weight = NULL,
                           regions = NULL,
                           do_time_period = TRUE,
-                          do_region = TRUE
+                          do_region = TRUE,
+                          info = FALSE
                           ) {
 
   dots <- list(...)
@@ -66,23 +69,30 @@ convert_table <- function(.x,
   if (do_region) {
 
     region_params <- dots[which(names(dots) %in% c("agg_operator",
-                                                 "agg_missing",
-                                                 "value_name",
-                                                 "region_name"
+                                                 "agg_missing"
                                                  ))]
 
     .conv <- do.call(convert_region, c(list(.x = data.table::setDT(.x),
                                             from_reg = from_reg,
                                             to_reg = to_reg,
                                             agg_weight = agg_weight,
-                                            regions = regions),
+                                            regions = regions,
+                                            info = info),
                                        region_params))
 
-    .x <- .conv[['data']]
-    .info_share <- .conv[['info']]
+    if (info) {
+      .x <- .conv[['data']]
+      .info_share <- .conv[['info']]
+    } else {
+      .x <- .conv
+    }
 
   }
 
-  return(list(data = .x, info = .info_share))
+  if (info) {
+    return(list(data = .x, info = .info_share))
+  } else {
+    return(.x)
+  }
 
 }

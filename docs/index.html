@@ -53,6 +53,18 @@
 <li>
   <a href="reference/index.html">Reference</a>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+<li>
+      <a href="articles/converting-time-regions.html">Region and Time Conversion</a>
+    </li>
+  </ul>
+</li>
 <li>
   <a href="news/index.html">Changelog</a>
 </li>
@@ -85,28 +97,40 @@
 <div id="overview" class="section level2">
 <h2 class="hasAnchor">
 <a href="#overview" class="anchor"></a>Overview</h2>
-<p>The <em>witchtools</em> package provides a toolkit to manage data in integrated assessment models, with a primary focus on the <a href="https://www.witchmodel.org">WITCH model</a>.</p>
+<p>The <code>witchtools</code> package provides a toolkit to manage data in integrated assessment models. <code>witchtools</code> is part of the tool ecosystem of the <a href="https://www.witchmodel.org">WITCH model</a>. The package makes it possible to easily and transparently reproduce the data processing between the raw data, the data used in the model and the results uploaded in the IAMC database. While the package has been developed for the <a href="https://www.witchmodel.org">WITCH model</a>, it is already used to simply process data for other uses or models.</p>
 </div>
 <div id="features" class="section level2">
 <h2 class="hasAnchor">
 <a href="#features" class="anchor"></a>Features</h2>
 <ul>
-<li>Convert yearly data into time-period data.</li>
-<li>Convert data from one regional mapping to another one.</li>
+<li>Conversion of a yearly time-serie into time-period time-serie.</li>
+<li>Conversion of data from one regional mapping to another one.</li>
+<li>Default time-period mappings, regional mappings and aggregation weights used by the WITCH model</li>
+<li>Batch conversion of the make_data files from the input directory of the WITCH model</li>
+<li>Easy access to the witch-data repository (in local or through <code>piggyback</code>)</li>
 </ul>
 </div>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
-<pre><code>if (!requireNamespace("remotes"))
-  install.packages("remotes")
-
-remotes::install_github("witch-team/witchtools")</code></pre>
+<div class="sourceCode" id="cb1"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="cf">if</span> (<span class="op">!</span><span class="kw">requireNamespace</span>(<span class="st">"remotes"</span>))</span>
+<span id="cb1-2"><a href="#cb1-2"></a>  <span class="kw">install.packages</span>(<span class="st">"remotes"</span>)</span>
+<span id="cb1-3"><a href="#cb1-3"></a></span>
+<span id="cb1-4"><a href="#cb1-4"></a>remotes<span class="op">::</span><span class="kw">install_github</span>(<span class="st">"witch-team/witchtools"</span>)</span></code></pre></div>
 </div>
-<div id="example" class="section level2">
+<div id="usage" class="section level2">
 <h2 class="hasAnchor">
-<a href="#example" class="anchor"></a>Example</h2>
-<div class="sourceCode" id="cb2"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">witchtools</span>)</pre></div>
+<a href="#usage" class="anchor"></a>Usage</h2>
+<div class="sourceCode" id="cb2"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">witchtools</span>)
+
+<span class="co"># Convert from 17 WITCH regions to the 5 SSP regions </span>
+<span class="no">gdp_r5</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/convert_region.html">convert_region</a></span>(<span class="no">gdp_witch17</span>, <span class="kw">to_reg</span> <span class="kw">=</span> <span class="st">'r5'</span>)
+
+<span class="co"># Convert from yearly to the WITCH time perdios</span>
+<span class="no">dd_t30</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/convert_region.html">convert_region</a></span>(<span class="no">dd_year</span>, <span class="kw">time_mapping</span> <span class="kw">=</span> <span class="st">'t30'</span>)
+
+<span class="co"># for WITCH user: Generate input data of the WITCH model</span>
+<span class="fu"><a href="reference/witch_translate_data.html">witch_translate_data</a></span>(<span class="kw">region</span> <span class="kw">=</span> <span class="st">'witch17'</span>, <span class="kw">timescale</span> <span class="kw">=</span> <span class="st">'t30'</span>)</pre></div>
 </div>
 </div>
   </div>
@@ -140,6 +164,7 @@ remotes::install_github("witch-team/witchtools")</code></pre>
   <div class="dev-status">
 <h2>Dev status</h2>
 <ul class="list-unstyled">
+<li><a href="https://choosealicense.com/"><img src="https://img.shields.io/badge/license-apache-lightgrey.svg" alt="license"></a></li>
 <li><a href="https://github.com/witch-team/witchtools"><img src="https://img.shields.io/badge/devel%20version-0.2.0-green.svg"></a></li>
 <li><a href="https://github.com/witch-team/witchtools"><img src="https://img.shields.io/badge/lifecycle-maturing-purple.svg"></a></li>
 </ul>

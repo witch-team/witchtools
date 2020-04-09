@@ -19,6 +19,8 @@ witch_data(
 
 \item{version}{Release version of the file (required for method piggyback)}
 
+\item{idir}{directory to read/download files}
+
 \item{method}{'piggyback' or 'witch-data'.}
 
 \item{noCheck}{For the piggyback method, don't check and download the file.}

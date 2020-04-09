@@ -1,14 +1,9 @@
 #' WITCH default meta_param information.
 #' Useful if they are missing in the input files.
-#'
-#'
-#' @export
-#' @examples
-#' \dontrun{
-#' witch_default_meta_param()
-#' }
-witch_default_meta_param <- function() {
-"parameter,value
+
+
+
+defmap <- "parameter,value
 I,sum
 K,sum
 Q,sum
@@ -71,15 +66,15 @@ emi_cap,sum
 ken_policy,sum
 ren_share,mean
 temp_valid_hadcrut4,mean
-" -> defmap
-  dm <- data.table::fread(defmap)
-  dm[, type := "nagg"]
-  dm <- rbind(dm,
+"
+witch_meta_param <- data.table::fread(defmap)
+witch_meta_param[, type := "nagg"]
+witch_meta_param <- rbind(witch_meta_param,
               data.table::data.table(
-               parameter = dm$parameter,
+               parameter = witch_meta_param$parameter,
                type = "nweight",
                value = "gdp"
              ))
-  data.table::setcolorder(dm, c("parameter", "type", "value"))
-  return(dm)
-}
+data.table::setcolorder(witch_meta_param, c("parameter", "type", "value"))
+
+usethis::use_data(witch_meta_param, compress = "xz", overwrite = T)

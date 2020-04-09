@@ -15,10 +15,11 @@ convert_gdx(
   region_mappings = region_mappings,
   time_mappings = time_mappings,
   weights = default_weights,
-  guess_input_n = "witch17",
   guess_input_t = "t30",
+  region_name = NULL,
+  guess_region = "witch17",
   default_agg_missing = "zero",
-  default_meta_param = witch_default_meta_param()
+  default_meta_param = NULL
 )
 }
 \arguments{
@@ -36,9 +37,11 @@ convert_gdx(
 
 \item{weights}{a named list of weights used by \code{convert_region}}
 
-\item{guess_input_n}{input regional mapping if not explicitely defined}
-
 \item{guess_input_t}{input time mapping if not explicitely defined}
+
+\item{region_name}{column name of the region, reg_id if null}
+
+\item{guess_region}{input regional mapping if not explicitely defined}
 
 \item{default_agg_missing}{default parameter to handle missing values in
 \code{convert_region}}
@@ -58,7 +61,7 @@ convert_gdx('input/build/data_climate.gdx','witch17','t30','data_witch17')
 
 }
 \seealso{
-\code{\link{convert_table}} for single data.table.
+\code{\link{convert_table}}.
 
 Other conversion functions: 
 \code{\link{convert_region}()},

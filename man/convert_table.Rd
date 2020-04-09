@@ -14,11 +14,15 @@ convert_table(
   agg_weight = NULL,
   regions = NULL,
   do_time_period = TRUE,
-  do_region = TRUE
+  do_region = TRUE,
+  info = FALSE
 )
 }
 \arguments{
 \item{.x}{a well-formatted data.table.}
+
+\item{\dots}{parameters to send to convert_region or
+convert_time_period.}
 
 \item{options}{a list of parameters to send to convert_region or
 convert_time_period.}
