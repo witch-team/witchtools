@@ -1,6 +1,8 @@
 # witchdata 0.2.0
 
-* Refactoring of the original functions for general use
+* Refactor the main functions for general use
+* Add documentation
+* Add a website
 
 # witchdata 0.1.2
 

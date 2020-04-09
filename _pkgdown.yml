@@ -1,5 +1,11 @@
 destination: docs
 
+home:
+  strip_header: true
+  links:
+  - text: The WITCH model
+    href: https://www.witchmodel.org
+
 reference:
 - title: Conversion
   desc: >
