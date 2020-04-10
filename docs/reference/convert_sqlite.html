@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Convert a data.table from year to time period. — convert_time_period • witchtools</title>
+<title>Batch convert tables from a SQLite database — convert_sqlite • witchtools</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,10 +46,13 @@
 
 
 
-<meta property="og:title" content="Convert a data.table from year to time period. — convert_time_period" />
-<meta property="og:description" content="convert_time_period returns a formatted data.table aggregating
-values from years into time periods. The required format of the input data is
-described in Details." />
+<meta property="og:title" content="Batch convert tables from a SQLite database — convert_sqlite" />
+<meta property="og:description" content="convert_gdx writes a converted SQLite database
+in the output_directory.
+All tables from the input sqlitedb are converted
+using the convert_table function. Specific conversion options
+are read in the parameter meta_param also stored in the
+sqlitedb." />
 <meta property="og:image" content="https://witchtools.github.io/logo.png" />
 
 
@@ -133,113 +136,101 @@ described in Details." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Convert a data.table from year to time period.</h1>
-    <small class="dont-index">Source: <a href='https://github.com/witch-team/witchtools/blob/master/R/convert_time_period.R'><code>R/convert_time_period.R</code></a></small>
-    <div class="hidden name"><code>convert_time_period.Rd</code></div>
+    <h1>Batch convert tables from a SQLite database</h1>
+    <small class="dont-index">Source: <a href='https://github.com/witch-team/witchtools/blob/master/R/convert_sqlite.R'><code>R/convert_sqlite.R</code></a></small>
+    <div class="hidden name"><code>convert_sqlite.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p><code>convert_time_period</code> returns a formatted data.table aggregating
-values from years into time periods. The required format of the input data is
-described in Details.</p>
+    <p><code>convert_gdx</code> writes a converted SQLite database
+in the <code>output_directory</code>.
+All tables from the input <code>sqlitedb</code> are converted
+using the <code>convert_table</code> function. Specific conversion options
+are read in the parameter <code>meta_param</code> also stored in the
+<code>sqlitedb</code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>convert_time_period</span>(
-  <span class='no'>.x</span>,
-  <span class='no'>time_mapping</span>,
-  <span class='kw'>do_interp</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>do_extrap</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>do_past_extrap</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>year_name</span> <span class='kw'>=</span> <span class='st'>"year"</span>,
-  <span class='kw'>value_name</span> <span class='kw'>=</span> <span class='st'>"value"</span>,
-  <span class='kw'>fun.aggregate</span> <span class='kw'>=</span> <span class='no'>mean</span>,
-  <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+    <pre class="usage"><span class='fu'>convert_sqlite</span>(
+  <span class='no'>sqlitedb</span>,
+  <span class='no'>reg_id</span>,
+  <span class='no'>time_id</span>,
+  <span class='no'>output_directory</span>,
+  <span class='kw'>region_mappings</span> <span class='kw'>=</span> <span class='no'>region_mappings</span>,
+  <span class='kw'>time_mappings</span> <span class='kw'>=</span> <span class='no'>time_mappings</span>,
+  <span class='kw'>weights</span> <span class='kw'>=</span> <span class='no'>default_weights</span>,
+  <span class='kw'>guess_input_t</span> <span class='kw'>=</span> <span class='st'>"t30"</span>,
+  <span class='kw'>region_name</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>guess_region</span> <span class='kw'>=</span> <span class='st'>"witch17"</span>,
+  <span class='kw'>default_agg_missing</span> <span class='kw'>=</span> <span class='st'>"NA"</span>,
+  <span class='kw'>default_meta_param</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>.x</th>
-      <td><p>a well-formatted data.table.</p></td>
+      <th>sqlitedb</th>
+      <td><p>SQLITE file.</p></td>
     </tr>
     <tr>
-      <th>time_mapping</th>
-      <td><p>a time mapping data.table.</p></td>
+      <th>reg_id</th>
+      <td><p>final regional aggregation.</p></td>
     </tr>
     <tr>
-      <th>do_interp</th>
-      <td><p>logical indicating whether linear interpolation
-should be done.</p></td>
+      <th>time_id</th>
+      <td><p>final time_period aggregation.</p></td>
     </tr>
     <tr>
-      <th>do_extrap</th>
-      <td><p>logical indicating whether constant extrapolation
-should be done.</p></td>
+      <th>output_directory</th>
+      <td><p>directory where to write the converted SQLITE DB</p></td>
     </tr>
     <tr>
-      <th>do_past_extrap</th>
-      <td><p>logical indicating whether constant extrapolation
-should be done for past value.</p></td>
+      <th>region_mappings</th>
+      <td><p>a named list of region mapping data.table.</p></td>
     </tr>
     <tr>
-      <th>year_name</th>
-      <td><p>string column name of year.</p></td>
+      <th>time_mappings</th>
+      <td><p>a named list of time mapping data.table.</p></td>
     </tr>
     <tr>
-      <th>value_name</th>
-      <td><p>string column name of value.</p></td>
+      <th>weights</th>
+      <td><p>a named list of weights used by <code>convert_region</code></p></td>
     </tr>
     <tr>
-      <th>fun.aggregate</th>
-      <td><p>function to aggregate yearly values in a period.</p></td>
+      <th>guess_input_t</th>
+      <td><p>input time mapping if not explicitely defined</p></td>
     </tr>
     <tr>
-      <th>na.rm</th>
-      <td><p>logical indicating whether missing values should be removed.</p></td>
+      <th>region_name</th>
+      <td><p>column name of the region, reg_id if null</p></td>
     </tr>
     <tr>
-      <th>verbose</th>
-      <td><p>logical indicating whether running in verbose mode.</p></td>
+      <th>guess_region</th>
+      <td><p>input regional mapping if not explicitely defined</p></td>
+    </tr>
+    <tr>
+      <th>default_agg_missing</th>
+      <td><p>default parameter to handle missing values in
+<code>convert_region</code></p></td>
+    </tr>
+    <tr>
+      <th>default_meta_param</th>
+      <td><p>default meta_param</p></td>
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>a converted data.table</p>
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>The input data.table should contain the columns "year" and "value",
-while the other columns are are considered as id columns.
-The resulting data.table will have a column "t" instead of "year.
-Note that the period, year and value column names can be specified.</p>
-<p>The time mapping between year and time period should be provided as
-a data.table with columns "year" and "t", and refyear for interpolation and
-extrapolation. In case of missing periods, these can be linearly interpolated
-or constantly interpolated. If several years are mapped into the same period,
-values are averaged or the function <code>fun.aggregate</code> is used.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='convert_table.html'>convert_table</a></code>,
-<code><a href='convert_gdx.html'>convert_gdx</a></code>.</p>
+    <div class='dont-index'><p><code><a href='convert_table.html'>convert_table</a></code>, <code><a href='convert_gdx.html'>convert_gdx</a></code>.</p>
 <p>Other conversion functions: 
 <code><a href='convert_gdx.html'>convert_gdx</a>()</code>,
 <code><a href='convert_region.html'>convert_region</a>()</code>,
-<code><a href='convert_sqlite.html'>convert_sqlite</a>()</code>,
-<code><a href='convert_table.html'>convert_table</a>()</code></p></div>
+<code><a href='convert_table.html'>convert_table</a>()</code>,
+<code><a href='convert_time_period.html'>convert_time_period</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-  <span class='co'># load time mapping t30</span>
-  <span class='no'>f</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"timescale"</span>,<span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"witchtools"</span>),<span class='st'>"t30.csv"</span>)
-  <span class='no'>tm</span> <span class='kw'>&lt;-</span> <span class='fu'>load_timescale_mapping</span>(<span class='no'>f</span>)
-
-  <span class='co'># original data.table</span>
-  <span class='no'>dd</span> <span class='kw'>&lt;-</span> <span class='fu'>data.table</span>(<span class='kw'>year</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2010</span>,<span class='fl'>2020</span>), <span class='kw'>value</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>2</span>)
-
-  <span class='co'># Convert into time period with linear interpolation</span>
-  <span class='fu'>convert_time_period</span>(<span class='no'>dd</span>, <span class='no'>tm</span>, <span class='kw'>do_interp</span> <span class='kw'>=</span> <span class='no'>T</span>)
+<span class='fu'>convert_sqlite</span>(<span class='st'>'input/build/data_climate.sqlite'</span>,<span class='st'>'witch17'</span>,<span class='st'>'t30'</span>,<span class='st'>'data_witch17'</span>)
 }</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

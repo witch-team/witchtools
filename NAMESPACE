@@ -2,6 +2,7 @@
 
 export(convert_gdx)
 export(convert_region)
+export(convert_sqlite)
 export(convert_table)
 export(convert_time_period)
 export(oecd_regions)

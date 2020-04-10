@@ -2,8 +2,7 @@
 % Please edit documentation in R/witch_data.R
 \name{witch_data}
 \alias{witch_data}
-\title{Returns the location of a file from the witch-data repository for processing,
-after downloading it from github if necessary using the piggyback library.}
+\title{Handler for witch-data files}
 \usage{
 witch_data(
   file,

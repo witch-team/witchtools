@@ -19,6 +19,7 @@ reference:
   contents:
   - convert_gdx
   - convert_region
+  - convert_sqlite
   - convert_table
   - convert_time_period
 - title: Default datasets

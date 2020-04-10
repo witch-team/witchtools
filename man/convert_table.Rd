@@ -66,6 +66,7 @@ indices.
 Other conversion functions: 
 \code{\link{convert_gdx}()},
 \code{\link{convert_region}()},
+\code{\link{convert_sqlite}()},
 \code{\link{convert_time_period}()}
 }
 \concept{conversion functions}

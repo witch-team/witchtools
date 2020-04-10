@@ -1,21 +1,23 @@
-#' Batch convert parameters and variables from a GDX
+#' Batch convert tables from a SQLite database
 #'
-#' \code{convert_gdx} writes a converted GDX in the \code{output_directory}.
-#' All parameters and variables from the input \code{gdxfile} are converted
+#' \code{convert_gdx} writes a converted SQLite database
+#' in the \code{output_directory}.
+#' All tables from the input \code{sqlitedb} are converted
 #' using the \code{convert_table} function. Specific conversion options
-#' are read in the parameter \code{meta_param} also stored in the gdxfile.
+#' are read in the parameter \code{meta_param} also stored in the
+#' \code{sqlitedb}.
 #'
 #'
 #' @family conversion functions
-#' @seealso \code{\link{convert_table}}, \code{\link{convert_sqlite}}.
+#' @seealso \code{\link{convert_table}}, \code{\link{convert_gdx}}.
 #'
-#' @param gdxfile location of the GDX file.
+#' @param sqlitedb SQLITE file.
 #' @param reg_id final regional aggregation.
 #' @param time_id final time_period aggregation.
 #' @param region_mappings a named list of region mapping data.table.
 #' @param time_mappings a named list of time mapping data.table.
 #' @param weights a named list of weights used by \code{convert_region}
-#' @param output_directory directory where to write the converted GDX
+#' @param output_directory directory where to write the converted SQLITE DB
 #' @param region_name column name of the region, reg_id if null
 #' @param guess_region input regional mapping if not explicitely defined
 #' @param guess_input_t input time mapping if not explicitely defined
@@ -25,61 +27,59 @@
 #' @export
 #' @examples
 #' \dontrun{
-#' convert_gdx('input/build/data_climate.gdx','witch17','t30','data_witch17')
+#' convert_sqlite('input/build/data_climate.sqlite','witch17','t30','data_witch17')
 #' }
 #'
 
-convert_gdx <- function(gdxfile,
-                        reg_id,
-                        time_id,
-                        output_directory,
-                        region_mappings = region_mappings,
-                        time_mappings = time_mappings,
-                        weights = default_weights,
-                        guess_input_t = "t30",
-                        region_name = NULL,
-                        guess_region = "witch17",
-                        default_agg_missing = "zero",
-                        default_meta_param = NULL) {
+convert_sqlite <- function(sqlitedb,
+                           reg_id,
+                           time_id,
+                           output_directory,
+                           region_mappings = region_mappings,
+                           time_mappings = time_mappings,
+                           weights = default_weights,
+                           guess_input_t = "t30",
+                           region_name = NULL,
+                           guess_region = "witch17",
+                           default_agg_missing = "NA",
+                           default_meta_param = NULL){
 
-  if (!file.exists(gdxfile)) stop(paste(gdxfile, "does not exist!"))
+  if (!file.exists(sqlitedb)) stop(paste(sqlitedb, "does not exist!"))
   if (is.null(region_name)) region_name <- reg_id
 
-  cat(crayon::blue$bold(paste("Processing", basename(gdxfile),"\n")))
+  cat(crayon::blue$bold(paste("Processing", basename(sqlitedb), "\n")))
 
-  .gdx <- gdxtools::gdx(gdxfile)
+  sqldb <- RSQLite::dbConnect(RSQLite::SQLite(), dbname = sqlitedb)
 
-  # parameter collector
-  params <- list()
-  vars <- list()
+  # tables collector
+  tabs <- list()
+
+  items <- RSQLite::dbListTables(sqldb)
 
   # load meta_data
   meta_param <- data.table::data.table(parameter = character(),
                                        type = character(),
                                        value = character())
   meta_param <- rbind(meta_param,default_meta_param)
-  if ("meta_param" %in% .gdx$sets$name) {
-    dt_meta_param <- data.table::setDT(.gdx["meta_param"])
-    names(dt_meta_param) <- c("parameter","type","value")
+  if ("meta_param" %in% items) {
+    query <- 'select * from meta_param'
+    dt_meta_param <- data.table::setDT(RSQLite::dbGetQuery(sqldb, query))
     new_param <- unique(dt_meta_param[['parameter']])
     meta_param <- meta_param[!parameter %in% new_param]
     meta_param <- rbind(meta_param,dt_meta_param)
   }
 
-  items <- c(.gdx$parameters$name, .gdx$variables$name)
+  items <- items[items != "meta_param"]
 
-  #Loop over all parameters and variables in the file
+  #Loop over all tables in the file
   for (item in items) {
 
-    item_type <- ifelse(item %in% .gdx$parameters$name, "parameter", "variable")
+    cat(crayon::blue(paste(" - table",item,"\n")))
 
     item_param <- meta_param[parameter == item]
 
-    cat(crayon::blue(paste(" -",item_type,item,"\n")))
-
-    # uses as.data.table to keep attribute 'gams'
-    .data <- data.table::setDT(.gdx[item])
-    text <- attributes(.data)[["gams"]]
+    query <- paste0('select * from ',item)
+    .data <- data.table::setDT(RSQLite::dbGetQuery(sqldb, query))
 
     if (region_name %in% colnames(.data)) {
       data.table::setnames(.data, region_name, guess_region)
@@ -94,8 +94,7 @@ convert_gdx <- function(gdxfile,
     convpar <- list()
 
     # Time period conversion
-    do_time_period <- ("year" %in% colnames(.data) &
-                         !stringr::str_detect(basename(gdxfile),"hist"))
+    do_time_period <- ("year" %in% colnames(.data))
 
     if (do_time_period) {
       data_indices[data_indices == "year"] <- "t"
@@ -181,15 +180,15 @@ convert_gdx <- function(gdxfile,
     }
 
     .conv <- convert_table(.data,
-                            time_mapping = time_mappings[[time_id]],
-                            from_reg = from_reg,
-                            to_reg = region_mappings[[reg_id]],
-                            agg_weight = weights[[nweight]],
-                            options = convopt,
-                            do_time_period = do_time_period,
-                            do_region = do_region,
-                            verbose = TRUE,
-                            info = TRUE)
+                           time_mapping = time_mappings[[time_id]],
+                           from_reg = from_reg,
+                           to_reg = region_mappings[[reg_id]],
+                           agg_weight = weights[[nweight]],
+                           options = convopt,
+                           do_time_period = do_time_period,
+                           do_region = do_region,
+                           verbose = TRUE,
+                           info = TRUE)
 
     .data <- .conv[['data']]
     .info_share <- .conv[['info']]
@@ -209,30 +208,10 @@ convert_gdx <- function(gdxfile,
     # Ensure the original order is kept
     data.table::setcolorder(.data,data_indices)
 
-    # Table indices are stars, except from t and n
-    if (length(colnames(.data)) == 1) {
-      names(.data) <- "value"
-    } else {
-      indices <- subset(colnames(.data), colnames(.data) != "value")
-      indices <- ifelse(indices %in% c(region_name,"t"), indices, "*")
-      names(.data) <- c(indices,"value")
-    }
-
-    # add to collector []
-    attributes(.data) <- c(attributes(.data),gams = text)
-
-    # add warnings if data contains NAs
-    if (nrow(.data) > 0 & !item %in% c("carbonprice")) {
-      if (anyNA(.data$value)) {
-        warning(paste(gdxfile,'-',item,'contains NAs.'))
-      }
-    }
-
     .i <- list(.data)
     names(.i) <- item
 
-    if (item_type == "parameter") params <- c(params, .i)
-    if (item_type == "variable") vars <- c(vars, .i)
+    tabs  <- c(tabs, .i)
 
     # add an additionnal parameter '_info' when using sumby
     if (nweight %in% c("sumby")) {
@@ -240,16 +219,25 @@ convert_gdx <- function(gdxfile,
       names(.info_share) <- c(indices,"value")
       .i <- list(.info_share)
       names(.i) <- paste0(item,'_info')
-      params <- c(params, .i)
+      tabs <- c(tabs, .i)
     }
 
   }
 
-  cat(crayon::blue(paste(" -","writing gdx\n")))
+  cat(crayon::blue(paste(" -","writing SQLite db\n")))
 
-  f <- file.path(output_directory,basename(gdxfile))
+  sqldb <- RSQLite::dbConnect(RSQLite::SQLite(),
+                              dbname = file.path(output_directory,
+                                                 basename(sqlitedb)))
+  for (i in seq_along(tabs)) {
+    RSQLite::dbWriteTable(sqldb, names(tabs)[i], tabs[[i]],
+                          row.names = FALSE,
+                          overwrite = TRUE,
+                          append = FALSE,
+                          field.types = NULL)
+  }
 
-  gdxtools::write.gdx(f, params = params, vars_l = vars)
+  RSQLite::dbDisconnect(sqldb)
 
-  return(gdxfile)
 }
+

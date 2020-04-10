@@ -81,6 +81,7 @@ values are averaged or the function \code{fun.aggregate} is used.
 Other conversion functions: 
 \code{\link{convert_gdx}()},
 \code{\link{convert_region}()},
+\code{\link{convert_sqlite}()},
 \code{\link{convert_table}()}
 }
 \concept{conversion functions}

@@ -11,7 +11,8 @@ witch_translate_data(
   idir = NULL,
   output_dir = NULL,
   regions = region_mappings,
-  times = time_mappings
+  times = time_mappings,
+  force = FALSE
 )
 }
 \arguments{
@@ -26,6 +27,8 @@ witch_translate_data(
 \item{output_dir}{output folder (to overidde default WITCH data folder name)}
 
 \item{regions}{optional list of region mappings (see Details for format)}
+
+\item{force}{logical indicating whether all make files should be processed}
 }
 \description{
 \code{witch_translate_data} generates the input data for the WITCH model.

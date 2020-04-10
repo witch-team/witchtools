@@ -47,7 +47,7 @@
 
 
 <meta property="og:title" content="Function reference" />
-<meta property="og:image" content="/logo.png" />
+<meta property="og:image" content="https://witchtools.github.io/logo.png" />
 
 
 
@@ -158,16 +158,19 @@
         <td>
           <p><code><a href="convert_gdx.html">convert_gdx()</a></code> </p>
         </td>
-        <td><p><code>convert_gdx</code> writes a converted GDX in the <code>output_directory</code>.
-All parameters and variables from the input <code>gdxfile</code> are converted
-using the <code>convert_table</code> function. Specific conversion options
-are read in the parameter <code>meta_param</code> also stored in the gdxfile.</p></td>
+        <td><p>Batch convert parameters and variables from a GDX</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="convert_region.html">convert_region()</a></code> </p>
         </td>
         <td><p>Convert a data.table from a regional mapping to another.</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="convert_sqlite.html">convert_sqlite()</a></code> </p>
+        </td>
+        <td><p>Batch convert tables from a SQLite database</p></td>
       </tr><tr>
         
         <td>
@@ -235,8 +238,7 @@ are read in the parameter <code>meta_param</code> also stored in the gdxfile.</p
         <td>
           <p><code><a href="witch_data.html">witch_data()</a></code> </p>
         </td>
-        <td><p>Returns the location of a file from the witch-data repository for processing,
-after downloading it from github if necessary using the piggyback library.</p></td>
+        <td><p>Handler for witch-data files</p></td>
       </tr><tr>
         
         <td>

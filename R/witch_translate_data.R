@@ -25,6 +25,7 @@
 #' @param idir input data folder (for weights and to be pass to make_data files)
 #' @param output_dir output folder (to overidde default WITCH data folder name)
 #' @param regions optional list of region mappings (see Details for format)
+#' @param force logical indicating whether all make files should be processed
 #'
 #'
 #' @export
@@ -38,7 +39,8 @@ witch_translate_data <- function(witch_dir = ".",
                                  idir = NULL,
                                  output_dir = NULL,
                                  regions = region_mappings,
-                                 times = time_mappings) {
+                                 times = time_mappings,
+                                 force = FALSE) {
 
   cat(crayon::silver$bold("\U26AB Initialisation\n"))
 
@@ -102,9 +104,9 @@ witch_translate_data <- function(witch_dir = ".",
   # Find gdx files to be processed
   gdxlist <- Sys.glob(file.path(input_directory, "data_*.gdx"))
   if (!force) {
-    output_gdx <- file.path(output_directory, basename(input_gdx))
-    todo <- file.mtime(input_gdx) > file.mtime(output_gdx)
-    gdxlist <- input_gdxlist[is.na(todo) | todo]
+    output_gdx <- file.path(output_directory, basename(gdxlist))
+    todo <- file.mtime(gdxlist) > file.mtime(output_gdx)
+    gdxlist <- gdxlist[is.na(todo) | todo]
   }
   gdxlist <- sort(gdxlist)
 
@@ -124,24 +126,31 @@ witch_translate_data <- function(witch_dir = ".",
     }
   }
 
-  cat(crayon::silver$bold("\U26AB Process input sqlite file(s)\n"))
+  cat(crayon::silver$bold("\U26AB Process input SQLite file(s)\n"))
 
-  # Translate GLOBIOM dataset
-  input_gb <- file.path(input_directory,'data_globiom.sqlite')
-  output_gb <- file.path(output_directory,'data_globiom.sqlite')
-  todo <- FALSE
-  todo <- !file.exists(output_gb)
-  if (!todo) {
-    todo <- file.mtime(input_gb) > file.mtime(output_gb)
+  # Find sqlite files to be processed
+  sqllist <- Sys.glob(file.path(input_directory, "data_*.sqlite"))
+  if (!force) {
+    output_sqlite <- file.path(output_directory, basename(sqllist))
+    todo <- file.mtime(sqllist) > file.mtime(output_sqlite)
+    sqllist <- sqllist[is.na(todo) | todo]
   }
-  if (todo) {
-    res <- convert_globiom(input_gb,
-                           reg_id,
-                           time_id,
-                           region_mappings = regions,
-                           time_mappings = times,
-                           weights = default_weights,
-                           output_directory)
+  sqllist <- sort(sqllist)
+
+  if (requireNamespace('RSQLite', quietly = TRUE)) {
+    for (sqlfile in sqllist) {
+      convert_sqlite(
+        sqlfile,
+        reg_id,
+        time_id,
+        region_mappings = regions,
+        time_mappings = times,
+        weights = default_weights,
+        region_name = "n",
+        output_directory,
+        default_meta_param = witch_meta_param
+      )
+    }
   }
 
   cat(crayon::silver$bold(paste("\U26AB Create gams files for WITCH\n")))
