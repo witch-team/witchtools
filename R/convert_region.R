@@ -49,9 +49,9 @@ convert_region <- function(.x,
                            from_reg = NULL,
                            to_reg,
                            agg_operator = "sum",
-                           agg_weight = default_weights[["gdp"]],
+                           agg_weight = witchtools::default_weights[["gdp"]],
                            agg_missing = "NA",
-                           regions = region_mappings,
+                           regions = witchtools::region_mappings,
                            info = FALSE) {
 
   # Check weight
@@ -139,12 +139,12 @@ convert_region <- function(.x,
       # total weights are computed because of missing zeros values
       .w <- merge(rmap0,agg_weight,by = "iso3")
       .w <- .w[iso3 %in% unique(.x$iso3)]
-      .w <- .w[,.(sum_weight = sum(weight)),by = rname0]
+      .w <- .w[,list(sum_weight = sum(weight)),by = rname0]
       .x <- merge(.x,.w,by = rname0)
-      .x <- .x[, .(iso3,
-                   rname1 = get(rname1),
-                   value = value * weight / sum_weight),
-                   by = c(dkeys(.x),rname0) ]
+      .x <- .x[, list(iso3,
+                      rname1 = get(rname1),
+                      value = value * weight / sum_weight),
+                      by = c(dkeys(.x),rname0) ]
     } else {
       if (agg_operator %in% c("mean","set1","min","minw","max","maxw")) {
         .x <- .x[, .(iso3,

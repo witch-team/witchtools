@@ -26,7 +26,9 @@ witch_translate_data(
 
 \item{output_dir}{output folder (to overidde default WITCH data folder name)}
 
-\item{regions}{optional list of region mappings (see Details for format)}
+\item{regions}{optional list of regional mappings (see Details for format)}
+
+\item{times}{optional list of timescale mappings (see Details for format)}
 
 \item{force}{logical indicating whether all make files should be processed}
 }

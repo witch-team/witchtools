@@ -11,7 +11,7 @@ convert_gdx(
   output_directory,
   region_mappings = region_mappings,
   time_mappings = time_mappings,
-  weights = default_weights,
+  weights = witchtools::default_weights,
   guess_input_t = "t30",
   region_name = NULL,
   guess_region = "witch17",

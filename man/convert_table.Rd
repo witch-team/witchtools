@@ -41,10 +41,13 @@ the mapping.}
 \item{do_time_period}{logical indicating whether years should be converted.}
 
 \item{do_region}{logical indicating whether region should be converted.}
+
+\item{info}{logical indicating whether to include information, only necessary
+when the agg_operator is "sumby".}
 }
 \value{
-a list containing a converted data.table and information about
-the coperture if available.
+a data.table or list containing a converted data.table and
+information about the coperture if available.
 }
 \description{
 \code{convert_table} returns a list containing a data.table where values are
@@ -57,6 +60,7 @@ indices.
 }
 \examples{
 \dontrun{
+
 }
 
 }

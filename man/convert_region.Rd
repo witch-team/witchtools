@@ -9,9 +9,9 @@ convert_region(
   from_reg = NULL,
   to_reg,
   agg_operator = "sum",
-  agg_weight = default_weights[["gdp"]],
+  agg_weight = witchtools::default_weights[["gdp"]],
   agg_missing = "NA",
-  regions = region_mappings,
+  regions = witchtools::region_mappings,
   info = FALSE
 )
 }

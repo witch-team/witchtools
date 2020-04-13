@@ -32,21 +32,16 @@
 #' @param fun.aggregate function to aggregate yearly values in a period.
 #' @param na.rm logical indicating whether missing values should be removed.
 #' @param verbose logical indicating whether running in verbose mode.
+#'
 #' @return a converted data.table
 #' @importFrom stats approx
 #' @export
 #' @examples
-#' \dontrun{
-#'   # load time mapping t30
-#'   f <- file.path(system.file("timescale",package = "witchtools"),"t30.csv")
-#'   tm <- load_timescale_mapping(f)
-#'
 #'   # original data.table
-#'   dd <- data.table(year = c(2010,2020), value = 1:2)
+#'   dd <- data.table(year = 2005:2050, value = 1:46)
 #'
-#'   # Convert into time period with linear interpolation
-#'   convert_time_period(dd, tm, do_interp = T)
-#' }
+#'   # Convert yearly time-serie into time period
+#'   convert_time_period(dd, 't30')
 
 convert_time_period <- function(.x,
                                 time_mapping,

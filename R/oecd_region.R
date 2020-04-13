@@ -60,8 +60,8 @@ oecd_regions <- function(region_mapping) {
     all.x = TRUE
   )
   tab[is.na(oecd), oecd := 0]
-  tab <- merge(tab, default_weights[['gdp']], by = "iso3")
-  tab <- tab[, .(is_oecd = sum(weight * oecd) / sum(weight)), by = reg_id]
+  tab <- merge(tab, witchtools::default_weights[['gdp']], by = "iso3")
+  tab <- tab[, list(is_oecd = sum(weight * oecd) / sum(weight)), by = reg_id]
   threshold <- 0.5
   return(tab[is_oecd > threshold, get(reg_id)])
 }

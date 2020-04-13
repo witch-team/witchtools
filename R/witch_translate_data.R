@@ -24,7 +24,8 @@
 #' @param timescale final timescale aggregation
 #' @param idir input data folder (for weights and to be pass to make_data files)
 #' @param output_dir output folder (to overidde default WITCH data folder name)
-#' @param regions optional list of region mappings (see Details for format)
+#' @param regions optional list of regional mappings (see Details for format)
+#' @param times optional list of timescale mappings (see Details for format)
 #' @param force logical indicating whether all make files should be processed
 #'
 #'

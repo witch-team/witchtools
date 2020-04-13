@@ -24,12 +24,15 @@
 #' @param regions optional list of region mappings (see Details for format)
 #' @param do_time_period logical indicating whether years should be converted.
 #' @param do_region logical indicating whether region should be converted.
-
-#' @return a list containing a converted data.table and information about
-#'         the coperture if available.
+#' @param info logical indicating whether to include information, only necessary
+#'  when the agg_operator is "sumby".
+#'
+#' @return a data.table or list containing a converted data.table and
+#' information about the coperture if available.
 #' @export
 #' @examples
 #' \dontrun{
+#'
 #' }
 #'
 
