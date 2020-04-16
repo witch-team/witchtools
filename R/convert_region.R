@@ -43,6 +43,9 @@
 #' @export
 #' @examples
 #' \dontrun{
+#'
+#' convert_region(gdp_iso3, to_reg = 'witch17')
+#'
 #' }
 #'
 convert_region <- function(.x,
@@ -53,6 +56,8 @@ convert_region <- function(.x,
                            agg_missing = "NA",
                            regions = witchtools::region_mappings,
                            info = FALSE) {
+
+  if (!data.table::is.data.table(.x)) .x <- data.table::setDT(.x)
 
   # Check weight
   if (is.null(agg_weight)) {

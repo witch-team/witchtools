@@ -24,7 +24,7 @@ convert_item <- function(.data,
   convpar <- list()
 
   # Time period conversion
-  do_time_period <- ("year" %in% colnames(.data))
+  do_time_period <- ("year" %in% colnames(.data) & time_id != "year")
 
   if (do_time_period) {
     data_indices[data_indices == "year"] <- "t"

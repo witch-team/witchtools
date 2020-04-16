@@ -42,16 +42,6 @@ test_that("convert time with sum", {
 
 })
 
-test_that("convert time needs data.table", {
-
-  dd <- data.frame(z = c(1,2), year = 2005:2050, value = 1:46)
-
-  expect_error(
-    convert_time_period(dd, time_mappings[['t30']])
-  )
-
-})
-
 test_that("convert time no interpolation and no extrapolation", {
 
   tm <- time_mappings[['t30']]

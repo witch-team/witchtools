@@ -1,14 +1,3 @@
-test_that("convert region needs data.table", {
-
-  gdp_iso3 <- data.table::copy(default_weights[['gdp']])
-  data.table::setnames(gdp_iso3,'weight','value')
-  gdp_iso3 <- as.data.frame(gdp_iso3)
-
-  expect_error(
-    convert_region(gdp_iso3, to_reg = 'witch17')
-  )
-
-})
 
 test_that("convert region needs a column name value", {
 

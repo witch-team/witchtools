@@ -37,11 +37,15 @@
 #' @importFrom stats approx
 #' @export
 #' @examples
+#'
+#'   library(data.table)
+#'
 #'   # original data.table
 #'   dd <- data.table(year = 2005:2050, value = 1:46)
 #'
 #'   # Convert yearly time-serie into time period
 #'   convert_time_period(dd, 't30')
+#'
 
 convert_time_period <- function(.x,
                                 time_mapping,
@@ -54,7 +58,7 @@ convert_time_period <- function(.x,
                                 na.rm = TRUE,
                                 verbose = FALSE) {
 
-  if (!data.table::is.data.table(.x)) stop('.x should be a data.table')
+  if (!data.table::is.data.table(.x)) .x <- data.table::setDT(.x)
 
   # Guess time mapping if not directly provided
   if (is.character(time_mapping)) {

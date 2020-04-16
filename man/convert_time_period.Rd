@@ -62,11 +62,15 @@ or constantly interpolated. If several years are mapped into the same period,
 values are averaged or the function \code{fun.aggregate} is used.
 }
 \examples{
+
+  library(data.table)
+
   # original data.table
   dd <- data.table(year = 2005:2050, value = 1:46)
 
   # Convert yearly time-serie into time period
   convert_time_period(dd, 't30')
+
 }
 \seealso{
 \code{\link{convert_table}},

@@ -113,10 +113,14 @@ witch_translate_data <- function(witch_dir = ".",
 
   if (requireNamespace('gdxtools', quietly = TRUE)) {
     for (gdxfile in gdxlist) {
+      to_time <- time_id
+      if (stringr::str_detect(gdxfile,'hist')) {
+        to_time <- "year"
+      }
       convert_gdx(
         gdxfile,
         reg_id,
-        time_id,
+        to_time,
         region_mappings = regions,
         time_mappings = times,
         weights = default_weights,
