@@ -1,7 +1,10 @@
+#' Handler for witch-data files
+#'
 #' Returns the location of a file from the witch-data repository for processing,
 #' after downloading it from github if necessary using the piggyback library.
 #' @param file Name of the file in the with-data repository
 #' @param version Release version of the file (required for method piggyback)
+#' @param idir directory to read/download files
 #' @param method 'piggyback' or 'witch-data'.
 #' @param noCheck For the piggyback method, don't check and download the file.
 #' @param repo github repository name

@@ -1,0 +1,46 @@
+url: https://witchtools.github.io/
+
+destination: docs
+
+development:
+  mode: auto
+
+home:
+  strip_header: true
+  links:
+  - text: The WITCH model
+    href: https://www.witchmodel.org
+
+reference:
+- title: Conversion
+  desc: >
+    Conversion of well-formated data.table, including batch conversion for
+    database files.
+  contents:
+  - convert_gdx
+  - convert_region
+  - convert_sqlite
+  - convert_table
+  - convert_time_period
+- title: Default datasets
+  desc: >
+    Default datasets used for the building of inputs of the WITCH model.
+  contents:
+  - default_weights
+  - region_mappings
+  - time_mappings
+  - witch_meta_param
+- title: WITCH
+  desc: >
+    WITCH specific functions.
+  contents:
+  - witch_data
+  - witch_data_upload
+  - witch_translate_data
+- title: Other functions
+  contents:
+  - oecd_regions
+  - region_id
+  - require_gdxtools
+  - require_package
+

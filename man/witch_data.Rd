@@ -2,8 +2,7 @@
 % Please edit documentation in R/witch_data.R
 \name{witch_data}
 \alias{witch_data}
-\title{Returns the location of a file from the witch-data repository for processing,
-after downloading it from github if necessary using the piggyback library.}
+\title{Handler for witch-data files}
 \usage{
 witch_data(
   file,
@@ -18,6 +17,8 @@ witch_data(
 \item{file}{Name of the file in the with-data repository}
 
 \item{version}{Release version of the file (required for method piggyback)}
+
+\item{idir}{directory to read/download files}
 
 \item{method}{'piggyback' or 'witch-data'.}
 

@@ -14,11 +14,13 @@ require_package <- function(package, loading = TRUE){
       require_package("devtools", loading = FALSE)
       devtools::install_github('lolow/gdxtools')
     } else {
-      try(install.packages(package, repos = "http://cran.rstudio.com"), silent = TRUE)
+      try(install.packages(package, repos = "http://cran.rstudio.com"),
+          silent = TRUE)
     }
   }
   if (loading) {
-    suppressPackageStartupMessages(library(package,character.only = TRUE, quietly = TRUE))
+    suppressPackageStartupMessages(library(package,character.only = TRUE,
+                                           quietly = TRUE))
   }
 }
 
