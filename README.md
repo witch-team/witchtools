@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# witchtools: Data Management for IAMs<img src="man/figures/logo.png" align="right" alt="" width="120" />
+# witchtools: Data Management for IAMs<img src="man/figures/logo.png" align="right" width="120" />
 
 <!-- badges: start -->
 

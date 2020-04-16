@@ -1,57 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://witchtools.github.io//index.html</loc>
+    <loc>https://witch-team.github.io/witchtools//index.html</loc>
   </url>
   <url>
-    <loc>https://witchtools.github.io//reference/convert_gdx.html</loc>
+    <loc>https://witch-team.github.io/witchtools//reference/convert_gdx.html</loc>
   </url>
   <url>
-    <loc>https://witchtools.github.io//reference/convert_region.html</loc>
+    <loc>https://witch-team.github.io/witchtools//reference/convert_region.html</loc>
   </url>
   <url>
-    <loc>https://witchtools.github.io//reference/convert_sqlite.html</loc>
+    <loc>https://witch-team.github.io/witchtools//reference/convert_sqlite.html</loc>
   </url>
   <url>
-    <loc>https://witchtools.github.io//reference/convert_table.html</loc>
+    <loc>https://witch-team.github.io/witchtools//reference/convert_table.html</loc>
   </url>
   <url>
-    <loc>https://witchtools.github.io//reference/convert_time_period.html</loc>
+    <loc>https://witch-team.github.io/witchtools//reference/convert_time_period.html</loc>
   </url>
   <url>
-    <loc>https://witchtools.github.io//reference/default_weights.html</loc>
+    <loc>https://witch-team.github.io/witchtools//reference/default_weights.html</loc>
   </url>
   <url>
-    <loc>https://witchtools.github.io//reference/oecd_regions.html</loc>
+    <loc>https://witch-team.github.io/witchtools//reference/oecd_regions.html</loc>
   </url>
   <url>
-    <loc>https://witchtools.github.io//reference/region_id.html</loc>
+    <loc>https://witch-team.github.io/witchtools//reference/region_id.html</loc>
   </url>
   <url>
-    <loc>https://witchtools.github.io//reference/region_mappings.html</loc>
+    <loc>https://witch-team.github.io/witchtools//reference/region_mappings.html</loc>
   </url>
   <url>
-    <loc>https://witchtools.github.io//reference/require_gdxtools.html</loc>
+    <loc>https://witch-team.github.io/witchtools//reference/require_gdxtools.html</loc>
   </url>
   <url>
-    <loc>https://witchtools.github.io//reference/require_package.html</loc>
+    <loc>https://witch-team.github.io/witchtools//reference/require_package.html</loc>
   </url>
   <url>
-    <loc>https://witchtools.github.io//reference/time_mappings.html</loc>
+    <loc>https://witch-team.github.io/witchtools//reference/time_mappings.html</loc>
   </url>
   <url>
-    <loc>https://witchtools.github.io//reference/witch_data.html</loc>
+    <loc>https://witch-team.github.io/witchtools//reference/witch_data.html</loc>
   </url>
   <url>
-    <loc>https://witchtools.github.io//reference/witch_data_upload.html</loc>
+    <loc>https://witch-team.github.io/witchtools//reference/witch_data_upload.html</loc>
   </url>
   <url>
-    <loc>https://witchtools.github.io//reference/witch_meta_param.html</loc>
+    <loc>https://witch-team.github.io/witchtools//reference/witch_meta_param.html</loc>
   </url>
   <url>
-    <loc>https://witchtools.github.io//reference/witch_translate_data.html</loc>
+    <loc>https://witch-team.github.io/witchtools//reference/witch_translate_data.html</loc>
   </url>
   <url>
-    <loc>https://witchtools.github.io//articles/converting-time-regions.html</loc>
+    <loc>https://witch-team.github.io/witchtools//articles/converting-time-regions.html</loc>
   </url>
 </urlset>
