@@ -1,5 +1,7 @@
 destination: docs
 
+url: http://witchtools.witchmodel.org
+
 home:
   strip_header: true
   links:

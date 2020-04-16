@@ -3,5 +3,8 @@ pkgdown: 1.5.1
 pkgdown_sha: ~
 articles:
   converting-time-regions: converting-time-regions.html
-last_built: 2020-04-16T13:40Z
+last_built: 2020-04-16T13:48Z
+urls:
+  reference: http://witchtools.witchmodel.org/reference
+  article: http://witchtools.witchmodel.org/articles
 
