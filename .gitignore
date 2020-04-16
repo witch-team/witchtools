@@ -5,6 +5,4 @@
 *.Rproj
 data-raw/*.*
 !data-raw/*.R
-
-
 docs/
