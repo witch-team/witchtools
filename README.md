@@ -1,11 +1,15 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# witchtools: Data Management for IAMs<img src="man/figures/logo.png" align="right" width="120" />
+# witchtools <img src="man/figures/logo.png" align="right" alt="" width="120" />
+
+> Data Management for IAMs
 
 <!-- badges: start -->
 
-[![license](https://img.shields.io/badge/license-apache-lightgrey.svg)](https://choosealicense.com/)[![](https://img.shields.io/badge/devel%20version-0.2.0-green.svg)](https://github.com/witch-team/witchtools)[![](https://img.shields.io/badge/lifecycle-maturing-purple.svg)](https://github.com/witch-team/witchtools)
+[![Lifecycle:
+maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
+[![devel:0.2.0](https://img.shields.io/badge/devel%20version-0.2.0-green.svg)](https://github.com/witch-team/witchtools)
 <!-- badges: end -->
 
 ## Overview

@@ -3,8 +3,5 @@ pkgdown: 1.5.1
 pkgdown_sha: ~
 articles:
   converting-time-regions: converting-time-regions.html
-last_built: 2020-04-16T12:48Z
-urls:
-  reference: https://witch-team.github.io/witchtools//reference
-  article: https://witch-team.github.io/witchtools//articles
+last_built: 2020-04-16T13:40Z
 
