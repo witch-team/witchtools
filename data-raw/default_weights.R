@@ -9,12 +9,8 @@ options(witchtools.witch_data_repo = "witch-team/witch-data")
 
 idir = 'data-raw'
 
-f <- Sys.glob(file.path(system.file("regions", package = "witchtools"),
-                        "*.inc"))
-m <- lapply(f, load_region_mapping)
-
 # All these ISO3 should be informed
-iso3_list <- unique(unlist(lapply(m, function(x) x$iso3)))
+iso3_list <- unique(unlist(lapply(region_mappings, function(x) x$iso3)))
 
 w <- list()
 
@@ -140,7 +136,7 @@ witch_weights <- c("cst","gdp","co2","forest","land","pop","extr_oil_gas_2000",
                    "extr_coal_2000","prodelec_hydro_2005","extr_oil_2000",
                    "extr_gas_2000","prodelec_2005","tpes_2005",
                    "wbio_2010","ch4lu_emissions_2005","n2olu_emissions_2005",
-                   "agland")
+                   "agland","ghg_cait")
 
 default_weights <- w[names(w) %in% witch_weights]
 
