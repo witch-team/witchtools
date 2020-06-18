@@ -11,7 +11,8 @@ witch_region_mapping(f)
 }
 \description{
 \code{witch_region_mapping} reads a regional WITCH GAMS file and returns the
-regional mapping as defined in the file. The function sparse
+regional mapping as defined in the file. The function scans the GAMS file
+with the assumptions that each iso3 is on one line and in a set named map_*.
 }
 \examples{
 \dontrun{

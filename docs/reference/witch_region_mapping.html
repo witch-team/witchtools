@@ -48,7 +48,8 @@
 
 <meta property="og:title" content="Read region mapping from a regional WITCH GAMS file. — witch_region_mapping" />
 <meta property="og:description" content="witch_region_mapping reads a regional WITCH GAMS file and returns the
-regional mapping as defined in the file. The function sparse" />
+regional mapping as defined in the file. The function scans the GAMS file
+with the assumptions that each iso3 is on one line and in a set named map_*." />
 <meta property="og:image" content="http://witchtools.witchmodel.org/logo.png" />
 
 
@@ -139,7 +140,8 @@ regional mapping as defined in the file. The function sparse" />
 
     <div class="ref-description">
     <p><code>witch_region_mapping</code> reads a regional WITCH GAMS file and returns the
-regional mapping as defined in the file. The function sparse</p>
+regional mapping as defined in the file. The function scans the GAMS file
+with the assumptions that each iso3 is on one line and in a set named map_*.</p>
     </div>
 
     <pre class="usage"><span class='fu'>witch_region_mapping</span>(<span class='no'>f</span>)</pre>
