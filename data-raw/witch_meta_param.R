@@ -1,8 +1,6 @@
 #' WITCH default meta_param information.
 #' Useful if they are missing in the input files.
 
-
-
 defmap <- "parameter,value
 I,sum
 K,sum

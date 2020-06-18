@@ -34,6 +34,7 @@ reference:
   - witch_data
   - witch_data_upload
   - witch_translate_data
+  - witch_region_mapping
 - title: Other functions
   contents:
   - oecd_regions

@@ -1,3 +1,8 @@
+# witchdata 0.2.1
+
+* add ghg_cait weight
+* add witch_read_mapping to read WITCH regional mapping file
+
 # witchdata 0.2.0
 
 * Refactor the main functions for general use
