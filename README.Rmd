@@ -3,6 +3,7 @@ output: github_document
 ---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
+<!-- Because of a bug, duplicate the header below in the md file  -->
 
 ```{r, echo = FALSE}
 knitr::opts_chunk$set(

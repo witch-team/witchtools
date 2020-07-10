@@ -53,7 +53,7 @@ are read in the parameter \code{meta_param} also stored in the gdxfile.
 }
 \examples{
 \dontrun{
-convert_gdx('input/build/data_climate.gdx','witch17','t30','data_witch17')
+convert_gdx("input/build/data_climate.gdx", "witch17", "t30", "data_witch17")
 }
 
 }

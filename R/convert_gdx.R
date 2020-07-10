@@ -25,10 +25,9 @@
 #' @export
 #' @examples
 #' \dontrun{
-#' convert_gdx('input/build/data_climate.gdx','witch17','t30','data_witch17')
+#' convert_gdx("input/build/data_climate.gdx", "witch17", "t30", "data_witch17")
 #' }
 #'
-
 convert_gdx <- function(gdxfile,
                         reg_id,
                         time_id,
@@ -41,11 +40,10 @@ convert_gdx <- function(gdxfile,
                         guess_region = "witch17",
                         default_agg_missing = "zero",
                         default_meta_param = NULL) {
-
   if (!file.exists(gdxfile)) stop(paste(gdxfile, "does not exist!"))
   if (is.null(region_name)) region_name <- reg_id
 
-  cat(crayon::blue$bold(paste("Processing", basename(gdxfile),"\n")))
+  cat(crayon::blue$bold(paste("Processing", basename(gdxfile), "\n")))
 
   .gdx <- gdxtools::gdx(gdxfile)
 
@@ -54,44 +52,47 @@ convert_gdx <- function(gdxfile,
   vars <- list()
 
   # load meta_data
-  meta_param <- data.table::data.table(parameter = character(),
-                                       type = character(),
-                                       value = character())
-  meta_param <- rbind(meta_param,default_meta_param)
+  meta_param <- data.table::data.table(
+    parameter = character(),
+    type = character(),
+    value = character()
+  )
+  meta_param <- rbind(meta_param, default_meta_param)
   if ("meta_param" %in% .gdx$sets$name) {
     dt_meta_param <- data.table::setDT(.gdx["meta_param"])
-    names(dt_meta_param) <- c("parameter","type","value")
-    new_param <- unique(dt_meta_param[['parameter']])
+    names(dt_meta_param) <- c("parameter", "type", "value")
+    new_param <- unique(dt_meta_param[["parameter"]])
     meta_param <- meta_param[!parameter %in% new_param]
-    meta_param <- rbind(meta_param,dt_meta_param)
+    meta_param <- rbind(meta_param, dt_meta_param)
   }
 
   items <- c(.gdx$parameters$name, .gdx$variables$name)
 
-  #Loop over all parameters and variables in the file
+  # Loop over all parameters and variables in the file
   for (item in items) {
-
     item_type <- ifelse(item %in% .gdx$parameters$name, "parameter", "variable")
 
     item_param <- meta_param[parameter == item]
 
-    cat(crayon::blue(paste(" -",item_type,item,"\n")))
+    cat(crayon::blue(paste(" -", item_type, item, "\n")))
 
     # uses as.data.table to keep attribute 'gams'
     .data <- data.table::setDT(.gdx[item])
     text <- attributes(.data)[["gams"]]
 
-    res <- convert_item(.data,
-                        reg_id,
-                        time_id,
-                        region_name,
-                        item_param,
-                        time_mappings,
-                        region_mappings,
-                        weights,
-                        guess_region,
-                        guess_input_t,
-                        default_agg_missing)
+    res <- convert_item(
+      .data,
+      reg_id,
+      time_id,
+      region_name,
+      item_param,
+      time_mappings,
+      region_mappings,
+      weights,
+      guess_region,
+      guess_input_t,
+      default_agg_missing
+    )
     .data <- res[[1]]
     .info_share <- res[[2]]
 
@@ -100,17 +101,17 @@ convert_gdx <- function(gdxfile,
       names(.data) <- "value"
     } else {
       indices <- subset(colnames(.data), colnames(.data) != "value")
-      indices <- ifelse(indices %in% c(region_name,"t"), indices, "*")
-      names(.data) <- c(indices,"value")
+      indices <- ifelse(indices %in% c(region_name, "t"), indices, "*")
+      names(.data) <- c(indices, "value")
     }
 
     # add to collector []
-    attributes(.data) <- c(attributes(.data),gams = text)
+    attributes(.data) <- c(attributes(.data), gams = text)
 
     # add warnings if data contains NAs
     if (nrow(.data) > 0 & !item %in% c("carbonprice")) {
       if (anyNA(.data$value)) {
-        warning(paste(gdxfile,'-',item,'contains NAs.'))
+        warning(paste(gdxfile, "-", item, "contains NAs."))
       }
     }
 
@@ -122,17 +123,16 @@ convert_gdx <- function(gdxfile,
 
     # add an additionnal parameter '_info' when using sumby
     if (!is.null(.info_share)) {
-      names(.info_share) <- c(indices,"value")
+      names(.info_share) <- c(indices, "value")
       .i <- list(.info_share)
-      names(.i) <- paste0(item,'_info')
+      names(.i) <- paste0(item, "_info")
       params <- c(params, .i)
     }
-
   }
 
-  cat(crayon::blue(paste(" -","writing gdx\n")))
+  cat(crayon::blue(paste(" -", "writing gdx\n")))
 
-  f <- file.path(output_directory,basename(gdxfile))
+  f <- file.path(output_directory, basename(gdxfile))
 
   gdxtools::write.gdx(f, params = params, vars_l = vars)
 

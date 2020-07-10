@@ -32,7 +32,7 @@
 #' @export
 #' @examples
 #' \dontrun{
-#' witch_translate_data(region = "r5", timescale = 't30')
+#' witch_translate_data(region = "r5", timescale = "t30")
 #' }
 witch_translate_data <- function(witch_dir = ".",
                                  region,
@@ -42,12 +42,11 @@ witch_translate_data <- function(witch_dir = ".",
                                  regions = region_mappings,
                                  times = time_mappings,
                                  force = FALSE) {
-
   cat(crayon::silver$bold("\U26AB Initialisation\n"))
 
   # Check if gdxtool is available and working
-  if (requireNamespace('gdxtools', quietly = TRUE)) {
-    gdxtools::igdx(dirname(Sys.which('gams'))) # Please have gams in your PATH!
+  if (requireNamespace("gdxtools", quietly = TRUE)) {
+    gdxtools::igdx(dirname(Sys.which("gams"))) # Please have gams in your PATH!
   }
 
   # Region mapping
@@ -58,19 +57,23 @@ witch_translate_data <- function(witch_dir = ".",
 
   # Paths
   if (is.null(output_dir)) {
-    output_directory <- file.path(witch_dir, stringr::str_c("data_", reg_id,
-                                  ifelse(time_id == "t30", "",
-                                         stringr::str_c("_", time_id))))
+    output_directory <- file.path(witch_dir, stringr::str_c(
+      "data_", reg_id,
+      ifelse(time_id == "t30", "",
+        stringr::str_c("_", time_id)
+      )
+    ))
   } else {
     output_directory <- as.character(output_dir)
   }
   output_directory <- normalizePath(output_directory)
-  if (!dir.exists(output_directory))
+  if (!dir.exists(output_directory)) {
     dir.create(output_directory)
+  }
 
   ## Data directory
   if (is.null(idir)) {
-    idir <- normalizePath(file.path(witch_dir,"input","data"))
+    idir <- normalizePath(file.path(witch_dir, "input", "data"))
   } else {
     idir <- normalizePath(as.character(idir))
   }
@@ -84,17 +87,17 @@ witch_translate_data <- function(witch_dir = ".",
 
   cat(crayon::silver$bold("\U26AB Run make_data files\n"))
 
-  input_directory <- file.path(witch_dir,"input","build")
+  input_directory <- file.path(witch_dir, "input", "build")
   if (!dir.exists(input_directory)) dir.create(input_directory)
 
   # Rscript files make_data_*.R [FIRST]
-  Rfiles <- Sys.glob(file.path(witch_dir,'input','make_data_*.R'))
+  Rfiles <- Sys.glob(file.path(witch_dir, "input", "make_data_*.R"))
   res <- for (Rfile in Rfiles) {
     make_data_R(Rfile, idir, witch_dir)
   }
 
   # GAMS files make_data_*.gms
-  gamsfiles <- Sys.glob(file.path(witch_dir,'input','make_data_*.gms'))
+  gamsfiles <- Sys.glob(file.path(witch_dir, "input", "make_data_*.gms"))
   gamsfiles <- gamsfiles[gamsfiles != "make_data_template.gms"]
   res <- for (gamsfile in gamsfiles) {
     make_data_gms(gamsfile, idir, witch_dir)
@@ -111,10 +114,10 @@ witch_translate_data <- function(witch_dir = ".",
   }
   gdxlist <- sort(gdxlist)
 
-  if (requireNamespace('gdxtools', quietly = TRUE)) {
+  if (requireNamespace("gdxtools", quietly = TRUE)) {
     for (gdxfile in gdxlist) {
       to_time <- time_id
-      if (stringr::str_detect(gdxfile,'hist')) {
+      if (stringr::str_detect(gdxfile, "hist")) {
         to_time <- "year"
       }
       convert_gdx(
@@ -142,7 +145,7 @@ witch_translate_data <- function(witch_dir = ".",
   }
   sqllist <- sort(sqllist)
 
-  if (requireNamespace('RSQLite', quietly = TRUE)) {
+  if (requireNamespace("RSQLite", quietly = TRUE)) {
     for (sqlfile in sqllist) {
       convert_sqlite(
         sqlfile,
@@ -161,5 +164,4 @@ witch_translate_data <- function(witch_dir = ".",
   cat(crayon::silver$bold(paste("\U26AB Create gams files for WITCH\n")))
 
   witch_write_gams(regions[[reg_id]], times[[time_id]], output_directory)
-
 }

@@ -27,10 +27,9 @@
 #' @export
 #' @examples
 #' \dontrun{
-#' convert_sqlite('input/build/data_climate.sqlite','witch17','t30','data_witch17')
+#' convert_sqlite("input/build/data_climate.sqlite", "witch17", "t30", "data_witch17")
 #' }
 #'
-
 convert_sqlite <- function(sqlitedb,
                            reg_id,
                            time_id,
@@ -42,8 +41,7 @@ convert_sqlite <- function(sqlitedb,
                            region_name = NULL,
                            guess_region = "witch17",
                            default_agg_missing = "NA",
-                           default_meta_param = NULL){
-
+                           default_meta_param = NULL) {
   if (!file.exists(sqlitedb)) stop(paste(sqlitedb, "does not exist!"))
   if (is.null(region_name)) region_name <- reg_id
 
@@ -57,75 +55,79 @@ convert_sqlite <- function(sqlitedb,
   items <- RSQLite::dbListTables(sqldb)
 
   # load meta_data
-  meta_param <- data.table::data.table(parameter = character(),
-                                       type = character(),
-                                       value = character())
-  meta_param <- rbind(meta_param,default_meta_param)
+  meta_param <- data.table::data.table(
+    parameter = character(),
+    type = character(),
+    value = character()
+  )
+  meta_param <- rbind(meta_param, default_meta_param)
   if ("meta_param" %in% items) {
-    query <- 'select * from meta_param'
+    query <- "select * from meta_param"
     dt_meta_param <- data.table::setDT(RSQLite::dbGetQuery(sqldb, query))
-    new_param <- unique(dt_meta_param[['parameter']])
+    new_param <- unique(dt_meta_param[["parameter"]])
     meta_param <- meta_param[!parameter %in% new_param]
-    meta_param <- rbind(meta_param,dt_meta_param)
+    meta_param <- rbind(meta_param, dt_meta_param)
   }
 
   items <- items[items != "meta_param"]
 
-  #Loop over all tables in the file
+  # Loop over all tables in the file
   for (item in items) {
+    cat(crayon::blue(paste(" - table", item, "\n")))
 
-    cat(crayon::blue(paste(" - table",item,"\n")))
-
-    query <- paste0('select * from ',item)
+    query <- paste0("select * from ", item)
     .data <- data.table::setDT(RSQLite::dbGetQuery(sqldb, query))
 
     item_param <- meta_param[parameter == item]
 
-    res <- convert_item(.data,
-                        reg_id,
-                        time_id,
-                        region_name,
-                        item_param,
-                        time_mappings,
-                        region_mappings,
-                        weights,
-                        guess_region,
-                        guess_input_t,
-                        default_agg_missing)
+    res <- convert_item(
+      .data,
+      reg_id,
+      time_id,
+      region_name,
+      item_param,
+      time_mappings,
+      region_mappings,
+      weights,
+      guess_region,
+      guess_input_t,
+      default_agg_missing
+    )
     .data <- res[[1]]
     .info_share <- res[[2]]
 
     .i <- list(.data)
     names(.i) <- item
 
-    tabs  <- c(tabs, .i)
+    tabs <- c(tabs, .i)
 
     # add an additionnal parameter '_info' when using sumby
     if (!is.null(.info_share)) {
       indices <- subset(colnames(.data), colnames(.data) != "value")
-      data.table::setcolorder(.info_share,data_indices)
-      names(.info_share) <- c(indices,"value")
+      data.table::setcolorder(.info_share, data_indices)
+      names(.info_share) <- c(indices, "value")
       .i <- list(.info_share)
-      names(.i) <- paste0(item,'_info')
+      names(.i) <- paste0(item, "_info")
       tabs <- c(tabs, .i)
     }
-
   }
 
-  cat(crayon::blue(paste(" -","writing SQLite db\n")))
+  cat(crayon::blue(paste(" -", "writing SQLite db\n")))
 
   sqldb <- RSQLite::dbConnect(RSQLite::SQLite(),
-                              dbname = file.path(output_directory,
-                                                 basename(sqlitedb)))
+    dbname = file.path(
+      output_directory,
+      basename(sqlitedb)
+    )
+  )
   for (i in seq_along(tabs)) {
     RSQLite::dbWriteTable(sqldb, names(tabs)[i], tabs[[i]],
-                          row.names = FALSE,
-                          overwrite = TRUE,
-                          append = FALSE,
-                          field.types = NULL)
+      row.names = FALSE,
+      overwrite = TRUE,
+      append = FALSE,
+      field.types = NULL
+    )
   }
 
   RSQLite::dbDisconnect(sqldb)
-
 }
-

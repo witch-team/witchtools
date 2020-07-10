@@ -10,13 +10,12 @@ convert_item <- function(.data,
                          guess_region,
                          guess_input_t,
                          default_agg_missing) {
-
   if (region_name %in% colnames(.data)) {
     data.table::setnames(.data, region_name, guess_region)
   }
   if ("t" %in% colnames(.data) & guess_input_t == "t30") {
     data.table::setnames(.data, "t", "year")
-    .data[,year := paste(as.numeric(.data$year) * 5 + 2000)]
+    .data[, year := paste(as.numeric(.data$year) * 5 + 2000)]
   }
 
   data_indices <- colnames(.data)
@@ -46,7 +45,7 @@ convert_item <- function(.data,
     # Ensure region is lower case / iso3 is upper case
     if (data_reg != "iso3") {
       .idx <- which(data_reg == colnames(.data))
-      .data[[.idx]] <- tolower(.data[,get(data_reg)])
+      .data[[.idx]] <- tolower(.data[, get(data_reg)])
     } else {
       .data$iso3 <- toupper(.data$iso3)
     }
@@ -55,73 +54,74 @@ convert_item <- function(.data,
     if (data_reg != "iso3") {
       from_reg <- region_mappings[[data_reg]]
     } else {
-      from_reg <- 'iso3'
+      from_reg <- "iso3"
     }
 
     # Set final regional mapping
     to_reg <- region_mappings[[reg_id]]
-
   }
 
   # Conversion options
   convopt <- c(convpar,
-               do_extrap = (nrow(item_param[type == "extrap" &
-                                              value == "skip"]) == 0),
-               do_interp = (nrow(item_param[type == "interp" &
-                                              value == "skip"]) == 0),
-               do_past_extrap = TRUE)
+    do_extrap = (nrow(item_param[type == "extrap" &
+      value == "skip"]) == 0),
+    do_interp = (nrow(item_param[type == "interp" &
+      value == "skip"]) == 0),
+    do_past_extrap = TRUE
+  )
 
-  if (!convopt[['do_extrap']]) {
-    convopt[['do_past_extrap']] <- FALSE
+  if (!convopt[["do_extrap"]]) {
+    convopt[["do_past_extrap"]] <- FALSE
   }
 
   # No inter/extrapolation for stochastic branch
   if (stringr::str_detect(time_id, "branch")) {
-    convopt[['do_extrap']] <- FALSE
-    convopt[['do_interp']] <- FALSE
+    convopt[["do_extrap"]] <- FALSE
+    convopt[["do_interp"]] <- FALSE
   }
 
   # Missing values
-  convopt[['agg_missing']] <- default_agg_missing
+  convopt[["agg_missing"]] <- default_agg_missing
   if (nrow(item_param[type == "missing_values"]) > 0) {
-    convopt[['agg_missing']] <- item_param[type == "missing_values"][1,value]
+    convopt[["agg_missing"]] <- item_param[type == "missing_values"][1, value]
   }
 
   # Aggregation operator
-  convopt[['agg_operator']] <- "sum"
+  convopt[["agg_operator"]] <- "sum"
   if (nrow(item_param[type == "nagg"]) > 0) {
-    convopt[['agg_operator']] <- item_param[type == "nagg"][1,value]
+    convopt[["agg_operator"]] <- item_param[type == "nagg"][1, value]
   }
 
   # Aggregation weight
   nweight <- "pop"
   if (nrow(item_param[type == "nweight"]) > 0) {
-    nweight <- item_param[type == "nweight"][1,value]
+    nweight <- item_param[type == "nweight"][1, value]
   } else {
-    nweight <- ifelse(convopt[['agg_operator']] %in% c("mean"),"cst","gdp")
+    nweight <- ifelse(convopt[["agg_operator"]] %in% c("mean"), "cst", "gdp")
   }
   # Ensure max and min have cst weight
-  if (convopt[['agg_operator']] %in% c("min","max")) {
+  if (convopt[["agg_operator"]] %in% c("min", "max")) {
     nweight <- "cst"
   }
 
   if (!nweight %in% names(weights)) {
-    stop(paste(nweight,'not in weights!'))
+    stop(paste(nweight, "not in weights!"))
   }
 
   .conv <- convert_table(.data,
-                         time_mapping = time_mappings[[time_id]],
-                         from_reg = from_reg,
-                         to_reg = region_mappings[[reg_id]],
-                         agg_weight = weights[[nweight]],
-                         options = convopt,
-                         do_time_period = do_time_period,
-                         do_region = do_region,
-                         verbose = TRUE,
-                         info = TRUE)
+    time_mapping = time_mappings[[time_id]],
+    from_reg = from_reg,
+    to_reg = region_mappings[[reg_id]],
+    agg_weight = weights[[nweight]],
+    options = convopt,
+    do_time_period = do_time_period,
+    do_region = do_region,
+    verbose = TRUE,
+    info = TRUE
+  )
 
-  .data <- .conv[['data']]
-  .info_share <- .conv[['info']]
+  .data <- .conv[["data"]]
+  .info_share <- .conv[["info"]]
 
   if (reg_id %in% colnames(.data)) {
     data.table::setnames(.data, reg_id, region_name)
@@ -131,20 +131,21 @@ convert_item <- function(.data,
   if (reg_id %in% colnames(.data)) {
     cat(crayon::blue(paste("   [same]\n")))
   } else if (do_region) {
-    cat(crayon::blue(paste0("   [agg: ", convopt[['agg_operator']], ", wgt: ",
-                            nweight, "]\n")))
+    cat(crayon::blue(paste0(
+      "   [agg: ", convopt[["agg_operator"]], ", wgt: ",
+      nweight, "]\n"
+    )))
   }
 
   # Ensure the original order is kept
-  data.table::setcolorder(.data,data_indices)
+  data.table::setcolorder(.data, data_indices)
 
   if (!is.null(.info_share)) {
     if (reg_id %in% colnames(.info_share)) {
       data.table::setnames(.info_share, reg_id, region_name)
     }
-    data.table::setcolorder(.info_share,data_indices)
+    data.table::setcolorder(.info_share, data_indices)
   }
 
-  return(list(.data,.info_share))
-
+  return(list(.data, .info_share))
 }

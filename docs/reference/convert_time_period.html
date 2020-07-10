@@ -231,13 +231,13 @@ values are averaged or the function <code>fun.aggregate</code> is used.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-  <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>data.table</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>data.table</span>)
 
-  <span class='co'># original data.table</span>
-  <span class='no'>dd</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://Rdatatable.gitlab.io/data.table/reference/data.table.html'>data.table</a></span>(<span class='kw'>year</span> <span class='kw'>=</span> <span class='fl'>2005</span>:<span class='fl'>2050</span>, <span class='kw'>value</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>46</span>)
+<span class='co'># original data.table</span>
+<span class='no'>dd</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://Rdatatable.gitlab.io/data.table/reference/data.table.html'>data.table</a></span>(<span class='kw'>year</span> <span class='kw'>=</span> <span class='fl'>2005</span>:<span class='fl'>2050</span>, <span class='kw'>value</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>46</span>)
 
-  <span class='co'># Convert yearly time-serie into time period</span>
-  <span class='fu'>convert_time_period</span>(<span class='no'>dd</span>, <span class='st'>'t30'</span>)</div><div class='output co'>#&gt;      t value
+<span class='co'># Convert yearly time-serie into time period</span>
+<span class='fu'>convert_time_period</span>(<span class='no'>dd</span>, <span class='st'>"t30"</span>)</div><div class='output co'>#&gt;      t value
 #&gt;  1:  1     2
 #&gt;  2:  2     6
 #&gt;  3:  3    11
@@ -247,8 +247,7 @@ values are averaged or the function <code>fun.aggregate</code> is used.</p>
 #&gt;  7:  7    31
 #&gt;  8:  8    36
 #&gt;  9:  9    41
-#&gt; 10: 10    45</div><div class='input'>
-</div></pre>
+#&gt; 10: 10    45</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

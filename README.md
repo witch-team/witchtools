@@ -1,6 +1,8 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
+<!-- Because of a bug, duplicate the header below in the md file  -->
+
 # witchtools <img src="man/figures/logo.png" align="right" alt="" width="120" />
 
 > Data Management for IAMs

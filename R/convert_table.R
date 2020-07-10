@@ -33,11 +33,9 @@
 #' @examples
 #' \dontrun{
 #'
-#' convert_table(gdp_iso3, to_reg = 'witch17', time_mapping = "t30")
-#'
+#' convert_table(gdp_iso3, to_reg = "witch17", time_mapping = "t30")
 #' }
 #'
-
 convert_table <- function(.x,
                           ...,
                           options = list(),
@@ -48,51 +46,58 @@ convert_table <- function(.x,
                           regions = NULL,
                           do_time_period = TRUE,
                           do_region = TRUE,
-                          info = FALSE
-                          ) {
-
+                          info = FALSE) {
   dots <- list(...)
   ndots <- length(dots)
   dots <- c(dots, options)
 
   if (do_time_period) {
-    time_params <- dots[which(names(dots) %in% c("do_interp",
-                                                 "do_extrap",
-                                                 "do_past_extrap",
-                                                 "year_name",
-                                                 "value_name",
-                                                 "period_name",
-                                                 "fun.aggregate",
-                                                 "na.rm",
-                                                 "verbose"))]
-    .x <- do.call(convert_time_period, c(list(.x = data.table::setDT(.x),
-                                              time_mapping = time_mapping),
-                                         time_params))
+    time_params <- dots[which(names(dots) %in% c(
+      "do_interp",
+      "do_extrap",
+      "do_past_extrap",
+      "year_name",
+      "value_name",
+      "period_name",
+      "fun.aggregate",
+      "na.rm",
+      "verbose"
+    ))]
+    .x <- do.call(convert_time_period, c(
+      list(
+        .x = data.table::setDT(.x),
+        time_mapping = time_mapping
+      ),
+      time_params
+    ))
   }
 
   .info_share <- NULL
 
   if (do_region) {
+    region_params <- dots[which(names(dots) %in% c(
+      "agg_operator",
+      "agg_missing"
+    ))]
 
-    region_params <- dots[which(names(dots) %in% c("agg_operator",
-                                                 "agg_missing"
-                                                 ))]
-
-    .conv <- do.call(convert_region, c(list(.x = data.table::setDT(.x),
-                                            from_reg = from_reg,
-                                            to_reg = to_reg,
-                                            agg_weight = agg_weight,
-                                            regions = regions,
-                                            info = info),
-                                       region_params))
+    .conv <- do.call(convert_region, c(
+      list(
+        .x = data.table::setDT(.x),
+        from_reg = from_reg,
+        to_reg = to_reg,
+        agg_weight = agg_weight,
+        regions = regions,
+        info = info
+      ),
+      region_params
+    ))
 
     if (info) {
-      .x <- .conv[['data']]
-      .info_share <- .conv[['info']]
+      .x <- .conv[["data"]]
+      .info_share <- .conv[["info"]]
     } else {
       .x <- .conv
     }
-
   }
 
   if (info) {
@@ -100,5 +105,4 @@ convert_table <- function(.x,
   } else {
     return(.x)
   }
-
 }

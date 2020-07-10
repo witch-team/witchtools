@@ -16,8 +16,7 @@ a character for the regional mapping ID.
 \code{region_id} returns the region id of a region mapping.
 }
 \examples{
-region_id(region_mappings[['witch17']])
-
+region_id(region_mappings[["witch17"]])
 }
 \seealso{
 Other misc functions: 

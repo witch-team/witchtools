@@ -55,6 +55,6 @@ and refyear for interpolation and extrapolation. \code{times} should contain
 }
 \examples{
 \dontrun{
-witch_translate_data(region = "r5", timescale = 't30')
+witch_translate_data(region = "r5", timescale = "t30")
 }
 }

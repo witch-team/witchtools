@@ -25,6 +25,6 @@ Upload a file as an asset in a release of a github repository.
 }
 \examples{
 \dontrun{
-witch_data_upload("ssp/ssp_population.csv", version = 'v0.0.1')
+witch_data_upload("ssp/ssp_population.csv", version = "v0.0.1")
 }
 }

@@ -65,8 +65,7 @@ The name in the list should also be the regional mapping name.
 \examples{
 \dontrun{
 
-convert_region(gdp_iso3, to_reg = 'witch17')
-
+convert_region(gdp_iso3, to_reg = "witch17")
 }
 
 }

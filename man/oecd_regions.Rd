@@ -19,8 +19,7 @@ countries from the region is greater than 50\% of total GDP of the region,
 the region is considered as belonging of the OECD.
 }
 \examples{
-oecd_regions(region_mappings[['witch17']])
-
+oecd_regions(region_mappings[["witch17"]])
 }
 \seealso{
 Other misc functions: 

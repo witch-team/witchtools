@@ -8,19 +8,22 @@
 #' \dontrun{
 #' require_package("devtools", loading = FALSE)
 #' }
-require_package <- function(package, loading = TRUE){
+require_package <- function(package, loading = TRUE) {
   if (!package %in% rownames(installed.packages())) {
-    if (package == 'gdxtools') {
+    if (package == "gdxtools") {
       require_package("devtools", loading = FALSE)
-      devtools::install_github('lolow/gdxtools')
+      devtools::install_github("lolow/gdxtools")
     } else {
       try(install.packages(package, repos = "http://cran.rstudio.com"),
-          silent = TRUE)
+        silent = TRUE
+      )
     }
   }
   if (loading) {
-    suppressPackageStartupMessages(library(package,character.only = TRUE,
-                                           quietly = TRUE))
+    suppressPackageStartupMessages(library(package,
+      character.only = TRUE,
+      quietly = TRUE
+    ))
   }
 }
 
@@ -34,6 +37,6 @@ require_package <- function(package, loading = TRUE){
 #' \dontrun{
 #' require_gdxtools()
 #' }
-require_gdxtools <- function(loading = TRUE){
-  require_package('gdxtools', loading = loading)
+require_gdxtools <- function(loading = TRUE) {
+  require_package("gdxtools", loading = loading)
 }

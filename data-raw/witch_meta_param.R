@@ -67,12 +67,14 @@ temp_valid_hadcrut4,mean
 "
 witch_meta_param <- data.table::fread(defmap)
 witch_meta_param[, type := "nagg"]
-witch_meta_param <- rbind(witch_meta_param,
-              data.table::data.table(
-               parameter = witch_meta_param$parameter,
-               type = "nweight",
-               value = "gdp"
-             ))
+witch_meta_param <- rbind(
+  witch_meta_param,
+  data.table::data.table(
+    parameter = witch_meta_param$parameter,
+    type = "nweight",
+    value = "gdp"
+  )
+)
 data.table::setcolorder(witch_meta_param, c("parameter", "type", "value"))
 
 usethis::use_data(witch_meta_param, compress = "xz", overwrite = T)

@@ -12,9 +12,7 @@
 #'
 #' @export
 #' @examples
-#' oecd_regions(region_mappings[['witch17']])
-#'
-
+#' oecd_regions(region_mappings[["witch17"]])
 oecd_regions <- function(region_mapping) {
   reg_id <- region_id(region_mapping)
   oecd_iso3 <- c(
@@ -60,7 +58,7 @@ oecd_regions <- function(region_mapping) {
     all.x = TRUE
   )
   tab[is.na(oecd), oecd := 0]
-  tab <- merge(tab, witchtools::default_weights[['gdp']], by = "iso3")
+  tab <- merge(tab, witchtools::default_weights[["gdp"]], by = "iso3")
   tab <- tab[, list(is_oecd = sum(weight * oecd) / sum(weight)), by = reg_id]
   threshold <- 0.5
   return(tab[is_oecd > threshold, get(reg_id)])

@@ -61,8 +61,7 @@ indices.
 \examples{
 \dontrun{
 
-convert_table(gdp_iso3, to_reg = 'witch17', time_mapping = "t30")
-
+convert_table(gdp_iso3, to_reg = "witch17", time_mapping = "t30")
 }
 
 }

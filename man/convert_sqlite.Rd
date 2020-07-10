@@ -55,7 +55,7 @@ are read in the parameter \code{meta_param} also stored in the
 }
 \examples{
 \dontrun{
-convert_sqlite('input/build/data_climate.sqlite','witch17','t30','data_witch17')
+convert_sqlite("input/build/data_climate.sqlite", "witch17", "t30", "data_witch17")
 }
 
 }

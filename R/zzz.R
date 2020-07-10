@@ -1,4 +1,4 @@
-#zzz.R
+# zzz.R
 .onLoad <- function(libname, pkgname) {
   options(witchtools.method = "piggyback")
   options(witchtools.witch_data_repo = "witch-team/witch-data")
@@ -12,5 +12,6 @@
 
 # Prevent R CMD check from complaining about the use of pipe expressions
 # standard data.table variables
-if (getRversion() >= "2.15.1")
+if (getRversion() >= "2.15.1") {
   utils::globalVariables(c(".", ".I", ".N", ".SD"), utils::packageName())
+}

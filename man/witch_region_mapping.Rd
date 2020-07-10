@@ -16,7 +16,7 @@ with the assumptions that each iso3 is on one line and in a set named map_*.
 }
 \examples{
 \dontrun{
-witch_region_mapping('input/regions/witch17.inc')
+witch_region_mapping("input/regions/witch17.inc")
 }
 
 }

@@ -12,27 +12,27 @@
 #' @export
 #' @examples
 #' \dontrun{
-#' witch_data("ssp/ssp_population.csv", version = 'v0.0.1')
-#' witch_data("ssp/ssp_population.csv", method = 'witch-data')
+#' witch_data("ssp/ssp_population.csv", version = "v0.0.1")
+#' witch_data("ssp/ssp_population.csv", method = "witch-data")
 #' witch_data("ssp/ssp_population.csv", noCheck = TRUE)
 #' }
 witch_data <- function(file, version = NULL,
-                       idir = getOption('witchtools.idir'),
-                       method = getOption('witchtools.method'),
-                       noCheck = getOption('witchtools.noCheck',FALSE),
-                       repo = getOption('witchtools.witch_data_repo')) {
+                       idir = getOption("witchtools.idir"),
+                       method = getOption("witchtools.method"),
+                       noCheck = getOption("witchtools.noCheck", FALSE),
+                       repo = getOption("witchtools.witch_data_repo")) {
 
   # Check method name
-  if (!method %in% c("piggyback","witch-data")) {
+  if (!method %in% c("piggyback", "witch-data")) {
     warning(paste("Method", method, "does not exist."))
   }
 
   # default values for idir
   if (method == "piggyback" & is.null(idir)) {
-    idir <- normalizePath(file.path("input","data"))
+    idir <- normalizePath(file.path("input", "data"))
   }
   if (method == "witch-data" & is.null(idir)) {
-    idir <- normalizePath(file.path("..","witch-data"))
+    idir <- normalizePath(file.path("..", "witch-data"))
   }
 
   if (!dir.exists(idir)) {
@@ -40,16 +40,14 @@ witch_data <- function(file, version = NULL,
   }
 
   if (method == "piggyback") {
-    file <- stringr::str_replace_all(file,"/","-")
+    file <- stringr::str_replace_all(file, "/", "-")
 
     if (!noCheck) {
-      piggyback::pb_download(repo = repo,tag = version,file = file, dest = idir)
+      piggyback::pb_download(repo = repo, tag = version, file = file, dest = idir)
     }
-
   }
 
-  return(file.path(idir,file))
-
+  return(file.path(idir, file))
 }
 
 
@@ -62,25 +60,24 @@ witch_data <- function(file, version = NULL,
 #' @export
 #' @examples
 #' \dontrun{
-#' witch_data_upload("ssp/ssp_population.csv", version = 'v0.0.1')
+#' witch_data_upload("ssp/ssp_population.csv", version = "v0.0.1")
 #' }
 witch_data_upload <- function(file, version = NULL,
-                              method = getOption('witchtools.method'),
-                              repo = getOption('witchtools.witch_data_repo')) {
+                              method = getOption("witchtools.method"),
+                              repo = getOption("witchtools.witch_data_repo")) {
 
   # Check method name
-  if (!method %in% c("piggyback","witch-data")) {
+  if (!method %in% c("piggyback", "witch-data")) {
     warning(paste("Method", method, "does not exist."))
   }
 
   if (method == "piggyback") {
-
-    if (is.null(version)) stop('version cannot be NULL')
+    if (is.null(version)) stop("version cannot be NULL")
 
     try(piggyback::pb_new_release(repo = repo, tag = version), silent = TRUE)
-    piggyback::pb_upload(file, name = stringr::str_replace_all(file,"/","-"),
-                         tag = version)
-
+    piggyback::pb_upload(file,
+      name = stringr::str_replace_all(file, "/", "-"),
+      tag = version
+    )
   }
-
 }
