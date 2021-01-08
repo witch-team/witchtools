@@ -75,6 +75,14 @@ witch_meta_param <- rbind(
     value = "gdp"
   )
 )
+witch_meta_param <- rbind(
+  witch_meta_param, 
+  data.table::data.table(
+    parameter = "Q_EMI_ABAT",
+    type = "extrap",
+    value = "skip"
+  )
+)
 data.table::setcolorder(witch_meta_param, c("parameter", "type", "value"))
 
 usethis::use_data(witch_meta_param, compress = "xz", overwrite = T)
