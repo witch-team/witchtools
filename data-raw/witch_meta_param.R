@@ -64,6 +64,7 @@ emi_cap,sum
 ken_policy,sum
 ren_share,mean
 temp_valid_hadcrut4,mean
+tfpy,mean
 "
 witch_meta_param <- data.table::fread(defmap)
 witch_meta_param[, type := "nagg"]
@@ -76,11 +77,11 @@ witch_meta_param <- rbind(
   )
 )
 witch_meta_param <- rbind(
-  witch_meta_param, 
+  witch_meta_param,
   data.table::data.table(
-    parameter = "Q_EMI_ABAT",
-    type = "extrap",
-    value = "skip"
+    parameter = c("Q_EMI_ABAT","tfpn","tfpn"),
+    type = c("extrap","nagg","nweight"),
+    value = c("skip","mean","cst")
   )
 )
 data.table::setcolorder(witch_meta_param, c("parameter", "type", "value"))
