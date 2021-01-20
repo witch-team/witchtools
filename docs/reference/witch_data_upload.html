@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">witchtools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.3</span>
       </span>
     </div>
 
@@ -140,12 +140,12 @@
     <p>Upload a file as an asset in a release of a github repository.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>witch_data_upload</span>(
-  <span class='no'>file</span>,
-  <span class='kw'>version</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>method</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"witchtools.method"</span>),
-  <span class='kw'>repo</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"witchtools.witch_data_repo"</span>)
-)</pre>
+    <pre class="usage"><span class='fu'>witch_data_upload</span><span class='op'>(</span>
+  <span class='va'>file</span>,
+  version <span class='op'>=</span> <span class='cn'>NULL</span>,
+  method <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"witchtools.method"</span><span class='op'>)</span>,
+  repo <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"witchtools.witch_data_repo"</span><span class='op'>)</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -170,9 +170,10 @@
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='fu'>witch_data_upload</span>(<span class='st'>"ssp/ssp_population.csv"</span>, <span class='kw'>version</span> <span class='kw'>=</span> <span class='st'>"v0.0.1"</span>)
-}</div></pre>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='fu'>witch_data_upload</span><span class='op'>(</span><span class='st'>"ssp/ssp_population.csv"</span>, version <span class='op'>=</span> <span class='st'>"v0.0.1"</span><span class='op'>)</span>
+<span class='op'>}</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -188,7 +189,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

@@ -1,6 +1,11 @@
+# witchtools 0.2.3
+
+* Add IEA region mapping
+* Add some witch default parameters
+
 # witchtools 0.2.2
 
-* add witch_read_mapping to read WITCH regional mapping file
+* Add witch_read_mapping to read WITCH regional mapping file
 
 # witchtools 0.2.1
 

@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">witchtools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.3</span>
       </span>
     </div>
 
@@ -86,13 +86,14 @@
 
       
 
-      </header><script src="converting-time-regions_files/header-attrs-2.3/header-attrs.js"></script><script src="converting-time-regions_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><script src="converting-time-regions_files/header-attrs-2.5/header-attrs.js"></script><link href="converting-time-regions_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
+<script src="converting-time-regions_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Region and Time Conversion</h1>
                         <h4 class="author">L. Drouet</h4>
             
-            <h4 class="date">2020-07-10</h4>
+            <h4 class="date">2021-01-20</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/witch-team/witchtools/blob/master/vignettes/converting-time-regions.Rmd"><code>vignettes/converting-time-regions.Rmd</code></a></small>
       <div class="hidden name"><code>converting-time-regions.Rmd</code></div>
@@ -111,14 +112,15 @@ img, table, table th, table td {
 <a href="#region-conversion" class="anchor"></a>Region conversion</h2>
 <p>In this section, we convert a dataset containing the GDP of all countries into a 17-region mapping of the WITCH model, then into the 5-region mapping used in the SSP database.</p>
 <p>First, let’s create the initial database, we will extract the GDP in 2005 from the default_weights. The column names have to be renamed. By convention, column names must be “iso3” and “value”</p>
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">data.table</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">witchtools</span>)
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://Rdatatable.gitlab.io/data.table">data.table</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/witch-team/witchtools">witchtools</a></span><span class="op">)</span>
 
 <span class="co"># Creation of the initial dataset</span>
 <span class="co"># Note the column names: iso3 and value</span>
-<span class="no">gdp_iso3</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/copy.html">copy</a></span>(<span class="no">default_weights</span><span class="kw">[[</span><span class="st">'gdp'</span>]])
-<span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/setattr.html">setnames</a></span>(<span class="no">gdp_iso3</span>,<span class="st">'weight'</span>,<span class="st">'value'</span>)
-<span class="no">gdp_iso3</span>
+<span class="va">gdp_iso3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/copy.html">copy</a></span><span class="op">(</span><span class="va">default_weights</span><span class="op">[[</span><span class="st">'gdp'</span><span class="op">]</span><span class="op">]</span><span class="op">)</span>
+<span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/setattr.html">setnames</a></span><span class="op">(</span><span class="va">gdp_iso3</span>,<span class="st">'weight'</span>,<span class="st">'value'</span><span class="op">)</span>
+<span class="va">gdp_iso3</span>
 <span class="co">#&gt;      iso3        value</span>
 <span class="co">#&gt;   1:  BHS 9.964000e+00</span>
 <span class="co">#&gt;   2:  BIH 2.397500e+01</span>
@@ -130,11 +132,12 @@ img, table, table th, table td {
 <span class="co">#&gt; 247:  KNA 1.000000e-10</span>
 <span class="co">#&gt; 248:  MAF 1.000000e-10</span>
 <span class="co">#&gt; 249:  MSR 1.000000e-10</span>
-<span class="co">#&gt; 250:  MTQ 1.000000e-10</span></pre></body></html></div>
+<span class="co">#&gt; 250:  MTQ 1.000000e-10</span></code></pre></div>
 <p>Now, using the function <code>convert_region</code>, we will aggregate this dataset at country-level (ISO3) to the 17-region mapping of the WITCH model, available as a default mapping.</p>
-<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="co"># Aggregate value at WITCH regional scale (17 regions)</span>
-<span class="no">gdp_witch17</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/convert_region.html">convert_region</a></span>(<span class="no">gdp_iso3</span>, <span class="kw">to_reg</span> <span class="kw">=</span> <span class="st">'witch17'</span>)
-<span class="no">gdp_witch17</span>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Aggregate value at WITCH regional scale (17 regions)</span>
+<span class="va">gdp_witch17</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/convert_region.html">convert_region</a></span><span class="op">(</span><span class="va">gdp_iso3</span>, to_reg <span class="op">=</span> <span class="st">'witch17'</span><span class="op">)</span>
+<span class="va">gdp_witch17</span>
 <span class="co">#&gt;         witch17      value</span>
 <span class="co">#&gt;  1:        laca  1997.5200</span>
 <span class="co">#&gt;  2:       sasia   625.9800</span>
@@ -152,31 +155,33 @@ img, table, table th, table td {
 <span class="co">#&gt; 14:      jpnkor  4969.6800</span>
 <span class="co">#&gt; 15:      mexico  1297.3360</span>
 <span class="co">#&gt; 16:         usa 12622.1250</span>
-<span class="co">#&gt; 17: southafrica   405.7570</span></pre></body></html></div>
+<span class="co">#&gt; 17: southafrica   405.7570</span></code></pre></div>
 <p>In a final step, we will convert the 17-region data into the 5-region of the SSP database. The dataset is first disaggregated at iso3 level then it is aggregated into 5 regions, automatically.</p>
-<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="co"># Aggregate value at WITCH regional scale (17 regions)</span>
-<span class="no">gdp_r5</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/convert_region.html">convert_region</a></span>(<span class="no">gdp_witch17</span>, <span class="kw">to_reg</span> <span class="kw">=</span> <span class="st">'r5'</span>)
-<span class="no">gdp_r5</span>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Aggregate value at WITCH regional scale (17 regions)</span>
+<span class="va">gdp_r5</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/convert_region.html">convert_region</a></span><span class="op">(</span><span class="va">gdp_witch17</span>, to_reg <span class="op">=</span> <span class="st">'r5'</span><span class="op">)</span>
+<span class="va">gdp_r5</span>
 <span class="co">#&gt;        r5     value</span>
 <span class="co">#&gt; 1:  r5lam  4877.498</span>
 <span class="co">#&gt; 2: r5oecd 32173.841</span>
 <span class="co">#&gt; 3: r5asia 11515.707</span>
 <span class="co">#&gt; 4:  r5ref  4774.645</span>
-<span class="co">#&gt; 5:  r5maf  3821.755</span></pre></body></html></div>
+<span class="co">#&gt; 5:  r5maf  3821.755</span></code></pre></div>
 </div>
 <div id="time-conversion" class="section level2">
 <h2 class="hasAnchor">
 <a href="#time-conversion" class="anchor"></a>Time conversion</h2>
 <p>In this section, we convert a yearly time-serie into the default time period of the WITCH model, 5 year-periods from 2005 to 2150, using the function <code>convert_time_period</code>.</p>
-<div class="sourceCode" id="cb4"><html><body><pre class="r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R">
 <span class="co"># Time-serie</span>
-<span class="no">dd</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/data.table.html">data.table</a></span>(<span class="kw">tech</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"tech1"</span>,<span class="st">"tech2"</span>), <span class="kw">year</span> <span class="kw">=</span> <span class="fl">2005</span>:<span class="fl">2050</span>, <span class="kw">value</span> <span class="kw">=</span> <span class="fl">1</span>:<span class="fl">46</span>)
+<span class="va">dd</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/data.table.html">data.table</a></span><span class="op">(</span>tech <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"tech1"</span>,<span class="st">"tech2"</span><span class="op">)</span>, year <span class="op">=</span> <span class="fl">2005</span><span class="op">:</span><span class="fl">2050</span>, value <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">46</span><span class="op">)</span>
 
 <span class="co"># Aggregate values to the default WITCH time period mapping</span>
-<span class="no">res</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/convert_time_period.html">convert_time_period</a></span>(<span class="no">dd</span>, <span class="st">'t30'</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span>(<span class="no">res</span>))
+<span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/convert_time_period.html">convert_time_period</a></span><span class="op">(</span><span class="va">dd</span>, <span class="st">'t30'</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; [1] 20</span>
-<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="no">res</span>, <span class="kw">nrows</span> <span class="kw">=</span> <span class="fl">20</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">res</span>, nrows <span class="op">=</span> <span class="fl">20</span><span class="op">)</span>
 <span class="co">#&gt;      tech  t value</span>
 <span class="co">#&gt;  1: tech1  1     2</span>
 <span class="co">#&gt;  2: tech2  1     2</span>
@@ -197,21 +202,22 @@ img, table, table th, table td {
 <span class="co">#&gt; 17: tech1  9    41</span>
 <span class="co">#&gt; 18: tech2  9    41</span>
 <span class="co">#&gt; 19: tech2 10    45</span>
-<span class="co">#&gt; 20: tech1 10    45</span></pre></body></html></div>
+<span class="co">#&gt; 20: tech1 10    45</span></code></pre></div>
 <p>The function <code>convert_time_period</code> can also extrapolate the missing periods.</p>
-<div class="sourceCode" id="cb5"><html><body><pre class="r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R">
 <span class="co"># Aggregate values to the default WITCH time period mapping with extrapolation</span>
-<span class="no">res</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/convert_time_period.html">convert_time_period</a></span>(<span class="no">dd</span>, <span class="st">'t30'</span>, <span class="kw">do_extrap</span> <span class="kw">=</span> <span class="fl">TRUE</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span>(<span class="no">res</span>))
+<span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/convert_time_period.html">convert_time_period</a></span><span class="op">(</span><span class="va">dd</span>, <span class="st">'t30'</span>, do_extrap <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; [1] 60</span>
-<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="fu"><a href="https://rdrr.io/r/utils/head.html">tail</a></span>(<span class="no">res</span>))
+<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">tail</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt;     tech  t value</span>
 <span class="co">#&gt; 1: tech2 25    46</span>
 <span class="co">#&gt; 2: tech2 26    46</span>
 <span class="co">#&gt; 3: tech2 27    46</span>
 <span class="co">#&gt; 4: tech2 28    46</span>
 <span class="co">#&gt; 5: tech2 29    46</span>
-<span class="co">#&gt; 6: tech2 30    46</span></pre></body></html></div>
+<span class="co">#&gt; 6: tech2 30    46</span></code></pre></div>
 </div>
   </div>
 
@@ -230,7 +236,7 @@ img, table, table th, table td {
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

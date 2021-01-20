@@ -83,7 +83,7 @@ are read in the parameter meta_param also stored in the gdxfile." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">witchtools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.3</span>
       </span>
     </div>
 
@@ -146,20 +146,20 @@ using the <code>convert_table</code> function. Specific conversion options
 are read in the parameter <code>meta_param</code> also stored in the gdxfile.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>convert_gdx</span>(
-  <span class='no'>gdxfile</span>,
-  <span class='no'>reg_id</span>,
-  <span class='no'>time_id</span>,
-  <span class='no'>output_directory</span>,
-  <span class='kw'>region_mappings</span> <span class='kw'>=</span> <span class='no'>region_mappings</span>,
-  <span class='kw'>time_mappings</span> <span class='kw'>=</span> <span class='no'>time_mappings</span>,
-  <span class='kw'>weights</span> <span class='kw'>=</span> <span class='kw pkg'>witchtools</span><span class='kw ns'>::</span><span class='no'><a href='default_weights.html'>default_weights</a></span>,
-  <span class='kw'>guess_input_t</span> <span class='kw'>=</span> <span class='st'>"t30"</span>,
-  <span class='kw'>region_name</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>guess_region</span> <span class='kw'>=</span> <span class='st'>"witch17"</span>,
-  <span class='kw'>default_agg_missing</span> <span class='kw'>=</span> <span class='st'>"zero"</span>,
-  <span class='kw'>default_meta_param</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
-)</pre>
+    <pre class="usage"><span class='fu'>convert_gdx</span><span class='op'>(</span>
+  <span class='va'>gdxfile</span>,
+  <span class='va'>reg_id</span>,
+  <span class='va'>time_id</span>,
+  <span class='va'>output_directory</span>,
+  region_mappings <span class='op'>=</span> <span class='va'>region_mappings</span>,
+  time_mappings <span class='op'>=</span> <span class='va'>time_mappings</span>,
+  weights <span class='op'>=</span> <span class='fu'>witchtools</span><span class='fu'>::</span><span class='va'><a href='default_weights.html'>default_weights</a></span>,
+  guess_input_t <span class='op'>=</span> <span class='st'>"t30"</span>,
+  region_name <span class='op'>=</span> <span class='cn'>NULL</span>,
+  guess_region <span class='op'>=</span> <span class='st'>"witch17"</span>,
+  default_agg_missing <span class='op'>=</span> <span class='st'>"zero"</span>,
+  default_meta_param <span class='op'>=</span> <span class='cn'>NULL</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -225,9 +225,11 @@ are read in the parameter <code>meta_param</code> also stored in the gdxfile.</p
 <code><a href='convert_time_period.html'>convert_time_period</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='fu'>convert_gdx</span>(<span class='st'>"input/build/data_climate.gdx"</span>, <span class='st'>"witch17"</span>, <span class='st'>"t30"</span>, <span class='st'>"data_witch17"</span>)
-}</div></pre>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='fu'>convert_gdx</span><span class='op'>(</span><span class='st'>"input/build/data_climate.gdx"</span>, <span class='st'>"witch17"</span>, <span class='st'>"t30"</span>, <span class='st'>"data_witch17"</span><span class='op'>)</span>
+<span class='op'>}</span>
+
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -243,7 +245,7 @@ are read in the parameter <code>meta_param</code> also stored in the gdxfile.</p
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

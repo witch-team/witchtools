@@ -1,7 +1,6 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-
-<!-- Because of a bug, duplicate the header below in the md file  -->
+<!-- Because of a bug, duplicate the header below in the md file before building pkgdown  -->
 
 # witchtools <img src="man/figures/logo.png" align="right" alt="" width="120" />
 
@@ -28,20 +27,20 @@ data for other uses or models.
 
 ## Features
 
-  - Conversion of a yearly time-serie into time-period time-serie.
-  - Conversion of data from one regional mapping to another one.
-  - Default time-period mappings, regional mappings and aggregation
+-   Conversion of a yearly time-serie into time-period time-serie.
+-   Conversion of data from one regional mapping to another one.
+-   Default time-period mappings, regional mappings and aggregation
     weights used by the WITCH model
-  - Batch conversion of the make\_data files from the input directory of
+-   Batch conversion of the make\_data files from the input directory of
     the WITCH model
-  - Easy access to the witch-data repository (in local or through
+-   Easy access to the witch-data repository (in local or through
     `piggyback`)
 
 ## Installation
 
     if (!requireNamespace("remotes"))
       install.packages("remotes")
-    
+
     remotes::install_github("witch-team/witchtools")
 
 ## Usage
