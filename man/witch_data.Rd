@@ -2,7 +2,7 @@
 % Please edit documentation in R/witch_data.R
 \name{witch_data}
 \alias{witch_data}
-\title{Handler for witch-data files}
+\title{Handler for witch-data files in WITCH}
 \usage{
 witch_data(
   file,
@@ -10,7 +10,8 @@ witch_data(
   idir = getOption("witchtools.idir"),
   method = getOption("witchtools.method"),
   noCheck = getOption("witchtools.noCheck", FALSE),
-  repo = getOption("witchtools.witch_data_repo")
+  repo = getOption("witchtools.witch_data_repo"),
+  remote = getOption("witchtools.witch_data_remote")
 )
 }
 \arguments{
@@ -25,6 +26,8 @@ witch_data(
 \item{noCheck}{For the piggyback method, don't check and download the file.}
 
 \item{repo}{github repository name}
+
+\item{remote}{dvc remote storage}
 }
 \description{
 Returns the location of a file from the witch-data repository for processing,
