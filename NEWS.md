@@ -1,3 +1,7 @@
+# witchtools 0.3.0
+
+* Implements DVC by default for witch-data
+
 # witchtools 0.2.3
 
 * Add IEA region mapping

@@ -1,4 +1,4 @@
-#' Handler for witch-data files
+#' Handler for witch-data files in WITCH
 #'
 #' Returns the location of a file from the witch-data repository for processing,
 #' after downloading it from github if necessary using the piggyback library.
@@ -8,6 +8,7 @@
 #' @param method 'piggyback' or 'witch-data'.
 #' @param noCheck For the piggyback method, don't check and download the file.
 #' @param repo github repository name
+#' @param remote dvc remote storage
 #'
 #' @export
 #' @examples
@@ -20,15 +21,19 @@ witch_data <- function(file, version = NULL,
                        idir = getOption("witchtools.idir"),
                        method = getOption("witchtools.method"),
                        noCheck = getOption("witchtools.noCheck", FALSE),
-                       repo = getOption("witchtools.witch_data_repo")) {
+                       repo = getOption("witchtools.witch_data_repo"),
+                       remote = getOption("witchtools.witch_data_remote")) {
 
   # Check method name
-  if (!method %in% c("piggyback", "witch-data")) {
+  if (!method %in% c("piggyback", "witch-data", "dvc")) {
     warning(paste("Method", method, "does not exist."))
   }
 
   # default values for idir
   if (method == "piggyback" & is.null(idir)) {
+    idir <- normalizePath(file.path("input", "data"))
+  }
+  if (method == "dvc" & is.null(idir)) {
     idir <- normalizePath(file.path("input", "data"))
   }
   if (method == "witch-data" & is.null(idir)) {
@@ -37,6 +42,19 @@ witch_data <- function(file, version = NULL,
 
   if (!dir.exists(idir)) {
     stop(paste("Directory", idir, "does not exist."))
+  }
+
+  if (method == "dvc") {
+    file <- stringr::str_replace_all(file, "/", "-")
+
+    if (!noCheck) {
+      if (is.null(remote)) {
+        cmd = paste0("dvc pull ",file.path(idir,file),".dvc")
+      } else {
+        cmd = paste0("dvc pull -r ",remote," ",file.path(idir,file),".dvc")
+      }
+      system(cmd)
+    }
   }
 
   if (method == "piggyback") {
