@@ -85,7 +85,7 @@ witch_data_upload <- function(file, version = NULL,
                               repo = getOption("witchtools.witch_data_repo")) {
 
   # Check method name
-  if (!method %in% c("piggyback", "witch-data")) {
+  if (!method %in% c("piggyback", "witch-data", "dvc")) {
     warning(paste("Method", method, "does not exist."))
   }
 
