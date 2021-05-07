@@ -102,7 +102,7 @@ witch_data_upload <- function(file, version = NULL,
   if (method == "dvc") {
 
     system(paste0("dvc add ",normalizePath(file)))
-    system(paste0("dvc push ",normalizePath(Pathfile),".dvc"))
+    system(paste0("dvc push ",normalizePath(file),".dvc"))
 
   }
 
