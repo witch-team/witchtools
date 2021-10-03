@@ -31,13 +31,13 @@ witch_data <- function(file, version = NULL,
 
   # default values for idir
   if (method == "piggyback" & is.null(idir)) {
-    idir <- normalizePath(file.path("input", "data"))
+    idir <- normalizePath(file.path("input", "data"), mustWork = TRUE)
   }
   if (method == "dvc" & is.null(idir)) {
-    idir <- normalizePath(file.path("input", "data"))
+    idir <- normalizePath(file.path("input", "data"), mustWork = TRUE)
   }
   if (method == "witch-data" & is.null(idir)) {
-    idir <- normalizePath(file.path("..", "witch-data"))
+    idir <- normalizePath(file.path("..", "witch-data"), mustWork = TRUE)
   }
 
   if (!dir.exists(idir)) {
@@ -49,9 +49,9 @@ witch_data <- function(file, version = NULL,
 
     if (!noCheck) {
       if (is.null(remote)) {
-        cmd = paste0("dvc pull ",normalizePath(file.path(idir,file)),".dvc")
+        cmd = paste0("dvc pull '",normalizePath(file.path(idir,paste0(file,".dvc")), mustWork = FALSE),"'")
       } else {
-        cmd = paste0("dvc pull -r ",remote," ",normalizePath(file.path(idir,file)),".dvc")
+        cmd = paste0("dvc pull -r ",remote," '",normalizePath(file.path(idir,paste0(file,'.dvc')), mustWork = FALSE),"'")
       }
       system(cmd)
     }
@@ -101,8 +101,8 @@ witch_data_upload <- function(file, version = NULL,
 
   if (method == "dvc") {
 
-    system(paste0("dvc add ",normalizePath(file)))
-    system(paste0("dvc push ",normalizePath(file),".dvc"))
+    system(paste0("dvc add '",normalizePath(file, mustWork = FALSE),"'"))
+    system(paste0("dvc push '",normalizePath(paste0(file,".dvc"), mustWork = FALSE),"'"))
 
   }
 
