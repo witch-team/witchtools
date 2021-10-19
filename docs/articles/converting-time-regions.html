@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">witchtools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.1</span>
       </span>
     </div>
 
@@ -46,7 +46,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -72,7 +72,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/witch-team/witchtools/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -86,14 +86,13 @@
 
       
 
-      </header><script src="converting-time-regions_files/header-attrs-2.5/header-attrs.js"></script><link href="converting-time-regions_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
-<script src="converting-time-regions_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
+      </header><script src="converting-time-regions_files/header-attrs-2.11/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Region and Time Conversion</h1>
                         <h4 class="author">L. Drouet</h4>
             
-            <h4 class="date">2021-01-20</h4>
+            <h4 class="date">2021-10-19</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/witch-team/witchtools/blob/master/vignettes/converting-time-regions.Rmd"><code>vignettes/converting-time-regions.Rmd</code></a></small>
       <div class="hidden name"><code>converting-time-regions.Rmd</code></div>
@@ -113,7 +112,7 @@ img, table, table th, table td {
 <p>In this section, we convert a dataset containing the GDP of all countries into a 17-region mapping of the WITCH model, then into the 5-region mapping used in the SSP database.</p>
 <p>First, let’s create the initial database, we will extract the GDP in 2005 from the default_weights. The column names have to be renamed. By convention, column names must be “iso3” and “value”</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://Rdatatable.gitlab.io/data.table">data.table</a></span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-datatable.com">data.table</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/witch-team/witchtools">witchtools</a></span><span class="op">)</span>
 
 <span class="co"># Creation of the initial dataset</span>

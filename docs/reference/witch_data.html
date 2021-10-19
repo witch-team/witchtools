@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Handler for witch-data files — witch_data • witchtools</title>
+<title>Handler for witch-data files in WITCH — witch_data • witchtools</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,7 +46,7 @@
 
 
 
-<meta property="og:title" content="Handler for witch-data files — witch_data" />
+<meta property="og:title" content="Handler for witch-data files in WITCH — witch_data" />
 <meta property="og:description" content="Returns the location of a file from the witch-data repository for processing,
 after downloading it from github if necessary using the piggyback library." />
 <meta property="og:image" content="http://witchtools.witchmodel.org/logo.png" />
@@ -81,7 +81,7 @@ after downloading it from github if necessary using the piggyback library." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">witchtools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.1</span>
       </span>
     </div>
 
@@ -89,7 +89,7 @@ after downloading it from github if necessary using the piggyback library." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -115,7 +115,7 @@ after downloading it from github if necessary using the piggyback library." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/witch-team/witchtools/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -132,7 +132,7 @@ after downloading it from github if necessary using the piggyback library." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Handler for witch-data files</h1>
+    <h1>Handler for witch-data files in WITCH</h1>
     <small class="dont-index">Source: <a href='https://github.com/witch-team/witchtools/blob/master/R/witch_data.R'><code>R/witch_data.R</code></a></small>
     <div class="hidden name"><code>witch_data.Rd</code></div>
     </div>
@@ -148,7 +148,8 @@ after downloading it from github if necessary using the piggyback library.</p>
   idir <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"witchtools.idir"</span><span class='op'>)</span>,
   method <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"witchtools.method"</span><span class='op'>)</span>,
   noCheck <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"witchtools.noCheck"</span>, <span class='cn'>FALSE</span><span class='op'>)</span>,
-  repo <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"witchtools.witch_data_repo"</span><span class='op'>)</span>
+  repo <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"witchtools.witch_data_repo"</span><span class='op'>)</span>,
+  remote <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"witchtools.witch_data_remote"</span><span class='op'>)</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -177,6 +178,10 @@ after downloading it from github if necessary using the piggyback library.</p>
     <tr>
       <th>repo</th>
       <td><p>github repository name</p></td>
+    </tr>
+    <tr>
+      <th>remote</th>
+      <td><p>dvc remote storage</p></td>
     </tr>
     </table>
 
