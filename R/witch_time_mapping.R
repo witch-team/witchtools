@@ -12,22 +12,22 @@
 #' }
 #'
 witch_time_mapping <- function(f) {
-  tmap <- read.csv(f, colClasses="numeric")
-  #expand to yearly data table
-  tmap <- setDT(tmap)[.(seq(min(begyear),max(endyear))), on = .(year)]
-  #fill NAs
-  tmap$unique <- 1
-  for (x in names(tmap)) {
-    tmap[is.na(get(x)), (x) := 
-           tmap[!is.na(get(x))][.SD, on=.(unique), roll="nearest", get(paste0("x.",x))]]
-  }
-  tmap$unique <- NULL
-  #change order
-  setcolorder(tmap, c("t","year","refyear","pred","tperiod","begyear","endyear"))
-  #all columns except year should be characters
-  setDT(tmap); for (j in c("t","refyear","pred","tperiod","begyear","endyear")) set(tmap, j=j, value = as.character(tmap[[j]]))
-  #pred of first node needs to be empty
-  tmap[tperiod=="1"]$pred <- ""
-
-  return(tmap)
+  tab <- data.table::fread(f, colClasses = "character")
+  data.table::setnames(tab, "year", "refyear")
+  # Expand year
+  tab <- data.table::rbindlist(lapply(
+    seq_len(nrow(tab)),
+    function(i) {
+      tab[i, .(t,
+               year = begyear:endyear,
+               refyear,
+               pred,
+               tperiod,
+               begyear,
+               endyear
+      )]
+    }
+  ))
+  tab[, year := as.numeric(year)]
+  return(tab)
 }

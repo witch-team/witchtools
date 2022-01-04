@@ -6,13 +6,13 @@
 #' @export
 #' @examples
 #' \dontrun{
-#' require_package("devtools", loading = FALSE)
+#' require_package("data.table", loading = FALSE)
 #' }
 require_package <- function(package, loading = TRUE) {
   if (!package %in% rownames(installed.packages())) {
     if (package == "gdxtools") {
-      require_package("devtools", loading = FALSE)
-      devtools::install_github("lolow/gdxtools")
+      require_package("remotes", loading = FALSE)
+      remotes::install_github("lolow/gdxtools")
     } else {
       try(install.packages(package, repos = "http://cran.rstudio.com"),
         silent = TRUE
