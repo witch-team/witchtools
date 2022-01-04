@@ -27,14 +27,14 @@ data for other uses or models.
 
 ## Features
 
--   Conversion of a yearly time-serie into time-period time-serie.
+-   Conversion of a yearly time series into a time-period (including
+    possible decision tree structure) based time series.
 -   Conversion of data from one regional mapping to another one.
 -   Default time-period mappings, regional mappings and aggregation
     weights used by the WITCH model
--   Batch conversion of the make\_data files from the input directory of
+-   Batch conversion of the make_data files from the input directory of
     the WITCH model
--   Easy access to the witch-data repository (in local or through
-    `piggyback`)
+-   Easy access to the witch-team/witch-data repository
 
 ## Installation
 

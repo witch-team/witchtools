@@ -16,6 +16,6 @@ Install, if necessary, and load a R library
 }
 \examples{
 \dontrun{
-require_package("devtools", loading = FALSE)
+require_package("data.table", loading = FALSE)
 }
 }

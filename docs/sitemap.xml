@@ -1,7 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://witchtools.witchmodel.org/404.html</loc>
+  </url>
+  <url>
+    <loc>http://witchtools.witchmodel.org/LICENSE.html</loc>
+  </url>
+  <url>
+    <loc>http://witchtools.witchmodel.org/articles/converting-time-regions.html</loc>
+  </url>
+  <url>
+    <loc>http://witchtools.witchmodel.org/articles/index.html</loc>
+  </url>
+  <url>
+    <loc>http://witchtools.witchmodel.org/authors.html</loc>
+  </url>
+  <url>
     <loc>http://witchtools.witchmodel.org/index.html</loc>
+  </url>
+  <url>
+    <loc>http://witchtools.witchmodel.org/news/index.html</loc>
   </url>
   <url>
     <loc>http://witchtools.witchmodel.org/reference/convert_gdx.html</loc>
@@ -22,7 +40,13 @@
     <loc>http://witchtools.witchmodel.org/reference/default_weights.html</loc>
   </url>
   <url>
+    <loc>http://witchtools.witchmodel.org/reference/index.html</loc>
+  </url>
+  <url>
     <loc>http://witchtools.witchmodel.org/reference/oecd_regions.html</loc>
+  </url>
+  <url>
+    <loc>http://witchtools.witchmodel.org/reference/read_region_mapping.html</loc>
   </url>
   <url>
     <loc>http://witchtools.witchmodel.org/reference/region_id.html</loc>
@@ -52,9 +76,9 @@
     <loc>http://witchtools.witchmodel.org/reference/witch_region_mapping.html</loc>
   </url>
   <url>
-    <loc>http://witchtools.witchmodel.org/reference/witch_translate_data.html</loc>
+    <loc>http://witchtools.witchmodel.org/reference/witch_time_mapping.html</loc>
   </url>
   <url>
-    <loc>http://witchtools.witchmodel.org/articles/converting-time-regions.html</loc>
+    <loc>http://witchtools.witchmodel.org/reference/witch_translate_data.html</loc>
   </url>
 </urlset>

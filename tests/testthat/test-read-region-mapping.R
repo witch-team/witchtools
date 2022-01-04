@@ -1,4 +1,4 @@
-test_that("read region mappins", {
+test_that("read region mapping", {
   res1 <- witch_region_mapping("witch17.inc")
 
   res2 <- region_mappings[["witch17"]]
