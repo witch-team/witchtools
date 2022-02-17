@@ -53,7 +53,8 @@ witch_data <- function(file, version = NULL,
       } else {
         cmd = paste0('dvc pull -r ',remote,' "',normalizePath(file.path(idir,paste0(file,'.dvc')), mustWork = FALSE),'"')
       }
-      system(cmd)
+      res <- try(system(cmd))
+      stopifnot(res == 0)
     }
   }
 
@@ -100,10 +101,13 @@ witch_data_upload <- function(file, version = NULL,
   }
 
   if (method == "dvc") {
+    cmd <- paste0('dvc add "',normalizePath(file, mustWork = FALSE),'"')
+    res <- try(system(cmd))
+    stopifnot(res == 0)
 
-    system(paste0('dvc add "',normalizePath(file, mustWork = FALSE),'"'))
-    system(paste0('dvc push "',normalizePath(paste0(file,".dvc"), mustWork = FALSE),'"'))
-
+    cmd <- paste0('dvc push "',normalizePath(paste0(file,".dvc"), mustWork = FALSE),'"')
+    res <- try(system(cmd))
+    stopifnot(res == 0)
   }
 
 }
