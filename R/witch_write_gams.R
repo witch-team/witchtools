@@ -55,6 +55,18 @@ witch_write_gams <- function(region_mapping,
   writeLines("set oecd(n) 'OECD regions' /", finc)
   writeLines(oecd_regions(region_mapping), finc)
   writeLines("/;", finc)
+  # set eu
+  writeLines("set eu(n) 'EU regions' /", finc)
+  writeLines(eu_regions(region_mapping), finc)
+  writeLines("/;", finc)
+  # set eu27
+  writeLines("set eu27(n) 'EU27 regions' /", finc)
+  writeLines(eu27_regions(region_mapping), finc)
+  writeLines("/;", finc)
+  # set eu28
+  writeLines("set eu28(n) 'EU28 regions' /", finc)
+  writeLines(eu28_regions(region_mapping), finc)
+  writeLines("/;", finc)
 
   close(finc)
 

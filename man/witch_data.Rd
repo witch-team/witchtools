@@ -23,7 +23,7 @@ witch_data(
 
 \item{method}{'piggyback' or 'witch-data'.}
 
-\item{noCheck}{For the piggyback method, don't check and download the file.}
+\item{noCheck}{don't check and download the file.}
 
 \item{repo}{github repository name}
 
@@ -31,7 +31,8 @@ witch_data(
 }
 \description{
 Returns the location of a file from the witch-data repository for processing,
-after downloading it from github if necessary using the piggyback library.
+after checking/downloading it from the DVC remote drive (method \code{dvc}) or
+github (method \code{piggyback}).
 }
 \examples{
 \dontrun{

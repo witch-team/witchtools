@@ -1,3 +1,8 @@
+# witchtools 0.3.3
+
+* Add `witch34` region mapping
+* Add regions set `eu`, `eu27`, `eu28`
+
 # witchtools 0.3.2
 
 * Add `witch_time_mapping` function

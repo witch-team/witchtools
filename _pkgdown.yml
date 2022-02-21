@@ -39,6 +39,9 @@ reference:
 - title: Other functions
   contents:
   - oecd_regions
+  - eu_regions
+  - eu27_regions
+  - eu28_regions
   - region_id
   - require_gdxtools
   - require_package
