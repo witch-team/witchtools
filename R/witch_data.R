@@ -60,6 +60,7 @@ witch_data <- function(file, version = NULL,
   }
 
   if (method == "piggyback") {
+    warning("Decrepated method! It is not maintained anymore. Prefer DVC.")
     file <- stringr::str_replace_all(file, "/", "-")
 
     if (!noCheck) {

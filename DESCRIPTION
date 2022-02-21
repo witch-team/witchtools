@@ -1,6 +1,6 @@
 Package: witchtools
 Title: Data Management for Integrated Assessment Models
-Version: 0.3.3
+Version: 0.3.4
 Authors@R: 
     c(person(given = "Laurent",
            family = "Drouet",
@@ -27,10 +27,13 @@ Imports:
     stringr,
     RSQLite,
     crayon,
-    piggyback
+    docopt,
+    here,
+    remotes
 Suggests: 
     gdxtools (>= 0.4.0),
-    testthat (>= 2.1.0)
+    testthat (>= 2.1.0),
+    piggyback
 URL: https://github.com/witch-team/witchtools
 BugReports: https://github.com/witch-team/witchtools/issues
 Roxygen: list(markdown = TRUE)

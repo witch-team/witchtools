@@ -56,6 +56,9 @@ make_data_R <- function(Rfile, idir, witch_dir, force = FALSE) {
     '" -w "', normalizePath(witch_dir),
     '" -m ', getOption("witchtools.method")
   )
+  if (getOption("witchtools.noCheck", FALSE)) {
+    cmd <- paste0(cmd, " --noCheck")
+  }
 
   res <- system(cmd)
   stopifnot(res == 0)

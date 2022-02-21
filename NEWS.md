@@ -1,3 +1,7 @@
+# witchtools 0.3.4
+
+* Add `witch_data_usage`
+
 # witchtools 0.3.3
 
 * Add `witch34` region mapping
