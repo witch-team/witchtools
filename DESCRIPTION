@@ -1,6 +1,6 @@
 Package: witchtools
 Title: Data Management for Integrated Assessment Models
-Version: 0.3.4
+Version: 0.3.5
 Authors@R: 
     c(person(given = "Laurent",
            family = "Drouet",

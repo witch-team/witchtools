@@ -1,3 +1,7 @@
+# witchtools 0.3.5 [dev]
+
+* Add RICEx50 time and region aggregation
+
 # witchtools 0.3.4
 
 * Add `witch_data_usage`
