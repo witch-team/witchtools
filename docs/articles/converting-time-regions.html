@@ -40,7 +40,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">witchtools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.5</span>
       </span>
     </div>
 
@@ -50,7 +50,7 @@
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -88,7 +88,7 @@
       <h1 data-toc-skip>Region and Time Conversion</h1>
                         <h4 data-toc-skip class="author">L. Drouet</h4>
             
-            <h4 data-toc-skip class="date">2022-02-21</h4>
+            <h4 data-toc-skip class="date">2022-05-04</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/witch-team/witchtools/blob/HEAD/vignettes/converting-time-regions.Rmd" class="external-link"><code>vignettes/converting-time-regions.Rmd</code></a></small>
       <div class="hidden name"><code>converting-time-regions.Rmd</code></div>
@@ -105,8 +105,12 @@ img, table, table th, table td {
 <div class="section level2">
 <h2 id="region-conversion">Region conversion<a class="anchor" aria-label="anchor" href="#region-conversion"></a>
 </h2>
-<p>In this section, we convert a dataset containing the GDP of all countries into a 17-region mapping of the WITCH model, then into the 5-region mapping used in the SSP database.</p>
-<p>First, let’s create the initial database, we will extract the GDP in 2005 from the default_weights. The column names have to be renamed. By convention, column names must be “iso3” and “value”</p>
+<p>In this section, we convert a dataset containing the GDP of all
+countries into a 17-region mapping of the WITCH model, then into the
+5-region mapping used in the SSP database.</p>
+<p>First, let’s create the initial database, we will extract the GDP in
+2005 from the default_weights. The column names have to be renamed. By
+convention, column names must be “iso3” and “value”</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r-datatable.com" class="external-link">data.table</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/witch-team/witchtools" class="external-link">witchtools</a></span><span class="op">)</span>
@@ -128,7 +132,9 @@ img, table, table th, table td {
 <span class="co">#&gt; 248:  MAF 1.000000e-10</span>
 <span class="co">#&gt; 249:  MSR 1.000000e-10</span>
 <span class="co">#&gt; 250:  MTQ 1.000000e-10</span></code></pre></div>
-<p>Now, using the function <code>convert_region</code>, we will aggregate this dataset at country-level (ISO3) to the 17-region mapping of the WITCH model, available as a default mapping.</p>
+<p>Now, using the function <code>convert_region</code>, we will
+aggregate this dataset at country-level (ISO3) to the 17-region mapping
+of the WITCH model, available as a default mapping.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Aggregate value at WITCH regional scale (17 regions)</span>
 <span class="va">gdp_witch17</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/convert_region.html">convert_region</a></span><span class="op">(</span><span class="va">gdp_iso3</span>, to_reg <span class="op">=</span> <span class="st">'witch17'</span><span class="op">)</span>
@@ -151,7 +157,9 @@ img, table, table th, table td {
 <span class="co">#&gt; 15:      mexico  1297.3360</span>
 <span class="co">#&gt; 16:         usa 12622.1250</span>
 <span class="co">#&gt; 17: southafrica   405.7570</span></code></pre></div>
-<p>In a final step, we will convert the 17-region data into the 5-region of the SSP database. The dataset is first disaggregated at iso3 level then it is aggregated into 5 regions, automatically.</p>
+<p>In a final step, we will convert the 17-region data into the 5-region
+of the SSP database. The dataset is first disaggregated at iso3 level
+then it is aggregated into 5 regions, automatically.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Aggregate value at WITCH regional scale (17 regions)</span>
 <span class="va">gdp_r5</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/convert_region.html">convert_region</a></span><span class="op">(</span><span class="va">gdp_witch17</span>, to_reg <span class="op">=</span> <span class="st">'r5'</span><span class="op">)</span>
@@ -166,7 +174,9 @@ img, table, table th, table td {
 <div class="section level2">
 <h2 id="time-conversion">Time conversion<a class="anchor" aria-label="anchor" href="#time-conversion"></a>
 </h2>
-<p>In this section, we convert a yearly time-serie into the default time period of the WITCH model, 5 year-periods from 2005 to 2150, using the function <code>convert_time_period</code>.</p>
+<p>In this section, we convert a yearly time-serie into the default time
+period of the WITCH model, 5 year-periods from 2005 to 2150, using the
+function <code>convert_time_period</code>.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
 <span class="co"># Time-serie</span>
@@ -198,7 +208,8 @@ img, table, table th, table td {
 <span class="co">#&gt; 18: tech2  9    41</span>
 <span class="co">#&gt; 19: tech2 10    45</span>
 <span class="co">#&gt; 20: tech1 10    45</span></code></pre></div>
-<p>The function <code>convert_time_period</code> can also extrapolate the missing periods.</p>
+<p>The function <code>convert_time_period</code> can also extrapolate
+the missing periods.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
 <span class="co"># Aggregate values to the default WITCH time period mapping with extrapolation</span>
@@ -233,7 +244,7 @@ img, table, table th, table td {
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
 </div>
 
       </footer>

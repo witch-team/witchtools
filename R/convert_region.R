@@ -35,8 +35,8 @@
 #' possible values)
 #' @param agg_missing tells how to deal with missing values ("NA" or "zero")
 #' @param regions optional list of region mappings (see Details for format)
-#' @param info logical indicating whether to include information, only necessary
-#'  when the agg_operator is "sumby".
+#' @param info logical indicating whether to include information, only required
+#'  for the agg_operator "sumby".
 #'
 #' @return a list containing a converted data.table and information about
 #'         the coperture if available.
@@ -103,11 +103,6 @@ convert_region <- function(.x,
     return(.x)
   }
 
-  # "sumby" requires from_reg="iso3
-  if (agg_operator == "sumby" & rname0 != "iso3") {
-    stop(paste0("Operator sumby requires from_reg == iso3."))
-  }
-
   # "sumby" might need info
   if (agg_operator == "sumby" & !info) {
     warning(paste0("Operator sumby might need info = TRUE."))
@@ -140,7 +135,7 @@ convert_region <- function(.x,
 
   # Disaggregation
   if (rname0 != "iso3") {
-    if (agg_operator %in% c("sum")) {
+    if (agg_operator %in% c("sum","sumby")) {
       # total weights are computed because of missing zeros values
       .w <- merge(rmap0, agg_weight, by = "iso3")
       .w <- .w[iso3 %in% unique(.x$iso3)]
@@ -148,10 +143,14 @@ convert_region <- function(.x,
       .x <- merge(.x, .w, by = rname0)
       .x <- .x[, list(iso3,
         rname1 = get(rname1),
-        value = value * weight / sum_weight
+        value = value * weight / sum_weight,
+        weight
       ),
       by = c(dkeys(.x), rname0)
       ]
+      if (agg_operator %in% c("sum")) {
+        .x[, weight := NULL]
+      }
     } else {
       if (agg_operator %in% c("mean", "set1", "min", "minw", "max", "maxw")) {
         .x <- .x[, .(iso3,

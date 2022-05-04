@@ -4,13 +4,15 @@
 
 # witchtools <img src="man/figures/logo.png" align="right" alt="" width="120" />
 
+# witchtools <img src="man/figures/logo.png" align="right" alt="" width="120" />
+
 > Data Management for IAMs
 
 <!-- badges: start -->
 
 [![Lifecycle:
 maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
-[![devel:0.3.4](https://img.shields.io/badge/devel%20version-0.3.4-green.svg)](https://github.com/witch-team/witchtools)
+[![devel:0.3.5](https://img.shields.io/badge/devel%20version-0.3.5-green.svg)](https://github.com/witch-team/witchtools)
 [![codecov](https://codecov.io/gh/witch-team/witchtools/branch/master/graph/badge.svg)](https://codecov.io/gh/witch-team/witchtools)
 <!-- badges: end -->
 

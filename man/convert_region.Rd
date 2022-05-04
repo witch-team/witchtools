@@ -33,8 +33,8 @@ possible values)}
 
 \item{regions}{optional list of region mappings (see Details for format)}
 
-\item{info}{logical indicating whether to include information, only necessary
-when the agg_operator is "sumby".}
+\item{info}{logical indicating whether to include information, only required
+for the agg_operator "sumby".}
 }
 \value{
 a list containing a converted data.table and information about

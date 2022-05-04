@@ -60,3 +60,36 @@ test_that("convert region with a simple ISO3 example, returns list with info", {
 
   expect_equal(res1$data, res2)
 })
+
+test_that("convert with sumby can also downscale reports the right info", {
+
+  .data <- data.table::data.table(year = c(2030,2040), iso3eur = "eur", value = 10000)
+  .data <- data.table::rbindlist(list(.data,
+                                      data.table::data.table(year = c(2030,2040), iso3eur = "chl", value = 2000)))
+  .data <- data.table::rbindlist(list(.data,
+                                      data.table::data.table(year = c(2030,2040), iso3eur = "usa", value = 5000)))
+  agg_weight <-  witchtools::default_weights[["gdp"]]
+
+  res1 <- convert_region(.data,
+                         from_reg = "iso3eur",
+                         to_reg = "witch17",
+                         agg_operator = "sumby",
+                         agg_weight = agg_weight,
+                         info = TRUE
+  )
+
+  europe <- region_mappings[["witch17"]][witch17=="europe", iso3]
+  eu27 <- region_mappings[["iso3eur"]][iso3eur=="eur", iso3]
+  weur    <- sum(agg_weight[iso3 %in% eu27, weight])
+  weurope <- sum(agg_weight[iso3 %in% europe, weight])
+  laca <- region_mappings[["witch17"]][witch17=="laca", iso3]
+  wchl <- sum(agg_weight[iso3 %in% "CHL", weight])
+  wlaca <- sum(agg_weight[iso3 %in% laca, weight])
+  res2 <- c(rep(weur / weurope, 2), rep(wchl / wlaca, 2), rep(1, 2))
+
+  res3 <- c(rep(10000, 2), rep(2000, 2), rep(5000, 2))
+
+  expect_equal(res1$info$value, res2)
+  expect_equal(res1$data$value, res3)
+
+})

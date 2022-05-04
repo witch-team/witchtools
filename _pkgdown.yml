@@ -39,6 +39,8 @@ reference:
   - witch_time_mapping
 - title: Other functions
   contents:
+  - eu27_regions
+  - eu28_regions
   - oecd_regions
   - eu_regions
   - eu27_regions
