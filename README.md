@@ -4,8 +4,6 @@
 
 # witchtools <img src="man/figures/logo.png" align="right" alt="" width="120" />
 
-# witchtools <img src="man/figures/logo.png" align="right" alt="" width="120" />
-
 > Data Management for IAMs
 
 <!-- badges: start -->
