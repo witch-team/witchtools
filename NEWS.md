@@ -1,4 +1,8 @@
 
+# witchtools 0.3.6
+
+- Add new weights for landuse
+
 # witchtools 0.3.5
 
 - Add RICEx50 time and region aggregation
