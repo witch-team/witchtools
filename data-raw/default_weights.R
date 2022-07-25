@@ -137,7 +137,7 @@ totarea <- hp[variable == "cover_total" & year == 2015, .(iso3, weight = value)]
 # Add LULUC CO2 emissions (GtC)
 f <- "data-raw/eluc_oscar_2022.csv"
 co2lu <- fread(f)
-xco2lu <- co2lu[year %in% c(2013:2017), .(iso3, weight = mean(value)), by = "iso3"]
+xco2lu <- co2lu[year %in% c(2013:2017), .(weight = mean(value)), by = "iso3"]
 
 w <- c(w, list(hildap_cover_forest = cforest,
                hildap_cover_cropland = ccrop,
