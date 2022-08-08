@@ -196,7 +196,7 @@ convert_region <- function(.x,
         ]
       }
       if (agg_missing == "NA") {
-        .x <- .x[, .(value = sum(value * weight / sum(weight))),
+        .x <- .x[!is.na(value), .(value = sum(value * weight / sum(weight))),
           by = c(dkeys(.x))
         ]
       }

@@ -1,4 +1,9 @@
 
+# witchtools 0.3.7
+
+- Add region aggregations (gcam32, witch18rus)
+- Fix issue with NA and mean aggregation
+
 # witchtools 0.3.6
 
 - Add new weights for landuse
