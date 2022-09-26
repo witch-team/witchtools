@@ -1,4 +1,7 @@
 
+# witchtools 0.3.8
+- Add renewables capacities and generation weights
+
 # witchtools 0.3.7
 
 - Add region aggregations (gcam32, witch18rus)

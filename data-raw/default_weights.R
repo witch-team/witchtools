@@ -3,13 +3,19 @@
 library(gdxtools)
 library(data.table)
 library(witchtools)
+library(arrow)
 
 # All these ISO3 should be informed
 iso3_list <- unique(unlist(lapply(region_mappings, function(x) x$iso3)))
 
 w <- list()
 
-## pop
+
+#################################
+#################################
+#Load All weights from sources
+
+## Population
 # Definition: 2005 population [millions]
 # Source: SSP database v1
 mygdx <- gdx("data-raw/ssp-ssp_gdp_pop.gdx")
@@ -17,7 +23,7 @@ pop <- setDT(mygdx["pop_base_oecd"])
 setnames(pop, 1:4, c("ssp", "iso3", "year", "value"))
 w <- c(w, list(pop = pop[year == 2005 & ssp == "SSP2", .(iso3, weight = value)]))
 
-## gdp
+## GDP
 # Definition: 2005 GDP [T USD2005]
 # Source: SSP database v1
 gdp <- setDT(mygdx["gdp_base_oecd"])
@@ -145,6 +151,42 @@ w <- c(w, list(hildap_cover_forest = cforest,
                hildap_cover_urban = curban,
                hildap_total_area = totarea,
                oscar_co2lu = xco2lu))
+
+# Renewable capacities and generation in 2015-2020
+elccap <- read_parquet("data-raw/irenastat_elccap_2022.lz4.parquet")
+elcgen <- read_parquet("data-raw/irenastat_elcgen_2022.lz4.parquet")
+
+elcap_pv <- elccap[year %in% 2015:2020 & technology == "On-grid Solar photovoltaic", .(weight = mean(as.numeric(value))), by = "iso3"]
+elcap_csp <- elccap[year %in% 2015:2020 & technology == "Concentrated solar power", .(weight = mean(as.numeric(value))), by = "iso3"]
+elcap_windoff <- elccap[year %in% 2015:2020 & technology == "Offshore wind energy", .(weight = mean(as.numeric(value))), by = "iso3"]
+elcap_windon <- elccap[year %in% 2015:2020 & technology == "Onshore wind energy", .(weight = mean(as.numeric(value))), by = "iso3"]
+elcap_hydro <- elccap[year %in% 2015:2020 & technology == "Renewable hydropower", .(weight = mean(as.numeric(value))), by = "iso3"]
+elcap_geo <- elccap[year %in% 2015:2020 & technology == "Geothermal energy", .(weight = mean(as.numeric(value))), by = "iso3"]
+
+elgen_pv <- elcgen[year %in% 2015:2020 & technology == "On-grid Solar photovoltaic", .(weight = mean(as.numeric(value))), by = "iso3"]
+elgen_csp <- elcgen[year %in% 2015:2020 & technology == "Concentrated solar power", .(weight = mean(as.numeric(value))), by = "iso3"]
+elgen_windoff <- elcgen[year %in% 2015:2020 & technology == "Offshore wind energy", .(weight = mean(as.numeric(value))), by = "iso3"]
+elgen_windon <- elcgen[year %in% 2015:2020 & technology == "Onshore wind energy", .(weight = mean(as.numeric(value))), by = "iso3"]
+elgen_hydro <- elcgen[year %in% 2015:2020 & technology %in% "Renewable hydropower", .(weight = mean(as.numeric(value))), by = "iso3"]
+elgen_geo <- elcgen[year %in% 2015:2020 & technology == "Geothermal energy", .(weight = mean(as.numeric(value))), by = "iso3"]
+
+w <- c(w, list(elcap_pv = elcap_pv,
+               elcap_csp = elcap_csp,
+               elcap_windoff = elcap_windoff,
+               elcap_windon = elcap_windon,
+               elcap_hydro = elcap_hydro,
+               elcap_geo = elcap_geo,
+               elgen_pv = elgen_pv,
+               elgen_csp = elgen_csp,
+               elgen_windoff = elgen_windoff,
+               elgen_windon = elgen_windon,
+               elgen_hydro = elgen_hydro,
+               elgen_geo = elgen_geo))
+
+
+#################################
+#################################
+
 
 # Make weights consistent
 tidy_weights <- function(dd) {

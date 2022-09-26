@@ -4,10 +4,11 @@
 #' columns on scenario
 #' @param item parameter or variable name
 #' @param idx named list of queries
+#' @param resgdx list of results gdx from WITCH
 #'
 #' @export
-witch_query <- function(item, idx, resgdx,
-                        scen = TRUE, scen_fun = witch_scen_name,
+witch_query <- function(item, resgdx, idx = list(),
+                        add_scen = TRUE, scen_fun = witch_scen_name,
                         valigdx = NULL, histgdx = NULL,
                         clean = TRUE) {
 
@@ -15,33 +16,40 @@ witch_query <- function(item, idx, resgdx,
   .tab <- gdxtools::batch_extract(item, resgdx)[[1]]
   data.table::setDT(.tab)
 
-  # Update idx
+  # all ids to filter, including those for aggregation
   sidx <- idx
 
   # Split idx with ","
   sidx <- lapply(sidx, function(x, pattern) stringr::str_split(x, pattern = pattern)[[1]], ",")
 
-  ## If query is "n = world", select all n
-  if (idx[['n']] == "world") {
-    sidx[['n']] <- NULL
+  # Region specific queries
+  if( "n" %in% names(idx)){
+    ## If query is "n = world", select all n
+    if (idx[['n']] == "world") {
+      sidx[['n']] <- NULL
+    }
   }
 
   # Filter according to selection
-  .tab <- .tab[do.call(pmin, Map(`%in%`, .tab[, names(sidx), with = FALSE], sidx)) == 1L]
+  if (length(sidx) > 0) {
+    .tab <- .tab[do.call(pmin, Map(`%in%`, .tab[, names(sidx), with = FALSE], sidx)) == 1L]
+  }
 
   # Aggregate
 
   ## World region
-  if (idx[['n']] == "world") {
-    bycol <- names(.tab)[!names(.tab) %in% c("value","n")]
-    .tab <- .tab[, .(n = "world", value = sum(value)), by = bycol]
+  if( "n" %in% names(idx)){
+    if (idx[['n']] == "world") {
+      bycol <- names(.tab)[!names(.tab) %in% c("value","n")]
+      .tab <- .tab[, .(n = "world", value = sum(value)), by = bycol]
+    }
   }
 
   # Convert
   .tab[, year := as.numeric(t) * 5 + 2000]
 
   # Scenario
-  if (scen) {
+  if (add_scen) {
     .tab[, scen := scen_fun(gdx)]
   }
 
