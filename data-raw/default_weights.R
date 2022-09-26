@@ -112,6 +112,7 @@ w <- c(w, list(ghg_cait = ghg.cait))
 
 # add weights from WDI
 wdi <- fread("data-raw/wdi-wdi_variables.csv")
+wdi <- wdi[variable != "gdp"]
 w <- c(w, split(
   wdi[year == 2005, .(iso3, weight = value)],
   wdi[year == 2005]$variable
@@ -217,7 +218,19 @@ witch_weights <- c(
   "hildap_cover_pasture",
   "hildap_cover_urban",
   "hildap_total_area",
-  "oscar_co2lu"
+  "oscar_co2lu",
+  "elcap_pv",
+  "elcap_csp",
+  "elcap_windoff",
+  "elcap_windon",
+  "elcap_hydro",
+  "elcap_geo",
+  "elgen_pv",
+  "elgen_csp",
+  "elgen_windoff",
+  "elgen_windon",
+  "elgen_hydro",
+  "elgen_geo"
 )
 
 default_weights <- w[names(w) %in% witch_weights]
