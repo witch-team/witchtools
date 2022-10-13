@@ -117,7 +117,7 @@ witch_translate_data <- function(witch_dir = ".",
   if (requireNamespace("gdxtools", quietly = TRUE)) {
     for (gdxfile in gdxlist) {
       to_time <- time_id
-      if (stringr::str_detect(gdxfile, "hist")) {
+      if (stringr::str_detect(basename(gdxfile), "hist")) {
         to_time <- "year"
       }
       convert_gdx(
