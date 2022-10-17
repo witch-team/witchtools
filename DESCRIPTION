@@ -25,15 +25,14 @@ Depends: R (>= 3.2.0)
 Imports: 
     data.table,
     stringr,
-    RSQLite,
     crayon,
     docopt,
     here,
     remotes
 Suggests: 
+    RSQLite,
     gdxtools (>= 0.4.0),
-    testthat (>= 2.1.0),
-    piggyback
+    testthat (>= 2.1.0)
 URL: https://github.com/witch-team/witchtools
 BugReports: https://github.com/witch-team/witchtools/issues
 Roxygen: list(markdown = TRUE)
