@@ -6,19 +6,32 @@
 \usage{
 witch_query(
   item,
-  idx,
   resgdx,
-  scen = TRUE,
-  scen_fun = witch_scen_name,
+  filter = list(),
+  add_scenario = TRUE,
+  scenario_mapping = witch_scen_name,
+  add_year = TRUE,
+  year_mapping = witch_period_year,
   valigdx = NULL,
   histgdx = NULL,
-  clean = TRUE
+  agg_n = NULL,
+  clean_columns = TRUE
 )
 }
 \arguments{
 \item{item}{parameter or variable name}
 
-\item{idx}{named list of queries}
+\item{resgdx}{list of results gdx from WITCH}
+
+\item{filter}{named list of queries}
+
+\item{add_year}{convert t into year}
+
+\item{year_mapping}{a mapping table to translate t into year}
+
+\item{add_scen}{convert gdx into scenario name}
+
+\item{scen_table}{a conversion function or a mapping table to translate gdx into scenario name}
 }
 \description{
 Returns a data.table containing the result of the query with additional

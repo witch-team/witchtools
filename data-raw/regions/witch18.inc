@@ -43,9 +43,6 @@ brazil.BRA
 mexico.MEX
 
 china.CHN  # China
-china.HKG  # Small countries: Honk Kong
-china.MAC  #                  Macao
-china.TWN  #                  Taiwan
 
 india.IND # India
 
@@ -65,6 +62,10 @@ laca.VGB # Virgin Islands, British
 laca.VIR # Virgin Islands, U.S.
 
 jpnkor.PRK  # North-Korea
+
+jpnkor.HKG  # Small countries: Honk Kong
+jpnkor.MAC  #                  Macao
+jpnkor.TWN  #                  Taiwan
 
 oceania.CXR # Christmas Island (to Australia)           # oceania Islands
 oceania.COK # Cook Islands
@@ -112,9 +113,6 @@ seasia.PHL
 seasia.SGP
 seasia.THA
 seasia.VNM
-
-
-
 
 laca.ABW
 laca.AIA

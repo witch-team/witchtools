@@ -3,14 +3,25 @@
 #' Returns a data.table containing the result of the query with additional
 #' columns on scenario
 #' @param item parameter or variable name
-#' @param idx named list of queries
 #' @param resgdx list of results gdx from WITCH
+#' @param filter named list of queries
+#' @param add_scen convert gdx into scenario name
+#' @param scen_table a conversion function or a mapping table to translate gdx into scenario name
+#' @param add_year convert t into year
+#' @param year_mapping a mapping table to translate t into year
 #'
 #' @export
-witch_query <- function(item, resgdx, idx = list(),
-                        add_scen = TRUE, scen_fun = witch_scen_name,
-                        valigdx = NULL, histgdx = NULL,
-                        clean = TRUE) {
+witch_query <- function(item,
+                        resgdx,
+                        filter = list(),
+                        add_scenario = TRUE,
+                        scenario_mapping = witch_scen_name,
+                        add_year = TRUE,
+                        year_mapping = witch_period_year,
+                        valigdx = NULL,
+                        histgdx = NULL,
+                        agg_n = NULL,
+                        clean_columns = TRUE) {
 
   # Load results gdx
   .tab <- gdxtools::batch_extract(item, resgdx)[[1]]
@@ -45,18 +56,36 @@ witch_query <- function(item, resgdx, idx = list(),
     }
   }
 
-  # Convert
-  .tab[, year := as.numeric(t) * 5 + 2000]
+  # Time
+  if (add_year) {
+    if(is.function(year_mapping)) {
+      .tab[, year := year_mapping(gdx)]
+    } else if(is.data.frame(year_mapping)) {
+      stopifnot("year_mapping should have columns named year and t" = all(c("t","year") %in% names(year_mapping)))
+      .tab = merge(.tab, year_mapping, by = "t", all.x = TRUE)
+    } else {
+      warning("year_mapping should be a function or a data.frame")
+    }
+
+    stopifnot("scenario_mapping should have a column named gdx" = gdx %in% names(scenario_mapping))
+    .tab[, year := as.numeric(t) * 5 + 2000]
+  }
 
   # Scenario
-  if (add_scen) {
-    .tab[, scen := scen_fun(gdx)]
+  if (add_scenario) {
+    if(is.function(scenario_mapping)) {
+      .tab[, scenario := scenario_mapping(gdx)]
+    } else if(is.data.frame(scenario_mapping)) {
+      stopifnot("scenario_mapping should have column named gdx and scenarios" = all(c("gdx","scenario") %in% names(scenario_mapping)))
+      .tab = merge(.tab, scenario_mapping, by = "gdx", all.x = TRUE)
+    } else {
+      warning("scenario_mapping should be a function or a data.frame")
+    }
   }
 
-  # Clean some columns
-  if (clean) {
+  # Cleaning
+  if (clean_columns) {
     .tab[, c("t","gdx") := NULL]
   }
-
 
 }

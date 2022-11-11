@@ -1,4 +1,3 @@
-
 # witchtools 0.3.8
 - Add renewables capacities and generation weights
 
@@ -20,23 +19,23 @@
 
 # witchtools 0.3.4
 
-* Add `witch_data_usage`
+- Add `witch_data_usage`
 
 # witchtools 0.3.3
 
-* Add `witch34` region mapping
+- Add `witch34` region mapping
 
 # witchtools 0.3.2
 
--   Add `witch_time_mapping` function
+- Add `witch_time_mapping` function
 
 # witchtools 0.3.1
 
--   Fix warning and missing quote when a space is in the filename
+- Fix warning and missing quote when a space is in the filename
 
 # witchtools 0.3.0
 
--   Implements DVC by default for witch-data
+- Implements DVC by default for witch-data
 
 # witchtools 0.2.3
 
