@@ -19,7 +19,7 @@ described in Details."><meta property="og:image" content="http://witchtools.witc
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">witchtools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.0</span>
       </span>
     </div>
 
@@ -67,49 +67,70 @@ described in Details.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">convert_time_period</span><span class="op">(</span>
-  <span class="va">.x</span>,
-  <span class="va">time_mapping</span>,
-  do_interp <span class="op">=</span> <span class="cn">FALSE</span>,
-  do_extrap <span class="op">=</span> <span class="cn">FALSE</span>,
-  do_past_extrap <span class="op">=</span> <span class="cn">FALSE</span>,
-  year_name <span class="op">=</span> <span class="st">"year"</span>,
-  value_name <span class="op">=</span> <span class="st">"value"</span>,
-  fun.aggregate <span class="op">=</span> <span class="va">mean</span>,
-  na.rm <span class="op">=</span> <span class="cn">TRUE</span>,
-  verbose <span class="op">=</span> <span class="cn">FALSE</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">convert_time_period</span><span class="op">(</span></span>
+<span>  <span class="va">.x</span>,</span>
+<span>  <span class="va">time_mapping</span>,</span>
+<span>  do_interp <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  do_extrap <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  do_past_extrap <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  year_name <span class="op">=</span> <span class="st">"year"</span>,</span>
+<span>  value_name <span class="op">=</span> <span class="st">"value"</span>,</span>
+<span>  fun.aggregate <span class="op">=</span> <span class="va">mean</span>,</span>
+<span>  na.rm <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  verbose <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>.x</dt>
 <dd><p>a well-formatted data.table.</p></dd>
+
+
 <dt>time_mapping</dt>
 <dd><p>a time mapping data.table.</p></dd>
+
+
 <dt>do_interp</dt>
 <dd><p>logical indicating whether linear interpolation
 should be done.</p></dd>
+
+
 <dt>do_extrap</dt>
 <dd><p>logical indicating whether constant extrapolation
 should be done.</p></dd>
+
+
 <dt>do_past_extrap</dt>
 <dd><p>logical indicating whether constant extrapolation
 should be done for past value.</p></dd>
+
+
 <dt>year_name</dt>
 <dd><p>string column name of year.</p></dd>
+
+
 <dt>value_name</dt>
 <dd><p>string column name of value.</p></dd>
+
+
 <dt>fun.aggregate</dt>
 <dd><p>function to aggregate yearly values in a period.</p></dd>
+
+
 <dt>na.rm</dt>
 <dd><p>logical indicating whether missing values should be removed.</p></dd>
+
+
 <dt>verbose</dt>
 <dd><p>logical indicating whether running in verbose mode.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>a converted data.table</p>
+    
+
+<p>a converted data.table</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -136,14 +157,14 @@ values are averaged or the function <code>fun.aggregate</code> is used.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
-<span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r-datatable.com" class="external-link">data.table</a></span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># original data.table</span></span>
-<span class="r-in"><span class="va">dd</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/data.table.html" class="external-link">data.table</a></span><span class="op">(</span>year <span class="op">=</span> <span class="fl">2005</span><span class="op">:</span><span class="fl">2050</span>, value <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">46</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Convert yearly time-serie into time period</span></span>
-<span class="r-in"><span class="fu">convert_time_period</span><span class="op">(</span><span class="va">dd</span>, <span class="st">"t30"</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r-datatable.com" class="external-link">data.table</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># original data.table</span></span></span>
+<span class="r-in"><span><span class="va">dd</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/data.table.html" class="external-link">data.table</a></span><span class="op">(</span>year <span class="op">=</span> <span class="fl">2005</span><span class="op">:</span><span class="fl">2050</span>, value <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">46</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Convert yearly time-serie into time period</span></span></span>
+<span class="r-in"><span><span class="fu">convert_time_period</span><span class="op">(</span><span class="va">dd</span>, <span class="st">"t30"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      t value</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  1:  1     2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  2:  2     6</span>
@@ -169,7 +190,7 @@ values are averaged or the function <code>fun.aggregate</code> is used.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

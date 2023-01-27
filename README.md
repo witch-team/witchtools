@@ -10,7 +10,7 @@
 
 [![Lifecycle:
 maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
-[![devel:0.3.5](https://img.shields.io/badge/devel%20version-0.3.5-green.svg)](https://github.com/witch-team/witchtools)
+[![devel:0.4.0](https://img.shields.io/badge/devel%20version-0.4.0-green.svg)](https://github.com/witch-team/witchtools)
 [![codecov](https://codecov.io/gh/witch-team/witchtools/branch/master/graph/badge.svg)](https://codecov.io/gh/witch-team/witchtools)
 <!-- badges: end -->
 
@@ -27,14 +27,14 @@ data for other uses or models.
 
 ## Features
 
--   Conversion of a yearly time series into a time-period (including
-    possible decision tree structure) based time series.
--   Conversion of data from one regional mapping to another one.
--   Default time-period mappings, regional mappings and aggregation
-    weights used by the WITCH model
--   Batch conversion of the make_data files from the input directory of
-    the WITCH model
--   Easy access to the witch-team/witch-data repository
+- Conversion of a yearly time series into a time-period (including
+  possible decision tree structure) based time series.
+- Conversion of data from one regional mapping to another one.
+- Default time-period mappings, regional mappings and aggregation
+  weights used by the WITCH model
+- Batch conversion of the make_data files from the input directory of
+  the WITCH model
+- Easy access to the witch-team/witch-data repository
 
 ## Installation
 

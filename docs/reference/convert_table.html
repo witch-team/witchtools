@@ -23,7 +23,7 @@ indices.'><meta property="og:image" content="http://witchtools.witchmodel.org/lo
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">witchtools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.0</span>
       </span>
     </div>
 
@@ -75,53 +75,76 @@ indices.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">convert_table</span><span class="op">(</span>
-  <span class="va">.x</span>,
-  <span class="va">...</span>,
-  options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,
-  time_mapping <span class="op">=</span> <span class="cn">NULL</span>,
-  from_reg <span class="op">=</span> <span class="cn">NULL</span>,
-  to_reg <span class="op">=</span> <span class="cn">NULL</span>,
-  agg_weight <span class="op">=</span> <span class="cn">NULL</span>,
-  regions <span class="op">=</span> <span class="cn">NULL</span>,
-  do_time_period <span class="op">=</span> <span class="cn">TRUE</span>,
-  do_region <span class="op">=</span> <span class="cn">TRUE</span>,
-  info <span class="op">=</span> <span class="cn">FALSE</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">convert_table</span><span class="op">(</span></span>
+<span>  <span class="va">.x</span>,</span>
+<span>  <span class="va">...</span>,</span>
+<span>  options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  time_mapping <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  from_reg <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  to_reg <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  agg_weight <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  regions <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  do_time_period <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  do_region <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  info <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>.x</dt>
 <dd><p>a well-formatted data.table.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>parameters to send to convert_region or
 convert_time_period.</p></dd>
+
+
 <dt>options</dt>
 <dd><p>a list of parameters to send to convert_region or
 convert_time_period.</p></dd>
+
+
 <dt>time_mapping</dt>
 <dd><p>a time mapping data.table.</p></dd>
+
+
 <dt>from_reg</dt>
 <dd><p>initial regional mapping name or a data.table with
 the mapping.</p></dd>
+
+
 <dt>to_reg</dt>
 <dd><p>final regional mapping name  or a data.table with the mapping.</p></dd>
+
+
 <dt>agg_weight</dt>
 <dd><p>aggregation weight data.table</p></dd>
+
+
 <dt>regions</dt>
 <dd><p>optional list of region mappings (see Details for format)</p></dd>
+
+
 <dt>do_time_period</dt>
 <dd><p>logical indicating whether years should be converted.</p></dd>
+
+
 <dt>do_region</dt>
 <dd><p>logical indicating whether region should be converted.</p></dd>
+
+
 <dt>info</dt>
 <dd><p>logical indicating whether to include information, only necessary
 when the agg_operator is "sumby".</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>a data.table or list containing a converted data.table and
+    
+
+<p>a data.table or list containing a converted data.table and
 information about the coperture if available.</p>
     </div>
     <div id="see-also">
@@ -136,11 +159,11 @@ information about the coperture if available.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">convert_table</span><span class="op">(</span><span class="va">gdp_iso3</span>, to_reg <span class="op">=</span> <span class="st">"witch17"</span>, time_mapping <span class="op">=</span> <span class="st">"t30"</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-in"></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">convert_table</span><span class="op">(</span><span class="va">gdp_iso3</span>, to_reg <span class="op">=</span> <span class="st">"witch17"</span>, time_mapping <span class="op">=</span> <span class="st">"t30"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -155,7 +178,7 @@ information about the coperture if available.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

@@ -1,3 +1,6 @@
+# witchtools 0.4.0
+- Remove DVC support as default for `witch_data`. Now, just return the filename.
+
 # witchtools 0.3.8
 - Add renewables capacities and generation weights
 

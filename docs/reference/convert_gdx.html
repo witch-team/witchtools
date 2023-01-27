@@ -20,7 +20,7 @@ are read in the parameter meta_param also stored in the gdxfile."><meta property
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">witchtools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.0</span>
       </span>
     </div>
 
@@ -69,49 +69,72 @@ are read in the parameter <code>meta_param</code> also stored in the gdxfile.</p
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">convert_gdx</span><span class="op">(</span>
-  <span class="va">gdxfile</span>,
-  <span class="va">reg_id</span>,
-  <span class="va">time_id</span>,
-  <span class="va">output_directory</span>,
-  region_mappings <span class="op">=</span> <span class="va">region_mappings</span>,
-  time_mappings <span class="op">=</span> <span class="va">time_mappings</span>,
-  weights <span class="op">=</span> <span class="fu">witchtools</span><span class="fu">::</span><span class="va"><a href="default_weights.html">default_weights</a></span>,
-  guess_input_t <span class="op">=</span> <span class="st">"t30"</span>,
-  region_name <span class="op">=</span> <span class="cn">NULL</span>,
-  guess_region <span class="op">=</span> <span class="st">"witch17"</span>,
-  default_agg_missing <span class="op">=</span> <span class="st">"zero"</span>,
-  default_meta_param <span class="op">=</span> <span class="cn">NULL</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">convert_gdx</span><span class="op">(</span></span>
+<span>  <span class="va">gdxfile</span>,</span>
+<span>  <span class="va">reg_id</span>,</span>
+<span>  <span class="va">time_id</span>,</span>
+<span>  <span class="va">output_directory</span>,</span>
+<span>  region_mappings <span class="op">=</span> <span class="va">region_mappings</span>,</span>
+<span>  time_mappings <span class="op">=</span> <span class="va">time_mappings</span>,</span>
+<span>  weights <span class="op">=</span> <span class="fu">witchtools</span><span class="fu">::</span><span class="va"><a href="default_weights.html">default_weights</a></span>,</span>
+<span>  guess_input_t <span class="op">=</span> <span class="st">"t30"</span>,</span>
+<span>  region_name <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  guess_region <span class="op">=</span> <span class="st">"witch17"</span>,</span>
+<span>  default_agg_missing <span class="op">=</span> <span class="st">"zero"</span>,</span>
+<span>  default_meta_param <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>gdxfile</dt>
 <dd><p>location of the GDX file.</p></dd>
+
+
 <dt>reg_id</dt>
 <dd><p>final regional aggregation.</p></dd>
+
+
 <dt>time_id</dt>
 <dd><p>final time_period aggregation.</p></dd>
+
+
 <dt>output_directory</dt>
 <dd><p>directory where to write the converted GDX</p></dd>
+
+
 <dt>region_mappings</dt>
 <dd><p>a named list of region mapping data.table.</p></dd>
+
+
 <dt>time_mappings</dt>
 <dd><p>a named list of time mapping data.table.</p></dd>
+
+
 <dt>weights</dt>
 <dd><p>a named list of weights used by <code>convert_region</code></p></dd>
+
+
 <dt>guess_input_t</dt>
 <dd><p>input time mapping if not explicitely defined</p></dd>
+
+
 <dt>region_name</dt>
 <dd><p>column name of the region, reg_id if null</p></dd>
+
+
 <dt>guess_region</dt>
 <dd><p>input regional mapping if not explicitely defined</p></dd>
+
+
 <dt>default_agg_missing</dt>
 <dd><p>default parameter to handle missing values in
 <code>convert_region</code></p></dd>
+
+
 <dt>default_meta_param</dt>
 <dd><p>default meta_param</p></dd>
+
 </dl></div>
     <div id="see-also">
     <h2>See also</h2>
@@ -125,10 +148,10 @@ are read in the parameter <code>meta_param</code> also stored in the gdxfile.</p
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="fu">convert_gdx</span><span class="op">(</span><span class="st">"input/build/data_climate.gdx"</span>, <span class="st">"witch17"</span>, <span class="st">"t30"</span>, <span class="st">"data_witch17"</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-in"></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="fu">convert_gdx</span><span class="op">(</span><span class="st">"input/build/data_climate.gdx"</span>, <span class="st">"witch17"</span>, <span class="st">"t30"</span>, <span class="st">"data_witch17"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -143,7 +166,7 @@ are read in the parameter <code>meta_param</code> also stored in the gdxfile.</p
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

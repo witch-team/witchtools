@@ -1,12 +1,12 @@
 #' Handler for witch-data files in WITCH
 #'
 #' Returns the location of a file from the witch-data repository for processing,
-#' after checking/downloading it from the DVC remote drive (method `dvc`) or
-#' github (method `piggyback`).
+#' method (`local`) or after checking/downloading it from the DVC remote drive
+#' (method `dvc`).
 #' @param file Name of the file in the with-data repository
-#' @param version Release version of the file (required for method piggyback)
+#' @param version File version, only required for method piggyback (deprecated)
 #' @param idir directory to read/download files
-#' @param method 'piggyback' or 'witch-data'.
+#' @param method 'dvc' or 'local'.
 #' @param noCheck don't check and download the file.
 #' @param repo github repository name
 #' @param remote dvc remote storage
@@ -25,18 +25,9 @@ witch_data <- function(file, version = NULL,
                        repo = getOption("witchtools.witch_data_repo"),
                        remote = getOption("witchtools.witch_data_remote")) {
 
-  # Check method name
-  if (!method %in% c("piggyback", "witch-data", "dvc")) {
-    warning(paste("Method", method, "does not exist."))
-  }
-
   # default values for idir
-  if (method == "piggyback" & is.null(idir)) {
-    idir <- normalizePath(file.path("input", "data"), mustWork = TRUE)
-  }
-  if (method == "dvc" & is.null(idir)) {
-    idir <- normalizePath(file.path("input", "data"), mustWork = TRUE)
-  }
+  idir <- normalizePath(file.path("input", "data"), mustWork = TRUE)
+
   if (method == "witch-data" & is.null(idir)) {
     idir <- normalizePath(file.path("..", "witch-data"), mustWork = TRUE)
   }
@@ -45,8 +36,9 @@ witch_data <- function(file, version = NULL,
     stop(paste("Directory", idir, "does not exist."))
   }
 
+  file <- stringr::str_replace_all(file, "/", "-")
+
   if (method == "dvc") {
-    file <- stringr::str_replace_all(file, "/", "-")
 
     if (!noCheck) {
       if (is.null(remote)) {
@@ -61,7 +53,6 @@ witch_data <- function(file, version = NULL,
 
   if (method == "piggyback") {
     warning("Decrepated method! It is not maintained anymore. Prefer DVC.")
-    file <- stringr::str_replace_all(file, "/", "-")
 
     if (!noCheck) {
       piggyback::pb_download(repo = repo, tag = version, file = file, dest = idir)

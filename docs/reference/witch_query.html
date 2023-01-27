@@ -18,7 +18,7 @@ columns on scenario"><meta property="og:image" content="http://witchtools.witchm
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">witchtools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.0</span>
       </span>
     </div>
 
@@ -65,24 +65,50 @@ columns on scenario</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">witch_query</span><span class="op">(</span>
-  <span class="va">item</span>,
-  <span class="va">idx</span>,
-  <span class="va">resgdx</span>,
-  scen <span class="op">=</span> <span class="cn">TRUE</span>,
-  scen_fun <span class="op">=</span> <span class="va">witch_scen_name</span>,
-  valigdx <span class="op">=</span> <span class="cn">NULL</span>,
-  histgdx <span class="op">=</span> <span class="cn">NULL</span>,
-  clean <span class="op">=</span> <span class="cn">TRUE</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">witch_query</span><span class="op">(</span></span>
+<span>  <span class="va">item</span>,</span>
+<span>  <span class="va">resgdx</span>,</span>
+<span>  filter <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  add_scenario <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  scenario_mapping <span class="op">=</span> <span class="va">witch_scen_name</span>,</span>
+<span>  add_year <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  year_mapping <span class="op">=</span> <span class="va">witch_period_year</span>,</span>
+<span>  valigdx <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  histgdx <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  agg_n <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  clean_columns <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>item</dt>
 <dd><p>parameter or variable name</p></dd>
-<dt>idx</dt>
+
+
+<dt>resgdx</dt>
+<dd><p>list of results gdx from WITCH</p></dd>
+
+
+<dt>filter</dt>
 <dd><p>named list of queries</p></dd>
+
+
+<dt>add_year</dt>
+<dd><p>convert t into year</p></dd>
+
+
+<dt>year_mapping</dt>
+<dd><p>a mapping table to translate t into year</p></dd>
+
+
+<dt>add_scen</dt>
+<dd><p>convert gdx into scenario name</p></dd>
+
+
+<dt>scen_table</dt>
+<dd><p>a conversion function or a mapping table to translate gdx into scenario name</p></dd>
+
 </dl></div>
 
   </div>
@@ -97,7 +123,7 @@ columns on scenario</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

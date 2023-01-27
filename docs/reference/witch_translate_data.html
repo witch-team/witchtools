@@ -22,7 +22,7 @@ will handle any regional-mapping contained in regions."><meta property="og:image
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">witchtools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.0</span>
       </span>
     </div>
 
@@ -73,36 +73,51 @@ will handle any regional-mapping contained in <code>regions</code>.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">witch_translate_data</span><span class="op">(</span>
-  witch_dir <span class="op">=</span> <span class="st">"."</span>,
-  <span class="va">region</span>,
-  <span class="va">timescale</span>,
-  idir <span class="op">=</span> <span class="cn">NULL</span>,
-  output_dir <span class="op">=</span> <span class="cn">NULL</span>,
-  regions <span class="op">=</span> <span class="va">region_mappings</span>,
-  times <span class="op">=</span> <span class="va">time_mappings</span>,
-  force <span class="op">=</span> <span class="cn">FALSE</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">witch_translate_data</span><span class="op">(</span></span>
+<span>  witch_dir <span class="op">=</span> <span class="st">"."</span>,</span>
+<span>  <span class="va">region</span>,</span>
+<span>  <span class="va">timescale</span>,</span>
+<span>  idir <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  output_dir <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  regions <span class="op">=</span> <span class="va">region_mappings</span>,</span>
+<span>  times <span class="op">=</span> <span class="va">time_mappings</span>,</span>
+<span>  force <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>witch_dir</dt>
 <dd><p>WITCH main directory</p></dd>
+
+
 <dt>region</dt>
 <dd><p>final regional aggregation</p></dd>
+
+
 <dt>timescale</dt>
 <dd><p>final timescale aggregation</p></dd>
+
+
 <dt>idir</dt>
 <dd><p>input data folder (for weights and to be pass to make_data files)</p></dd>
+
+
 <dt>output_dir</dt>
 <dd><p>output folder (to overidde default WITCH data folder name)</p></dd>
+
+
 <dt>regions</dt>
 <dd><p>optional list of regional mappings (see Details for format)</p></dd>
+
+
 <dt>times</dt>
 <dd><p>optional list of timescale mappings (see Details for format)</p></dd>
+
+
 <dt>force</dt>
 <dd><p>logical indicating whether all make files should be processed</p></dd>
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -120,9 +135,9 @@ and refyear for interpolation and extrapolation. <code>times</code> should conta
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="fu">witch_translate_data</span><span class="op">(</span>region <span class="op">=</span> <span class="st">"r5"</span>, timescale <span class="op">=</span> <span class="st">"t30"</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="fu">witch_translate_data</span><span class="op">(</span>region <span class="op">=</span> <span class="st">"r5"</span>, timescale <span class="op">=</span> <span class="st">"t30"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -137,7 +152,7 @@ and refyear for interpolation and extrapolation. <code>times</code> should conta
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>
