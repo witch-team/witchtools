@@ -28,6 +28,7 @@ witch_query <- function(item,
   data.table::setDT(.tab)
 
   # all ids to filter, including those for aggregation
+  idx <- filter
   sidx <- idx
 
   # Split idx with ","
@@ -66,9 +67,6 @@ witch_query <- function(item,
     } else {
       warning("year_mapping should be a function or a data.frame")
     }
-
-    stopifnot("scenario_mapping should have a column named gdx" = gdx %in% names(scenario_mapping))
-    .tab[, year := as.numeric(t) * 5 + 2000]
   }
 
   # Scenario

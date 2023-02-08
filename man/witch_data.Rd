@@ -17,11 +17,11 @@ witch_data(
 \arguments{
 \item{file}{Name of the file in the with-data repository}
 
-\item{version}{Release version of the file (required for method piggyback)}
+\item{version}{File version, only required for method piggyback (deprecated)}
 
 \item{idir}{directory to read/download files}
 
-\item{method}{'piggyback' or 'witch-data'.}
+\item{method}{'dvc' or 'local'.}
 
 \item{noCheck}{don't check and download the file.}
 
@@ -31,8 +31,8 @@ witch_data(
 }
 \description{
 Returns the location of a file from the witch-data repository for processing,
-after checking/downloading it from the DVC remote drive (method \code{dvc}) or
-github (method \code{piggyback}).
+method (\code{local}) or after checking/downloading it from the DVC remote drive
+(method \code{dvc}).
 }
 \examples{
 \dontrun{
