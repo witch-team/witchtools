@@ -2,6 +2,10 @@
 #'
 #' Returns a data.table containing the result of the query with additional
 #' columns on scenario
+#'
+#' @family WITCH helper functions
+#' @seealso \code{\link{witch_scen}}, \code{\link{witch_pal}}.
+#'
 #' @param item parameter or variable name
 #' @param resgdx list of results gdx from WITCH
 #' @param filter named list of queries
