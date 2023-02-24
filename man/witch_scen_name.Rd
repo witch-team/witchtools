@@ -9,3 +9,11 @@ witch_scen_name(gdxfilename)
 \description{
 Returns a scenario name
 }
+\seealso{
+\code{\link{witch_query}}, \code{\link{witch_pal}}.
+
+Other WITCH helper functions: 
+\code{\link{witch_pal}()},
+\code{\link{witch_query}()}
+}
+\concept{WITCH helper functions}

@@ -1,6 +1,6 @@
 Package: witchtools
 Title: Data Management for Integrated Assessment Models
-Version: 0.4.0
+Version: 0.4.1
 Authors@R: 
     c(person(given = "Laurent",
            family = "Drouet",
@@ -15,7 +15,11 @@ Authors@R:
     person(given = "Giacomo",
            family = "Marangoni",
            role = c("ctb"),
-           email = "jackjackk@gmail.com")
+           email = "jackjackk@gmail.com"),
+    person(given = "Pietro",
+           family = "Andreoni",
+           role = c("ctb"),
+           email = "pietro.andreoni@eiee.org")
            )
 Description: The package gathers tools and scripts useful for integrated assessment models. It converts input datasets in time and in regions, it provides diagnostic and validation tools and it provides easy access to outputs. The package has been developed in the WITCH modelling framework but it is not limited to it.
 License: Apache License (>= 2.0)
@@ -36,4 +40,4 @@ Suggests:
 URL: https://github.com/witch-team/witchtools
 BugReports: https://github.com/witch-team/witchtools/issues
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.1
+RoxygenNote: 7.2.3

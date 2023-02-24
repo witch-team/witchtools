@@ -37,3 +37,11 @@ witch_query(
 Returns a data.table containing the result of the query with additional
 columns on scenario
 }
+\seealso{
+\code{\link{witch_scen}}, \code{\link{witch_pal}}.
+
+Other WITCH helper functions: 
+\code{\link{witch_pal}()},
+\code{\link{witch_scen_name}()}
+}
+\concept{WITCH helper functions}

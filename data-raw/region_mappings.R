@@ -16,6 +16,7 @@ load_region_mapping <- function(f) {
   set.begin <- grep("set map_*", tolower(region_inc_file))[1]
   set.end <- set.begin + grep(";", region_inc_file[set.begin:length(region_inc_file)])[1]
   region_inc_map <- region_inc_file[(set.begin + 1):(set.end - 2)]
+  region_inc_map <- region_inc_map[region_inc_map != ""]
   region_inc_map <- stringr::str_split(region_inc_map, "\\.")
   region_inc_map <- data.table::data.table(matrix(unlist(region_inc_map), ncol = 2, byrow = TRUE))
   region_inc_map[, V1 := tolower(V1)]
