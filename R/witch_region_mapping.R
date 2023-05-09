@@ -15,7 +15,6 @@
 witch_region_mapping <- function(f) {
 
   rif <- readLines(f)
-  #rif <- stringr::str_trim(rif)
   rif <- rif[rif != ""] # Remove empty lines
   rif <- rif[!stringr::str_detect(rif, "^\\*")] # Remove * comments
   rif <- stringr::str_trim(stringr::str_split_fixed(rif, "#", 2)[, 1]) # Remove #
