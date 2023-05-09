@@ -1,5 +1,7 @@
 # witchtools 0.4.1
 - Fix a bug on loading region mapping files with non-empty lines.
+- Fix `witch_data_usage` default method, set as local.
+- Default option `witchtools.noCheck` to `TRUE`.
 
 # witchtools 0.4.0
 - Remove DVC support as default for `witch_data`. Now, just return the filename.

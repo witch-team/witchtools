@@ -4,12 +4,14 @@
 \alias{witch_pal}
 \title{WITCH palettes for WITCH results}
 \usage{
-witch_pal(theme = NULL, include_names = NULL)
+witch_pal(theme = NULL, restrict = NULL)
 }
 \arguments{
-\item{name}{A palette name from the lists below.}
+\item{theme}{A theme palette name.}
 
-\item{restrict_names}{only return the values with name in this vector.}
+\item{restrict}{only return the values with name in this vector.}
+
+\item{components}{.}
 }
 \description{
 Creates thematic palettes for WITCH results
@@ -19,6 +21,7 @@ Creates thematic palettes for WITCH results
 
 Other WITCH helper functions: 
 \code{\link{witch_query}()},
+\code{\link{witch_results_files}()},
 \code{\link{witch_scen_name}()}
 }
 \concept{WITCH helper functions}

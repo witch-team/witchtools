@@ -2,26 +2,21 @@
 % Please edit documentation in R/witch_data.R
 \name{witch_data_upload}
 \alias{witch_data_upload}
-\title{Upload a file as an asset in a release of a github repository.}
+\title{Upload a file as an asset in a release of a github repository (deprecated).}
 \usage{
-witch_data_upload(
-  file,
-  version = NULL,
-  method = getOption("witchtools.method"),
-  repo = getOption("witchtools.witch_data_repo")
-)
+witch_data_upload(file, version = NULL, method = NULL, repo = NULL)
 }
 \arguments{
 \item{file}{Name of the file in the with-data repository}
 
-\item{version}{Release version of the file (without space)}
+\item{version}{NULL}
 
-\item{method}{'piggyback'.}
+\item{method}{NULL.}
 
-\item{repo}{github repository name}
+\item{repo}{NULL}
 }
 \description{
-Upload a file as an asset in a release of a github repository.
+Upload a file as an asset in a release of a github repository (deprecated).
 }
 \examples{
 \dontrun{

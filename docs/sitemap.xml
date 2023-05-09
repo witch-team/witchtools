@@ -82,10 +82,16 @@
     <loc>http://witchtools.witchmodel.org/reference/witch_meta_param.html</loc>
   </url>
   <url>
+    <loc>http://witchtools.witchmodel.org/reference/witch_pal.html</loc>
+  </url>
+  <url>
     <loc>http://witchtools.witchmodel.org/reference/witch_query.html</loc>
   </url>
   <url>
     <loc>http://witchtools.witchmodel.org/reference/witch_region_mapping.html</loc>
+  </url>
+  <url>
+    <loc>http://witchtools.witchmodel.org/reference/witch_results_files.html</loc>
   </url>
   <url>
     <loc>http://witchtools.witchmodel.org/reference/witch_scen_name.html</loc>

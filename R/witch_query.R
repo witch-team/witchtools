@@ -15,8 +15,8 @@
 #' @param year_mapping a mapping table to translate t into year
 #'
 #' @export
-witch_query <- function(item,
-                        resgdx,
+witch_query <- function(item = NULL,
+                        resgdx = NULL,
                         filter = list(),
                         add_scenario = TRUE,
                         scenario_mapping = witch_scen_name,
@@ -25,10 +25,21 @@ witch_query <- function(item,
                         valigdx = NULL,
                         histgdx = NULL,
                         agg_n = NULL,
-                        clean_columns = TRUE) {
+                        clean_columns = TRUE,
+                        ...) {
+
+  if (is.null(item)) {
+    warning('needs item!')
+    return(NULL)
+  }
+
+  if (is.null(resgdx)) {
+    warning('needs resgdx!')
+    return(NULL)
+  }
 
   # Load results gdx
-  .tab <- gdxtools::batch_extract(item, resgdx)[[1]]
+  .tab <- gdxtools::batch_extract(item, resgdx, ...)[[1]]
   data.table::setDT(.tab)
 
   # all ids to filter, including those for aggregation

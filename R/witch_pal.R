@@ -5,12 +5,14 @@
 #' @family WITCH helper functions
 #' @seealso \code{\link{witch_query}}, \code{\link{witch_scen}}.
 #'
-#' @param name A palette name from the lists below.
-#' @param restrict_names only return the values with name in this vector.
+#' @param components  .
+#' @param theme A theme palette name.
+#' @param restrict only return the values with name in this vector.
 #' @export
 #'
-witch_pal <- function(theme = NULL, include_names = NULL) {
+witch_pal <- function(theme = NULL, restrict = NULL) {
 
+  # Set to default theme palette
   if (is.null(theme)) {
     warning('theme is NULL')
     return(NULL)

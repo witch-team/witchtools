@@ -39,6 +39,8 @@ reference:
   - witch_translate_data
   - witch_region_mapping
   - witch_time_mapping
+  - witch_pal
+  - witch_results_files
 - title: Other functions
   contents:
   - eu27_regions

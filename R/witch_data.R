@@ -21,7 +21,7 @@
 witch_data <- function(file, version = NULL,
                        idir = getOption("witchtools.idir"),
                        method = getOption("witchtools.method"),
-                       noCheck = getOption("witchtools.noCheck", FALSE),
+                       noCheck = getOption("witchtools.noCheck", TRUE),
                        repo = getOption("witchtools.witch_data_repo"),
                        remote = getOption("witchtools.witch_data_remote")) {
 
@@ -51,23 +51,15 @@ witch_data <- function(file, version = NULL,
     }
   }
 
-  if (method == "piggyback") {
-    warning("Decrepated method! It is not maintained anymore. Prefer DVC.")
-
-    if (!noCheck) {
-      piggyback::pb_download(repo = repo, tag = version, file = file, dest = idir)
-    }
-  }
-
   return(file.path(idir, file))
 }
 
 
-#' Upload a file as an asset in a release of a github repository.
+#' Upload a file as an asset in a release of a github repository (deprecated).
 #' @param file Name of the file in the with-data repository
-#' @param version Release version of the file (without space)
-#' @param method 'piggyback'.
-#' @param repo github repository name
+#' @param version NULL
+#' @param method NULL.
+#' @param repo NULL
 #'
 #' @export
 #' @examples
@@ -75,32 +67,9 @@ witch_data <- function(file, version = NULL,
 #' witch_data_upload("ssp/ssp_population.csv", version = "v0.0.1")
 #' }
 witch_data_upload <- function(file, version = NULL,
-                              method = getOption("witchtools.method"),
-                              repo = getOption("witchtools.witch_data_repo")) {
+                              method = NULL,
+                              repo = NULL) {
 
-  # Check method name
-  if (!method %in% c("piggyback", "witch-data", "dvc")) {
-    warning(paste("Method", method, "does not exist."))
-  }
-
-  if (method == "piggyback") {
-    if (is.null(version)) stop("version cannot be NULL")
-
-    try(piggyback::pb_new_release(repo = repo, tag = version), silent = TRUE)
-    piggyback::pb_upload(file,
-      name = stringr::str_replace_all(file, "/", "-"),
-      tag = version
-    )
-  }
-
-  if (method == "dvc") {
-    cmd <- paste0('dvc add "',normalizePath(file, mustWork = FALSE),'"')
-    res <- try(system(cmd))
-    stopifnot(res == 0)
-
-    cmd <- paste0('dvc push "',normalizePath(paste0(file,".dvc"), mustWork = FALSE),'"')
-    res <- try(system(cmd))
-    stopifnot(res == 0)
-  }
+  warning("`witch_data_upload` is deprecated as of witchtools 0.4.1.")
 
 }

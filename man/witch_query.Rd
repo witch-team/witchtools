@@ -5,8 +5,8 @@
 \title{Fast query of WITCH results files}
 \usage{
 witch_query(
-  item,
-  resgdx,
+  item = NULL,
+  resgdx = NULL,
   filter = list(),
   add_scenario = TRUE,
   scenario_mapping = witch_scen_name,
@@ -15,7 +15,8 @@ witch_query(
   valigdx = NULL,
   histgdx = NULL,
   agg_n = NULL,
-  clean_columns = TRUE
+  clean_columns = TRUE,
+  ...
 )
 }
 \arguments{
@@ -42,6 +43,7 @@ columns on scenario
 
 Other WITCH helper functions: 
 \code{\link{witch_pal}()},
+\code{\link{witch_results_files}()},
 \code{\link{witch_scen_name}()}
 }
 \concept{WITCH helper functions}

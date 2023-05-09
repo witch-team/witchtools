@@ -9,7 +9,7 @@ witch_data(
   version = NULL,
   idir = getOption("witchtools.idir"),
   method = getOption("witchtools.method"),
-  noCheck = getOption("witchtools.noCheck", FALSE),
+  noCheck = getOption("witchtools.noCheck", TRUE),
   repo = getOption("witchtools.witch_data_repo"),
   remote = getOption("witchtools.witch_data_remote")
 )

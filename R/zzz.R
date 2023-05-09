@@ -2,6 +2,7 @@
 .onLoad <- function(libname, pkgname) {
   options(witchtools.method = "local")
   options(witchtools.witch_data_repo = "witch-team/witch-data")
+  options(witchtools.noCheck = TRUE)
 }
 
 # Import package operators

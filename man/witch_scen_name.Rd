@@ -14,6 +14,7 @@ Returns a scenario name
 
 Other WITCH helper functions: 
 \code{\link{witch_pal}()},
-\code{\link{witch_query}()}
+\code{\link{witch_query}()},
+\code{\link{witch_results_files}()}
 }
 \concept{WITCH helper functions}
