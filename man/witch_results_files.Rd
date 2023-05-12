@@ -27,7 +27,6 @@ Returns a vector of WITCH results files. Inspired by witch-plot source code.
 \code{\link{witch_query}}, \code{\link{witch_scen}}.
 
 Other WITCH helper functions: 
-\code{\link{witch_pal}()},
 \code{\link{witch_query}()},
 \code{\link{witch_scen_name}()}
 }

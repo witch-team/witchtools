@@ -3,7 +3,7 @@
 #' Returns a scenario name
 #'
 #' @family WITCH helper functions
-#' @seealso \code{\link{witch_query}}, \code{\link{witch_pal}}.
+#' @seealso \code{\link{witch_query}}}.
 #'
 #' @export
 witch_scen_name <- function(gdxfilename) {

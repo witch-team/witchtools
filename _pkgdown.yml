@@ -39,7 +39,6 @@ reference:
   - witch_translate_data
   - witch_region_mapping
   - witch_time_mapping
-  - witch_pal
   - witch_results_files
 - title: Other functions
   contents:
@@ -49,6 +48,7 @@ reference:
   - eu_regions
   - eu27_regions
   - eu28_regions
+  - many_pals
   - region_id
   - require_gdxtools
   - require_package
