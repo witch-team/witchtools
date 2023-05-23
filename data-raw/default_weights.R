@@ -221,7 +221,7 @@ witch_weights <- c(
   "extr_gas_2000", "prodelec_2005", "tpes_2005",
   "wbio_2010", "ch4lu_emissions_2005", "n2olu_emissions_2005",
   "agland", "ghg_cait",
-  "gsv",
+  "gsv","wood_harvest",
   "hildap_cover_forest",
   "hildap_cover_cropland",
   "hildap_cover_pasture",
