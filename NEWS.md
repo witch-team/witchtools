@@ -1,3 +1,6 @@
+# witchtools 0.4.2
+- Add weights for mod_forestry (`gsv` and `wood_harvest`)
+
 # witchtools 0.4.1
 - Fix a bug on loading region mapping files with non-empty lines.
 - Fix `witch_data_usage` default method, set as local.
