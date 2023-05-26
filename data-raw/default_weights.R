@@ -127,6 +127,14 @@ weo <- split(
 names(weo) <- stringr::str_c(names(weo), "_2005_weo")
 w <- c(w, weo)
 
+# add GSV weight
+gsv <- data.table::fread("data-raw/gfpm_gsv_2015.csv")
+w <- c(w, list(gsv = gsv))
+
+# add wood_harvest weight
+wood_harvest <- data.table::fread("data-raw/gfpm_harvest_2015.csv")
+w <- c(w, list(wood_harvest = wood_harvest))
+
 # Shortcuts
 # now all iso3 regions for full sums
 w <- c(w, list(cst = data.table(iso3 = iso3_list, weight = 1)))
@@ -213,6 +221,7 @@ witch_weights <- c(
   "extr_gas_2000", "prodelec_2005", "tpes_2005",
   "wbio_2010", "ch4lu_emissions_2005", "n2olu_emissions_2005",
   "agland", "ghg_cait",
+  "gsv","wood_harvest",
   "hildap_cover_forest",
   "hildap_cover_cropland",
   "hildap_cover_pasture",
