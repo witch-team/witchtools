@@ -29,12 +29,7 @@ gdp <- setDT(read_parquet('data-raw/gdp_base_oecd.parquet'))
 setnames(gdp, 1:4, c("ssp", "iso3", "year", "value"))
 w <- c(w, list(gdp = gdp[year == 2005 & ssp == "SSP2", .(iso3, weight = value)]))
 
-sqldb <-
-  RSQLite::dbConnect(RSQLite::SQLite(),
-    dbname = "data-raw/primap-primap-hist.sqlite"
-  )
-hemi <- setDT(RSQLite::dbGetQuery(sqldb, "select * from primap"))
-RSQLite::dbDisconnect(sqldb)
+hemi <- setDT(read_parquet('data-raw/primap-hist.parquet'))
 
 emi_gwp_ch4 <- 25
 emi_gwp_n2o <- 298
