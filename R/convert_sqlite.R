@@ -1,6 +1,6 @@
 #' Batch convert tables from a SQLite database
 #'
-#' \code{convert_gdx} writes a converted SQLite database
+#' \code{convert_sqlite} writes a converted SQLite database
 #' in the \code{output_directory}.
 #' All tables from the input \code{sqlitedb} are converted
 #' using the \code{convert_table} function. Specific conversion options

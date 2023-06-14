@@ -18,15 +18,14 @@ w <- list()
 ## Population
 # Definition: 2005 population [millions]
 # Source: SSP database v1
-mygdx <- gdx("data-raw/ssp-ssp_gdp_pop.gdx")
-pop <- setDT(mygdx["pop_base_oecd"])
+pop <- setDT(read_parquet('data-raw/pop_base_oecd.parquet'))
 setnames(pop, 1:4, c("ssp", "iso3", "year", "value"))
 w <- c(w, list(pop = pop[year == 2005 & ssp == "SSP2", .(iso3, weight = value)]))
 
 ## GDP
 # Definition: 2005 GDP [T USD2005]
 # Source: SSP database v1
-gdp <- setDT(mygdx["gdp_base_oecd"])
+gdp <- setDT(read_parquet('data-raw/gdp_base_oecd.parquet'))
 setnames(gdp, 1:4, c("ssp", "iso3", "year", "value"))
 w <- c(w, list(gdp = gdp[year == 2005 & ssp == "SSP2", .(iso3, weight = value)]))
 
