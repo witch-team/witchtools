@@ -68,9 +68,11 @@ n2o_lu <-
 w <- c(w, list(n2olu_emissions_2005 = n2o_lu[, .(iso3, weight = value)]))
 
 # wbio_2005
-weo <- fread("data-raw/weo-weo2018_energy_balances.csv")
+weo <- setDT(read_parquet("data-raw/weo2018.parquet"))
 w <- c(w, list(wbio_2010 = weo[var == "Q_PES_WBIO" &
   time == 2010, .(iso3, weight = value)]))
+w <- c(w, list(wbio_2015 = weo[var == "Q_PES_WBIO" &
+  time == 2015, .(iso3, weight = value)]))
 w <- c(w, list(extr_coal_2000 = weo[var == "Q_OUT_COAL" &
   time == 2000, .(iso3, weight = value)]))
 w <- c(w, list(extr_gas_2000 = weo[var == "Q_OUT_GAS" &
