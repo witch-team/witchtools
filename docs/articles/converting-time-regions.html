@@ -40,7 +40,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">witchtools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.3</span>
       </span>
     </div>
 
@@ -88,7 +88,7 @@
       <h1 data-toc-skip>Region and Time Conversion</h1>
                         <h4 data-toc-skip class="author">L. Drouet</h4>
             
-            <h4 data-toc-skip class="date">2023-05-10</h4>
+            <h4 data-toc-skip class="date">2023-07-28</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/witch-team/witchtools/blob/HEAD/vignettes/converting-time-regions.Rmd" class="external-link"><code>vignettes/converting-time-regions.Rmd</code></a></small>
       <div class="hidden name"><code>converting-time-regions.Rmd</code></div>
@@ -121,17 +121,17 @@ convention, column names must be “iso3” and “value”</p>
 <span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/setattr.html" class="external-link">setnames</a></span><span class="op">(</span><span class="va">gdp_iso3</span>,<span class="st">'weight'</span>,<span class="st">'value'</span><span class="op">)</span></span>
 <span><span class="va">gdp_iso3</span></span>
 <span><span class="co">#&gt;      iso3        value</span></span>
-<span><span class="co">#&gt;   1:  BHS 9.964000e+00</span></span>
-<span><span class="co">#&gt;   2:  BIH 2.397500e+01</span></span>
-<span><span class="co">#&gt;   3:  BLR 8.349200e+01</span></span>
-<span><span class="co">#&gt;   4:  BLZ 1.825000e+00</span></span>
-<span><span class="co">#&gt;   5:  TWN 6.212632e+02</span></span>
+<span><span class="co">#&gt;   1:  AFG 7.543866e+01</span></span>
+<span><span class="co">#&gt;   2:  ALB 3.861787e+01</span></span>
+<span><span class="co">#&gt;   3:  DZA 4.673124e+02</span></span>
+<span><span class="co">#&gt;   4:  AGO 1.979695e+02</span></span>
+<span><span class="co">#&gt;   5:  ARG 8.905475e+02</span></span>
 <span><span class="co">#&gt;  ---                  </span></span>
-<span><span class="co">#&gt; 246:  GLP 1.000000e-10</span></span>
-<span><span class="co">#&gt; 247:  KNA 1.000000e-10</span></span>
-<span><span class="co">#&gt; 248:  MAF 1.000000e-10</span></span>
-<span><span class="co">#&gt; 249:  MSR 1.000000e-10</span></span>
-<span><span class="co">#&gt; 250:  MTQ 1.000000e-10</span></span></code></pre></div>
+<span><span class="co">#&gt; 246:  BLM 1.000000e-10</span></span>
+<span><span class="co">#&gt; 247:  CYM 1.000000e-10</span></span>
+<span><span class="co">#&gt; 248:  KNA 1.000000e-10</span></span>
+<span><span class="co">#&gt; 249:  MAF 1.000000e-10</span></span>
+<span><span class="co">#&gt; 250:  MSR 1.000000e-10</span></span></code></pre></div>
 <p>Now, using the function <code>convert_region</code>, we will
 aggregate this dataset at country-level (ISO3) to the 17-region mapping
 of the WITCH model, available as a default mapping.</p>
@@ -140,23 +140,23 @@ of the WITCH model, available as a default mapping.</p>
 <span><span class="va">gdp_witch17</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/convert_region.html">convert_region</a></span><span class="op">(</span><span class="va">gdp_iso3</span>, to_reg <span class="op">=</span> <span class="st">'witch17'</span><span class="op">)</span></span>
 <span><span class="va">gdp_witch17</span></span>
 <span><span class="co">#&gt;         witch17      value</span></span>
-<span><span class="co">#&gt;  1:        laca  1997.5200</span></span>
-<span><span class="co">#&gt;  2:       sasia   625.9800</span></span>
-<span><span class="co">#&gt;  3:         ssa   908.6142</span></span>
-<span><span class="co">#&gt;  4:      europe 13895.8400</span></span>
-<span><span class="co">#&gt;  5:        mena  2913.1410</span></span>
-<span><span class="co">#&gt;  6:          te  3131.2820</span></span>
-<span><span class="co">#&gt;  7:     oceania   826.1790</span></span>
-<span><span class="co">#&gt;  8:      brazil  1582.6420</span></span>
-<span><span class="co">#&gt;  9:      seasia  1474.1790</span></span>
-<span><span class="co">#&gt; 10:      canada  1131.8350</span></span>
-<span><span class="co">#&gt; 11:       china  6245.0993</span></span>
-<span><span class="co">#&gt; 12:   indonesia   704.5610</span></span>
-<span><span class="co">#&gt; 13:       india  2431.6760</span></span>
-<span><span class="co">#&gt; 14:      jpnkor  4969.6800</span></span>
-<span><span class="co">#&gt; 15:      mexico  1297.3360</span></span>
-<span><span class="co">#&gt; 16:         usa 12622.1250</span></span>
-<span><span class="co">#&gt; 17: southafrica   405.7570</span></span></code></pre></div>
+<span><span class="co">#&gt;  1:        laca  3811.0076</span></span>
+<span><span class="co">#&gt;  2:       sasia  2616.5509</span></span>
+<span><span class="co">#&gt;  3:         ssa  3281.0841</span></span>
+<span><span class="co">#&gt;  4:      europe 22137.4325</span></span>
+<span><span class="co">#&gt;  5:        mena  7253.0736</span></span>
+<span><span class="co">#&gt;  6:          te  8156.9139</span></span>
+<span><span class="co">#&gt;  7:     oceania  1501.8456</span></span>
+<span><span class="co">#&gt;  8:      brazil  2969.7366</span></span>
+<span><span class="co">#&gt;  9:      seasia  4873.5174</span></span>
+<span><span class="co">#&gt; 10:      canada  1746.1213</span></span>
+<span><span class="co">#&gt; 11:       china 22961.7494</span></span>
+<span><span class="co">#&gt; 12:   indonesia  3118.3992</span></span>
+<span><span class="co">#&gt; 13:       india  8377.0372</span></span>
+<span><span class="co">#&gt; 14:      jpnkor  7243.6577</span></span>
+<span><span class="co">#&gt; 15:      mexico  2300.2179</span></span>
+<span><span class="co">#&gt; 16:         usa 19910.1964</span></span>
+<span><span class="co">#&gt; 17: southafrica   749.2962</span></span></code></pre></div>
 <p>In a final step, we will convert the 17-region data into the 5-region
 of the SSP database. The dataset is first disaggregated at iso3 level
 then it is aggregated into 5 regions, automatically.</p>
@@ -165,11 +165,11 @@ then it is aggregated into 5 regions, automatically.</p>
 <span><span class="va">gdp_r5</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/convert_region.html">convert_region</a></span><span class="op">(</span><span class="va">gdp_witch17</span>, to_reg <span class="op">=</span> <span class="st">'r5'</span><span class="op">)</span></span>
 <span><span class="va">gdp_r5</span></span>
 <span><span class="co">#&gt;        r5     value</span></span>
-<span><span class="co">#&gt; 1:  r5lam  4877.498</span></span>
-<span><span class="co">#&gt; 2: r5oecd 32173.841</span></span>
-<span><span class="co">#&gt; 3: r5asia 11515.707</span></span>
-<span><span class="co">#&gt; 4:  r5ref  4774.645</span></span>
-<span><span class="co">#&gt; 5:  r5maf  3821.755</span></span></code></pre></div>
+<span><span class="co">#&gt; 1:  r5lam  9080.962</span></span>
+<span><span class="co">#&gt; 2: r5oecd 50252.503</span></span>
+<span><span class="co">#&gt; 3: r5asia 42030.469</span></span>
+<span><span class="co">#&gt; 4:  r5ref 11109.746</span></span>
+<span><span class="co">#&gt; 5:  r5maf 10534.158</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="time-conversion">Time conversion<a class="anchor" aria-label="anchor" href="#time-conversion"></a>

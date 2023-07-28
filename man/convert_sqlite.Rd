@@ -46,7 +46,7 @@ convert_sqlite(
 \item{default_meta_param}{default meta_param}
 }
 \description{
-\code{convert_gdx} writes a converted SQLite database
+\code{convert_sqlite} writes a converted SQLite database
 in the \code{output_directory}.
 All tables from the input \code{sqlitedb} are converted
 using the \code{convert_table} function. Specific conversion options

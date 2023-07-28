@@ -15,19 +15,18 @@ w <- list()
 #################################
 #Load All weights from sources
 
-## Population
-# Definition: 2005 population [millions]
-# Source: SSP database v1
-pop <- setDT(read_parquet('data-raw/pop_base_oecd.parquet'))
-setnames(pop, 1:4, c("ssp", "iso3", "year", "value"))
-w <- c(w, list(pop = pop[year == 2005 & ssp == "SSP2", .(iso3, weight = value)]))
+# Source: SSP 2023 update
+ssp_gdp_pop <- setDT(read_parquet('data-raw/ssp_gdp_pop_2023.parquet'))
 
-## GDP
-# Definition: 2005 GDP [T USD2005]
-# Source: SSP database v1
-gdp <- setDT(read_parquet('data-raw/gdp_base_oecd.parquet'))
-setnames(gdp, 1:4, c("ssp", "iso3", "year", "value"))
-w <- c(w, list(gdp = gdp[year == 2005 & ssp == "SSP2", .(iso3, weight = value)]))
+#IIASA, population, million
+w <- c(w, list(pop = ssp_gdp_pop[year == 2020 & ssp == "SSP2", .(iso3, weight = pop)]))
+
+#OECD, GDP|PPP, billion USD_2017/yr
+w <- c(w, list(gdp = ssp_gdp_pop[year == 2020 & ssp == "SSP2", .(iso3, weight = gdp)]))
+
+## GDP per capita, USD_2017/yr/cap
+ssp_gdp_pop[, gdp_cap := gdp / pop * 1e3]
+w <- c(w, list(gdpcap = ssp_gdp_pop[year == 2020 & ssp == "SSP2", .(iso3, weight = gdp_cap)]))
 
 hemi <- setDT(read_parquet('data-raw/primap-hist.parquet'))
 
@@ -212,13 +211,28 @@ w <- lapply(w, tidy_weights)
 # witch_weights <- unique(metap[V2 == "nweight",V3])
 
 witch_weights <- c(
-  "cst", "gdp", "co2", "forest", "land", "pop", "extr_oil_gas_2000",
-  "extr_coal_2000", "prodelec_hydro_2005", "extr_oil_2000",
-  "extr_gas_2000", "prodelec_2005", "tpes_2005",
-  "wbio_2010", "wbio_2015",
-  "ch4lu_emissions_2005", "n2olu_emissions_2005",
-  "agland", "ghg_cait",
-  "gsv","wood_harvest",
+  "cst",
+  "gdp",
+  "co2",
+  "forest",
+  "land",
+  "pop",
+  "gdpcap",
+  "extr_oil_gas_2000",
+  "extr_coal_2000",
+  "prodelec_hydro_2005",
+  "extr_oil_2000",
+  "extr_gas_2000",
+  "prodelec_2005",
+  "tpes_2005",
+  "wbio_2010",
+  "wbio_2015",
+  "ch4lu_emissions_2005",
+  "n2olu_emissions_2005",
+  "agland",
+  "ghg_cait",
+  "gsv",
+  "wood_harvest",
   "hildap_cover_forest",
   "hildap_cover_cropland",
   "hildap_cover_pasture",

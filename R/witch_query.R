@@ -4,7 +4,6 @@
 #' columns on scenario
 #'
 #' @family WITCH helper functions
-#' @seealso \code{\link{witch_scen}}}.
 #'
 #' @param item parameter or variable name
 #' @param resgdx list of results gdx from WITCH

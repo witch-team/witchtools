@@ -1,6 +1,10 @@
+# witchtools 0.4.3
+- fix bug in pop and gdp being equal in default_weights
+
 # witchtools 0.4.2
 - Add weights for mod_forestry (`gsv` and `wood_harvest`)
 - Add region 'witchglobiom15'
+- Add weight 'gdpcap'
 
 # witchtools 0.4.1
 - Fix a bug on loading region mapping files with non-empty lines.

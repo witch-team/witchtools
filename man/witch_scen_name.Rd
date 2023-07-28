@@ -10,8 +10,6 @@ witch_scen_name(gdxfilename)
 Returns a scenario name
 }
 \seealso{
-\code{\link{witch_query}}}.
-
 Other WITCH helper functions: 
 \code{\link{witch_query}()},
 \code{\link{witch_results_files}()}
