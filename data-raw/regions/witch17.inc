@@ -2,21 +2,21 @@
 
 set witch17 'Regions' /
 usa           # United States of America
-europe        # Europe (EU+EFTA+Balkan countries and Turkey)
-te            # Non-EU Eastern European and transition countries
+europe        # Europe (EU+EFTA+Balkan Countries and Turkey)
+te            # Non-EU Eastern European and Transition Countries
 mena          # Middle East and North Africa
 ssa           # Sub Saharan Africa
-china         # China, including Taiwan
-seasia        # South East Asia (excluding Indonesia)
-sasia         # South Asia excluding India
+china         # China
+seasia        # South East Asia
+sasia         # South Asia
 jpnkor        # Japan and Korea
-laca          # Latin America and the Caribbean (excluding Mexico and Brazil)
+laca          # Latin America and the Caribbean
 india         # India
 indonesia     # Indonesia
 mexico        # Mexico
 brazil        # Brazil
 canada        # Canada
-oceania       # Australia, New Zealand, and oceania islands
+oceania       # Australia, New Zealand, and Oceania islands
 southafrica   # South Africa
 /;
 
@@ -80,7 +80,7 @@ oceania.FJI
 oceania.PNG
 oceania.FSM
 oceania.GUM
-oceania.ASM 
+oceania.ASM
 oceania.TLS
 oceania.PYF
 oceania.KIR
@@ -233,7 +233,7 @@ europe.ALB
 europe.MKD
 europe.MNE
 europe.SRB
-europe.KSV 
+europe.KSV
 
 ssa.AGO
 ssa.BEN

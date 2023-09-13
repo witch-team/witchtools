@@ -3,23 +3,26 @@
 \name{write_region_mappings_yml}
 \alias{write_region_mappings_yml}
 \title{Write the IAMC regional mapping to common regions for WITCH yml file as in
-https://github.com/IAMconsortium/common-definitions/blob/main/mappings/REMIND_3.1.yml}
+https://github.com/IAMconsortium/common-definitions}
 \usage{
 write_region_mappings_yml(
+  filename = NULL,
   model = "WITCH 5.0",
-  regdef = "witch17",
-  filename = NULL
+  n = "witch17",
+  comm_regs = c("world", "r5", "r10")
 )
 }
 \arguments{
+\item{filename}{yaml filename to write}
+
 \item{model}{model version}
 
-\item{regdef}{Witch region definition. THE REGION MUST BE DEFINED IN WTCHTOOLS.}
+\item{n}{Witch region definition. THE REGION MUST BE DEFINED IN WTCHTOOLS.}
 
-\item{filename}{yaml filename to write}
+\item{comm_regs}{Additional mappings, which region aggregate, to add.}
 }
 \description{
-\code{make_reg_mapping_yml} write a yaml file with the region mappings.
+\code{write_region_mappings_yml} write a yaml file with the region mappings.
 }
 \author{
 Lara Aleluia Reis

@@ -251,6 +251,6 @@ ZAF     'South Africa'
 ZMB     'Zambia'
 ZWE     'Zimbabwe'
 # additional countries
-KSV     'Kosovo' 
-WBG		'Palestinian West Bank and Gaza'
+KSV     'Kosovo'
+WBG		  'Palestinian West Bank and Gaza'
 /;

@@ -5,6 +5,9 @@ library(data.table)
 print("Extract mappings")
 
 load_region_mapping <- function(f) {
+
+  print(stringr::str_sub(basename(f), 1, -5))
+
   region_inc_file <- readLines(f)
   region_inc_file <- region_inc_file[region_inc_file != ""] # Remove empty lines
   region_inc_file <- region_inc_file[!stringr::str_detect(region_inc_file, "^\\*")] # Remove * comments
@@ -13,7 +16,6 @@ load_region_mapping <- function(f) {
   if (length(region_inc_file[stringr::str_detect(region_inc_file, "set map_*")]) == 0) {
     return(NULL)
   }
-  print(map_name)
 
   set.begin <- grep("set map_*", tolower(region_inc_file))[1]
   set.end <- set.begin + grep(";", region_inc_file[set.begin:length(region_inc_file)])[1]

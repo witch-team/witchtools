@@ -5,18 +5,14 @@
 \title{Write the IAMC native regions in yaml as defined in
 https://github.com/IAMconsortium/common-definitions}
 \usage{
-write_native_regions_yml(
-  model = "WITCH 5.0",
-  regdef = "witch17",
-  filename = NULL
-)
+write_native_regions_yml(filename = NULL, model = "WITCH 5.0", n = "witch17")
 }
 \arguments{
+\item{filename}{yaml filename to write}
+
 \item{model}{model version}
 
-\item{regdef}{Witch region definition. THE REGION MUST BE DEFINED IN WTCHTOOLS.}
-
-\item{filename}{yaml filename to write}
+\item{n}{Witch region definition, as defined in witchtools.}
 }
 \description{
 \code{write_native_regions_yml} write a yaml file with the native regions.

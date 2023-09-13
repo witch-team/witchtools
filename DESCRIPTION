@@ -35,6 +35,7 @@ Imports:
     stringr,
     crayon,
     docopt,
+    countrycode,
     here,
     remotes
 Suggests: 

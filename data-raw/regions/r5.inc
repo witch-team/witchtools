@@ -1,11 +1,11 @@
 * R5 World regions   (for now based on WITCH, country assignment should be checked at some point, also with new revised R5 definitions from IIASA)
 
 set r5 'Regions' /
-R5ASIA
-R5LAM
-R5MAF
-R5OECD
-R5REF
+R5ASIA  # Asia (R5)
+R5LAM   # Latin America (R5)
+R5MAF   # Middle East & Africa (R5)
+R5OECD  # OECD & EU (R5)
+R5REF   # Reforming Economies (R5)
 /;
 
 $batinclude 'regions/iso3.inc'

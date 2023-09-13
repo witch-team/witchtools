@@ -3,21 +3,25 @@
 #'
 #' \code{write_native_regions_yml} write a yaml file with the native regions.
 
-#' @param model model version
-#' @param regdef  Witch region definition. THE REGION MUST BE DEFINED IN WTCHTOOLS.
 #' @param filename yaml filename to write
+#' @param model model version
+#' @param n  Witch region definition, as defined in witchtools.
 #'
 #' @author Lara Aleluia Reis
 #'
 #' @export
 #'
-write_native_regions_yml <- function(model = 'WITCH 5.0', regdef ='witch17',
-                                     filename = NULL){
+write_native_regions_yml <- function(filename = NULL,
+                                     model = 'WITCH 5.0',
+                                     n ='witch17'){
 
   # Get the region descrition match to the n WITCH regions
-  datr = merge(region_descriptions[[regdef]],
-               region_mappings[[regdef]],
-               by = regdef)
+  datr = merge(region_descriptions[[n]],
+               region_mappings[[n]],
+               by = n)
+
+  # Keep only ISO country code
+  datr <- datr[iso3 %in% unique(countrycode::codelist$iso3c)]
 
   # Make the list structure
   m <- unique(datr$description)
@@ -25,7 +29,7 @@ write_native_regions_yml <- function(model = 'WITCH 5.0', regdef ='witch17',
   for (i in seq_along(m)) {
     oo <- list(desp = list(iso3_codes = datr[description == m[i]]$iso3))
     names(oo) = paste(model, m[i], sep = '|')
-    ii <- c(ii, oo)
+    ii <- c(ii, list(oo))
   }
 
   # Add the primary ident structure
@@ -36,7 +40,7 @@ write_native_regions_yml <- function(model = 'WITCH 5.0', regdef ='witch17',
 
   #write file
   if (is.null(filename)) {
-    write(la, paste0(str_replace(model,' ','_'),'.yml'))
+    write(la, paste0(stringr::str_replace(model,' ','_'),'.yml'))
   } else {
     write(la, filename)
   }

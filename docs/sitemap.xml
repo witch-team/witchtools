@@ -105,4 +105,10 @@
   <url>
     <loc>http://witchtools.witchmodel.org/reference/witch_translate_data.html</loc>
   </url>
+  <url>
+    <loc>http://witchtools.witchmodel.org/reference/write_native_regions_yml.html</loc>
+  </url>
+  <url>
+    <loc>http://witchtools.witchmodel.org/reference/write_region_mappings_yml.html</loc>
+  </url>
 </urlset>
