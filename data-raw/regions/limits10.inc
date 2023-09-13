@@ -1,17 +1,17 @@
 * LIMITS 10 regions
 
 set limits10 'Regions' /
-R10AFRICA #countries of Sub-Saharan Africa
-R10CHINA+ # countries of centrally-planned Asia, primarily China
-R10EUROPE # countries of Eastern and Western Europe (i.e., the EU27)
-R10INDIA+ # countries of South Asia, primarily India
-R10LATIN_AM # countries of Latin America and the Caribbean
-R10MIDDLE_EAST # countries of the Middle East
-R10NORTH_AM # countries of North America, primarily the USA and Canada
-R10PAC_OECD # countries of the Pacific OECD
-R10REF_ECON # countries from the Reforming Economies of Eastern Europe and the Former Soviet Union
-R10REST_ASIA # other countries of Asia
-R10REST_WORLD # countries not elsewhere classified
+R10AFRICA      # Africa (R10)
+R10CHINA+      # China+ (R10)
+R10EUROPE      # Europe (R10)
+R10INDIA+      # India+ (R10)
+R10LATIN_AM    # Latin America (R10)
+R10MIDDLE_EAST # Middle East (R10)
+R10NORTH_AM    # North America (R10)
+R10PAC_OECD    # Pacific OECD (R10)
+R10REF_ECON    # Reforming Economies (R10)
+R10REST_ASIA   # Rest of Asia (R10)
+R10REST_WORLD  # Other (R10)
 /;
 
 $batinclude 'regions/iso3.inc'

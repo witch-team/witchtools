@@ -1,6 +1,6 @@
 * Original WITCH 17 regions new since April 2017
 
-set witch17 'Regions' /
+set witch18rus 'Regions' /
 usa           # United States of America
 europe        # Europe (EU+EFTA+Balkan countries and Turkey)
 te            # Non-EU Eastern European and transition countries
@@ -23,7 +23,7 @@ southafrica   # South Africa
 
 $batinclude 'regions/iso3.inc'
 
-set map_witch17_iso3(witch17,iso3) 'Mapping between WITCH regions and countries/territories'/
+set map_witch18rus_iso3(witch18rus,iso3) 'Mapping between WITCH regions and countries/territories'/
 
 canada.CAN # Canada
 canada.SPM # St Pierre et Miquelon
@@ -81,7 +81,7 @@ oceania.FJI
 oceania.PNG
 oceania.FSM
 oceania.GUM
-oceania.ASM 
+oceania.ASM
 oceania.TLS
 oceania.PYF
 oceania.KIR
@@ -234,7 +234,7 @@ europe.ALB
 europe.MKD
 europe.MNE
 europe.SRB
-europe.KSV 
+europe.KSV
 
 ssa.AGO
 ssa.BEN

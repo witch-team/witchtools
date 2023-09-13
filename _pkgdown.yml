@@ -21,7 +21,7 @@ reference:
   - convert_time_period
 - title: Default datasets
   desc: >
-    Default datasets used for the building of inputs of the WITCH model.
+    Default datasets used to process the WITCH model inputs.
   contents:
   - default_weights
   - region_mappings
@@ -40,6 +40,10 @@ reference:
   - witch_region_mapping
   - witch_time_mapping
   - witch_results_files
+- title: Helpers for submission to IIASA database
+  contents:
+  - write_native_regions_yml
+  - write_region_mappings_yml
 - title: Other functions
   contents:
   - eu27_regions

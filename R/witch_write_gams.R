@@ -1,4 +1,4 @@
-# Write additionnal GAMS include file
+# Write additional GAMS include file
 
 witch_write_gams <- function(region_mapping,
                              time_mapping,

@@ -21,20 +21,20 @@ northeu       # Northern Europe (ETS)
 easteu        # Eastern Europe (ETS)
 bnl           # BeNeLux (ETS)
 balkan        # Balkan countries (non-ETS)
-AUT
+AUT           # Austria
 CHE           # ETS
-DEU
+DEU           # Germany
 GBR           # non-ETS
-FRA
-IRL
-ITA
-ESP
-POL
-ROU
-CZE
-GRC
-PRT
-SWE
+FRA           # France
+IRL           # Ireland
+ITA           # Italy
+ESP           # Spain
+POL           # Poland
+ROU           # Romania
+CZE           # Czech Republic
+GRC           # Greece
+PRT           # Portugal
+SWE           # Sweeden
 /;
 
 $batinclude 'regions/iso3.inc'
