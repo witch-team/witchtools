@@ -15,7 +15,7 @@
 write_region_mappings_yml <- function(filename = NULL,
                                       model = 'WITCH 5.0',
                                       n = 'witch17',
-                                      comm_regs = c('world','r5','r10')){
+                                      comm_regs = c('world','r5','r9','r10')){
 
   # Get the region description match to the n WITCH regions
   datr = merge(region_descriptions[[n]],

@@ -1,6 +1,7 @@
 # witchtools 0.4.4
 - Write yaml for native regions and mappings for the IIASA database
 - Add r10 region aggregation, based on limits10
+- Add r9 region aggregation
 
 # witchtools 0.4.3
 - fix bug in pop and gdp being equal in default_weights

@@ -49,16 +49,42 @@ common_regions:
       - mexico
   - Middle East & Africa (R5):
       - mena
+      - southafrica
       - ssa
   - OECD & EU (R5):
       - canada
       - europe
       - jpnkor
       - oceania
-      - southafrica
       - usa
   - Reforming Economies (R5):
       - te
+  - China (R9):
+      - china
+  - European Union (R9):
+      - europe
+  - India (R9):
+      - india
+  - Latin America (R9):
+      - brazil
+      - laca
+      - mexico
+  - Middle East & Africa (R9):
+      - mena
+      - southafrica
+      - ssa
+  - Other Asia (R9):
+      - indonesia
+      - sasia
+      - seasia
+  - Other OECD (R9):
+      - canada
+      - jpnkor
+      - oceania
+  - Reforming Economies (R9):
+      - te
+  - USA (R9):
+      - usa
   - Africa (R10):
       - southafrica
       - ssa
