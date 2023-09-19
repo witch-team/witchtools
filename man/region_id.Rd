@@ -20,9 +20,11 @@ region_id(region_mappings[["witch17"]])
 }
 \seealso{
 Other misc functions: 
+\code{\link{china_regions}()},
 \code{\link{eu27_regions}()},
 \code{\link{eu28_regions}()},
 \code{\link{eu_regions}()},
+\code{\link{india_regions}()},
 \code{\link{oecd_regions}()}
 }
 \concept{misc functions}

@@ -46,12 +46,12 @@ reference:
   - write_region_mappings_yml
 - title: Other functions
   contents:
+  - china_regions
+  - india_regions
   - eu27_regions
   - eu28_regions
   - oecd_regions
   - eu_regions
-  - eu27_regions
-  - eu28_regions
   - many_pals
   - region_id
   - require_gdxtools
