@@ -1,3 +1,38 @@
+#' China regions for a given region mapping.
+#'
+#' \code{china_region} returns a vector of region representing China,
+#' including Honk Kong and Macao.
+#'
+#' @family misc functions
+#'
+#' @param region_mapping a data.table of regional mapping.
+#' @return a vector of region name.
+#'
+#' @export
+#' @examples
+#' china_regions(region_mappings[["witch17"]])
+china_regions <- function(region_mapping) {
+  china_iso3 <- c("CHN","HKG","MAC")
+  return(any_regions(china_iso3,region_mapping))
+}
+
+#' India regions for a given region mapping.
+#'
+#' \code{india_region} returns a vector of region representing China.
+#'
+#' @family misc functions
+#'
+#' @param region_mapping a data.table of regional mapping.
+#' @return a vector of region name.
+#'
+#' @export
+#' @examples
+#' india_region(region_mappings[["witch17"]])
+india_region <- function(region_mapping) {
+  india_iso3 <- c("IND")
+  return(any_regions(india_iso3,region_mapping))
+}
+
 #' EU regions for a given region mapping.
 #'
 #' \code{eu_region} returns a vector of region representing Europe. The

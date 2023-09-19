@@ -1,5 +1,5 @@
 # Write additional GAMS include file
-
+# Not exported, called by witch_translate_data
 witch_write_gams <- function(region_mapping,
                              time_mapping,
                              output_directory,
@@ -66,6 +66,14 @@ witch_write_gams <- function(region_mapping,
   # set eu28
   writeLines("set eu28(n) 'EU28 regions' /", finc)
   writeLines(eu28_regions(region_mapping), finc)
+  writeLines("/;", finc)
+  # set is_china
+  writeLines("set is_china(n) 'China regions' /", finc)
+  writeLines(china_regions(region_mapping), finc)
+  writeLines("/;", finc)
+  # set is_india
+  writeLines("set is_india(n) 'India regions' /", finc)
+  writeLines(india_regions(region_mapping), finc)
   writeLines("/;", finc)
 
   close(finc)
