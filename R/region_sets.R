@@ -18,7 +18,7 @@ china_regions <- function(region_mapping) {
 
 #' India regions for a given region mapping.
 #'
-#' \code{india_region} returns a vector of region representing China.
+#' \code{india_regions} returns a vector of region representing China.
 #'
 #' @family misc functions
 #'
@@ -27,8 +27,8 @@ china_regions <- function(region_mapping) {
 #'
 #' @export
 #' @examples
-#' india_region(region_mappings[["witch17"]])
-india_region <- function(region_mapping) {
+#' india_regions(region_mappings[["witch17"]])
+india_regions <- function(region_mapping) {
   india_iso3 <- c("IND")
   return(any_regions(india_iso3,region_mapping))
 }
