@@ -2,30 +2,24 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 <!-- Because of a bug, duplicate the header below in the md file before building pkgdown  -->
 
-# witchtools
+# witchtools <img src="man/figures/logo.png" align="right" alt="" width="120" />
 
-<img src="man/figures/logo.png" align="right" alt="" width="120" />
-
-> Data Management for IAMs
+`witchtools` provides a toolkit to manage data in integrated assessment
+models. `witchtools` is part of the tool ecosystem of the [WITCH
+model](https://www.witchmodel.org). The package makes it possible to
+easily and transparently reproduce the data processing between the raw
+data, the data used in the model and the results uploaded in the IAMC
+database. While the package has been developed for the [WITCH
+model](https://www.witchmodel.org), it is already used to simply process
+data for other uses or models.
 
 <!-- badges: start -->
 
 [![Lifecycle:
 maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
-[![devel:0.4.4](https://img.shields.io/badge/devel%20version-0.4.4-green.svg)](https://github.com/witch-team/witchtools)
+[![devel:0.4.5](https://img.shields.io/badge/devel%20version-0.4.4-green.svg)](https://github.com/witch-team/witchtools)
 [![codecov](https://codecov.io/gh/witch-team/witchtools/branch/master/graph/badge.svg)](https://codecov.io/gh/witch-team/witchtools)
 <!-- badges: end -->
-
-## Overview
-
-The `witchtools` package provides a toolkit to manage data in integrated
-assessment models. `witchtools` is part of the tool ecosystem of the
-[WITCH model](https://www.witchmodel.org). The package makes it possible
-to easily and transparently reproduce the data processing between the
-raw data, the data used in the model and the results uploaded in the
-IAMC database. While the package has been developed for the [WITCH
-model](https://www.witchmodel.org), it is already used to simply process
-data for other uses or models.
 
 ## Features
 

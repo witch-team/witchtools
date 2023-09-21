@@ -3,10 +3,17 @@ destination: docs
 url: http://witchtools.witchmodel.org
 
 home:
-  strip_header: true
-  links:
-  - text: The WITCH model
-    href: https://www.witchmodel.org
+  title: Data Management for IAMs
+
+template:
+    bootstrap: 5
+    bslib:
+      primary: "#716fac"
+      border-radius: 0.5rem
+      btn-border-radius: 0.25rem
+
+development:
+  mode: auto
 
 reference:
 - title: Conversion

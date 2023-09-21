@@ -9,11 +9,11 @@
 #' require_package("data.table", loading = FALSE)
 #' }
 require_package <- function(package, loading = TRUE) {
-  if (!package %in% rownames(installed.packages())) {
+  if (!package %in% rownames(utils::installed.packages())) {
     if (package == "gdxtools") {
       remotes::install_github("lolow/gdxtools")
     } else {
-      try(install.packages(package, repos = "http://cran.rstudio.com"),
+      try(utils::install.packages(package, repos = "http://cran.rstudio.com"),
         silent = TRUE
       )
     }
