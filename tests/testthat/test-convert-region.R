@@ -1,4 +1,15 @@
 
+test_that("convert region requires a list of data.table as region parameter", {
+  gdp_iso3 <- data.table::copy(default_weights[["gdp"]])
+  regions <- witchtools::region_mappings
+
+  broken_regions <- list(as.data.frame(regions[1]), regions[[2]])
+
+  expect_error(
+    convert_region(gdp_iso3, to_reg = "witch17", regions = broken_regions)
+  )
+})
+
 test_that("convert region needs a column name value", {
   gdp_iso3 <- data.table::copy(default_weights[["gdp"]])
 

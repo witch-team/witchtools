@@ -55,7 +55,14 @@ convert_region <- function(.x,
                            agg_missing = "NA",
                            regions = witchtools::region_mappings,
                            info = FALSE) {
+
   if (!data.table::is.data.table(.x)) .x <- data.table::setDT(.x)
+
+  # Check regions is a list of data.table
+  all_are_dts <- all(sapply(regions, data.table::is.data.table))
+  if (!all_are_dts) {
+    error("regions must be a list of data.table.")
+  }
 
   # Check weight
   if (is.null(agg_weight)) {
