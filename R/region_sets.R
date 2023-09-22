@@ -1,6 +1,40 @@
+#' Brazil regions for a given region mapping.
+#'
+#' \code{brazil_regions} returns a vector of region representing Brazil.
+#'
+#' @family misc functions
+#'
+#' @param region_mapping a data.table of regional mapping.
+#' @return a vector of region name.
+#'
+#' @export
+#' @examples
+#' brazil_regions(region_mappings[["witch17"]])
+brazil_regions <- function(region_mapping) {
+  usa_iso3 <- c("BRA")
+  return(any_regions(usa_iso3,region_mapping))
+}
+
+#' USA regions for a given region mapping.
+#'
+#' \code{usa_regions} returns a vector of region representing USA.
+#'
+#' @family misc functions
+#'
+#' @param region_mapping a data.table of regional mapping.
+#' @return a vector of region name.
+#'
+#' @export
+#' @examples
+#' usa_regions(region_mappings[["witch17"]])
+usa_regions <- function(region_mapping) {
+  usa_iso3 <- c("USA")
+  return(any_regions(usa_iso3,region_mapping))
+}
+
 #' China regions for a given region mapping.
 #'
-#' \code{china_region} returns a vector of region representing China,
+#' \code{china_regions} returns a vector of region representing China,
 #' including Honk Kong and Macao.
 #'
 #' @family misc functions
