@@ -23,11 +23,13 @@ eu27_regions(region_mappings[["witch17"]])
 }
 \seealso{
 Other misc functions: 
+\code{\link{brazil_regions}()},
 \code{\link{china_regions}()},
 \code{\link{eu28_regions}()},
 \code{\link{eu_regions}()},
 \code{\link{india_regions}()},
 \code{\link{oecd_regions}()},
-\code{\link{region_id}()}
+\code{\link{region_id}()},
+\code{\link{usa_regions}()}
 }
 \concept{misc functions}

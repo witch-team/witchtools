@@ -1,13 +1,12 @@
-#' Many color palettes
+#' Additional Color palettes (in test)
 #'
-#' Creates thematic palettes for WITCH results and other
+#' Creates thematic palettes
 #'
 #' @param component palette's component (`fuel`, `region`).
 #' @param theme A palette theme (`witch-plot` (default)).
-#' @param restrict_names only return the corresponding named values.
 #' @export
 #'
-many_pals <- function(component = NULL, variant = NULL, theme = NULL, include_names = NULL) {
+paleiee <- function(component = NULL, theme = NULL) {
 
   # Few tests on function parameters
   if (is.null(component)) {

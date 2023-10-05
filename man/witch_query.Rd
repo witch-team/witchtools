@@ -8,14 +8,14 @@ witch_query(
   item = NULL,
   resgdx = NULL,
   filter = list(),
-  add_scenario = TRUE,
-  scenario_mapping = witch_scen_name,
+  scenario_mapping = guess_scenarios(resgdx),
   add_year = TRUE,
   year_mapping = witch_period_year,
   valigdx = NULL,
   histgdx = NULL,
   agg_n = NULL,
   clean_columns = TRUE,
+  add_scenario = TRUE,
   ...
 )
 }
@@ -35,8 +35,8 @@ witch_query(
 \item{scen_table}{a conversion function or a mapping table to translate gdx into scenario name}
 }
 \description{
-Returns a data.table containing the result of the query with additional
-columns on scenario
+Returns a formatted data.table from a list of results files.
+It adds a scenario column
 }
 \seealso{
 Other WITCH helper functions: 
