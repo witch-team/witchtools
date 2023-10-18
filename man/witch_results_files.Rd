@@ -24,7 +24,7 @@ witch_results_files(
 Returns a vector of WITCH results files. Inspired by witch-plot source code.
 }
 \seealso{
-\code{\link{witch_query}}, \code{\link{witch_scen}}.
+\code{\link{witch_query}}}.
 
 Other WITCH helper functions: 
 \code{\link{witch_query}()},

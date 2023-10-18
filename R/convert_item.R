@@ -10,6 +10,9 @@ convert_item <- function(.data,
                          guess_region,
                          guess_input_t,
                          default_agg_missing) {
+
+  year <- type <- value <- NULL # due to NSE notes in R CMD check
+
   if (region_name %in% colnames(.data)) {
     data.table::setnames(.data, region_name, guess_region)
   }

@@ -3,7 +3,7 @@
 #' Returns a vector of WITCH results files. Inspired by witch-plot source code.
 #'
 #' @family WITCH helper functions
-#' @seealso \code{\link{witch_query}}, \code{\link{witch_scen}}.
+#' @seealso \code{\link{witch_query}}}.
 #'
 #' @param search_path Path where to start the search of the results files (default="^results_").
 #' @param restrict vector of filtering patterns on the file names.
