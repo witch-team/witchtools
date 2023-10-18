@@ -7,14 +7,16 @@
 #'
 #' @param item parameter or variable name
 #' @param resgdx list of WITCH results gdx
-#' @param filter named list of filter (eg. list(e="CO2",n="brazil"))
+#' @param filter named list of filter (eg. list(e="CO2",n="brazil,usa")).
+#'               if n contains "world", then the sum of n is computed.
 #' @param scenarios vector of scenario names in same order than resgdx
-#' @param keep_gdx
-#' @param add_scen convert gdx into scenario name
+#' @param keep_gdx keep gdx file name in the result
+#' @param keep_t keep t in the result
+
 #' @param scen_table a conversion function or a mapping table to translate gdx into scenario name
 #' @param add_year convert t into year
 #' @param year_mapping a mapping table to translate t into year
-#' @param ... additional parameters sent to batch_extract
+#' @param ... additional parameters to send to batch_extract
 #'
 #' @export
 witch_query <- function(item,
@@ -25,12 +27,9 @@ witch_query <- function(item,
                         keep_gdx = FALSE,
                         keep_t = FALSE,
 
-
                         year_mapping = witch_period_year,
                         valigdx = NULL,
                         histgdx = NULL,
-                        agg_n = NULL,
-                        add_scenario = TRUE,
                         ...) {
 
   # Load item from resgdx
@@ -45,11 +44,53 @@ witch_query <- function(item,
   sidx <- lapply(filter, function(x, pattern)
     stringr::str_split(x, pattern = pattern)[[1]], ",")
 
-  # Filter according to selection
-  if (length(sidx) > 0) {
-    .tab <- .tab[do.call(pmin, Map(`%in%`, .tab[, names(sidx), with = FALSE],
-                                   sidx)) == 1L]
+  ## Keep n index separated
+  nsidx <- sidx[['n']]
+
+  # Check if there is aggregated regions
+  agg_world <- "world" %in% nsidx
+  n_filter <- nsidx[!nsidx %in% c("world")]
+
+  .restab <- NULL
+
+  # Aggregate World
+  if (agg_world) {
+    sidx[['n']] <- NULL
+
+    # Filter according to selection
+    if (length(sidx) > 0) {
+      .tabx <- .tab[do.call(pmin, Map(`%in%`, .tab[, names(sidx), with = FALSE],
+                                     sidx)) == 1L]
+    } else {
+      .tabx <- .tab
+    }
+
+    all_ids_wo_n <- all_ids[all_ids != "n"]
+    .tabx <- .tabx[, lapply(.SD, sum), by = all_ids_wo_n, .SDcols = "value"]
+    .tabx[, n := "world"]
+
+    .restab <- c(.restab, list(.tabx))
+
   }
+
+  # Filter n
+  if (is.null(nsidx) | length(n_filter) > 0) {
+
+    sidx[['n']] <- n_filter
+
+    # Filter according to selection
+    if (length(sidx) > 0) {
+      .tabx <- .tab[do.call(pmin, Map(`%in%`, .tab[, names(sidx), with = FALSE],
+                                      sidx)) == 1L]
+      .restab <- c(.restab, list(.tabx))
+    } else {
+      .restab <- c(.restab, list(.tab))
+    }
+
+  }
+
+  # Collect regional aggregation and filter
+  .tab <- data.table::rbindlist(.restab, use.names = TRUE)
 
   # Add year
   if (!is.null(add_year) & "t" %in% names(.tab)) {

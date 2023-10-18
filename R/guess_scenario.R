@@ -13,6 +13,7 @@
 guess_scenario <- function(gdxlist, keep_ssp = FALSE, sep = "_") {
 
   # Check if all files are in the same directory.
+  # If not, we will add the directory name to the scenario name
   same_path <- length(unique(dirname(gdxlist))) == 1
 
   # If different directories, extract

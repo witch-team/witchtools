@@ -1,5 +1,6 @@
 # witchtools 0.4.5 [devel]
-
+- Add witch_query function with basic query capabilities
+- Add guess_scenario function to guess the scenario name from a list of gdx
 
 # witchtools 0.4.4
 - Write yaml for native regions and mappings for the IIASA database

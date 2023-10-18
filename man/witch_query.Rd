@@ -5,32 +5,38 @@
 \title{Fast query of WITCH results files}
 \usage{
 witch_query(
-  item = NULL,
-  resgdx = NULL,
+  item,
+  resgdx,
   filter = list(),
-  scenario_mapping = guess_scenarios(resgdx),
-  add_year = TRUE,
+  scenarios = guess_scenario(resgdx),
+  add_year = "t30",
+  keep_gdx = FALSE,
+  keep_t = FALSE,
   year_mapping = witch_period_year,
   valigdx = NULL,
   histgdx = NULL,
-  agg_n = NULL,
-  clean_columns = TRUE,
-  add_scenario = TRUE,
   ...
 )
 }
 \arguments{
 \item{item}{parameter or variable name}
 
-\item{resgdx}{list of results gdx from WITCH}
+\item{resgdx}{list of WITCH results gdx}
 
-\item{filter}{named list of queries}
+\item{filter}{named list of filter (eg. list(e="CO2",n="brazil,usa")).
+if n contains "world", then the sum of n is computed.}
+
+\item{scenarios}{vector of scenario names in same order than resgdx}
 
 \item{add_year}{convert t into year}
 
+\item{keep_gdx}{keep gdx file name in the result}
+
+\item{keep_t}{keep t in the result}
+
 \item{year_mapping}{a mapping table to translate t into year}
 
-\item{add_scen}{convert gdx into scenario name}
+\item{...}{additional parameters to send to batch_extract}
 
 \item{scen_table}{a conversion function or a mapping table to translate gdx into scenario name}
 }

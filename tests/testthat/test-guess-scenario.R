@@ -22,6 +22,7 @@ test_that("guess_scenario works with windows path and space", {
   scen <- c('test1_bau',
             'test2_bau')
 
+  skip_on_os("linux")
   expect_equal(
     guess_scenario(gdxlist),
     scen

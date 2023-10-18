@@ -40,6 +40,9 @@ convert_gdx <- function(gdxfile,
                         guess_region = "witch17",
                         default_agg_missing = "zero",
                         default_meta_param = NULL) {
+
+  parameter <- year <- type <- value <- NULL # due to NSE notes in R CMD check
+
   if (!file.exists(gdxfile)) stop(paste(gdxfile, "does not exist!"))
   if (is.null(region_name)) region_name <- reg_id
 

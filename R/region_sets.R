@@ -232,6 +232,7 @@ oecd_regions <- function(region_mapping) {
 
 
 any_regions <- function(iso3_set, region_mapping) {
+  sel <- weight <- is_sel <- NULL # due to NSE notes in R CMD check
   reg_id <- region_id(region_mapping)
   tab <- merge(
     region_mapping,

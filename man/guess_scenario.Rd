@@ -15,7 +15,7 @@ scenario}
 \item{sep}{separator between the directory prefix and the name, if any.}
 }
 \description{
-Return a data.table with two columns: gdx and scenario. The scenario
+Return a vector with the scenario names. The scenario
 is obtained from the name of the gdx without 'results_' and the extension.
 If the files are located in different directory
 }

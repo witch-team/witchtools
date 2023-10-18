@@ -37,11 +37,13 @@ Imports:
     docopt,
     countrycode,
     here,
-    remotes
+    remotes,
+    yaml
 Suggests: 
     RSQLite,
     gdxtools (>= 0.4.0),
-    testthat (>= 2.1.0)
+    testthat (>= 2.1.0),
+    withr
 URL: https://github.com/witch-team/witchtools
 BugReports: https://github.com/witch-team/witchtools/issues
 Roxygen: list(markdown = TRUE)
