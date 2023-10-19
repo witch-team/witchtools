@@ -34,14 +34,17 @@ convert_sqlite <- function(sqlitedb,
                            reg_id,
                            time_id,
                            output_directory,
-                           region_mappings = region_mappings,
-                           time_mappings = time_mappings,
-                           weights = default_weights,
+                           region_mappings = witchtools::region_mappings,
+                           time_mappings = witchtools::time_mappings,
+                           weights = witchtools::default_weights,
                            guess_input_t = "t30",
                            region_name = NULL,
                            guess_region = "witch17",
                            default_agg_missing = "NA",
                            default_meta_param = NULL) {
+
+  parameter <- data_indices <- NULL # due to NSE notes in R CMD check
+
   if (!file.exists(sqlitedb)) stop(paste(sqlitedb, "does not exist!"))
   if (is.null(region_name)) region_name <- reg_id
 

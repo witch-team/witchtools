@@ -3,7 +3,7 @@
 #' Returns a vector of WITCH results files. Inspired by witch-plot source code.
 #'
 #' @family WITCH helper functions
-#' @seealso \code{\link{witch_query}}}.
+#' @seealso \link{witch_query}.
 #'
 #' @param search_path Path where to start the search of the results files (default="^results_").
 #' @param restrict vector of filtering patterns on the file names.
@@ -12,9 +12,9 @@
 #' @export
 #'
 witch_results_files <- function(search_path,
-                               restrict = "^results_",
-                               normalize = FALSE,
-                               recursive = FALSE) {
+                                restrict = "^results_",
+                                normalize = FALSE,
+                                recursive = FALSE) {
 
   # List all gdx files
   filelist = list.files(path = search_path,

@@ -56,6 +56,9 @@ convert_region <- function(.x,
                            regions = witchtools::region_mappings,
                            info = FALSE) {
 
+  error <- iso3 <- weight <- NULL # due to NSE notes in R CMD check
+  sum_weight <- value <- NULL # due to NSE notes in R CMD check
+
   if (!data.table::is.data.table(.x)) .x <- data.table::setDT(.x)
 
   # Check regions is a list of data.table
