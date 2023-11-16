@@ -29,7 +29,7 @@
 #' should be done for past value.
 #' @param year_name string column name of year.
 #' @param value_name string column name of value.
-#' @param fun.aggregate function to aggregate yearly values in a period.
+#' @param fun.aggregate function to aggregate yearly values ("mean","sum").
 #' @param na.rm logical indicating whether missing values should be removed.
 #' @param verbose logical indicating whether running in verbose mode.
 #'
@@ -52,10 +52,15 @@ convert_time_period <- function(.x,
                                 do_past_extrap = FALSE,
                                 year_name = "year",
                                 value_name = "value",
-                                fun.aggregate = mean,
+                                fun.aggregate = "mean",
                                 na.rm = TRUE,
                                 verbose = FALSE) {
   if (!data.table::is.data.table(.x)) .x <- data.table::setDT(.x)
+
+  # Check input
+  if (!fun.aggregate %in% c("mean", "sum")) {
+    stop(paste0("fun.aggregate should be 'mean' or 'sum'."))
+  }
 
   # Guess time mapping if not directly provided
   if (is.character(time_mapping)) {
@@ -141,9 +146,19 @@ convert_time_period <- function(.x,
   .x[, (year_name) := NULL]
 
   # Take the average value over time range
-  .x <- .x[, .(value = fun.aggregate(value, na.rm = na.rm)),
-    by = c(colnames(.x)[colnames(.x) != value_name])
-  ]
+  if (fun.aggregate == "mean") {
+    .x <- .x[, .(value = mean(value, na.rm = na.rm)),
+             by = c(colnames(.x)[colnames(.x) != value_name])
+    ]
+  }
+
+  # Or, Sum the value over time range
+  if (fun.aggregate == "sum") {
+    .x <- .x[, .(value = sum(value, na.rm = na.rm)),
+             by = c(colnames(.x)[colnames(.x) != value_name])
+    ]
+  }
+
   .x[is.nan(value), value := NA]
   data.table::setnames(.x, "value", value_name)
 

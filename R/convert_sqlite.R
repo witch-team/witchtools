@@ -104,7 +104,7 @@ convert_sqlite <- function(sqlitedb,
 
     tabs <- c(tabs, .i)
 
-    # add an additionnal parameter '_info' when using sumby
+    # add an additional parameter '_info' when using sumby
     if (!is.null(.info_share)) {
       indices <- subset(colnames(.data), colnames(.data) != "value")
       data.table::setcolorder(.info_share, data_indices)
@@ -124,7 +124,9 @@ convert_sqlite <- function(sqlitedb,
     )
   )
   for (i in seq_along(tabs)) {
-    RSQLite::dbWriteTable(sqldb, names(tabs)[i], tabs[[i]],
+    RSQLite::dbWriteTable(sqldb,
+      names(tabs)[i],
+      tabs[[i]],
       row.names = FALSE,
       overwrite = TRUE,
       append = FALSE,
