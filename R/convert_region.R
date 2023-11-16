@@ -119,8 +119,8 @@ convert_region <- function(.x,
   }
 
   # Ensure iso3 is a primary key
-  #data.table::setkey(rmap0, iso3)
-  #data.table::setkey(rmap1, iso3)
+  data.table::setkey(rmap0, iso3)
+  data.table::setkey(rmap1, iso3)
 
   # "sumby" might need info
   if (agg_operator == "sumby" & !info) {
