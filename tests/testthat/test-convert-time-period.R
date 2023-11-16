@@ -31,7 +31,8 @@ test_that("convert time with sum", {
     value = rep(1:46, each = 2)
   )
 
-  res1 <- convert_time_period(dd, time_mappings[["t30"]], fun.aggregate = sum)
+  res1 <- convert_time_period(dd, time_mappings[["t30"]],
+                              fun.aggregate = "sum")
 
   res2 <- data.table::data.table(
     z = c(1, 2),

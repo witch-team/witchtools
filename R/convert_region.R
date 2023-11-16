@@ -61,10 +61,15 @@ convert_region <- function(.x,
 
   if (!data.table::is.data.table(.x)) .x <- data.table::setDT(.x)
 
+  # Check if the value column exists
+  if (!"value" %in% colnames(.x)) {
+    stop("The input data.table should contain a column named 'value'.")
+  }
+
   # Check regions is a list of data.table
   all_are_dts <- all(sapply(regions, data.table::is.data.table))
   if (!all_are_dts) {
-    error("regions must be a list of data.table.")
+    stop("regions must be a list of data.table.")
   }
 
   # Check weight
@@ -112,6 +117,10 @@ convert_region <- function(.x,
   if (rname0 == rname1) {
     return(.x)
   }
+
+  # Ensure iso3 is a primary key
+  data.table::setkey(rmap0, iso3)
+  data.table::setkey(rmap1, iso3)
 
   # "sumby" might need info
   if (agg_operator == "sumby" & !info) {
