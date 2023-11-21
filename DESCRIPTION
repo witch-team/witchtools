@@ -1,6 +1,6 @@
 Package: witchtools
 Title: Data Management for Integrated Assessment Models
-Version: 0.4.5
+Version: 0.4.6
 Authors@R: 
     c(person(given = "Laurent",
            family = "Drouet",
@@ -31,13 +31,14 @@ Encoding: UTF-8
 LazyData: true
 Depends: R (>= 3.2.0)
 Imports: 
-    data.table,
-    stringr,
     crayon,
-    docopt,
     countrycode,
+    data.table,
+    docopt,
+    fs,
     here,
     remotes,
+    stringr,
     yaml
 Suggests: 
     RSQLite,

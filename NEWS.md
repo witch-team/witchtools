@@ -1,6 +1,11 @@
-# witchtools 0.4.5 [devel]
+# witchtools 0.4.6 [devel]
+- Speed up conversion
+- Functions to archive the data directory
+
+# witchtools 0.4.5 
 - Add witch_query function with basic query capabilities
 - Add guess_scenario function to guess the scenario name from a list of gdx
+- Add some regional sets (brzil, china...)
 
 # witchtools 0.4.4
 - Write yaml for native regions and mappings for the IIASA database

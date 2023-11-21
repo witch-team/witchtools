@@ -12,7 +12,7 @@ convert_time_period(
   do_past_extrap = FALSE,
   year_name = "year",
   value_name = "value",
-  fun.aggregate = mean,
+  fun.aggregate = "mean",
   na.rm = TRUE,
   verbose = FALSE
 )
@@ -35,7 +35,7 @@ should be done for past value.}
 
 \item{value_name}{string column name of value.}
 
-\item{fun.aggregate}{function to aggregate yearly values in a period.}
+\item{fun.aggregate}{function to aggregate yearly values ("mean","sum").}
 
 \item{na.rm}{logical indicating whether missing values should be removed.}
 
