@@ -8,7 +8,7 @@
 archive_restore <- function(filename, dir_list, extract_dir = ".") {
 
   # Find if the file exists in folders
-  arch_path <- fs::path(folders, arch_file)
+  arch_path <- fs::path(folders, filename)
   arch_path <- arch_path[fs::file_exists(arch_path)]
 
   # If the file exists, unzip it into the output directory
