@@ -14,7 +14,7 @@ archive_restore <- function(filename, dir_list, extract_dir = ".") {
   # If the file exists, unzip it into the output directory
   if (length(arch_path) > 0) {
     cat(paste("Found archived data in:", arch_path[1], "\n"))
-    zip::unzip(arch_path[1], exdir = output_directory)
+    zip::unzip(arch_path[1], exdir = extract_dir)
     return(arch_path[1])
   }
 
