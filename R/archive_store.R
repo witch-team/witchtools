@@ -12,8 +12,12 @@ archive_store <- function(filename, dir_list) {
       if (fs::file_exists(fs::path(folder,.f))) {
         fs::file_delete(fs::path(folder,.f))
       }
-      fs::file_copy(.f, folder)
-      cat(paste("Copied file to", folder, "\n"))
+      if (Sys.info()["sysname"]=="Linux" & !stringr::str_detect(folder, " ")) {
+        system(paste("cp", .f, folder))
+      } else {
+        fs::file_copy(.f, folder)
+      }
+      cat(paste("Copied", .f, "to", folder, "\n"))
     }
   }
   lapply(dir_list, cp_file, .f = filename)
