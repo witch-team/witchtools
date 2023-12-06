@@ -1,6 +1,6 @@
 Package: witchtools
 Title: Data Management for Integrated Assessment Models
-Version: 0.4.6
+Version: 0.4.7
 Authors@R: 
     c(person(given = "Laurent",
            family = "Drouet",
@@ -39,7 +39,8 @@ Imports:
     here,
     remotes,
     stringr,
-    yaml
+    yaml,
+    zip
 Suggests: 
     RSQLite,
     gdxtools (>= 0.4.0),

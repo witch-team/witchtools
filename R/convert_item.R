@@ -89,13 +89,13 @@ convert_item <- function(.data,
     convopt[["agg_missing"]] <- item_param[type == "missing_values"][1, value]
   }
 
-  # Aggregation operator
+  # Regional aggregation operator
   convopt[["agg_operator"]] <- "sum"
   if (nrow(item_param[type == "nagg"]) > 0) {
     convopt[["agg_operator"]] <- item_param[type == "nagg"][1, value]
   }
 
-  # Aggregation weight
+  # Regional aggregation weight
   nweight <- "pop"
   if (nrow(item_param[type == "nweight"]) > 0) {
     nweight <- item_param[type == "nweight"][1, value]
@@ -111,8 +111,15 @@ convert_item <- function(.data,
     stop(paste(nweight, "not in weights!"))
   }
 
+  # Time aggregation function (mean, sum, max)
+  tagg <- "mean"
+  if (nrow(item_param[type == "tagg"]) > 0) {
+    tagg <- item_param[type == "tagg"][1, value]
+  }
+
   .conv <- convert_table(.data,
     time_mapping = time_mappings[[time_id]],
+    time_aggregate = tagg,
     from_reg = from_reg,
     to_reg = region_mappings[[reg_id]],
     agg_weight = weights[[nweight]],

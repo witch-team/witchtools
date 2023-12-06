@@ -59,7 +59,7 @@ convert_table <- function(.x,
       "year_name",
       "value_name",
       "period_name",
-      "fun.aggregate",
+      "time_aggregate",
       "na.rm",
       "verbose"
     ))]

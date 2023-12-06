@@ -1,4 +1,7 @@
-# witchtools 0.4.6 [devel]
+# witchtools 0.4.7 [devel]
+- Add 'tagg' in metaparam to control the function to aggregate over time.
+
+# witchtools 0.4.6
 - Speed up conversion
 - Functions to archive the data directory
 

@@ -29,7 +29,8 @@
 #' should be done for past value.
 #' @param year_name string column name of year.
 #' @param value_name string column name of value.
-#' @param fun.aggregate function to aggregate yearly values ("mean","sum").
+#' @param time_aggregate function to aggregate yearly values
+#' ("mean","sum","max").
 #' @param na.rm logical indicating whether missing values should be removed.
 #' @param verbose logical indicating whether running in verbose mode.
 #'
@@ -52,14 +53,14 @@ convert_time_period <- function(.x,
                                 do_past_extrap = FALSE,
                                 year_name = "year",
                                 value_name = "value",
-                                fun.aggregate = "mean",
+                                time_aggregate = "mean",
                                 na.rm = TRUE,
                                 verbose = FALSE) {
   if (!data.table::is.data.table(.x)) .x <- data.table::setDT(.x)
 
   # Check input
-  if (!fun.aggregate %in% c("mean", "sum")) {
-    stop(paste0("fun.aggregate should be 'mean' or 'sum'."))
+  if (!time_aggregate %in% c("mean", "sum", "max")) {
+    stop(paste0("time_aggregate function not implemented."))
   }
 
   # Guess time mapping if not directly provided
@@ -146,15 +147,22 @@ convert_time_period <- function(.x,
   .x[, (year_name) := NULL]
 
   # Take the average value over time range
-  if (fun.aggregate == "mean") {
+  if (time_aggregate == "mean") {
     .x <- .x[, .(value = mean(value, na.rm = na.rm)),
              by = c(colnames(.x)[colnames(.x) != value_name])
     ]
   }
 
-  # Or, Sum the value over time range
-  if (fun.aggregate == "sum") {
+  # Sum the value over time range
+  if (time_aggregate == "sum") {
     .x <- .x[, .(value = sum(value, na.rm = na.rm)),
+             by = c(colnames(.x)[colnames(.x) != value_name])
+    ]
+  }
+
+  # Maximum over time range
+  if (time_aggregate == "max") {
+    .x <- .x[, .(value = max(value, na.rm = na.rm)),
              by = c(colnames(.x)[colnames(.x) != value_name])
     ]
   }
