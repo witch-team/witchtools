@@ -157,7 +157,7 @@ witch_write_gams <- function(region_mapping,
 
   # setglobal nmapping
   reg_def <- sort(unique(region_mapping[, get(reg_id)]))
-  writeLines(paste("$setglobal coalition1", paste(
+  writeLines(paste("$setglobal coalitions", paste(
     stringr::str_c(prefix_coalition, reg_def),
     collapse = " "
   )), fconf)
