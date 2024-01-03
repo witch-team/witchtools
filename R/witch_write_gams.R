@@ -157,8 +157,30 @@ witch_write_gams <- function(region_mapping,
 
   # setglobal nmapping
   reg_def <- sort(unique(region_mapping[, get(reg_id)]))
-  writeLines(paste("$setglobal coalitions", paste(
+  writeLines(paste("$setglobal coalition1", paste(
     stringr::str_c(prefix_coalition, reg_def),
+    collapse = " "
+  )), fconf)
+
+  close(fconf)
+
+  ##############################################################################
+
+  # write noncoop2 conf
+  filename <- file.path(output_directory, "noncoop2.conf")
+  fconf <- file(filename, "w")
+
+  # setglobal nmapping
+  reg_def <- sort(unique(region_mapping[, get(reg_id)]))
+  midpoint <- round(length(reg_def) / 2)
+  reg_def1 <- reg_def[1:midpoint]
+  reg_def2 <- reg_def[midpoint+1:length(reg_def)]
+  writeLines(paste("$setglobal coalition1", paste(
+    stringr::str_c(prefix_coalition, reg_def1),
+    collapse = " "
+  )), fconf)
+  writeLines(paste("$setglobal coalition2", paste(
+    stringr::str_c(prefix_coalition, reg_def2),
     collapse = " "
   )), fconf)
 
@@ -182,4 +204,5 @@ witch_write_gams <- function(region_mapping,
   writeLines("/;", finc)
 
   close(finc)
+
 }

@@ -1,4 +1,7 @@
-# witchtools 0.4.7 [devel]
+# witchtools 0.4.8 [devel]
+- In GAMS, add 2 coalition variables to deal with a high number of coalitions.
+
+# witchtools 0.4.7
 - Add 'tagg' in metaparam to control the function to aggregate over time.
 
 # witchtools 0.4.6
