@@ -1,5 +1,6 @@
 # witchtools 0.4.8 [devel]
 - In GAMS, add 2 coalition variables to deal with a high number of coalitions.
+- Add witch20, ed57 aggregation
 
 # witchtools 0.4.7
 - Add 'tagg' in metaparam to control the function to aggregate over time.
@@ -11,7 +12,7 @@
 # witchtools 0.4.5 
 - Add witch_query function with basic query capabilities
 - Add guess_scenario function to guess the scenario name from a list of gdx
-- Add some regional sets (brzil, china...)
+- Add some regional sets (brazil, china...)
 
 # witchtools 0.4.4
 - Write yaml for native regions and mappings for the IIASA database
