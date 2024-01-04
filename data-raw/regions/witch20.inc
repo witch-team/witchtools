@@ -14,7 +14,7 @@ laca          # Latin America and the Caribbean
 mena          # Middle East and North Africa
 mexico        # Mexico
 oceania       # Australia, New Zealand, and Oceania islands
-othereurope   # Other European countries        
+othereurope   # Other European countries
 sasia         # South Asia
 seasia        # South East Asia
 southafrica   # South Africa
@@ -78,7 +78,7 @@ othereurope.ALB
 othereurope.MKD
 othereurope.MNE
 othereurope.SRB
-othereurope.KSV 
+othereurope.KSV
 
 canada.CAN # Canada
 canada.SPM # St Pierre et Miquelon
@@ -119,7 +119,7 @@ laca.TCA # Turks and Caicos Islands
 laca.VGB # Virgin Islands, British
 laca.VIR # Virgin Islands, U.S.
 
-korea.PRK  # North-Korea
+ccasia.PRK  # North-Korea
 
 oceania.CXR # Christmas Island (to Australia)           # oceania Islands
 oceania.COK # Cook Islands
@@ -136,7 +136,7 @@ oceania.FJI
 oceania.PNG
 oceania.FSM
 oceania.GUM
-oceania.ASM 
+oceania.ASM
 oceania.TLS
 oceania.PYF
 oceania.KIR
