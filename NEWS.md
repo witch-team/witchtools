@@ -1,4 +1,8 @@
-# witchtools 0.4.8 [devel]
+# witchtools 0.4.9 [devel]
+- Better definition for eu set
+- Create `is_europe` for European Countries
+
+# witchtools 0.4.8
 - In GAMS, add 2 coalition variables to deal with a high number of coalitions.
 - Add witch20, ed57 aggregation
 

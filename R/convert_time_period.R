@@ -65,7 +65,7 @@ convert_time_period <- function(.x,
 
   # Guess time mapping if not directly provided
   if (is.character(time_mapping)) {
-    if (!time_mapping %in% c(names(time_mappings))) {
+    if (!time_mapping %in% c(names(witchtools::time_mappings))) {
       stop(paste0("time_mapping should provided by time_mappings."))
     }
     time_mapping <- time_mappings[[time_mapping]]

@@ -41,6 +41,18 @@ NULL
 #' }
 "region_mappings"
 
+#' Default regional descriptions
+#'
+#' A collection of regional descriptions for 250 ISO3.
+#'
+#' @format A named list of data.tables with 2 columns
+#' \describe{
+#'   \item{mapping_name}{Mapping name (example, witch17),
+#'   contains the region names in lower case}
+#'   \item{description}{Region description}
+#' }
+"region_descriptions"
+
 #' Default timescale mapping
 #'
 #' A collection of timescale mappings.

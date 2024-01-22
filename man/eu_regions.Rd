@@ -13,7 +13,7 @@ eu_regions(region_mapping)
 a vector of region name.
 }
 \description{
-\code{eu_region} returns a vector of region representing Europe. The
+\code{eu_region} returns a vector of region representing current EU member states. The
 selection is based on the GDP of countries. If the total GDP of EU
 countries from the region is greater than 50\% of total GDP of the region,
 the region is considered as belonging of Europe.
@@ -27,6 +27,7 @@ Other misc functions:
 \code{\link{china_regions}()},
 \code{\link{eu27_regions}()},
 \code{\link{eu28_regions}()},
+\code{\link{europe_regions}()},
 \code{\link{india_regions}()},
 \code{\link{oecd_regions}()},
 \code{\link{region_id}()},

@@ -25,6 +25,7 @@ Other misc functions:
 \code{\link{eu27_regions}()},
 \code{\link{eu28_regions}()},
 \code{\link{eu_regions}()},
+\code{\link{europe_regions}()},
 \code{\link{india_regions}()},
 \code{\link{oecd_regions}()},
 \code{\link{region_id}()}

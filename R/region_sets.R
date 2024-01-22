@@ -67,7 +67,7 @@ india_regions <- function(region_mapping) {
   return(any_regions(india_iso3,region_mapping))
 }
 
-#' EU regions for a given region mapping.
+#' European regions for a given region mapping.
 #'
 #' \code{eu_region} returns a vector of region representing Europe. The
 #' selection is based on the GDP of countries. If the total GDP of EU
@@ -82,8 +82,8 @@ india_regions <- function(region_mapping) {
 #' @export
 #' @examples
 #' eu_regions(region_mappings[["witch17"]])
-eu_regions <- function(region_mapping) {
-  eu_iso3 <- c(
+europe_regions <- function(region_mapping) {
+  europe_iso3 <- c(
     "ALA",
     "ALB",
     "AND",
@@ -126,7 +126,26 @@ eu_regions <- function(region_mapping) {
     "SVN",
     "SWE"
   )
-  return(any_regions(eu_iso3,region_mapping))
+  return(any_regions(europe_iso3,region_mapping))
+}
+
+#' EU regions for a given region mapping.
+#'
+#' \code{eu_region} returns a vector of region representing current EU member states. The
+#' selection is based on the GDP of countries. If the total GDP of EU
+#' countries from the region is greater than 50% of total GDP of the region,
+#' the region is considered as belonging of Europe.
+#'
+#' @family misc functions
+#'
+#' @param region_mapping a data.table of regional mapping.
+#' @return a vector of region name.
+#'
+#' @export
+#' @examples
+#' eu_regions(region_mappings[["witch17"]])
+eu_regions <- function(region_mapping) {
+  return(eu27_regions(region_mapping))
 }
 
 #' EU27 regions for a given region mapping.
