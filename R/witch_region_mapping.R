@@ -19,7 +19,7 @@ witch_region_mapping <- function(f) {
   rif <- rif[!stringr::str_detect(rif, "^\\*")] # Remove * comments
   rif <- stringr::str_trim(stringr::str_split_fixed(rif, "#", 2)[, 1]) # Remove #
   rif <- stringi::stri_remove_empty(rif)
-  
+
   if (length(rif[stringr::str_detect(rif, "set map_*")]) == 0) {
     return(NULL)
   }

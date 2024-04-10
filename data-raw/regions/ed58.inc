@@ -1,170 +1,180 @@
-* EnerData 45 countries + 24(+2) regional aggregations
+* EnerData 45 countries + 24(actually 26)(+2 added by me) regional aggregations (15 non-fundamental + 11(+2) fundamental)
 * With all possible aggregations 73 regions, with only fundamental ones 58 regions
 
 set ed58 'Regions' /
-    arg         # Argentina
-    aus         # Australia
-    aut         # Austria
-    bel         # Belgium
-    bgr         # Bulgaria
-    bra         # Brazil
-    can         # Canada
-    chl         # Chile
-    chn         # China
-    cor         # South Korea
-    cro         # Croatia
-    dnk         # Denmark
-    egy         # Egypt
-    esp         # Spain
-    fin         # Finland
-    fra         # France
-    gbr         # UK
-    golf57      # Iran, Arab Emirates, Iraq, Kuwait, Oman, Qatar, Bahrain, Yemen (GROUP)
-    grc         # Greece
-    hun         # Hungary
-    idn         # Indonesia
-    irl         # Ireland
-    ita         # Italy
-    jpn         # Japan
-    meme        # Israel, Jordan, Lebanon, Syria (GROUP)
-    mex         # Mexico
-    mys         # Malaysia
-    nde         # India
-    nld         # The Netherlands
-    noan        # Marocco and Tunisia
-    noap        # Algeria and Libya
-    nor         # Norway
-    osea        # Rest of South East Asia including Taiwan (GROUP)
-    pol         # Poland
-    prt         # Portugal
-    rcam        # Rest of Central America (GROUP)
-    rcz         # Czech Republic
-    rfa         # Germany
-    ris         # Rest of ex Former Union (GROUP)
-    rjan57      # New Zealand, Papua New Guinea and Pacific Islands (GROUP)
-    rom         # Romania
-    rsaf        # all other countries in Sub Saharan Africa  (GROUP)
-    rsam        # Rest of South America (GROUP)
-    rsas        # Rest of South Asia (GROUP)
-    rsl         # Slovakia
-    rus         # Russia
-    slo         # Slovenia
-    sui         # Switzerland
-    swe         # Sweden
-    tha         # Thailand
-    tur         # Turkey
-    ukr         # Ukraine
-    usa         # USA
-    vnm         # Vietnam
-    sau         # Saudi Arabia
-    zaf         # South Africa
-    blt         # Baltic States (GROUP)
-    oeu         # Eastern Europe (GROUP)
+#Europe
+#European Union
+Austria
+Belgium
+Bulgaria
+Croatia
+Czechia
+Denmark
+Finland
+France
+Germany
+Greece
+Hungary
+Ireland
+Italy
+Netherlands
+Norway
+Poland
+Portugal
+Romania
+Slovakia
+Slovenia
+Spain
+Sweden
+Switzerland
+Turkey
+United Kingdom
+#CIS
+Russia
+Ukraine
+Rest of CIS
+#North America
+Canada
+#Latin America
+#South America
+Argentina
+Brazil
+Chile
+Rest of South America
+#Central America and Caribbean
+Mexico
+Rest of Central America and Caribbean
+#Asia
+China
+Japan
+South Korea
+India
+Rest of South Asia
+Indonesia
+Malaysia
+Thailand
+Vietnam
+Rest of South-East Asia
+#Pacific
+Australia
+#Middle-East
+Meditarrean
+Rest of Gulf countries
+Saudi Arabia
+#Africa
+#North Africa
+Egypt
+Algeria-Libya
+Morocco-Tunisia
+South Africa
+Rest of Sub Saharan africa
+#World
+Baltics States
+United States
+#Non OECD
+#OECD
+Rest of Europe
+Rest of Pacific
 /;
 
 
 $if set prepath      $batinclude '%prepath%regions/iso3.inc'
 $if not set prepath  $batinclude 'regions/iso3.inc'
 
-
-
-set map_ed58_iso3(ed58,iso3) 'Mapping between ed71 regions and countries/territories' /
-
-
-
+set map_ed58_iso3(ed58,iso3) 'Mapping between ed58 regions and countries/territories' /
 #------------- EUROPE --------------
 
 # --- European Union ---
 
-    aut.AUT #
-    bel.BEL #
-    rfa.DEU #
-    dnk.DNK #
-    esp.ESP #
-    fin.FIN #
-    fra.FRA #
-    gbr.GBR #
-    grc.GRC #
-    irl.IRL #
-    ita.ITA #
-    nld.NLD #
-    prt.PRT #
-    swe.SWE #
-    bgr.BGR #
-    rcz.CZE #
-    hun.HUN #
-    pol.POL #
-    rom.ROU #
-    rsl.SVK #
-    slo.SVN #
-    cro.HRV # Croatia was formely in TE
+    Austria.AUT #
+    Belgium.BEL #
+    Germany.DEU #
+    Denmark.DNK #
+    Spain.ESP #
+    Finland.FIN #
+    France.FRA #
+    United Kingdom.GBR #
+    Greece.GRC #
+    Ireland.IRL #
+    Italy.ITA #
+    Netherlands.NLD #
+    Portugal.PRT #
+    Sweden.SWE #
+    Bulgaria.BGR #
+    Czechia.CZE #
+    Hungary.HUN #
+    Poland.POL #
+    Romania.ROU #
+    Slovakia.SVK #
+    Slovenia.SVN #
+    Croatia.HRV # Croatia was formely in TE
 
 #--- other single european countries out of EU ---
 
-    nor.NOR # Norway
-    sui.CHE # Switzerland
-    tur.TUR
+    Norway.NOR # Norway
+    Switzerland.CHE # Switzerland
+    Turkey.TUR
 
 #--- Baltic States ---
 
-    blt.EST # Baltic states
-    blt.LTU #
-    blt.LVA #
+    Baltics States.EST # Baltic states
+    Baltics States.LTU #
+    Baltics States.LVA #
 
 
-#---------- oeu ------------
+#---------- Rest of Europe ------------
 
 # a) Cited by enerdata
 
 #-- within EU --
-    oeu.CYP # Cyprus
-    oeu.LUX # Luxembourg
-    oeu.MLT # Malta was formely in mena
+    Rest of Europe.CYP # Cyprus
+    Rest of Europe.LUX # Luxembourg
+    Rest of Europe.MLT # Malta was formely in mena
 #---------------
-    oeu.ISL # Iceland
+    Rest of Europe.ISL # Iceland
 
-    oeu.KSV  # until now no ISO3 code has been assigned to Kosovo, but for future reference.
-    oeu.SRB # Serbia
-    oeu.ALB # Albania
-    oeu.MNE # Montenegro
-    oeu.MKD # Macedonia
-    oeu.BIH # Bosnia-Herzegovina
+    Rest of Europe.KSV  # until now no ISO3 code has been assigned to Kosovo, but for future reference.
+    Rest of Europe.SRB # Serbia
+    Rest of Europe.ALB # Albania
+    Rest of Europe.MNE # Montenegro
+    Rest of Europe.MKD # Macedonia
+    Rest of Europe.BIH # Bosnia-Herzegovina
 
 # b) not cited by Enerdata --> are they included in Europe??
 
-    oeu.LIE # Liechtenstein
-    oeu.GRL # Greenland (to Denmark)
-    oeu.FRO # Island Feroe
-    oeu.ALA # Small islands/countries
-    oeu.AND # Andorra
-    oeu.GGY # Guernsey
-    oeu.GIB # Gibraltar
-    oeu.IMN # Isle of Man
-    oeu.JEY # Jersey
-    oeu.MCO # Monaco
-    oeu.SJM # Svalbard and Jan Mayen
-    oeu.SMR # San Marino
-    oeu.VAT # Vatican
-    oeu.SPM # St Pierre et Miquelon (to France)
+    Rest of Europe.LIE # Liechtenstein
+    Rest of Europe.GRL # Greenland (to Denmark)
+    Rest of Europe.FRO # Island Feroe
+    Rest of Europe.ALA # Small islands/countries
+    Rest of Europe.AND # Andorra
+    Rest of Europe.GGY # Guernsey
+    Rest of Europe.GIB # Gibraltar
+    Rest of Europe.IMN # Isle of Man
+    Rest of Europe.JEY # Jersey
+    Rest of Europe.MCO # Monaco
+    Rest of Europe.SJM # Svalbard and Jan Mayen
+    Rest of Europe.SMR # San Marino
+    Rest of Europe.VAT # Vatican
+    Rest of Europe.SPM # St Pierre et Miquelon (to France)
 
 
 
 
 #---------------- CIS ---------------
 
-    rus.RUS
-    ukr.UKR
+    Russia.RUS
+    Ukraine.UKR
 
-    ris.ARM
-    ris.AZE
-    ris.BLR
-    ris.GEO
-    ris.KAZ
-    ris.KGZ
-    ris.MDA
-    ris.TJK
-    ris.TKM
-    ris.UZB
+    Rest of CIS.ARM
+    Rest of CIS.AZE
+    Rest of CIS.BLR
+    Rest of CIS.GEO
+    Rest of CIS.KAZ
+    Rest of CIS.KGZ
+    Rest of CIS.MDA
+    Rest of CIS.TJK
+    Rest of CIS.TKM
+    Rest of CIS.UZB
 
 
 
@@ -173,127 +183,128 @@ set map_ed58_iso3(ed58,iso3) 'Mapping between ed71 regions and countries/territo
     
 # --- North Africa ---
 
-    egy.EGY
+    Egypt.EGY
 
-    noap.LBY # Lybia
-    noap.DZA # Algeria
-    noan.TUN # Tunisia
-    noan.MAR # Morocco
-    noan.ESH # Western Sahara
+    Algeria-Libya.LBY # Lybia
+    Algeria-Libya.DZA # Algeria
+    Morocco-Tunisia.TUN # Tunisia
+    Morocco-Tunisia.MAR # Morocco
 
-    zaf.ZAF # South Africa
+    Morocco-Tunisia.ESH # Western Sahara
 
-    rsaf.AGO
-    rsaf.BEN
-    rsaf.BWA
-    rsaf.BFA
-    rsaf.BDI
-    rsaf.CMR
-    rsaf.CPV
-    rsaf.CAF
-    rsaf.TCD
-    rsaf.COM
-    rsaf.COG
-    rsaf.COD
-    rsaf.CIV
-    rsaf.GNQ
-    rsaf.ERI
-    rsaf.ETH
-    rsaf.GAB
-    rsaf.GMB
-    rsaf.GHA
-    rsaf.GIN
-    rsaf.GNB
-    rsaf.KEN
-    rsaf.LSO
-    rsaf.LBR
-    rsaf.MDG
-    rsaf.MWI
-    rsaf.MLI
-    rsaf.MRT
-    rsaf.MUS
-    rsaf.MYT
-    rsaf.MOZ
-    rsaf.NAM
-    rsaf.NER
-    rsaf.NGA
-    rsaf.REU
-    rsaf.RWA
-    rsaf.STP
-    rsaf.SEN
-    rsaf.SYC
-    rsaf.SHN
-    rsaf.SLE
-    rsaf.SOM
-    rsaf.SSD
-    rsaf.SDN
-    rsaf.SWZ
-    rsaf.TZA
-    rsaf.TGO
-    rsaf.UGA
-    rsaf.ZMB
-    rsaf.ZWE
-    rsaf.DJI
-    rsaf.IOT # British Indian Ocean Territory    # other small territories
-    rsaf.BVT # Bouvet Island
-    rsaf.ATF # French Southern Territories
+    South Africa.ZAF # South Africa
+
+    Rest of Sub Saharan africa.AGO
+    Rest of Sub Saharan africa.BEN
+    Rest of Sub Saharan africa.BWA
+    Rest of Sub Saharan africa.BFA
+    Rest of Sub Saharan africa.BDI
+    Rest of Sub Saharan africa.CMR
+    Rest of Sub Saharan africa.CPV
+    Rest of Sub Saharan africa.CAF
+    Rest of Sub Saharan africa.TCD
+    Rest of Sub Saharan africa.COM
+    Rest of Sub Saharan africa.COG
+    Rest of Sub Saharan africa.COD
+    Rest of Sub Saharan africa.CIV
+    Rest of Sub Saharan africa.GNQ
+    Rest of Sub Saharan africa.ERI
+    Rest of Sub Saharan africa.ETH
+    Rest of Sub Saharan africa.GAB
+    Rest of Sub Saharan africa.GMB
+    Rest of Sub Saharan africa.GHA
+    Rest of Sub Saharan africa.GIN
+    Rest of Sub Saharan africa.GNB
+    Rest of Sub Saharan africa.KEN
+    Rest of Sub Saharan africa.LSO
+    Rest of Sub Saharan africa.LBR
+    Rest of Sub Saharan africa.MDG
+    Rest of Sub Saharan africa.MWI
+    Rest of Sub Saharan africa.MLI
+    Rest of Sub Saharan africa.MRT
+    Rest of Sub Saharan africa.MUS
+    Rest of Sub Saharan africa.MYT
+    Rest of Sub Saharan africa.MOZ
+    Rest of Sub Saharan africa.NAM
+    Rest of Sub Saharan africa.NER
+    Rest of Sub Saharan africa.NGA
+    Rest of Sub Saharan africa.REU
+    Rest of Sub Saharan africa.RWA
+    Rest of Sub Saharan africa.STP
+    Rest of Sub Saharan africa.SEN
+    Rest of Sub Saharan africa.SYC
+    Rest of Sub Saharan africa.SHN
+    Rest of Sub Saharan africa.SLE
+    Rest of Sub Saharan africa.SOM
+    Rest of Sub Saharan africa.SSD
+    Rest of Sub Saharan africa.SDN
+    Rest of Sub Saharan africa.SWZ
+    Rest of Sub Saharan africa.TZA
+    Rest of Sub Saharan africa.TGO
+    Rest of Sub Saharan africa.UGA
+    Rest of Sub Saharan africa.ZMB
+    Rest of Sub Saharan africa.ZWE
+    Rest of Sub Saharan africa.DJI
+    Rest of Sub Saharan africa.IOT # British Indian Ocean Territory    # other small territories
+    Rest of Sub Saharan africa.BVT # Bouvet Island
+    Rest of Sub Saharan africa.ATF # French Southern Territories
 
 
 
 
 #--------------- MIDDLE EAST -----------------
 
-    meme.ISR
-    meme.JOR
-    meme.SYR
-    meme.LBN
-    meme.PSE # I added it (Palestinian territory, occupied)
+    Mediterranean.ISR
+    Mediterranean.JOR
+    Mediterranean.SYR
+    Mediterranean.LBN
+    Mediterranean.PSE # I added it (Palestinian territory, occupied)
 
-    sau.SAU
+    Saudi Arabia.SAU
 
-    golf57.ARE # United Arab Emirates
-    golf57.BHR # Bahrain
-    golf57.IRN # Iran
-    golf57.IRQ # Iraq
-    golf57.KWT # Kuwait
-    golf57.OMN # Oman
-    golf57.QAT # Qatar
-    golf57.YEM # Yemen
+    Rest of Gulf countries.ARE # United Arab Emirates
+    Rest of Gulf countries.BHR # Bahrain
+    Rest of Gulf countries.IRN # Iran
+    Rest of Gulf countries.IRQ # Iraq
+    Rest of Gulf countries.KWT # Kuwait
+    Rest of Gulf countries.OMN # Oman
+    Rest of Gulf countries.QAT # Qatar
+    Rest of Gulf countries.YEM # Yemen
 
 
 
 #------------------ PACIFIC -------------------
 
-    aus.AUS # Australia
+    Australia.AUS # Australia
 
-    rjan57.CXR # Christmas Island (to Australia)
-    rjan57.COK # Cook Islands
-    rjan57.HMD # Heard Island and McDonald Islands
-    rjan57.NFK # Norfolk Island
-    rjan57.NIU # Niue
-    rjan57.NRU # Nauru
-    rjan57.PCN # Pitcairn
-    rjan57.TKL # Tokelau
-    rjan57.TUV # Tuvalu
-    rjan57.UMI # United States Minor Outlying Islands
-    rjan57.WLF # Wallis and Futuna
-    rjan57.FJI
-    rjan57.PNG
-    rjan57.FSM
-    rjan57.GUM
-    rjan57.ASM
-    rjan57.TLS
-    rjan57.PYF
-    rjan57.KIR
-    rjan57.MNP
-    rjan57.MHL
-    rjan57.NCL
-    rjan57.PLW
-    rjan57.WSM
-    rjan57.SLB
-    rjan57.TON
-    rjan57.VUT
-    rjan57.NZL # New Zealand
+    Rest of Pacific.CXR # Christmas Island (to Australia)
+    Rest of Pacific.COK # Cook Islands
+    Rest of Pacific.HMD # Heard Island and McDonald Islands
+    Rest of Pacific.NFK # Norfolk Island
+    Rest of Pacific.NIU # Niue
+    Rest of Pacific.NRU # Nauru
+    Rest of Pacific.PCN # Pitcairn
+    Rest of Pacific.TKL # Tokelau
+    Rest of Pacific.TUV # Tuvalu
+    Rest of Pacific.UMI # United States Minor Outlying Islands
+    Rest of Pacific.WLF # Wallis and Futuna
+    Rest of Pacific.FJI
+    Rest of Pacific.PNG
+    Rest of Pacific.FSM
+    Rest of Pacific.GUM
+    Rest of Pacific.ASM
+    Rest of Pacific.TLS
+    Rest of Pacific.PYF
+    Rest of Pacific.KIR
+    Rest of Pacific.MNP
+    Rest of Pacific.MHL
+    Rest of Pacific.NCL
+    Rest of Pacific.PLW
+    Rest of Pacific.WSM
+    Rest of Pacific.SLB
+    Rest of Pacific.TON
+    Rest of Pacific.VUT
+    Rest of Pacific.NZL # New Zealand
 
 
 
@@ -301,41 +312,41 @@ set map_ed58_iso3(ed58,iso3) 'Mapping between ed71 regions and countries/territo
 
 #--- South-East Asia ---
 
-    mys.MYS #Malaysia
-    tha.THA # thailand
-    vnm.VNM # Vietnam
-    idn.IDN  # Indonesia
+    Malaysia.MYS #Malaysia
+    Thailand.THA # Thailand
+    Vietnam.VNM # Vietnam
+    Indonesia.IDN  # Indonesia
 
-    osea.BRN  # Brunei
-    osea.CCK  # Cocos (keeling) Islands
-    osea.KHM  # Cambodia
-    osea.LAO  # Laos
-    osea.MMR  # Myanmar
-    osea.PHL  # Philippines
-    osea.SGP  # Singapore
-    osea.PRK  # North-Korea
-    osea.HKG  # Small countries: Honk Kong
-    osea.MAC  #                  Macao
-    osea.TWN  #                  Taiwan
-    osea.MNG  # Mongolia
+    Rest of South-East Asia.BRN  # Brunei
+    Rest of South-East Asia.CCK  # Cocos (keeling) Islands
+    Rest of South-East Asia.KHM  # Cambodia
+    Rest of South-East Asia.LAO  # Laos
+    Rest of South-East Asia.MMR  # Myanmar
+    Rest of South-East Asia.PHL  # Philippines
+    Rest of South-East Asia.SGP  # Singapore
+    Rest of South-East Asia.PRK  # North-Korea
+    Rest of South-East Asia.HKG  # Small countries: Honk Kong
+    Rest of South-East Asia.MAC  #                  Macao
+    Rest of South-East Asia.TWN  #                  Taiwan
+    Rest of South-East Asia.MNG  # Mongolia
 
 #--- South Asia ---
 
     India.IND # India
 
-    rsas.AFG # Afghanitan
-    rsas.BGD # Bangladesh
-    rsas.BTN # Bhutan
-    rsas.LKA # Sri-Lanka
-    rsas.MDV # Maldives
-    rsas.NPL # Nepal
-    rsas.PAK # Pakistan
+    Rest of South Asia.AFG # Afghanitan
+    Rest of South Asia.BGD # Bangladesh
+    Rest of South Asia.BTN # Bhutan
+    Rest of South Asia.LKA # Sri-Lanka
+    Rest of South Asia.MDV # Maldives
+    Rest of South Asia.NPL # Nepal
+    Rest of South Asia.PAK # Pakistan
 
 #--- Other Asia ---
 
-    chn.CHN  # China
-    jpn.JPN # Japan
-    cor.KOR # South Korea
+    China.CHN  # China
+    Japan.JPN # Japan
+    South Korea.KOR # South Korea
 
 
 
@@ -344,68 +355,69 @@ set map_ed58_iso3(ed58,iso3) 'Mapping between ed71 regions and countries/territo
 
 #---  South America ---
 
-    arg.ARG
-    bra.BRA
-    chl.CHL
+    Argentina.ARG
+    Brazil.BRA
+    Chile.CHL
 
-    rsam.BOL
-    rsam.COL
-    rsam.ECU
-    rsam.FLK
-    rsam.GUF
-    rsam.GUY
-    rsam.PER
-    rsam.PRY
-    rsam.SUR
-    rsam.URY
-    rsam.VEN
+    Rest of South America.BOL
+    Rest of South America.COL
+    Rest of South America.ECU
+    Rest of South America.FLK
+    Rest of South America.GUF
+    Rest of South America.GUY
+    Rest of South America.PER
+    Rest of South America.PRY
+    Rest of South America.SUR
+    Rest of South America.URY
+    Rest of South America.VEN
 
 #--- Central America and Caribbean ---
 
-    mex.MEX
+    Mexico.MEX
 
-    rcam.BES
-    rcam.CUW
-    rcam.SXM
-    rcam.ABW
-    rcam.BHS
-    rcam.BLZ
-    rcam.BRB
-    rcam.CRI
-    rcam.CUB
-    rcam.DMA
-    rcam.DOM
-    rcam.GRD
-    rcam.GTM
-    rcam.HND
-    rcam.HTI
-    rcam.JAM
-    rcam.LCA
-    rcam.NIC
-    rcam.PAN
-    rcam.SLV
-    rcam.TTO
-    rcam.VCT
-    rcam.ATA # Antarctica
-    rcam.BMU # Bermuda
-    rcam.SGS # South Georgia and the South Sandwich Islands
-    rcam.TCA # Turks and Caicos Islands
-    rcam.VGB # Virgin Islands, British
-    rcam.VIR # Virgin Islands, U.S.
-    rcam.AIA
-    rcam.ATG
-    rcam.BLM
-    rcam.CYM
-    rcam.GLP
-    rcam.KNA
-    rcam.MAF
-    rcam.MSR
-    rcam.MTQ
-    rcam.PRI
+    Rest of Central America and Caribbean.BES
+    Rest of Central America and Caribbean.CUW
+    Rest of Central America and Caribbean.SXM
+    Rest of Central America and Caribbean.ABW
+    Rest of Central America and Caribbean.BHS
+    Rest of Central America and Caribbean.BLZ
+    Rest of Central America and Caribbean.BRB
+    Rest of Central America and Caribbean.CRI
+    Rest of Central America and Caribbean.CUB
+    Rest of Central America and Caribbean.DMA
+    Rest of Central America and Caribbean.DOM
+    Rest of Central America and Caribbean.GRD
+    Rest of Central America and Caribbean.GTM
+    Rest of Central America and Caribbean.HND
+    Rest of Central America and Caribbean.HTI
+    Rest of Central America and Caribbean.JAM
+    Rest of Central America and Caribbean.LCA
+    Rest of Central America and Caribbean.NIC
+    Rest of Central America and Caribbean.PAN
+    Rest of Central America and Caribbean.SLV
+    Rest of Central America and Caribbean.TTO
+    Rest of Central America and Caribbean.VCT
+    Rest of Central America and Caribbean.ATA # Antarctica
+    Rest of Central America and Caribbean.BMU # Bermuda
+    Rest of Central America and Caribbean.SGS # South Georgia and the South Sandwich Islands
+    Rest of Central America and Caribbean.TCA # Turks and Caicos Islands
+    Rest of Central America and Caribbean.VGB # Virgin Islands, British
+    Rest of Central America and Caribbean.VIR # Virgin Islands, U.S.
+    Rest of Central America and Caribbean.AIA
+    Rest of Central America and Caribbean.ATG
+    Rest of Central America and Caribbean.BLM
+    Rest of Central America and Caribbean.CYM
+    Rest of Central America and Caribbean.GLP
+    Rest of Central America and Caribbean.KNA
+    Rest of Central America and Caribbean.MAF
+    Rest of Central America and Caribbean.MSR
+    Rest of Central America and Caribbean.MTQ
+    Rest of Central America and Caribbean.PRI
 
 #--- North America ---
 
-    can.CAN # Canada
-    usa.USA
+    Canada.CAN # Canada
+    United States.USA
 
+    
 /;
