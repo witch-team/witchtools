@@ -1,77 +1,71 @@
-* EnerData 45 countries + 24(+2) regional aggregations
-* With all possible aggregations 73 regions, with only fundamental ones 58 regions
+* EnerData 45 countries + 11(actually 13, +2 added) regional aggregations for a total of 58 regions to cover WORLD
 
 set ed58 'Regions' /
-    arg         # Argentina
-    aus         # Australia
-    aut         # Austria
-    bel         # Belgium
-    bgr         # Bulgaria
-    bra         # Brazil
-    can         # Canada
-    chl         # Chile
-    chn         # China
-    cor         # South Korea
-    cro         # Croatia
-    dnk         # Denmark
-    egy         # Egypt
-    esp         # Spain
-    fin         # Finland
-    fra         # France
-    gbr         # UK
-    golf57      # Iran, Arab Emirates, Iraq, Kuwait, Oman, Qatar, Bahrain, Yemen (GROUP)
-    grc         # Greece
-    hun         # Hungary
-    idn         # Indonesia
-    irl         # Ireland
-    ita         # Italy
-    jpn         # Japan
-    meme        # Israel, Jordan, Lebanon, Syria (GROUP)
-    mex         # Mexico
-    mys         # Malaysia
-    nde         # India
-    nld         # The Netherlands
-    noan        # Marocco and Tunisia
-    noap        # Algeria and Libya
-    nor         # Norway
-    osea        # Rest of South East Asia including Taiwan (GROUP)
-    pol         # Poland
-    prt         # Portugal
-    rcam        # Rest of Central America (GROUP)
-    rcz         # Czech Republic
-    rfa         # Germany
-    ris         # Rest of ex Former Union (GROUP)
-    rjan57      # New Zealand, Papua New Guinea and Pacific Islands (GROUP)
-    rom         # Romania
-    rsaf        # all other countries in Sub Saharan Africa  (GROUP)
-    rsam        # Rest of South America (GROUP)
-    rsas        # Rest of South Asia (GROUP)
-    rsl         # Slovakia
-    rus         # Russia
-    slo         # Slovenia
-    sui         # Switzerland
-    swe         # Sweden
-    tha         # Thailand
-    tur         # Turkey
-    ukr         # Ukraine
-    usa         # USA
-    vnm         # Vietnam
-    sau         # Saudi Arabia
-    zaf         # South Africa
-    blt         # Baltic States (GROUP)
-    oeu         # Eastern Europe (GROUP)
-/;
+aut         #Austria
+bel         #Belgium
+bgr         #Bulgaria
+cro         #Croatia
+rcz         #Czechia
+dnk         #Denmark
+fin         #Finland
+fra         #France
+rfa         #Germany
+grc         #Greece
+hun         #Hungary
+irl         #Ireland
+ita         #Italy
+nld         #Netherlands
+nor         #Norway
+pol         #Poland
+prt         #Portugal
+rom         #Romania
+rsl         #Slovakia
+slo         #Slovenia
+esp         #Spain
+swe         #Sweden
+sui         #Switzerland
+tur         #Turkey
+gbr         #United Kingdom
+rus         #Russia
+ukr         #Ukraine
+ris         #Rest of CIS
+can         #Canada
+arg         #Argentina
+bra         #Brazil
+chl         #Chile
+rsam        #Rest of South America
+mex         #Mexico
+rcam        #Rest of Central America and Caribbean
+chn         #China
+jpn         #Japan
+cor         #South Korea
+nde         #India
+rsas        #Rest of South Asia
+idn         #Indonesia
+mys         #Malaysia
+tha         #Thailand
+vnm         #Vietnam
+osea        #Rest of South-East Asia
+aus         #Australia
+meme        #Meditarrean (excl. Gulf countries)
+golf57      #Rest of Gulf countries
+sau         #Saudi Arabia
+egy         #Egypt
+noap        #Algeria-Libya
+noan        #Morocco-Tunisia
+zaf         #South Africa
+rsaf        #Rest of Sub Saharan africa
+blt         #Baltics States
+usa         #United States
+oeu         #Rest of Europe
+rjan57      #Rest of Pacific
+/;      
 
 
 $if set prepath      $batinclude '%prepath%regions/iso3.inc'
 $if not set prepath  $batinclude 'regions/iso3.inc'
 
-
-
-set map_ed58_iso3(ed58,iso3) 'Mapping between ed71 regions and countries/territories' /
-
-
-
+set map_ed58_iso3(ed58,iso3) 'Mapping between ed58 regions and countries/territories' /
 #------------- EUROPE --------------
 
 # --- European Union ---
@@ -97,12 +91,12 @@ set map_ed58_iso3(ed58,iso3) 'Mapping between ed71 regions and countries/territo
     rom.ROU #
     rsl.SVK #
     slo.SVN #
-    cro.HRV # Croatia was formely in TE
+    cro.HRV # cro was formely in TE
 
 #--- other single european countries out of EU ---
 
-    nor.NOR # Norway
-    sui.CHE # Switzerland
+    nor.NOR # nor
+    sui.CHE # sui
     tur.TUR
 
 #--- Baltic States ---
@@ -133,7 +127,7 @@ set map_ed58_iso3(ed58,iso3) 'Mapping between ed71 regions and countries/territo
 # b) not cited by Enerdata --> are they included in Europe??
 
     oeu.LIE # Liechtenstein
-    oeu.GRL # Greenland (to Denmark)
+    oeu.GRL # Greenland (to dnk)
     oeu.FRO # Island Feroe
     oeu.ALA # Small islands/countries
     oeu.AND # Andorra
@@ -145,7 +139,7 @@ set map_ed58_iso3(ed58,iso3) 'Mapping between ed71 regions and countries/territo
     oeu.SJM # Svalbard and Jan Mayen
     oeu.SMR # San Marino
     oeu.VAT # Vatican
-    oeu.SPM # St Pierre et Miquelon (to France)
+    oeu.SPM # St Pierre et Miquelon (to fra)
 
 
 
@@ -179,9 +173,10 @@ set map_ed58_iso3(ed58,iso3) 'Mapping between ed71 regions and countries/territo
     noap.DZA # Algeria
     noan.TUN # Tunisia
     noan.MAR # Morocco
+
     noan.ESH # Western Sahara
 
-    zaf.ZAF # South Africa
+    zaf.ZAF # zaf
 
     rsaf.AGO
     rsaf.BEN
@@ -234,7 +229,7 @@ set map_ed58_iso3(ed58,iso3) 'Mapping between ed71 regions and countries/territo
     rsaf.ZMB
     rsaf.ZWE
     rsaf.DJI
-    rsaf.IOT # British Indian Ocean Territory    # other small territories
+    rsaf.IOT # British nden Ocean Territory    # other small territories
     rsaf.BVT # Bouvet Island
     rsaf.ATF # French Southern Territories
 
@@ -264,9 +259,9 @@ set map_ed58_iso3(ed58,iso3) 'Mapping between ed71 regions and countries/territo
 
 #------------------ PACIFIC -------------------
 
-    aus.AUS # Australia
+    aus.AUS # aus
 
-    rjan57.CXR # Christmas Island (to Australia)
+    rjan57.CXR # Christmas Island (to aus)
     rjan57.COK # Cook Islands
     rjan57.HMD # Heard Island and McDonald Islands
     rjan57.NFK # Norfolk Island
@@ -275,7 +270,7 @@ set map_ed58_iso3(ed58,iso3) 'Mapping between ed71 regions and countries/territo
     rjan57.PCN # Pitcairn
     rjan57.TKL # Tokelau
     rjan57.TUV # Tuvalu
-    rjan57.UMI # United States Minor Outlying Islands
+    rjan57.UMI # usa Minor Outlying Islands
     rjan57.WLF # Wallis and Futuna
     rjan57.FJI
     rjan57.PNG
@@ -301,10 +296,10 @@ set map_ed58_iso3(ed58,iso3) 'Mapping between ed71 regions and countries/territo
 
 #--- South-East Asia ---
 
-    mys.MYS #Malaysia
-    tha.THA # thailand
-    vnm.VNM # Vietnam
-    idn.IDN  # Indonesia
+    mys.MYS #mys
+    tha.THA # tha
+    vnm.VNM # vnm
+    idn.IDN  # idn
 
     osea.BRN  # Brunei
     osea.CCK  # Cocos (keeling) Islands
@@ -321,7 +316,7 @@ set map_ed58_iso3(ed58,iso3) 'Mapping between ed71 regions and countries/territo
 
 #--- South Asia ---
 
-    India.IND # India
+    nde.IND # nde
 
     rsas.AFG # Afghanitan
     rsas.BGD # Bangladesh
@@ -333,9 +328,9 @@ set map_ed58_iso3(ed58,iso3) 'Mapping between ed71 regions and countries/territo
 
 #--- Other Asia ---
 
-    chn.CHN  # China
-    jpn.JPN # Japan
-    cor.KOR # South Korea
+    chn.CHN  # chn
+    jpn.JPN # jpn
+    cor.KOR # cor
 
 
 
@@ -405,7 +400,8 @@ set map_ed58_iso3(ed58,iso3) 'Mapping between ed71 regions and countries/territo
 
 #--- North America ---
 
-    can.CAN # Canada
+    can.CAN # can
     usa.USA
 
+    
 /;
