@@ -32,7 +32,7 @@ write_region_mappings_yml <- function(filename = NULL,
   m <- unique(datr[[n]])
   ii <- NULL
   for (i in seq_along(m)) {
-    oo = list(unique(datr[witch17 == m[i]]$descriptionmr)) # TODO use n
+    oo = list(unique(datr[get(n) == m[i]]$descriptionmr))
     names(oo) <- m[i]
     ii <- c(ii, list(oo))
   }
