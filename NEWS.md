@@ -1,4 +1,7 @@
-# witchtools 0.4.9 [devel]
+# witchtools 0.4.10
+- Add function to write regions mapping for IAMC submission
+
+# witchtools 0.4.9
 - Better definition for eu set
 - Create `is_europe` for European Countries
 - Update ed58 mapping from RICE50x
