@@ -1,7 +1,7 @@
 #' Write the IAMC regional mapping to common regions for WITCH yml file as in
 #' https://github.com/IAMconsortium/common-definitions
 #'
-#' \code{write_region_mappings_yml} write a yaml file with the region mappings.
+#' \code{iamc_region_mappings_yml} write a yaml file with the region mappings.
 
 #' @param filename yaml filename to write
 #' @param model model version
@@ -12,14 +12,14 @@
 #'
 #' @export
 #'
-write_region_mappings_yml <- function(filename = NULL,
+iamc_region_mappings_yml <- function(filename = NULL,
                                       model = 'WITCH 5.0',
                                       n = 'witch17',
                                       comm_regs = c('world','r5','r9','r10')){
 
   # Get the region description match to the n WITCH regions
-  datr = merge(region_descriptions[[n]],
-               region_mappings[[n]],
+  datr = merge(witchtools::region_descriptions[[n]],
+               witchtools::region_mappings[[n]],
                by = n)
 
   # Keep only ISO country code
@@ -90,7 +90,7 @@ write_region_mappings_yml <- function(filename = NULL,
 
   #write file
    if (is.null(filename)) {
-     write(la, paste0(stringr::str_replace(model,' ','_'),'.yml'))
+     write(la, paste0('region_mappings_', stringr::str_replace_all(model,'[ .]','_'),'.yml'))
    } else {
      write(la, filename)
    }

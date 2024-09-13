@@ -7,6 +7,9 @@
 #'
 archive_restore <- function(filename, dir_list, extract_dir = ".") {
 
+  .Deprecated()
+
+
   # Find if the file exists in folders
   arch_path <- fs::path(dir_list, filename)
   arch_path <- arch_path[fs::file_exists(arch_path)]

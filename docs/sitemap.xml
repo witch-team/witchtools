@@ -1,117 +1,50 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>http://witchtools.witchmodel.org/404.html</loc>
-  </url>
-  <url>
-    <loc>http://witchtools.witchmodel.org/LICENSE.html</loc>
-  </url>
-  <url>
-    <loc>http://witchtools.witchmodel.org/articles/converting-time-regions.html</loc>
-  </url>
-  <url>
-    <loc>http://witchtools.witchmodel.org/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>http://witchtools.witchmodel.org/authors.html</loc>
-  </url>
-  <url>
-    <loc>http://witchtools.witchmodel.org/index.html</loc>
-  </url>
-  <url>
-    <loc>http://witchtools.witchmodel.org/news/index.html</loc>
-  </url>
-  <url>
-    <loc>http://witchtools.witchmodel.org/reference/china_regions.html</loc>
-  </url>
-  <url>
-    <loc>http://witchtools.witchmodel.org/reference/convert_gdx.html</loc>
-  </url>
-  <url>
-    <loc>http://witchtools.witchmodel.org/reference/convert_region.html</loc>
-  </url>
-  <url>
-    <loc>http://witchtools.witchmodel.org/reference/convert_sqlite.html</loc>
-  </url>
-  <url>
-    <loc>http://witchtools.witchmodel.org/reference/convert_table.html</loc>
-  </url>
-  <url>
-    <loc>http://witchtools.witchmodel.org/reference/convert_time_period.html</loc>
-  </url>
-  <url>
-    <loc>http://witchtools.witchmodel.org/reference/default_weights.html</loc>
-  </url>
-  <url>
-    <loc>http://witchtools.witchmodel.org/reference/eu27_regions.html</loc>
-  </url>
-  <url>
-    <loc>http://witchtools.witchmodel.org/reference/eu28_regions.html</loc>
-  </url>
-  <url>
-    <loc>http://witchtools.witchmodel.org/reference/eu_regions.html</loc>
-  </url>
-  <url>
-    <loc>http://witchtools.witchmodel.org/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>http://witchtools.witchmodel.org/reference/india_regions.html</loc>
-  </url>
-  <url>
-    <loc>http://witchtools.witchmodel.org/reference/many_pals.html</loc>
-  </url>
-  <url>
-    <loc>http://witchtools.witchmodel.org/reference/oecd_regions.html</loc>
-  </url>
-  <url>
-    <loc>http://witchtools.witchmodel.org/reference/region_id.html</loc>
-  </url>
-  <url>
-    <loc>http://witchtools.witchmodel.org/reference/region_mappings.html</loc>
-  </url>
-  <url>
-    <loc>http://witchtools.witchmodel.org/reference/require_gdxtools.html</loc>
-  </url>
-  <url>
-    <loc>http://witchtools.witchmodel.org/reference/require_package.html</loc>
-  </url>
-  <url>
-    <loc>http://witchtools.witchmodel.org/reference/time_mappings.html</loc>
-  </url>
-  <url>
-    <loc>http://witchtools.witchmodel.org/reference/witch_data.html</loc>
-  </url>
-  <url>
-    <loc>http://witchtools.witchmodel.org/reference/witch_data_upload.html</loc>
-  </url>
-  <url>
-    <loc>http://witchtools.witchmodel.org/reference/witch_data_usage.html</loc>
-  </url>
-  <url>
-    <loc>http://witchtools.witchmodel.org/reference/witch_meta_param.html</loc>
-  </url>
-  <url>
-    <loc>http://witchtools.witchmodel.org/reference/witch_query.html</loc>
-  </url>
-  <url>
-    <loc>http://witchtools.witchmodel.org/reference/witch_region_mapping.html</loc>
-  </url>
-  <url>
-    <loc>http://witchtools.witchmodel.org/reference/witch_results_files.html</loc>
-  </url>
-  <url>
-    <loc>http://witchtools.witchmodel.org/reference/witch_scen_name.html</loc>
-  </url>
-  <url>
-    <loc>http://witchtools.witchmodel.org/reference/witch_time_mapping.html</loc>
-  </url>
-  <url>
-    <loc>http://witchtools.witchmodel.org/reference/witch_translate_data.html</loc>
-  </url>
-  <url>
-    <loc>http://witchtools.witchmodel.org/reference/write_native_regions_yml.html</loc>
-  </url>
-  <url>
-    <loc>http://witchtools.witchmodel.org/reference/write_region_mappings_yml.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>http://witchtools.witchmodel.org/404.html</loc></url>
+<url><loc>http://witchtools.witchmodel.org/LICENSE.html</loc></url>
+<url><loc>http://witchtools.witchmodel.org/articles/converting-time-regions.html</loc></url>
+<url><loc>http://witchtools.witchmodel.org/articles/index.html</loc></url>
+<url><loc>http://witchtools.witchmodel.org/authors.html</loc></url>
+<url><loc>http://witchtools.witchmodel.org/index.html</loc></url>
+<url><loc>http://witchtools.witchmodel.org/news/index.html</loc></url>
+<url><loc>http://witchtools.witchmodel.org/reference/archive_filename.html</loc></url>
+<url><loc>http://witchtools.witchmodel.org/reference/archive_restore.html</loc></url>
+<url><loc>http://witchtools.witchmodel.org/reference/archive_store.html</loc></url>
+<url><loc>http://witchtools.witchmodel.org/reference/brazil_regions.html</loc></url>
+<url><loc>http://witchtools.witchmodel.org/reference/china_regions.html</loc></url>
+<url><loc>http://witchtools.witchmodel.org/reference/convert_gdx.html</loc></url>
+<url><loc>http://witchtools.witchmodel.org/reference/convert_region.html</loc></url>
+<url><loc>http://witchtools.witchmodel.org/reference/convert_sqlite.html</loc></url>
+<url><loc>http://witchtools.witchmodel.org/reference/convert_table.html</loc></url>
+<url><loc>http://witchtools.witchmodel.org/reference/convert_time_period.html</loc></url>
+<url><loc>http://witchtools.witchmodel.org/reference/default_weights.html</loc></url>
+<url><loc>http://witchtools.witchmodel.org/reference/eu27_regions.html</loc></url>
+<url><loc>http://witchtools.witchmodel.org/reference/eu28_regions.html</loc></url>
+<url><loc>http://witchtools.witchmodel.org/reference/eu_regions.html</loc></url>
+<url><loc>http://witchtools.witchmodel.org/reference/europe_regions.html</loc></url>
+<url><loc>http://witchtools.witchmodel.org/reference/iamc_native_regions_yml.html</loc></url>
+<url><loc>http://witchtools.witchmodel.org/reference/iamc_region_mappings_yml.html</loc></url>
+<url><loc>http://witchtools.witchmodel.org/reference/index.html</loc></url>
+<url><loc>http://witchtools.witchmodel.org/reference/india_regions.html</loc></url>
+<url><loc>http://witchtools.witchmodel.org/reference/many_pals.html</loc></url>
+<url><loc>http://witchtools.witchmodel.org/reference/oecd_regions.html</loc></url>
+<url><loc>http://witchtools.witchmodel.org/reference/region_descriptions.html</loc></url>
+<url><loc>http://witchtools.witchmodel.org/reference/region_id.html</loc></url>
+<url><loc>http://witchtools.witchmodel.org/reference/region_mappings.html</loc></url>
+<url><loc>http://witchtools.witchmodel.org/reference/require_gdxtools.html</loc></url>
+<url><loc>http://witchtools.witchmodel.org/reference/require_package.html</loc></url>
+<url><loc>http://witchtools.witchmodel.org/reference/time_mappings.html</loc></url>
+<url><loc>http://witchtools.witchmodel.org/reference/usa_regions.html</loc></url>
+<url><loc>http://witchtools.witchmodel.org/reference/witch_data.html</loc></url>
+<url><loc>http://witchtools.witchmodel.org/reference/witch_data_upload.html</loc></url>
+<url><loc>http://witchtools.witchmodel.org/reference/witch_data_usage.html</loc></url>
+<url><loc>http://witchtools.witchmodel.org/reference/witch_meta_param.html</loc></url>
+<url><loc>http://witchtools.witchmodel.org/reference/witch_query.html</loc></url>
+<url><loc>http://witchtools.witchmodel.org/reference/witch_region_mapping.html</loc></url>
+<url><loc>http://witchtools.witchmodel.org/reference/witch_results_files.html</loc></url>
+<url><loc>http://witchtools.witchmodel.org/reference/witch_scen_name.html</loc></url>
+<url><loc>http://witchtools.witchmodel.org/reference/witch_time_mapping.html</loc></url>
+<url><loc>http://witchtools.witchmodel.org/reference/witch_translate_data.html</loc></url>
+<url><loc>http://witchtools.witchmodel.org/reference/write_native_regions_yml.html</loc></url>
+<url><loc>http://witchtools.witchmodel.org/reference/write_region_mappings_yml.html</loc></url>
 </urlset>
+

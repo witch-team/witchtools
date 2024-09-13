@@ -17,7 +17,7 @@ data for other uses or models.
 
 [![Lifecycle:
 maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
-[![devel:0.4.5](https://img.shields.io/badge/devel%20version-0.4.4-green.svg)](https://github.com/witch-team/witchtools)
+[![devel:0.4.10](https://img.shields.io/badge/devel%20version-0.4.10-green.svg)](https://github.com/witch-team/witchtools)
 [![codecov](https://codecov.io/gh/witch-team/witchtools/branch/master/graph/badge.svg)](https://codecov.io/gh/witch-team/witchtools)
 <!-- badges: end -->
 

@@ -4,7 +4,8 @@
 #'
 #' @param component palette's component (`fuel`, `region`).
 #' @param theme A palette theme (`witch-plot` (default)).
-#' @export
+#' @keywords internal
+#' @noRd
 #'
 paleiee <- function(component = NULL, theme = NULL) {
 

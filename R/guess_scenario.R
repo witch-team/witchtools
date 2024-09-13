@@ -8,7 +8,8 @@
 #' @param keep_ssp if TRUE, keep the ssp in the name even if it the same across
 #' scenario
 #' @param sep separator between the directory prefix and the name, if any.
-#' @export
+#' @keywords internal
+#' @noRd
 #'
 guess_scenario <- function(gdxlist, keep_ssp = FALSE, sep = "_") {
 

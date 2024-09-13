@@ -5,7 +5,6 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="witchtools">
 <title>Region and Time Conversion • witchtools</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
@@ -14,62 +13,46 @@
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.2.2/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.2.2/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
-<!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Region and Time Conversion">
-<meta property="og:description" content="witchtools">
-<meta property="og:image" content="http://witchtools.witchmodel.org/logo.png">
-<!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
-<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-<![endif]-->
+<link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Region and Time Conversion">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
-    
 
-    <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-light"><div class="container">
-    
+
+    <nav class="navbar navbar-expand-lg fixed-top bg-light" data-bs-theme="light" aria-label="Site navigation"><div class="container">
+
     <a class="navbar-brand me-2" href="../index.html">witchtools</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.4.5</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.4.10</small>
 
-    
+
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
-<li class="nav-item">
-  <a class="nav-link" href="../reference/index.html">Reference</a>
-</li>
+<li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="active nav-item dropdown">
-  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
-  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="../articles/converting-time-regions.html">Region and Time Conversion</a>
-  </div>
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
+<li><a class="dropdown-item" href="../articles/converting-time-regions.html">Region and Time Conversion</a></li>
+  </ul>
 </li>
-<li class="nav-item">
-  <a class="nav-link" href="../news/index.html">Changelog</a>
-</li>
+<li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul>
-<form class="form-inline my-2 my-lg-0" role="search">
-        <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off">
-</form>
-
-      <ul class="navbar-nav">
-<li class="nav-item">
-  <a class="external-link nav-link" href="https://github.com/witch-team/witchtools/" aria-label="github">
-    <span class="fab fa fab fa-github fa-lg"></span>
-     
-  </a>
-</li>
+<ul class="navbar-nav">
+<li class="nav-item"><form class="form-inline" role="search">
+ <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json">
+</form></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/witch-team/witchtools/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul>
 </div>
 
-    
+
   </div>
 </nav><div class="container template-article">
 
@@ -81,7 +64,7 @@
       <img src="../logo.png" class="logo" alt=""><h1>Region and Time Conversion</h1>
                         <h4 data-toc-skip class="author">L. Drouet</h4>
             
-            <h4 data-toc-skip class="date">2023-09-21</h4>
+            <h4 data-toc-skip class="date">2024-09-13</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/witch-team/witchtools/blob/HEAD/vignettes/converting-time-regions.Rmd" class="external-link"><code>vignettes/converting-time-regions.Rmd</code></a></small>
       <div class="d-none name"><code>converting-time-regions.Rmd</code></div>
@@ -105,25 +88,27 @@ countries into a 17-region mapping of the WITCH model, then into the
 convention, column names must be “iso3” and “value”</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r-datatable.com" class="external-link">data.table</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/witch-team/witchtools" class="external-link">witchtools</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://witchtools.witchmodel.org">witchtools</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Creation of the initial dataset</span></span>
 <span><span class="co"># Note the column names: iso3 and value</span></span>
-<span><span class="va">gdp_iso3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/copy.html" class="external-link">copy</a></span><span class="op">(</span><span class="va">default_weights</span><span class="op">[[</span><span class="st">'gdp'</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/setattr.html" class="external-link">setnames</a></span><span class="op">(</span><span class="va">gdp_iso3</span>,<span class="st">'weight'</span>,<span class="st">'value'</span><span class="op">)</span></span>
+<span><span class="va">gdp_iso3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdatatable.gitlab.io/data.table/reference/copy.html" class="external-link">copy</a></span><span class="op">(</span><span class="va">default_weights</span><span class="op">[[</span><span class="st">'gdp'</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdatatable.gitlab.io/data.table/reference/setattr.html" class="external-link">setnames</a></span><span class="op">(</span><span class="va">gdp_iso3</span>,<span class="st">'weight'</span>,<span class="st">'value'</span><span class="op">)</span></span>
 <span><span class="va">gdp_iso3</span></span>
-<span><span class="co">#&gt;      iso3        value</span></span>
-<span><span class="co">#&gt;   1:  AFG 7.543866e+01</span></span>
-<span><span class="co">#&gt;   2:  ALB 3.861787e+01</span></span>
-<span><span class="co">#&gt;   3:  DZA 4.673124e+02</span></span>
-<span><span class="co">#&gt;   4:  AGO 1.979695e+02</span></span>
-<span><span class="co">#&gt;   5:  ARG 8.905475e+02</span></span>
-<span><span class="co">#&gt;  ---                  </span></span>
-<span><span class="co">#&gt; 246:  BLM 1.000000e-10</span></span>
-<span><span class="co">#&gt; 247:  CYM 1.000000e-10</span></span>
-<span><span class="co">#&gt; 248:  KNA 1.000000e-10</span></span>
-<span><span class="co">#&gt; 249:  MAF 1.000000e-10</span></span>
-<span><span class="co">#&gt; 250:  MSR 1.000000e-10</span></span></code></pre></div>
+<span><span class="co">#&gt; Index: &lt;value&gt;</span></span>
+<span><span class="co">#&gt;        iso3        value</span></span>
+<span><span class="co">#&gt;      &lt;char&gt;        &lt;num&gt;</span></span>
+<span><span class="co">#&gt;   1:    AFG 7.543866e+01</span></span>
+<span><span class="co">#&gt;   2:    ALB 3.861787e+01</span></span>
+<span><span class="co">#&gt;   3:    DZA 4.673124e+02</span></span>
+<span><span class="co">#&gt;   4:    AGO 1.979695e+02</span></span>
+<span><span class="co">#&gt;   5:    ARG 8.905475e+02</span></span>
+<span><span class="co">#&gt;  ---                    </span></span>
+<span><span class="co">#&gt; 246:    BLM 1.000000e-10</span></span>
+<span><span class="co">#&gt; 247:    CYM 1.000000e-10</span></span>
+<span><span class="co">#&gt; 248:    KNA 1.000000e-10</span></span>
+<span><span class="co">#&gt; 249:    MAF 1.000000e-10</span></span>
+<span><span class="co">#&gt; 250:    MSR 1.000000e-10</span></span></code></pre></div>
 <p>Now, using the function <code>convert_region</code>, we will
 aggregate this dataset at country-level (ISO3) to the 17-region mapping
 of the WITCH model, available as a default mapping.</p>
@@ -132,6 +117,7 @@ of the WITCH model, available as a default mapping.</p>
 <span><span class="va">gdp_witch17</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/convert_region.html">convert_region</a></span><span class="op">(</span><span class="va">gdp_iso3</span>, to_reg <span class="op">=</span> <span class="st">'witch17'</span><span class="op">)</span></span>
 <span><span class="va">gdp_witch17</span></span>
 <span><span class="co">#&gt;         witch17      value</span></span>
+<span><span class="co">#&gt;          &lt;char&gt;      &lt;num&gt;</span></span>
 <span><span class="co">#&gt;  1:        laca  3811.0076</span></span>
 <span><span class="co">#&gt;  2:       sasia  2616.5509</span></span>
 <span><span class="co">#&gt;  3:         ssa  3281.0841</span></span>
@@ -157,6 +143,7 @@ then it is aggregated into 5 regions, automatically.</p>
 <span><span class="va">gdp_r5</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/convert_region.html">convert_region</a></span><span class="op">(</span><span class="va">gdp_witch17</span>, to_reg <span class="op">=</span> <span class="st">'r5'</span><span class="op">)</span></span>
 <span><span class="va">gdp_r5</span></span>
 <span><span class="co">#&gt;        r5     value</span></span>
+<span><span class="co">#&gt;    &lt;char&gt;     &lt;num&gt;</span></span>
 <span><span class="co">#&gt; 1:  r5lam  8973.866</span></span>
 <span><span class="co">#&gt; 2: r5oecd 52788.486</span></span>
 <span><span class="co">#&gt; 3: r5asia 44228.718</span></span>
@@ -172,73 +159,76 @@ function <code>convert_time_period</code>.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="co"># Time-serie</span></span>
-<span><span class="va">dd</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/data.table.html" class="external-link">data.table</a></span><span class="op">(</span>tech <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"tech1"</span>,<span class="st">"tech2"</span><span class="op">)</span>, year <span class="op">=</span> <span class="fl">2005</span><span class="op">:</span><span class="fl">2050</span>, value <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">46</span><span class="op">)</span></span>
+<span><span class="va">dd</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdatatable.gitlab.io/data.table/reference/data.table.html" class="external-link">data.table</a></span><span class="op">(</span>tech <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"tech1"</span>,<span class="st">"tech2"</span><span class="op">)</span>, year <span class="op">=</span> <span class="fl">2005</span><span class="op">:</span><span class="fl">2050</span>, value <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">46</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Aggregate values to the default WITCH time period mapping</span></span>
 <span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/convert_time_period.html">convert_time_period</a></span><span class="op">(</span><span class="va">dd</span>, <span class="st">'t30'</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 20</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">res</span>, nrows <span class="op">=</span> <span class="fl">20</span><span class="op">)</span></span>
-<span><span class="co">#&gt;      tech  t value</span></span>
-<span><span class="co">#&gt;  1: tech1  1     2</span></span>
-<span><span class="co">#&gt;  2: tech2  1     2</span></span>
-<span><span class="co">#&gt;  3: tech2  2     6</span></span>
-<span><span class="co">#&gt;  4: tech1  2     6</span></span>
-<span><span class="co">#&gt;  5: tech1  3    11</span></span>
-<span><span class="co">#&gt;  6: tech2  3    11</span></span>
-<span><span class="co">#&gt;  7: tech2  4    16</span></span>
-<span><span class="co">#&gt;  8: tech1  4    16</span></span>
-<span><span class="co">#&gt;  9: tech1  5    21</span></span>
-<span><span class="co">#&gt; 10: tech2  5    21</span></span>
-<span><span class="co">#&gt; 11: tech2  6    26</span></span>
-<span><span class="co">#&gt; 12: tech1  6    26</span></span>
-<span><span class="co">#&gt; 13: tech1  7    31</span></span>
-<span><span class="co">#&gt; 14: tech2  7    31</span></span>
-<span><span class="co">#&gt; 15: tech2  8    36</span></span>
-<span><span class="co">#&gt; 16: tech1  8    36</span></span>
-<span><span class="co">#&gt; 17: tech1  9    41</span></span>
-<span><span class="co">#&gt; 18: tech2  9    41</span></span>
-<span><span class="co">#&gt; 19: tech2 10    45</span></span>
-<span><span class="co">#&gt; 20: tech1 10    45</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] 20</span></span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">res</span>, nrows <span class="op">=</span> <span class="fl">20</span><span class="op">)</span></span>
+<span><span class="co">#&gt;       tech      t value</span></span>
+<span><span class="co">#&gt;     &lt;char&gt; &lt;char&gt; &lt;num&gt;</span></span>
+<span><span class="co">#&gt;  1:  tech1      1     2</span></span>
+<span><span class="co">#&gt;  2:  tech2      1     2</span></span>
+<span><span class="co">#&gt;  3:  tech2      2     6</span></span>
+<span><span class="co">#&gt;  4:  tech1      2     6</span></span>
+<span><span class="co">#&gt;  5:  tech1      3    11</span></span>
+<span><span class="co">#&gt;  6:  tech2      3    11</span></span>
+<span><span class="co">#&gt;  7:  tech2      4    16</span></span>
+<span><span class="co">#&gt;  8:  tech1      4    16</span></span>
+<span><span class="co">#&gt;  9:  tech1      5    21</span></span>
+<span><span class="co">#&gt; 10:  tech2      5    21</span></span>
+<span><span class="co">#&gt; 11:  tech2      6    26</span></span>
+<span><span class="co">#&gt; 12:  tech1      6    26</span></span>
+<span><span class="co">#&gt; 13:  tech1      7    31</span></span>
+<span><span class="co">#&gt; 14:  tech2      7    31</span></span>
+<span><span class="co">#&gt; 15:  tech2      8    36</span></span>
+<span><span class="co">#&gt; 16:  tech1      8    36</span></span>
+<span><span class="co">#&gt; 17:  tech1      9    41</span></span>
+<span><span class="co">#&gt; 18:  tech2      9    41</span></span>
+<span><span class="co">#&gt; 19:  tech2     10    45</span></span>
+<span><span class="co">#&gt; 20:  tech1     10    45</span></span>
+<span><span class="co">#&gt;       tech      t value</span></span></code></pre></div>
 <p>The function <code>convert_time_period</code> can also extrapolate
 the missing periods.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="co"># Aggregate values to the default WITCH time period mapping with extrapolation</span></span>
 <span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/convert_time_period.html">convert_time_period</a></span><span class="op">(</span><span class="va">dd</span>, <span class="st">'t30'</span>, do_extrap <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 60</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">tail</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt;     tech  t value</span></span>
-<span><span class="co">#&gt; 1: tech2 25    46</span></span>
-<span><span class="co">#&gt; 2: tech2 26    46</span></span>
-<span><span class="co">#&gt; 3: tech2 27    46</span></span>
-<span><span class="co">#&gt; 4: tech2 28    46</span></span>
-<span><span class="co">#&gt; 5: tech2 29    46</span></span>
-<span><span class="co">#&gt; 6: tech2 30    46</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] 60</span></span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">tail</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt;      tech      t value</span></span>
+<span><span class="co">#&gt;    &lt;char&gt; &lt;char&gt; &lt;num&gt;</span></span>
+<span><span class="co">#&gt; 1:  tech2     25    46</span></span>
+<span><span class="co">#&gt; 2:  tech2     26    46</span></span>
+<span><span class="co">#&gt; 3:  tech2     27    46</span></span>
+<span><span class="co">#&gt; 4:  tech2     28    46</span></span>
+<span><span class="co">#&gt; 5:  tech2     29    46</span></span>
+<span><span class="co">#&gt; 6:  tech2     30    46</span></span></code></pre></div>
 </div>
-  </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
+  </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
 </div>
 
 
 
     <footer><div class="pkgdown-footer-left">
-  <p></p>
-<p>Developed by Laurent Drouet, Johannes Emmerling.</p>
+  <p>Developed by Laurent Drouet, Johannes Emmerling.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.0.</p>
 </div>
 
     </footer>
 </div>
 
-  
 
-  
+
+
 
   </body>
 </html>

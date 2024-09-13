@@ -32,6 +32,7 @@ reference:
   contents:
   - default_weights
   - region_mappings
+  - region_descriptions
   - time_mappings
   - witch_meta_param
 - title: WITCH
@@ -47,20 +48,32 @@ reference:
   - witch_region_mapping
   - witch_time_mapping
   - witch_results_files
-- title: Helpers for submission to IIASA database
+- title: IAMC-format
+  desc: >
+    Helpers for submission to the IIASA database
   contents:
-  - write_native_regions_yml
-  - write_region_mappings_yml
-- title: Other functions
+  - iamc_native_regions_yml
+  - iamc_region_mappings_yml
+- title: Regional aggregation
+  desc: >
+    Provides region mappings for regional aggregations.
   contents:
+  - brazil_regions
   - china_regions
   - india_regions
   - eu27_regions
   - eu28_regions
+  - europe_regions
   - oecd_regions
   - eu_regions
-  - many_pals
+  - usa_regions
   - region_id
+- title: Other functions
+  contents:
   - require_gdxtools
   - require_package
-
+- title: Dec functions
+  contents:
+  - archive_filename
+  - archive_restore
+  - archive_store

@@ -6,6 +6,8 @@
 #'
 archive_store <- function(filename, dir_list) {
 
+  .Deprecated()
+
   # Copy file in the archive
   cp_file <- function(folder, .f) {
     if (dir.exists(folder)) {

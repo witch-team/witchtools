@@ -8,6 +8,8 @@
 #'
 archive_filename <- function(reg_id, time_id, ext = ".zip") {
 
+  .Deprecated()
+
   # Get Commit ID
   commit_id <- system("git rev-parse HEAD", intern = TRUE)
 

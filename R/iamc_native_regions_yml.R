@@ -1,7 +1,7 @@
 #' Write the IAMC native regions in yaml as defined in
 #' https://github.com/IAMconsortium/common-definitions
 #'
-#' \code{write_native_regions_yml} write a yaml file with the native regions.
+#' \code{iamc_native_regions_yml} write a yaml file with the native regions.
 
 #' @param filename yaml filename to write
 #' @param model model version
@@ -11,13 +11,13 @@
 #'
 #' @export
 #'
-write_native_regions_yml <- function(filename = NULL,
+iamc_native_regions_yml <- function(filename = NULL,
                                      model = 'WITCH 5.0',
                                      n ='witch17'){
 
   # Get the region descrition match to the n WITCH regions
-  datr = merge(region_descriptions[[n]],
-               region_mappings[[n]],
+  datr = merge(witchtools::region_descriptions[[n]],
+               witchtools::region_mappings[[n]],
                by = n)
 
   # Keep only ISO country code
@@ -40,7 +40,7 @@ write_native_regions_yml <- function(filename = NULL,
 
   #write file
   if (is.null(filename)) {
-    write(la, paste0(stringr::str_replace(model,' ','_'),'.yml'))
+    write(la, paste0('native_regions_', stringr::str_replace_all(model,'[ .]','_'),'.yml'))
   } else {
     write(la, filename)
   }
