@@ -27,7 +27,9 @@ iamc_native_regions_yml <- function(filename = NULL,
   m <- unique(datr$description)
   ii <- NULL
   for (i in seq_along(m)) {
-    oo <- list(desp = list(iso3_codes = datr[description == m[i]]$iso3))
+    iso3_codes = datr[description == m[i]]$iso3
+    iso3_desc = countrycode::countrycode(iso3_codes, "iso3c", "country.name.en")
+    oo <- list(desp = list(countries = iso3_desc))
     names(oo) = paste(model, m[i], sep = '|')
     ii <- c(ii, list(oo))
   }
