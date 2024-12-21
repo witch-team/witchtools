@@ -29,7 +29,8 @@ Description: The package gathers tools and scripts useful for integrated assessm
 License: Apache License (>= 2.0)
 Encoding: UTF-8
 LazyData: true
-Depends: R (>= 3.2.0)
+Depends: 
+    R (>= 3.5)
 Imports: 
     crayon,
     countrycode,
