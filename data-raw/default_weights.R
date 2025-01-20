@@ -3,7 +3,7 @@
 library(gdxtools)
 library(data.table)
 library(witchtools)
-library(arrow)
+library(nanoparquet)
 
 # All these ISO3 should be informed
 iso3_list <- unique(unlist(lapply(region_mappings, function(x) x$iso3)))
@@ -18,15 +18,18 @@ w <- list()
 # Source: SSP 2023 update
 ssp_gdp_pop <- setDT(read_parquet('data-raw/ssp_gdp_pop_2023.parquet'))
 
-#IIASA, population, million
-w <- c(w, list(pop = ssp_gdp_pop[year == 2020 & ssp == "SSP2", .(iso3, weight = pop)]))
+# IIASA, population, million
+w <- c(w, list(pop = ssp_gdp_pop[year == 2020 & ssp == "SSP2",
+                                 .(iso3, weight = pop)]))
 
-#OECD, GDP|PPP, billion USD_2017/yr
-w <- c(w, list(gdp = ssp_gdp_pop[year == 2020 & ssp == "SSP2", .(iso3, weight = gdp)]))
+# OECD, GDP|PPP, billion USD_2017/yr
+w <- c(w, list(gdp = ssp_gdp_pop[year == 2020 & ssp == "SSP2",
+                                 .(iso3, weight = gdp)]))
 
 ## GDP per capita, USD_2017/yr/cap
 ssp_gdp_pop[, gdp_cap := gdp / pop * 1e3]
-w <- c(w, list(gdpcap = ssp_gdp_pop[year == 2020 & ssp == "SSP2", .(iso3, weight = gdp_cap)]))
+w <- c(w, list(gdpcap = ssp_gdp_pop[year == 2020 & ssp == "SSP2",
+                                    .(iso3, weight = gdp_cap)]))
 
 hemi <- setDT(read_parquet('data-raw/primap-hist.parquet'))
 
@@ -106,7 +109,7 @@ ghg.cait <- ghg.cait[!is.na(iso3) &
 w <- c(w, list(ghg_cait = ghg.cait))
 
 # add weights from WDI
-wdi <- fread("data-raw/wdi-wdi_variables.csv")
+wdi <- fread("data-raw/wdi_variables.csv")
 wdi <- wdi[variable != "gdp"]
 w <- c(w, split(
   wdi[year == 2005, .(iso3, weight = value)],
@@ -114,7 +117,7 @@ w <- c(w, split(
 ))
 
 # add weights from WEO
-weo <- data.table::fread("data-raw/imf-weo_variables.csv")
+weo <- data.table::fread("data-raw/weo_variables_2021.csv")
 weo <- split(
   weo[year == 2005, .(iso3, weight = value)],
   weo[year == 2005]$variable
@@ -157,18 +160,20 @@ w <- c(w, list(hildap_cover_forest = cforest,
                oscar_co2lu = xco2lu))
 
 # Renewable capacities and generation in 2015-2020
-elccap <- read_parquet("data-raw/irenastat_elccap_2022.lz4.parquet")
-elcgen <- read_parquet("data-raw/irenastat_elcgen_2022.lz4.parquet")
+elccap <- read_parquet("data-raw/irenastat_elccap_2024.parquet")
+setDT(elccap)
+elcgen <- read_parquet("data-raw/irenastat_elcgen_2024.parquet")
+setDT(elcgen)
 
-elcap_pv <- elccap[year %in% 2015:2020 & technology == "On-grid Solar photovoltaic", .(weight = mean(as.numeric(value))), by = "iso3"]
-elcap_csp <- elccap[year %in% 2015:2020 & technology == "Concentrated solar power", .(weight = mean(as.numeric(value))), by = "iso3"]
+elcap_pv <- elccap[year %in% 2015:2020 & technology == "Solar photovoltaic", .(weight = mean(as.numeric(value))), by = "iso3"]
+elcap_csp <- elccap[year %in% 2015:2020 & technology == "Solar thermal energy", .(weight = mean(as.numeric(value))), by = "iso3"]
 elcap_windoff <- elccap[year %in% 2015:2020 & technology == "Offshore wind energy", .(weight = mean(as.numeric(value))), by = "iso3"]
 elcap_windon <- elccap[year %in% 2015:2020 & technology == "Onshore wind energy", .(weight = mean(as.numeric(value))), by = "iso3"]
 elcap_hydro <- elccap[year %in% 2015:2020 & technology == "Renewable hydropower", .(weight = mean(as.numeric(value))), by = "iso3"]
 elcap_geo <- elccap[year %in% 2015:2020 & technology == "Geothermal energy", .(weight = mean(as.numeric(value))), by = "iso3"]
 
-elgen_pv <- elcgen[year %in% 2015:2020 & technology == "On-grid Solar photovoltaic", .(weight = mean(as.numeric(value))), by = "iso3"]
-elgen_csp <- elcgen[year %in% 2015:2020 & technology == "Concentrated solar power", .(weight = mean(as.numeric(value))), by = "iso3"]
+elgen_pv <- elcgen[year %in% 2015:2020 & technology == "Solar photovoltaic", .(weight = mean(as.numeric(value))), by = "iso3"]
+elgen_csp <- elcgen[year %in% 2015:2020 & technology == "Solar thermal energy", .(weight = mean(as.numeric(value))), by = "iso3"]
 elgen_windoff <- elcgen[year %in% 2015:2020 & technology == "Offshore wind energy", .(weight = mean(as.numeric(value))), by = "iso3"]
 elgen_windon <- elcgen[year %in% 2015:2020 & technology == "Onshore wind energy", .(weight = mean(as.numeric(value))), by = "iso3"]
 elgen_hydro <- elcgen[year %in% 2015:2020 & technology %in% "Renewable hydropower", .(weight = mean(as.numeric(value))), by = "iso3"]
