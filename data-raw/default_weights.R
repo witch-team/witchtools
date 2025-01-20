@@ -193,6 +193,27 @@ w <- c(w, list(elcap_pv = elcap_pv,
                elgen_geo = elgen_geo))
 
 
+# 2025 air quality emissions from CAMS data
+aqemi_2025 <- setDT(read_parquet("data-raw/CAMS-iso3_2025.parquet"))
+so2_emissions_2025    <- aqemi_2025[aqe=="so2", .(iso3, weight=value)]
+oc_emissions_2025     <- aqemi_2025[aqe=="oc", .(iso3, weight=value)]
+nox_emissions_2025    <- aqemi_2025[aqe=="nox", .(iso3, weight=value)]
+nmvocs_emissions_2025 <- aqemi_2025[aqe=="nmvocs", .(iso3, weight=value)]
+nh3_emissions_2025    <- aqemi_2025[aqe=="nh3", .(iso3, weight=value)]
+co_emissions_2025     <- aqemi_2025[aqe=="co", .(iso3, weight=value)]
+ch4_emissions_2025    <- aqemi_2025[aqe=="ch4", .(iso3, weight=value)]
+bc_emissions_2025     <- aqemi_2025[aqe=="bc", .(iso3, weight=value)]
+
+w <- c(w, list(so2_emissions_2025 = so2_emissions_2025,
+               oc_emissions_2025 = oc_emissions_2025,
+               nox_emissions_2025 = nox_emissions_2025,
+               nmvocs_emissions_2025 = nmvocs_emissions_2025,
+               nh3_emissions_2025 = nh3_emissions_2025,
+               co_emissions_2025 = co_emissions_2025,
+               ch4_emissions_2025 = ch4_emissions_2025,
+               bc_emissions_2025 = bc_emissions_2025))
+
+
 #################################
 #################################
 
@@ -255,7 +276,15 @@ witch_weights <- c(
   "elgen_windoff",
   "elgen_windon",
   "elgen_hydro",
-  "elgen_geo"
+  "elgen_geo",
+  "so2_emissions_2025",
+  "oc_emissions_2025",
+  "nox_emissions_2025",
+  "nmvocs_emissions_2025",
+  "nh3_emissions_2025",
+  "co_emissions_2025",
+  "ch4_emissions_2025",
+  "bc_emissions_2025"
 )
 
 default_weights <- w[names(w) %in% witch_weights]
