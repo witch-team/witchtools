@@ -1,3 +1,6 @@
+# witchtools 0.4.11
+- Add weights for Air Pollution
+
 # witchtools 0.4.10
 - Add function to write regions mapping for IAMC submission
 
