@@ -27,7 +27,10 @@ Other misc functions:
 \code{\link{eu_regions}()},
 \code{\link{europe_regions}()},
 \code{\link{india_regions}()},
+\code{\link{indonesia_regions}()},
+\code{\link{oceania_regions}()},
 \code{\link{oecd_regions}()},
-\code{\link{region_id}()}
+\code{\link{region_id}()},
+\code{\link{ssa_regions}()}
 }
 \concept{misc functions}

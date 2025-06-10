@@ -61,11 +61,14 @@ reference:
   - brazil_regions
   - china_regions
   - india_regions
+  - indonesia_regions
   - eu27_regions
   - eu28_regions
   - europe_regions
+  - oceania_regions
   - oecd_regions
   - eu_regions
+  - ssa_regions
   - usa_regions
   - region_id
 - title: Other functions

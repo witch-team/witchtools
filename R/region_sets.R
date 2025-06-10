@@ -1,3 +1,62 @@
+#' Oceania regions for a given region mapping.
+#'
+#' \code{oceania_regions} returns a vector of region representing Oceania
+#'
+#' @family misc functions
+#'
+#' @param region_mapping a data.table of regional mapping.
+#' @return a vector of region name.
+#'
+#' @export
+#' @examples
+#' oceania_regions(region_mappings[["witch17"]])
+oceania_regions <- function(region_mapping) {
+  oceania_iso3 <- c("NZL","AUS","CXR","COK","HMD","NFK","NIU","NRU","PCN",
+                    "TKL","TUV","UMI","WLF","FJI","PNG","FSM","GUM","ASM",
+                    "TLS","PYF","KIR","MNP","MHL","NCL","PLW","WSM","SLB",
+                    "TON","VUT")
+  return(any_regions(oceania_iso3,region_mapping))
+}
+
+#' Indonesia regions for a given region mapping.
+#'
+#' \code{indonesia_regions} returns a vector of region representing Indonesia.
+#'
+#' @family misc functions
+#' @param region_mapping a data.table of regional mapping.
+#' @return a vector of region name.
+#'
+#' @export
+#' @examples
+#' indonesia_regions(region_mappings[["witch17"]])
+indonesia_regions <- function(region_mapping) {
+  indonesia_iso3 <- c("IDN")
+  return(any_regions(indonesia_iso3,region_mapping))
+}
+
+#' SSA regions for a given region mapping.
+#'
+#' \code{ssa_regions} returns a vector of region representing Sub-Saharan Africa.
+#'
+#' @family misc functions
+#' @param region_mapping a data.table of regional mapping.
+#' @return a vector of region name.
+#'
+#' @export
+#' @examples
+#' ssa_regions(region_mappings[["witch17"]])
+ssa_regions <- function(region_mapping) {
+  ssa_iso3 <- c(
+    "DJI","IOT","BVT","ATF","AGO","BEN","BWA","BFA","BDI","CMR",
+    "CPV","CAF","TCD","COM","COG","COD","CIV","GNQ","ERI","ETH",
+    "GAB","GMB","GHA","GIN","GNB","KEN","LSO","LBR","MDG","MWI",
+    "MLI","MRT","MUS","MYT","MOZ","NAM","NER","NGA","REU","RWA",
+    "STP","SEN","SYC","SHN","SLE","SOM","SSD","SDN","SWZ","TZA",
+    "TGO","UGA","ZMB","ZWE"
+  )
+  return(any_regions(ssa_iso3,region_mapping))
+}
+
 #' Brazil regions for a given region mapping.
 #'
 #' \code{brazil_regions} returns a vector of region representing Brazil.

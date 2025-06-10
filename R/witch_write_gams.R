@@ -87,6 +87,14 @@ witch_write_gams <- function(region_mapping,
   writeLines("set is_usa(n) 'USA regions' /", finc)
   writeLines(usa_regions(region_mapping), finc)
   writeLines("/;", finc)
+  # set is_oceania
+  writeLines("set is_oceania(n) 'Oceania regions' /", finc)
+  writeLines(oceania_regions(region_mapping), finc)
+  writeLines("/;", finc)
+  # set is_indonesia
+  writeLines("set is_indonesia(n) 'Indonesia regions' /", finc)
+  writeLines(indonesia_regions(region_mapping), finc)
+  writeLines("/;", finc)
 
   close(finc)
 
