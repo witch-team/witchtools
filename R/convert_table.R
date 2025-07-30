@@ -17,8 +17,8 @@
 #' @param options a list of parameters to send to convert_region or
 #' convert_time_period.
 #' @param time_mapping a time mapping data.table.
-#' @param from_reg initial regional mapping name or a data.table with
-#' the mapping.
+#' @param from_reg a list of initial regional mapping names or a data.tables
+#' with mapping.
 #' @param to_reg final regional mapping name  or a data.table with the mapping.
 #' @param agg_weight aggregation weight data.table
 #' @param regions optional list of region mappings (see Details for format)

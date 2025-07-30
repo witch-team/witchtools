@@ -33,31 +33,45 @@ convert_item <- function(.data,
   }
 
   # Region conversion
-  data_reg <- intersect(colnames(.data), names(region_mappings))
+  all_data_reg <- data.table::data.table(
+    coln = colnames(.data),
+    coln_prf = stringr::str_replace(colnames(.data), "__.*", ""),
+    coln_suf = stringr::str_replace(colnames(.data), ".*__", "__")
+  )
+  all_data_reg[coln == coln_suf, coln_suf := ""]
+  all_data_reg <- all_data_reg[coln_prf %in% names(region_mappings)]
+
   do_region <- FALSE
   # deal with case when data_reg == character(0)
-  if (length(data_reg) == 1) {
-    do_region <- (data_reg != reg_id)
-    data_indices[data_indices == data_reg] <- region_name
+  if (nrow(data_reg) >= 1) {
+    do_region <- nrow(data_reg[coln_prf != reg_id]) >= 0
+    data_indices[data_indices == data_reg$coln] <- paste0(region_name,
+                                                          data_reg$coln_suf)
   }
+
   from_reg <- NULL
   to_reg <- NULL
 
   if (do_region) {
 
-    # Ensure region is lower case / iso3 is upper case
-    if (data_reg != "iso3") {
-      .idx <- which(data_reg == colnames(.data))
-      .data[[.idx]] <- tolower(.data[, get(data_reg)])
-    } else {
-      .data$iso3 <- toupper(.data$iso3)
-    }
+    for (i in seq_along(all_data_reg$coln_prf)) {
 
-    # Set initial regional mapping
-    if (data_reg != "iso3") {
-      from_reg <- region_mappings[[data_reg]]
-    } else {
-      from_reg <- "iso3"
+      # Ensure region is lower case / iso3 is upper case
+      if (all_data_reg$coln_prf[i] != "iso3") {
+        .idx <- which(all_data_reg$coln[i] == colnames(.data))
+        .data[[.idx]] <- tolower(.data[, get(all_data_reg$coln[i])])
+      } else {
+        .idx <- which(all_data_reg$coln[i] == colnames(.data))
+        .data[[.idx]] <- toupper(.data[, get(all_data_reg$coln[i])])
+      }
+
+      # Set initial regional mapping
+      if (all_data_reg$coln_prf[i] != "iso3") {
+        from_reg <- c(from_reg, list(region_mappings[[all_data_reg$coln_prf[i]]]))
+      } else {
+        from_reg <- c(from_reg, list("iso3"))
+      }
+
     }
 
     # Set final regional mapping
@@ -121,7 +135,7 @@ convert_item <- function(.data,
     time_mapping = time_mappings[[time_id]],
     time_aggregate = tagg,
     from_reg = from_reg,
-    to_reg = region_mappings[[reg_id]],
+    to_reg = to_reg,
     agg_weight = weights[[nweight]],
     options = convopt,
     do_time_period = do_time_period,

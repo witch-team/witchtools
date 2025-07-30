@@ -26,7 +26,7 @@
 #'
 #'
 #' @param .x a well-formatted data.table.
-#' @param from_reg initial regional mapping name or a data.table with
+#' @param from_reg a list of initial regional mapping names or data.tables with
 #' the mapping.
 #' @param to_reg final regional mapping name  or a data.table with the mapping.
 #' @param agg_operator aggregation operator (See Details for the list of
@@ -81,7 +81,7 @@ convert_region <- function(.x,
   if (is.null(from_reg)) {
     guess_reg <- intersect(colnames(.x), unique(c("iso3", names(regions))))
     if (length(guess_reg) == 1) {
-      from_reg <- guess_reg
+      from_reg <- list(guess_reg)
     }
   }
 
