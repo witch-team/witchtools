@@ -14,9 +14,8 @@ require_package <- function(pkgs, loading = TRUE) {
       rlang::check_installed("remotes")
       remotes::install_github("lolow/gdxtools")
     }
-    pkgs <- setdiff(pkgs, "gdxtools")
   }
-  rlang::check_installed(pkgs)
+  rlang::check_installed(setdiff(pkgs, "gdxtools"))
   if (loading) {
     for (pkg in pkgs) {
       suppressPackageStartupMessages(library(pkg,
