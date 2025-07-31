@@ -18,12 +18,13 @@ require_package <- function(pkgs, loading = TRUE) {
   }
   rlang::check_installed(pkgs)
   if (loading) {
-    suppressPackageStartupMessages(lapply(pkgs,
-                                          library,
-                                          character.only = TRUE,
-                                          quietly = TRUE
-                                          )
-                                   )
+    for (pkg in pkgs) {
+      suppressPackageStartupMessages(library(pkg,
+                                            character.only = TRUE,
+                                            quietly = TRUE
+                                            )
+                                     )
+    }
   }
 }
 
