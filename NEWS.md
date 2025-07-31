@@ -1,3 +1,6 @@
+# witchtools 0.4.12
+- Use rlang::check_installed to check for and to install required packages
+
 # witchtools 0.4.11
 - Add weights for Air Pollution
 

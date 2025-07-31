@@ -23,7 +23,11 @@ Authors@R:
     person(given = "Lara",
            family = "Aleluia Reis",
            role = c("ctb"),
-           email = "laleluia@gmail.com")
+           email = "laleluia@gmail.com"),
+    person(given = "Marco",
+           family = "Gambarini",
+           role = c("ctb"),
+           email = "marco.gambarini@cmcc.it")
            )
 Description: The package gathers tools and scripts useful for integrated assessment models. It converts input datasets in time and in regions, it provides diagnostic and validation tools and it provides easy access to outputs. The package has been developed in the WITCH modelling framework but it is not limited to it.
 License: Apache License (>= 2.0)

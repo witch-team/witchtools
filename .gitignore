@@ -5,3 +5,4 @@
 *.Rproj
 data-raw/*.*
 !data-raw/*.R
+tests/testthat/testthat-problems.rds

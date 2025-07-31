@@ -1,28 +1,29 @@
-#' Install, if necessary, and load a R library
+#' Install, if necessary, and load R libraries
 #'
-#' @param package package name
+#' @param pkgs package names as a character vector
 #' @param loading if TRUE, package is loaded
 #'
 #' @export
 #' @examples
 #' \dontrun{
-#' require_package("data.table", loading = FALSE)
+#' require_package(c("data.table","gdxtools"), loading = FALSE)
 #' }
-require_package <- function(package, loading = TRUE) {
-  if (!package %in% rownames(utils::installed.packages())) {
-    if (package == "gdxtools") {
+require_package <- function(pkgs, loading = TRUE) {
+  if ("gdxtools" %in% pkgs) {
+    if (! rlang::is_installed("gdxtools")) {
+      rlang::check_installed("remotes")
       remotes::install_github("lolow/gdxtools")
-    } else {
-      try(utils::install.packages(package, repos = "http://cran.rstudio.com"),
-        silent = TRUE
-      )
     }
+    pkgs <- setdiff(pkgs, "gdxtools")
   }
+  rlang::check_installed(pkgs)
   if (loading) {
-    suppressPackageStartupMessages(library(package,
-      character.only = TRUE,
-      quietly = TRUE
-    ))
+    suppressPackageStartupMessages(lapply(pkgs,
+                                          library,
+                                          character.only = TRUE,
+                                          quietly = TRUE
+                                          )
+                                   )
   }
 }
 
