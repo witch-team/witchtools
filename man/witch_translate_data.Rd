@@ -36,7 +36,7 @@ witch_translate_data(
 \code{witch_translate_data} generates the input data for the WITCH model.
 First, it will run the R \code{make_data_files} and the gams \code{make_data_files}
 usually located in the input folder of WITCH. These make_data_files produce
-gdx and sqlite files in the \code{build} folder. Time-series should be yearly.
+gdx, sqlite, and duckdb files in the \code{build} folder. Time-series should be yearly.
 Spatial data should be preferably described at ISO3 level, but the script
 will handle any regional-mapping contained in \code{regions}.
 }

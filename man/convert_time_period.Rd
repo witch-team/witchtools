@@ -77,6 +77,7 @@ convert_time_period(dd, "t30")
 \code{\link{convert_gdx}}.
 
 Other conversion functions: 
+\code{\link{convert_duckdb}()},
 \code{\link{convert_gdx}()},
 \code{\link{convert_region}()},
 \code{\link{convert_sqlite}()},

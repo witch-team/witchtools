@@ -69,6 +69,7 @@ convert_table(gdp_iso3, to_reg = "witch17", time_mapping = "t30")
 \code{\link{convert_gdx}} for WITCH gdx files.
 
 Other conversion functions: 
+\code{\link{convert_duckdb}()},
 \code{\link{convert_gdx}()},
 \code{\link{convert_region}()},
 \code{\link{convert_sqlite}()},

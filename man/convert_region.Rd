@@ -74,6 +74,7 @@ convert_region(gdp_iso3, to_reg = "witch17")
 \code{\link{convert_gdx}}.
 
 Other conversion functions: 
+\code{\link{convert_duckdb}()},
 \code{\link{convert_gdx}()},
 \code{\link{convert_sqlite}()},
 \code{\link{convert_table}()},

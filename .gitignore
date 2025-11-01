@@ -6,3 +6,4 @@
 data-raw/*.*
 !data-raw/*.R
 tests/testthat/testthat-problems.rds
+..Rcheck/00check.log

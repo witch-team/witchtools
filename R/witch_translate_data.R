@@ -3,7 +3,7 @@
 #' \code{witch_translate_data} generates the input data for the WITCH model.
 #' First, it will run the R `make_data_files` and the gams `make_data_files`
 #' usually located in the input folder of WITCH. These make_data_files produce
-#' gdx and sqlite files in the `build` folder. Time-series should be yearly.
+#' gdx, sqlite, and duckdb files in the `build` folder. Time-series should be yearly.
 #' Spatial data should be preferably described at ISO3 level, but the script
 #' will handle any regional-mapping contained in \code{regions}.
 #'
@@ -149,6 +149,33 @@ witch_translate_data <- function(witch_dir = ".",
     for (sqlfile in sqllist) {
       convert_sqlite(
         sqlfile,
+        reg_id,
+        time_id,
+        region_mappings = regions,
+        time_mappings = times,
+        weights = default_weights,
+        region_name = "n",
+        output_directory,
+        default_meta_param = witch_meta_param
+      )
+    }
+  }
+
+  cat(crayon::silver$bold("\U26AB Process input DuckDB file(s)\n"))
+
+  # Find duckdb files to be processed
+  duckdblist <- Sys.glob(file.path(input_directory, "data_*.duckdb"))
+  if (!force) {
+    output_duckdb <- file.path(output_directory, basename(duckdblist))
+    todo <- file.mtime(duckdblist) > file.mtime(output_duckdb)
+    duckdblist <- duckdblist[is.na(todo) | todo]
+  }
+  duckdblist <- sort(duckdblist)
+
+  if (requireNamespace("duckdb", quietly = TRUE) && requireNamespace("DBI", quietly = TRUE)) {
+    for (duckdbfile in duckdblist) {
+      convert_duckdb(
+        duckdbfile,
         reg_id,
         time_id,
         region_mappings = regions,

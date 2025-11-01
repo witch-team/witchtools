@@ -2,20 +2,20 @@
 % Please edit documentation in R/get_libraries.R
 \name{require_package}
 \alias{require_package}
-\title{Install, if necessary, and load a R library}
+\title{Install, if necessary, and load R libraries}
 \usage{
-require_package(package, loading = TRUE)
+require_package(pkgs, loading = TRUE)
 }
 \arguments{
-\item{package}{package name}
+\item{pkgs}{package names as a character vector}
 
 \item{loading}{if TRUE, package is loaded}
 }
 \description{
-Install, if necessary, and load a R library
+Install, if necessary, and load R libraries
 }
 \examples{
 \dontrun{
-require_package("data.table", loading = FALSE)
+require_package(c("data.table","gdxtools"), loading = FALSE)
 }
 }

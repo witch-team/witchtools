@@ -61,6 +61,7 @@ convert_gdx("input/build/data_climate.gdx", "witch17", "t30", "data_witch17")
 \code{\link{convert_table}}, \code{\link{convert_sqlite}}.
 
 Other conversion functions: 
+\code{\link{convert_duckdb}()},
 \code{\link{convert_region}()},
 \code{\link{convert_sqlite}()},
 \code{\link{convert_table}()},
