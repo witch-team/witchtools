@@ -155,12 +155,14 @@ install_duckdb_safe <- function() {
 
   message("Installing package '", pkg, "' from r-universe and CRAN...")
 
-  print(interactive())
-  utils::install.packages(pkg, repos = repos)
-
   # Attempt installation
   install_result <- tryCatch({
-    utils::install.packages(pkg, repos = repos)
+    if (interactive()) {
+      utils::install.packages(pkg, quiet = FALSE, repos = repos)
+    } else {
+      # Non-interactive: install without prompting
+      utils::install.packages(pkg, quiet = TRUE, repos = repos)
+    }
     TRUE
   }, error = function(e) {
     list(error = TRUE, message = conditionMessage(e))
