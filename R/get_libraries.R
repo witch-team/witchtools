@@ -155,36 +155,7 @@ install_duckdb_safe <- function() {
 
   message("Installing package '", pkg, "' from r-universe and CRAN...")
 
-  # Outside of TryCatch
-  .interactive <- interactive()
-  options(timeout = 1000)
-
-  # Attempt installation
-  install_result <- tryCatch({
-    #if (.interactive) {
-      utils::install.packages(pkg, quiet = FALSE, repos = repos)
-    #} else {
-    #  # Non-interactive: install without prompting
-    #  utils::install.packages(pkg, quiet = TRUE, repos = repos)
-    #}
-    TRUE
-  }, error = function(e) {
-    list(error = TRUE, message = conditionMessage(e))
-  }, warning = function(w) {
-    # Treat warnings as potential failures
-    list(error = TRUE, message = conditionMessage(w))
-  })
-
-  # Check if installation was successful
-  if (is.list(install_result) && isTRUE(install_result$error)) {
-    stop(
-      "Failed to install package '", pkg, "'.\n",
-      "Error: ", install_result$message, "\n",
-      "Please check your internet connection and try again, or install manually with:\n",
-      "  install.packages('", pkg, "', repos = c('https://duckdb.r-universe.dev', 'https://cloud.r-project.org'))",
-      call. = FALSE
-    )
-  }
+  utils::install.packages(pkg, repos = repos)
 
   # Verify the package is now installed
   if (!rlang::is_installed(pkg)) {
