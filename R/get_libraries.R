@@ -16,20 +16,20 @@ require_package <- function(pkgs, loading = TRUE) {
       if (!rlang::is_installed("remotes")) {
         install_package_safe("remotes")
       }
-      
+
       # Install gdxtools from GitHub
       message("Installing gdxtools from GitHub...")
       remotes::install_github("lolow/gdxtools", quiet = !interactive())
     }
   }
-  
+
   # Special handling for duckdb (uses r-universe)
   if ("duckdb" %in% pkgs) {
     if (!rlang::is_installed("duckdb")) {
       install_duckdb_safe()
     }
   }
-  
+
   # Handle remaining packages
   other_pkgs <- setdiff(pkgs, c("gdxtools", "duckdb"))
   for (pkg in other_pkgs) {
@@ -37,7 +37,7 @@ require_package <- function(pkgs, loading = TRUE) {
       install_package_safe(pkg)
     }
   }
-  
+
   # Load packages if requested
   if (loading) {
     for (pkg in pkgs) {
@@ -57,18 +57,18 @@ require_package <- function(pkgs, loading = TRUE) {
 install_package_safe <- function(pkg) {
   # Check if user library path exists and is writable
   user_lib <- Sys.getenv("R_LIBS_USER")
-  
+
   # Get the first writable library path
   lib_paths <- .libPaths()
   writable_lib <- NULL
-  
+
   for (lib in lib_paths) {
     if (dir.exists(lib) && file.access(lib, mode = 2) == 0) {
       writable_lib <- lib
       break
     }
   }
-  
+
   # If no writable library exists, check if we can create the user library
   if (is.null(writable_lib)) {
     if (user_lib != "" && !dir.exists(user_lib)) {
@@ -80,7 +80,7 @@ install_package_safe <- function(pkg) {
         writable_lib <- NULL
       })
     }
-    
+
     # If still no writable library, provide helpful error
     if (is.null(writable_lib)) {
       stop(
@@ -94,16 +94,16 @@ install_package_safe <- function(pkg) {
       )
     }
   }
-  
+
   # Install the package
   # Ensure we have a valid repository setting
   repos <- getOption("repos")
   if (is.null(repos) || identical(repos, c(CRAN = "@CRAN@")) || repos["CRAN"] == "@CRAN@") {
     repos <- c(CRAN = "https://cloud.r-project.org")
   }
-  
+
   message("Installing package '", pkg, "' from CRAN...")
-  
+
   # Attempt installation
   install_result <- tryCatch({
     if (interactive()) {
@@ -119,7 +119,7 @@ install_package_safe <- function(pkg) {
     # Treat warnings as potential failures
     list(error = TRUE, message = conditionMessage(w))
   })
-  
+
   # Check if installation was successful
   if (is.list(install_result) && isTRUE(install_result$error)) {
     stop(
@@ -130,7 +130,7 @@ install_package_safe <- function(pkg) {
       call. = FALSE
     )
   }
-  
+
   # Verify the package is now installed
   if (!rlang::is_installed(pkg)) {
     stop(
@@ -140,7 +140,7 @@ install_package_safe <- function(pkg) {
       call. = FALSE
     )
   }
-  
+
   message("Package '", pkg, "' installed successfully.")
 }
 
@@ -149,59 +149,19 @@ install_package_safe <- function(pkg) {
 #' @keywords internal
 install_duckdb_safe <- function() {
   pkg <- "duckdb"
-  
-  # Check if user library path exists and is writable
-  user_lib <- Sys.getenv("R_LIBS_USER")
-  
-  # Get the first writable library path
-  lib_paths <- .libPaths()
-  writable_lib <- NULL
-  
-  for (lib in lib_paths) {
-    if (dir.exists(lib) && file.access(lib, mode = 2) == 0) {
-      writable_lib <- lib
-      break
-    }
-  }
-  
-  # If no writable library exists, check if we can create the user library
-  if (is.null(writable_lib)) {
-    if (user_lib != "" && !dir.exists(user_lib)) {
-      # Try to create user library directory
-      tryCatch({
-        dir.create(user_lib, recursive = TRUE, showWarnings = FALSE)
-        writable_lib <- user_lib
-      }, error = function(e) {
-        writable_lib <- NULL
-      })
-    }
-    
-    # If still no writable library, provide helpful error
-    if (is.null(writable_lib)) {
-      stop(
-        "No writable R library directory found to install package '", pkg, "'.\n",
-        "Please create a user library directory by running:\n",
-        "  dir.create(Sys.getenv('R_LIBS_USER'), recursive = TRUE)\n",
-        "Or set R_LIBS_USER environment variable to a writable directory:\n",
-        "  Sys.setenv(R_LIBS_USER = '/path/to/your/R/library')\n",
-        "Then restart R and try again.",
-        call. = FALSE
-      )
-    }
-  }
-  
+
   # Use r-universe for duckdb installation for better pre-compiled binaries
   repos <- c("https://duckdb.r-universe.dev", "https://cloud.r-project.org")
-  
+
   message("Installing package '", pkg, "' from r-universe and CRAN...")
-  
+
   # Attempt installation
   install_result <- tryCatch({
     if (interactive()) {
-      utils::install.packages(pkg, lib = writable_lib, quiet = FALSE, repos = repos)
+      utils::install.packages(pkg, quiet = FALSE, repos = repos)
     } else {
       # Non-interactive: install without prompting
-      utils::install.packages(pkg, lib = writable_lib, quiet = TRUE, repos = repos)
+      utils::install.packages(pkg, quiet = TRUE, repos = repos)
     }
     TRUE
   }, error = function(e) {
@@ -210,7 +170,7 @@ install_duckdb_safe <- function() {
     # Treat warnings as potential failures
     list(error = TRUE, message = conditionMessage(w))
   })
-  
+
   # Check if installation was successful
   if (is.list(install_result) && isTRUE(install_result$error)) {
     stop(
@@ -221,7 +181,7 @@ install_duckdb_safe <- function() {
       call. = FALSE
     )
   }
-  
+
   # Verify the package is now installed
   if (!rlang::is_installed(pkg)) {
     stop(
@@ -231,7 +191,7 @@ install_duckdb_safe <- function() {
       call. = FALSE
     )
   }
-  
+
   message("Package '", pkg, "' installed successfully.")
 }
 
