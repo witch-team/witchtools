@@ -91,13 +91,18 @@ install_package_safe <- function(pkg) {
   }
   
   # Install the package
+  # Ensure we have a valid repository setting
+  repos <- getOption("repos")
+  if (is.null(repos) || identical(repos, c(CRAN = "@CRAN@")) || repos["CRAN"] == "@CRAN@") {
+    repos <- c(CRAN = "https://cloud.r-project.org")
+  }
+  
   if (interactive()) {
     message("Installing package: ", pkg)
-    utils::install.packages(pkg, lib = writable_lib, quiet = FALSE)
+    utils::install.packages(pkg, lib = writable_lib, quiet = FALSE, repos = repos)
   } else {
     # Non-interactive: install without prompting
-    utils::install.packages(pkg, lib = writable_lib, quiet = TRUE, 
-                           repos = getOption("repos"))
+    utils::install.packages(pkg, lib = writable_lib, quiet = TRUE, repos = repos)
   }
 }
 

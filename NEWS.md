@@ -1,6 +1,9 @@
 # witchtools 0.4.13
 - Add `convert_duckdb` function for batch conversion of DuckDB databases
-- Add duckdb as optional dependency (Suggests)
+- Add DBI and duckdb as optional dependencies (Suggests)
+- Update `witch_translate_data` to automatically process DuckDB files (`data_*.duckdb`)
+- Improve `require_package` to automatically install missing packages in non-interactive sessions
+- Add helpful error messages when no writable R library directory is available
 
 # witchtools 0.4.12
 - Use rlang::check_installed to check for and to install required packages
