@@ -99,11 +99,41 @@ install_package_safe <- function(pkg) {
   
   message("Installing package '", pkg, "' from CRAN...")
   
-  if (interactive()) {
-    utils::install.packages(pkg, lib = writable_lib, quiet = FALSE, repos = repos)
-  } else {
-    # Non-interactive: install without prompting
-    utils::install.packages(pkg, lib = writable_lib, quiet = TRUE, repos = repos)
+  # Attempt installation
+  install_result <- tryCatch({
+    if (interactive()) {
+      utils::install.packages(pkg, lib = writable_lib, quiet = FALSE, repos = repos)
+    } else {
+      # Non-interactive: install without prompting
+      utils::install.packages(pkg, lib = writable_lib, quiet = TRUE, repos = repos)
+    }
+    TRUE
+  }, error = function(e) {
+    list(error = TRUE, message = conditionMessage(e))
+  }, warning = function(w) {
+    # Treat warnings as potential failures
+    list(error = TRUE, message = conditionMessage(w))
+  })
+  
+  # Check if installation was successful
+  if (is.list(install_result) && isTRUE(install_result$error)) {
+    stop(
+      "Failed to install package '", pkg, "'.\n",
+      "Error: ", install_result$message, "\n",
+      "Please check your internet connection and try again, or install manually with:\n",
+      "  install.packages('", pkg, "')",
+      call. = FALSE
+    )
+  }
+  
+  # Verify the package is now installed
+  if (!rlang::is_installed(pkg)) {
+    stop(
+      "Package '", pkg, "' installation completed but the package is not available.\n",
+      "This may indicate a failed installation. Please try installing manually with:\n",
+      "  install.packages('", pkg, "')",
+      call. = FALSE
+    )
   }
   
   message("Package '", pkg, "' installed successfully.")
