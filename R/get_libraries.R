@@ -157,6 +157,7 @@ install_duckdb_safe <- function() {
 
   # Outside of TryCatch
   .interactive <- interactive()
+  options(timeout = 1000)
 
   # Attempt installation
   install_result <- tryCatch({
