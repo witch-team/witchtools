@@ -7,9 +7,12 @@
 #' are read in the parameter \code{meta_param} also stored in the
 #' \code{duckdb}.
 #'
+#' Performance can be optimized using \code{\link{set_duckdb_options}} to configure
+#' memory limits, streaming mode, and temporary storage. This is particularly useful
+#' for large datasets or systems with limited RAM.
 #'
 #' @family conversion functions
-#' @seealso \code{\link{convert_table}}, \code{\link{convert_gdx}}, \code{\link{convert_sqlite}}.
+#' @seealso \code{\link{convert_table}}, \code{\link{convert_gdx}}, \code{\link{convert_sqlite}}, \code{\link{set_duckdb_options}}.
 #'
 #' @param duckdb DuckDB file.
 #' @param reg_id final regional aggregation.
@@ -50,7 +53,27 @@ convert_duckdb <- function(duckdb,
 
   cat(crayon::blue$bold(paste("Processing", basename(duckdb), "\n")))
 
-  duckdb_conn <- DBI::dbConnect(duckdb::duckdb(), dbdir = duckdb, read_only = TRUE)
+  # Get DuckDB optimization options
+  memory_limit <- getOption("witchtools.duckdb.memory_limit", default = NULL)
+  streaming <- getOption("witchtools.duckdb.streaming", default = FALSE)
+  chunk_size <- getOption("witchtools.duckdb.chunk_size", default = 100000)
+  temp_directory <- getOption("witchtools.duckdb.temp_directory", default = NULL)
+  
+  # Configure DuckDB connection with optimization settings
+  config <- list()
+  if (!is.null(memory_limit)) {
+    config$memory_limit <- memory_limit
+    cat(crayon::blue(paste("  Memory limit:", memory_limit, "\n")))
+  }
+  if (!is.null(temp_directory)) {
+    config$temp_directory <- temp_directory
+    cat(crayon::blue(paste("  Temp directory:", temp_directory, "\n")))
+  }
+  
+  duckdb_conn <- DBI::dbConnect(duckdb::duckdb(), 
+                                dbdir = duckdb, 
+                                read_only = TRUE,
+                                config = if (length(config) > 0) config else NULL)
 
   # tables collector
   tabs <- list()
@@ -78,8 +101,35 @@ convert_duckdb <- function(duckdb,
   for (item in items) {
     cat(crayon::blue(paste(" - table", item, "\n")))
 
-    query <- paste0("select * from ", item)
-    .data <- data.table::setDT(DBI::dbGetQuery(duckdb_conn, query))
+    # Use streaming mode for large tables if enabled
+    if (streaming) {
+      # Get row count first
+      count_query <- paste0("SELECT COUNT(*) as n FROM ", item)
+      row_count <- DBI::dbGetQuery(duckdb_conn, count_query)$n
+      
+      if (row_count > chunk_size) {
+        cat(crayon::blue(paste("   Streaming", row_count, "rows in chunks of", chunk_size, "\n")))
+        
+        # Fetch data in chunks
+        .data_chunks <- list()
+        offset <- 0
+        while (offset < row_count) {
+          query <- paste0("SELECT * FROM ", item, " LIMIT ", chunk_size, " OFFSET ", offset)
+          chunk <- data.table::setDT(DBI::dbGetQuery(duckdb_conn, query))
+          .data_chunks[[length(.data_chunks) + 1]] <- chunk
+          offset <- offset + chunk_size
+        }
+        .data <- data.table::rbindlist(.data_chunks, use.names = TRUE)
+      } else {
+        # Small table, fetch normally
+        query <- paste0("SELECT * FROM ", item)
+        .data <- data.table::setDT(DBI::dbGetQuery(duckdb_conn, query))
+      }
+    } else {
+      # Standard fetch (all at once)
+      query <- paste0("SELECT * FROM ", item)
+      .data <- data.table::setDT(DBI::dbGetQuery(duckdb_conn, query))
+    }
 
     item_param <- meta_param[parameter == item]
 
@@ -119,22 +169,35 @@ convert_duckdb <- function(duckdb,
 
   cat(crayon::blue(paste(" -", "writing DuckDB db\n")))
 
+  # Open connection for writing with same configuration
   duckdb_conn <- DBI::dbConnect(duckdb::duckdb(),
     dbdir = file.path(
       output_directory,
       basename(duckdb)
-    )
+    ),
+    config = if (length(config) > 0) config else NULL
   )
-  for (i in seq_along(tabs)) {
-    DBI::dbWriteTable(duckdb_conn,
-      names(tabs)[i],
-      tabs[[i]],
-      row.names = FALSE,
-      overwrite = TRUE,
-      append = FALSE,
-      field.types = NULL
-    )
-  }
+  
+  # Use transaction for batch writes (more efficient)
+  DBI::dbBegin(duckdb_conn)
+  
+  tryCatch({
+    for (i in seq_along(tabs)) {
+      DBI::dbWriteTable(duckdb_conn,
+        names(tabs)[i],
+        tabs[[i]],
+        row.names = FALSE,
+        overwrite = TRUE,
+        append = FALSE
+      )
+    }
+    # Commit all writes at once
+    DBI::dbCommit(duckdb_conn)
+  }, error = function(e) {
+    # Rollback on error
+    DBI::dbRollback(duckdb_conn)
+    stop("Error writing tables: ", e$message)
+  })
 
   DBI::dbDisconnect(duckdb_conn, shutdown = TRUE)
 }

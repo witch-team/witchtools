@@ -3,6 +3,12 @@
   options(witchtools.method = "local")
   options(witchtools.witch_data_repo = "witch-team/witch-data")
   options(witchtools.noCheck = TRUE)
+  
+  # DuckDB optimization options
+  options(witchtools.duckdb.memory_limit = NULL)  # e.g., "4GB", "8GB"
+  options(witchtools.duckdb.streaming = FALSE)     # Use streaming for large tables
+  options(witchtools.duckdb.chunk_size = 100000)   # Rows per chunk in streaming mode
+  options(witchtools.duckdb.temp_directory = NULL) # Temp directory for disk spillover
 }
 
 # Import package operators

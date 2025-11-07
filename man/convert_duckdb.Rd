@@ -53,6 +53,11 @@ using the \code{convert_table} function. Specific conversion options
 are read in the parameter \code{meta_param} also stored in the
 \code{duckdb}.
 }
+\details{
+Performance can be optimized using \code{\link{set_duckdb_options}} to configure
+memory limits, streaming mode, and temporary storage. This is particularly useful
+for large datasets or systems with limited RAM.
+}
 \examples{
 \dontrun{
 convert_duckdb("input/build/data_climate.duckdb", "witch17", "t30", "data_witch17")
@@ -60,7 +65,7 @@ convert_duckdb("input/build/data_climate.duckdb", "witch17", "t30", "data_witch1
 
 }
 \seealso{
-\code{\link{convert_table}}, \code{\link{convert_gdx}}, \code{\link{convert_sqlite}}.
+\code{\link{convert_table}}, \code{\link{convert_gdx}}, \code{\link{convert_sqlite}}, \code{\link{set_duckdb_options}}.
 
 Other conversion functions: 
 \code{\link{convert_gdx}()},
