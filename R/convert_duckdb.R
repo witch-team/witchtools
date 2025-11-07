@@ -70,10 +70,17 @@ convert_duckdb <- function(duckdb,
     cat(crayon::blue(paste("  Temp directory:", temp_directory, "\n")))
   }
   
-  duckdb_conn <- DBI::dbConnect(duckdb::duckdb(), 
-                                dbdir = duckdb, 
-                                read_only = TRUE,
-                                config = if (length(config) > 0) config else NULL)
+  # Connect with or without config
+  if (length(config) > 0) {
+    duckdb_conn <- DBI::dbConnect(duckdb::duckdb(), 
+                                  dbdir = duckdb, 
+                                  read_only = TRUE,
+                                  config = config)
+  } else {
+    duckdb_conn <- DBI::dbConnect(duckdb::duckdb(), 
+                                  dbdir = duckdb, 
+                                  read_only = TRUE)
+  }
 
   # tables collector
   tabs <- list()
@@ -170,13 +177,22 @@ convert_duckdb <- function(duckdb,
   cat(crayon::blue(paste(" -", "writing DuckDB db\n")))
 
   # Open connection for writing with same configuration
-  duckdb_conn <- DBI::dbConnect(duckdb::duckdb(),
-    dbdir = file.path(
-      output_directory,
-      basename(duckdb)
-    ),
-    config = if (length(config) > 0) config else NULL
-  )
+  if (length(config) > 0) {
+    duckdb_conn <- DBI::dbConnect(duckdb::duckdb(),
+      dbdir = file.path(
+        output_directory,
+        basename(duckdb)
+      ),
+      config = config
+    )
+  } else {
+    duckdb_conn <- DBI::dbConnect(duckdb::duckdb(),
+      dbdir = file.path(
+        output_directory,
+        basename(duckdb)
+      )
+    )
+  }
   
   # Use transaction for batch writes (more efficient)
   DBI::dbBegin(duckdb_conn)
