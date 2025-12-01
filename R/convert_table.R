@@ -54,6 +54,7 @@ convert_table <- function(.x,
   if (do_time_period) {
     time_params <- dots[which(names(dots) %in% c(
       "do_interp",
+      "interp_method",
       "do_extrap",
       "do_past_extrap",
       "year_name",
