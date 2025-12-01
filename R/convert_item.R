@@ -117,6 +117,24 @@ convert_item <- function(.data,
     tagg <- item_param[type == "tagg"][1, value]
   }
 
+  # Interpolation method - auto-detect based on typical timestep
+  interp_method <- "linear"
+  if (nrow(item_param[type == "interp_method"]) > 0) {
+    interp_method <- item_param[type == "interp_method"][1, value]
+  } else {
+    # Calculate typical timestep from time mapping
+    tm <- time_mappings[[time_id]]
+    if (!is.null(tm) && nrow(tm) > 1) {
+      # Ensure refyear is numeric before calculating diff
+      refyears <- as.numeric(as.character(unique(tm$refyear)))
+      typical_tstep <- median(diff(sort(refyears)))
+      if (typical_tstep <= 1) {
+        interp_method <- "spline_monoH.FC"  # yearly or sub-yearly
+      }
+    }
+  }
+  convopt[["interp_method"]] <- interp_method
+
   .conv <- convert_table(.data,
     time_mapping = time_mappings[[time_id]],
     time_aggregate = tagg,
