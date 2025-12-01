@@ -60,7 +60,7 @@ install_package_safe <- function(pkg) {
 
   message("Installing package '", pkg, "' from CRAN...")
 
-  utils::install.packages(pkg, lib = writable_lib, quiet = FALSE, repos = repos)
+  utils::install.packages(pkg, repos = repos)
 
   # Verify the package is now installed
   if (!rlang::is_installed(pkg)) {
