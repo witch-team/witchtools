@@ -11,6 +11,7 @@
 <url><loc>http://witchtools.witchmodel.org/reference/archive_store.html</loc></url>
 <url><loc>http://witchtools.witchmodel.org/reference/brazil_regions.html</loc></url>
 <url><loc>http://witchtools.witchmodel.org/reference/china_regions.html</loc></url>
+<url><loc>http://witchtools.witchmodel.org/reference/convert_duckdb.html</loc></url>
 <url><loc>http://witchtools.witchmodel.org/reference/convert_gdx.html</loc></url>
 <url><loc>http://witchtools.witchmodel.org/reference/convert_region.html</loc></url>
 <url><loc>http://witchtools.witchmodel.org/reference/convert_sqlite.html</loc></url>
@@ -25,13 +26,19 @@
 <url><loc>http://witchtools.witchmodel.org/reference/iamc_region_mappings_yml.html</loc></url>
 <url><loc>http://witchtools.witchmodel.org/reference/index.html</loc></url>
 <url><loc>http://witchtools.witchmodel.org/reference/india_regions.html</loc></url>
+<url><loc>http://witchtools.witchmodel.org/reference/indonesia_regions.html</loc></url>
+<url><loc>http://witchtools.witchmodel.org/reference/install_duckdb_safe.html</loc></url>
+<url><loc>http://witchtools.witchmodel.org/reference/install_package_safe.html</loc></url>
 <url><loc>http://witchtools.witchmodel.org/reference/many_pals.html</loc></url>
+<url><loc>http://witchtools.witchmodel.org/reference/oceania_regions.html</loc></url>
 <url><loc>http://witchtools.witchmodel.org/reference/oecd_regions.html</loc></url>
+<url><loc>http://witchtools.witchmodel.org/reference/premise_region_mapping.html</loc></url>
 <url><loc>http://witchtools.witchmodel.org/reference/region_descriptions.html</loc></url>
 <url><loc>http://witchtools.witchmodel.org/reference/region_id.html</loc></url>
 <url><loc>http://witchtools.witchmodel.org/reference/region_mappings.html</loc></url>
 <url><loc>http://witchtools.witchmodel.org/reference/require_gdxtools.html</loc></url>
 <url><loc>http://witchtools.witchmodel.org/reference/require_package.html</loc></url>
+<url><loc>http://witchtools.witchmodel.org/reference/ssa_regions.html</loc></url>
 <url><loc>http://witchtools.witchmodel.org/reference/time_mappings.html</loc></url>
 <url><loc>http://witchtools.witchmodel.org/reference/usa_regions.html</loc></url>
 <url><loc>http://witchtools.witchmodel.org/reference/witch_data.html</loc></url>

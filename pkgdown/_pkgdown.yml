@@ -22,6 +22,7 @@ reference:
     database files.
   contents:
   - convert_gdx
+  - convert_duckdb
   - convert_region
   - convert_sqlite
   - convert_table
@@ -75,6 +76,9 @@ reference:
   contents:
   - require_gdxtools
   - require_package
+  - install_duckdb_safe
+  - install_package_safe
+  - premise_region_mapping
 - title: Dec functions
   contents:
   - archive_filename
