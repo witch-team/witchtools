@@ -1,3 +1,8 @@
+# witchtools 0.5.0
+- Require `gdxtools (>= 1.0.0)` — the gamstransfer-backed release.
+  `require_package("gdxtools")` now re-installs from GitHub when the
+  local copy is older than 1.0.0.
+
 # witchtools 0.4.13
 - Add `convert_duckdb` function for batch conversion of DuckDB databases
 - Add DBI and duckdb as optional dependencies (Suggests)

@@ -1,0 +1,124 @@
+# Package index
+
+## Conversion
+
+Conversion of well-formated data.table, including batch conversion for
+database files.
+
+- [`convert_gdx()`](http://witchtools.witchmodel.org/reference/convert_gdx.md)
+  : Batch convert parameters and variables from a GDX
+- [`convert_duckdb()`](http://witchtools.witchmodel.org/reference/convert_duckdb.md)
+  : Batch convert tables from a DuckDB database
+- [`convert_region()`](http://witchtools.witchmodel.org/reference/convert_region.md)
+  : Convert a data.table from a regional mapping to another.
+- [`convert_sqlite()`](http://witchtools.witchmodel.org/reference/convert_sqlite.md)
+  : Batch convert tables from a SQLite database
+- [`convert_table()`](http://witchtools.witchmodel.org/reference/convert_table.md)
+  : Convert time periods and regions in a table.
+- [`convert_time_period()`](http://witchtools.witchmodel.org/reference/convert_time_period.md)
+  : Convert a data.table from year to time period.
+
+## Default datasets
+
+Default datasets used to process the WITCH model inputs.
+
+- [`default_weights`](http://witchtools.witchmodel.org/reference/default_weights.md)
+  : Default weights.
+- [`region_mappings`](http://witchtools.witchmodel.org/reference/region_mappings.md)
+  : Default regional mapping
+- [`region_descriptions`](http://witchtools.witchmodel.org/reference/region_descriptions.md)
+  : Default regional descriptions
+- [`time_mappings`](http://witchtools.witchmodel.org/reference/time_mappings.md)
+  : Default timescale mapping
+- [`witch_meta_param`](http://witchtools.witchmodel.org/reference/witch_meta_param.md)
+  : WITCH default meta parameter
+
+## WITCH
+
+WITCH specific functions.
+
+- [`witch_data()`](http://witchtools.witchmodel.org/reference/witch_data.md)
+  : Handler for witch-data files in WITCH
+- [`witch_data_upload()`](http://witchtools.witchmodel.org/reference/witch_data_upload.md)
+  : Upload a file as an asset in a release of a github repository
+  (deprecated).
+- [`witch_data_usage()`](http://witchtools.witchmodel.org/reference/witch_data_usage.md)
+  : Wrapper for the usage of a make_data file in WITCH for future use of
+  witch_data
+- [`witch_query()`](http://witchtools.witchmodel.org/reference/witch_query.md)
+  : Fast query of WITCH results files
+- [`witch_scen_name()`](http://witchtools.witchmodel.org/reference/witch_scen_name.md)
+  : Scenario name from the GDX filename
+- [`witch_translate_data()`](http://witchtools.witchmodel.org/reference/witch_translate_data.md)
+  : Translate WITCH data (run make_data files and convert data).
+- [`witch_region_mapping()`](http://witchtools.witchmodel.org/reference/witch_region_mapping.md)
+  : Read region mapping from a regional WITCH GAMS file.
+- [`witch_time_mapping()`](http://witchtools.witchmodel.org/reference/witch_time_mapping.md)
+  : Read time mapping from a csv file.
+- [`witch_results_files()`](http://witchtools.witchmodel.org/reference/witch_results_files.md)
+  : List of WITCH results files
+
+## IAMC-format
+
+Helpers for submission to the IIASA database
+
+- [`iamc_native_regions_yml()`](http://witchtools.witchmodel.org/reference/iamc_native_regions_yml.md)
+  : Write the IAMC native regions in yaml as defined in
+  https://github.com/IAMconsortium/common-definitions
+- [`iamc_region_mappings_yml()`](http://witchtools.witchmodel.org/reference/iamc_region_mappings_yml.md)
+  : Write the IAMC regional mapping to common regions for WITCH yml file
+  as in https://github.com/IAMconsortium/common-definitions
+
+## Regional aggregation
+
+Provides region mappings for regional aggregations.
+
+- [`brazil_regions()`](http://witchtools.witchmodel.org/reference/brazil_regions.md)
+  : Brazil regions for a given region mapping.
+- [`china_regions()`](http://witchtools.witchmodel.org/reference/china_regions.md)
+  : China regions for a given region mapping.
+- [`india_regions()`](http://witchtools.witchmodel.org/reference/india_regions.md)
+  : India regions for a given region mapping.
+- [`indonesia_regions()`](http://witchtools.witchmodel.org/reference/indonesia_regions.md)
+  : Indonesia regions for a given region mapping.
+- [`eu27_regions()`](http://witchtools.witchmodel.org/reference/eu27_regions.md)
+  : EU27 regions for a given region mapping.
+- [`eu28_regions()`](http://witchtools.witchmodel.org/reference/eu28_regions.md)
+  : EU28 regions for a given region mapping.
+- [`europe_regions()`](http://witchtools.witchmodel.org/reference/europe_regions.md)
+  : European regions for a given region mapping.
+- [`oceania_regions()`](http://witchtools.witchmodel.org/reference/oceania_regions.md)
+  : Oceania regions for a given region mapping.
+- [`oecd_regions()`](http://witchtools.witchmodel.org/reference/oecd_regions.md)
+  : OECD regions for a given region mapping.
+- [`eu_regions()`](http://witchtools.witchmodel.org/reference/eu_regions.md)
+  : EU regions for a given region mapping.
+- [`ssa_regions()`](http://witchtools.witchmodel.org/reference/ssa_regions.md)
+  : SSA regions for a given region mapping.
+- [`usa_regions()`](http://witchtools.witchmodel.org/reference/usa_regions.md)
+  : USA regions for a given region mapping.
+- [`region_id()`](http://witchtools.witchmodel.org/reference/region_id.md)
+  : Region ID of a regional mapping.
+
+## Other functions
+
+- [`require_gdxtools()`](http://witchtools.witchmodel.org/reference/require_gdxtools.md)
+  : Install, if necessary, and load the gdxtools library
+- [`require_package()`](http://witchtools.witchmodel.org/reference/require_package.md)
+  : Install, if necessary, and load R libraries
+- [`install_duckdb_safe()`](http://witchtools.witchmodel.org/reference/install_duckdb_safe.md)
+  : Install duckdb package with proper handling
+- [`install_package_safe()`](http://witchtools.witchmodel.org/reference/install_package_safe.md)
+  : Install a package with proper handling of non-interactive sessions
+- [`premise_region_mapping()`](http://witchtools.witchmodel.org/reference/premise_region_mapping.md)
+  : PREMISE region mapping.
+
+## Dec functions
+
+- [`archive_filename()`](http://witchtools.witchmodel.org/reference/archive_filename.md)
+  : Return a name for a archive name, based on time-region mappings and
+  git commit information.
+- [`archive_restore()`](http://witchtools.witchmodel.org/reference/archive_restore.md)
+  : Try to save the archive in a list of directories.
+- [`archive_store()`](http://witchtools.witchmodel.org/reference/archive_store.md)
+  : Try to save the archive in a list of directories.
