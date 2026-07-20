@@ -1,8 +1,14 @@
 
-suppressPackageStartupMessages(library(gdxtools))
-invisible(capture.output({gdxtools::igdx(dirname(Sys.which("gams")))}))
+# gdxtools is a Suggests dependency installed from GitHub. Since 1.0.0 it uses
+# the gamstransfer backend and needs no GAMS installation, but it may still be
+# absent, so skip rather than failing at load time.
+skip_if_no_gdx <- function() {
+  skip_if_not_installed("gdxtools", "1.0.0")
+}
 
 test_that("witch_query returns a table combining scenarios", {
+
+  skip_if_no_gdx()
 
   gdx1 <- withr::local_tempfile(pattern = "results_", fileext = ".gdx")
   gdx2 <- withr::local_tempfile(pattern = "results_", fileext = ".gdx")
@@ -23,6 +29,8 @@ test_that("witch_query returns a table combining scenarios", {
 })
 
 test_that("witch_query can aggregate value with filter n='world'", {
+
+  skip_if_no_gdx()
 
   gdx1 <- withr::local_tempfile(pattern = "results_", fileext = ".gdx")
   gdx2 <- withr::local_tempfile(pattern = "results_", fileext = ".gdx")
@@ -45,6 +53,8 @@ test_that("witch_query can aggregate value with filter n='world'", {
 })
 
 test_that("witch_query can aggregate value with filter c(n='world,usa')", {
+
+  skip_if_no_gdx()
 
   gdx1 <- withr::local_tempfile(pattern = "results_", fileext = ".gdx")
   gdx2 <- withr::local_tempfile(pattern = "results_", fileext = ".gdx")
