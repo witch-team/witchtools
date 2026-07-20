@@ -43,10 +43,13 @@ Imports:
     fs,
     here,
     remotes,
+    rlang,
     stringr,
     yaml,
     zip
-Suggests: 
+Remotes:
+    lolow/gdxtools
+Suggests:
     DBI,
     RSQLite,
     duckdb,
