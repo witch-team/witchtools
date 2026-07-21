@@ -28,7 +28,7 @@
 # identical for every from-region that appears in the data at all.
 #' @noRd
 build_region_coeff <- function(rmap0, rname0, rmap1, rname1, agg_weight) {
-  iso3 <- weight <- w_pair <- .from <- NULL # due to NSE notes in R CMD check
+  iso3 <- weight <- w_pair <- .from <- sw_from <- NULL # due to NSE notes in R CMD check
 
   pw <- merge(rmap0, rmap1, by = "iso3")
   pw <- merge(pw, agg_weight, by = "iso3")
