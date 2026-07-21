@@ -29,21 +29,27 @@ Authors@R:
            role = c("ctb"),
            email = "marco.gambarini@cmcc.it")
            )
-Description: The package gathers tools and scripts useful for integrated assessment models. It converts input datasets in time and in regions, it provides diagnostic and validation tools and it provides easy access to outputs. The package has been developed in the WITCH modelling framework but it is not limited to it.
+Description: Tools and scripts useful for integrated assessment models. It
+    converts input datasets in time and in regions, it provides diagnostic and
+    validation tools and it provides easy access to outputs. The package has
+    been developed in the WITCH modelling framework but it is not limited to
+    it.
 License: Apache License (>= 2.0)
 Encoding: UTF-8
 LazyData: true
 Depends: 
     R (>= 3.5)
 Imports: 
-    crayon,
     countrycode,
+    crayon,
     data.table,
     docopt,
     fs,
     here,
-    remotes,
+    jsonlite,
     rlang,
+    stats,
+    stringi,
     stringr,
     yaml,
     zip
@@ -54,9 +60,14 @@ Suggests:
     RSQLite,
     duckdb,
     gdxtools (>= 1.0.0),
+    ggplot2,
+    knitr,
+    remotes,
+    rmarkdown,
     testthat (>= 2.1.0),
     withr
 URL: http://witchtools.witchmodel.org
 BugReports: https://github.com/witch-team/witchtools/issues
+VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.3
+Config/roxygen2/version: 8.0.0

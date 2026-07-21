@@ -127,7 +127,7 @@ convert_item <- function(.data,
     if (!is.null(tm) && nrow(tm) > 1) {
       # Ensure refyear is numeric before calculating diff
       refyears <- as.numeric(as.character(unique(tm$refyear)))
-      typical_tstep <- median(diff(sort(refyears)))
+      typical_tstep <- stats::median(diff(sort(refyears)))
       if (typical_tstep <= 1) {
         interp_method <- "spline_monoH.FC"  # yearly or sub-yearly
       }

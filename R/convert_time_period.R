@@ -183,7 +183,7 @@ convert_time_period <- function(.x,
                   )$y)
                 }
               } else if (.base_method == "spline") {
-                .spline_fn <- splinefun(
+                .spline_fn <- stats::splinefun(
                   x = sd[[year_name]], y = sd[[value_name]],
                   method = .spline_method
                 )
