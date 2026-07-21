@@ -33,8 +33,8 @@ guess_scenario <- function(gdxlist, keep_ssp = FALSE, sep = "_") {
   # Basic cleaning of the filename
   fname <- basename(gdxlist)
   fname <- tolower(fname)
-  fname <- stringr::str_remove(fname, ".gdx")
-  fname <- stringr::str_remove(fname, "results_")
+  fname <- stringr::str_remove(fname, "\\.gdx$")
+  fname <- stringr::str_remove(fname, "^results_")
 
   # Should we remove ssp?
   if(!keep_ssp) {
