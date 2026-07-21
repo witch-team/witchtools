@@ -13,6 +13,11 @@
 #'
 guess_scenario <- function(gdxlist, keep_ssp = FALSE, sep = "_") {
 
+  # dirname() and basename() only treat "\" as a path separator on Windows,
+  # so a Windows path handed to a unix session would be taken as one long
+  # filename. Normalise the separators first to stay platform-independent.
+  gdxlist <- gsub("\\\\", "/", gdxlist)
+
   # Check if all files are in the same directory.
   # If not, we will add the directory name to the scenario name
   same_path <- length(unique(dirname(gdxlist))) == 1
