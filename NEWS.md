@@ -1,3 +1,37 @@
+# witchtools 0.5.0.9000
+
+## Bug fixes
+
+- `convert_gdx()` could not be called without explicitly passing
+  `region_mappings` and `time_mappings`. Both defaults referred to the
+  parameters themselves rather than to the package data, so any other call
+  failed with "promise already under evaluation". The documented example
+  could not run.
+- `witch_query()` failed for any `add_year` other than `"t30"`: a malformed
+  `if (!is.null)` test (missing its argument) raised "invalid argument type".
+- `witch_translate_data()` could not generate its GAMS include files.
+  `witch_write_gams()` ignored the time mapping it was given and read an
+  undefined `time_id` instead, erroring after writing part of the output.
+- `premise_region_mapping()` ignored its `n` argument and always grouped by
+  the `witch17` column, so any other mapping failed with "group length is 0".
+- `guess_scenario()` returned the whole path as the scenario name when given
+  Windows-style paths on Linux or macOS, where `\` is not a path separator.
+- `witch_scen_name()` and `guess_scenario()` treated `".gdx"` as a regular
+  expression, stripping the first four-character run ending in `gdx` anywhere
+  in the name instead of the extension.
+- `witch_results_files(normalize = TRUE)` resolved file names against the
+  working directory rather than `search_path`, so it warned and returned
+  un-normalized names whenever the two differed.
+
+## Other changes
+
+- Loading the package no longer overrides `witchtools.*` options that the
+  user has already set.
+- `remotes` moved from `Imports` to `Suggests`; it is only needed to install
+  `gdxtools` from GitHub and was already installed on demand.
+- Removed the unused internal `paleiee()` palette helper, which referenced a
+  `witch_regions` dataset that does not exist and could not run.
+
 # witchtools 0.5.0
 - Require `gdxtools (>= 1.0.0)` — the gamstransfer-backed release.
   `require_package("gdxtools")` now re-installs from GitHub when the
