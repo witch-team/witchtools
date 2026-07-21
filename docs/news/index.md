@@ -1,6 +1,6 @@
 # Changelog
 
-## witchtools 0.5.0.9000
+## witchtools 0.5.1
 
 ### Bug fixes
 
@@ -31,6 +31,11 @@
 - `witch_results_files(normalize = TRUE)` resolved file names against
   the working directory rather than `search_path`, so it warned and
   returned un-normalized names whenever the two differed.
+- [`archive_store()`](http://witchtools.witchmodel.org/reference/archive_store.md)
+  could not overwrite an existing archive on macOS or Windows: the
+  pre-copy delete targeted the wrong path, so
+  [`fs::file_copy()`](https://fs.r-lib.org/reference/copy.html) failed
+  with `EEXIST`.
 
 ### Other changes
 

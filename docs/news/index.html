@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">witchtools</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.5.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.5.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -36,9 +36,9 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.5.0.9000" id="witchtools-0509000">witchtools 0.5.0.9000<a class="anchor" aria-label="anchor" href="#witchtools-0509000"></a></h2>
+<h2 class="pkg-version" data-toc-text="0.5.1" id="witchtools-051">witchtools 0.5.1<a class="anchor" aria-label="anchor" href="#witchtools-051"></a></h2>
 <div class="section level3">
-<h3 id="bug-fixes-0-5-0-9000">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-5-0-9000"></a></h3>
+<h3 id="bug-fixes-0-5-1">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-5-1"></a></h3>
 <ul><li>
 <code><a href="../reference/convert_gdx.html">convert_gdx()</a></code> could not be called without explicitly passing <code>region_mappings</code> and <code>time_mappings</code>. Both defaults referred to the parameters themselves rather than to the package data, so any other call failed with “promise already under evaluation”. The documented example could not run.</li>
 <li>
@@ -53,9 +53,11 @@
 <code><a href="../reference/witch_scen_name.html">witch_scen_name()</a></code> and <code>guess_scenario()</code> treated <code>".gdx"</code> as a regular expression, stripping the first four-character run ending in <code>gdx</code> anywhere in the name instead of the extension.</li>
 <li>
 <code>witch_results_files(normalize = TRUE)</code> resolved file names against the working directory rather than <code>search_path</code>, so it warned and returned un-normalized names whenever the two differed.</li>
+<li>
+<code><a href="../reference/archive_store.html">archive_store()</a></code> could not overwrite an existing archive on macOS or Windows: the pre-copy delete targeted the wrong path, so <code><a href="https://fs.r-lib.org/reference/copy.html" class="external-link">fs::file_copy()</a></code> failed with <code>EEXIST</code>.</li>
 </ul></div>
 <div class="section level3">
-<h3 id="other-changes-0-5-0-9000">Other changes<a class="anchor" aria-label="anchor" href="#other-changes-0-5-0-9000"></a></h3>
+<h3 id="other-changes-0-5-1">Other changes<a class="anchor" aria-label="anchor" href="#other-changes-0-5-1"></a></h3>
 <ul><li>Loading the package no longer overrides <code>witchtools.*</code> options that the user has already set.</li>
 <li>
 <code>remotes</code> moved from <code>Imports</code> to <code>Suggests</code>; it is only needed to install <code>gdxtools</code> from GitHub and was already installed on demand.</li>
