@@ -42,10 +42,11 @@
 #'         the coperture if available.
 #' @export
 #' @examples
-#' \dontrun{
+#' # Aggregate country-level GDP into the 17 WITCH regions
+#' gdp_iso3 <- data.table::copy(default_weights[["gdp"]])
+#' data.table::setnames(gdp_iso3, "weight", "value")
 #'
 #' convert_region(gdp_iso3, to_reg = "witch17")
-#' }
 #'
 convert_region <- function(.x,
                            from_reg = NULL,

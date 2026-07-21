@@ -11,6 +11,10 @@ archive_store(filename, dir_list)
 
 \item{dir_list}{a list of potential directories where to save the archive.}
 }
+\value{
+Invisibly \code{NULL}. Called for its side effect of copying
+\code{filename} into each existing directory of \code{dir_list}.
+}
 \description{
 Try to save the archive in a list of directories.
 }

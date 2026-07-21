@@ -21,6 +21,12 @@ iamc_region_mappings_yml(
 
 \item{comm_regs}{Additional mappings, which region aggregate, to add.}
 }
+\value{
+Invisibly \code{NULL}. Called for its side effect of writing the
+region mappings yaml file to \code{filename}, or to
+\code{region_mappings_<model>.yml} in the working directory when
+\code{filename} is \code{NULL}.
+}
 \description{
 \code{iamc_region_mappings_yml} write a yaml file with the region mappings.
 }

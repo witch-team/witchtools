@@ -5,11 +5,16 @@
 #'
 #' @param f time mapping csv file
 #'
+#' @returns A \code{data.table} with one row per (t, year) pair and the columns
+#' \code{t}, \code{year} (numeric), \code{refyear}, \code{pred},
+#' \code{tperiod}, \code{begyear} and \code{endyear}.
+#'
 #' @export
 #' @examples
-#' \dontrun{
-#' witch_time_mapping("input/time/t30.csv")
-#' }
+#' # Read the t30 time mapping shipped with the package
+#' witch_time_mapping(
+#'   system.file("extdata", "t30.csv", package = "witchtools")
+#' )
 #'
 witch_time_mapping <- function(f) {
   tab <- data.table::fread(f, colClasses = "character")

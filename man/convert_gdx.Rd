@@ -9,8 +9,8 @@ convert_gdx(
   reg_id,
   time_id,
   output_directory,
-  region_mappings = region_mappings,
-  time_mappings = time_mappings,
+  region_mappings = witchtools::region_mappings,
+  time_mappings = witchtools::time_mappings,
   weights = witchtools::default_weights,
   guess_input_t = "t30",
   region_name = NULL,
@@ -45,6 +45,11 @@ convert_gdx(
 
 \item{default_meta_param}{default meta_param}
 }
+\value{
+A character string with the path of the input \code{gdxfile}. Called
+for its side effect of writing the converted GDX in \code{output_directory},
+under the same base name as \code{gdxfile}.
+}
 \description{
 \code{convert_gdx} writes a converted GDX in the \code{output_directory}.
 All parameters and variables from the input \code{gdxfile} are converted
@@ -53,6 +58,7 @@ are read in the parameter \code{meta_param} also stored in the gdxfile.
 }
 \examples{
 \dontrun{
+# Not run: needs a GDX file and the gdxtools package.
 convert_gdx("input/build/data_climate.gdx", "witch17", "t30", "data_witch17")
 }
 
@@ -60,11 +66,11 @@ convert_gdx("input/build/data_climate.gdx", "witch17", "t30", "data_witch17")
 \seealso{
 \code{\link{convert_table}}, \code{\link{convert_sqlite}}.
 
-Other conversion functions: 
-\code{\link{convert_duckdb}()},
-\code{\link{convert_region}()},
-\code{\link{convert_sqlite}()},
-\code{\link{convert_table}()},
-\code{\link{convert_time_period}()}
+Other conversion functions:
+\code{\link[=convert_duckdb]{convert_duckdb()}},
+\code{\link[=convert_region]{convert_region()}},
+\code{\link[=convert_sqlite]{convert_sqlite()}},
+\code{\link[=convert_table]{convert_table()}},
+\code{\link[=convert_time_period]{convert_time_period()}}
 }
 \concept{conversion functions}

@@ -9,14 +9,20 @@ witch_region_mapping(f)
 \arguments{
 \item{f}{Regional WITCH GAMS file}
 }
+\value{
+A \code{data.table} with two columns: the region name, named after
+the base name of \code{f} without its extension, and \code{iso3}. Returns
+\code{NULL} if no \code{map_*} set is found in the file.
+}
 \description{
 \code{witch_region_mapping} reads a regional WITCH GAMS file and returns the
 regional mapping as defined in the file. The function scans the GAMS file
 with the assumptions that each iso3 is on one line and in a set named map_*.
 }
 \examples{
-\dontrun{
-witch_region_mapping("input/regions/witch17.inc")
-}
+# Read the WITCH 17-region mapping shipped with the package
+witch_region_mapping(
+  system.file("extdata", "witch17.inc", package = "witchtools")
+)
 
 }

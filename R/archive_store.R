@@ -2,6 +2,10 @@
 #'
 #' @param filename the name of the archive to save.
 #' @param dir_list a list of potential directories where to save the archive.
+#'
+#' @returns Invisibly \code{NULL}. Called for its side effect of copying
+#' \code{filename} into each existing directory of \code{dir_list}.
+#'
 #' @export
 #'
 archive_store <- function(filename, dir_list) {

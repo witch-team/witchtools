@@ -6,6 +6,11 @@
 \usage{
 install_duckdb_safe()
 }
+\value{
+Invisibly \code{NULL}. Called for its side effect of installing the
+\code{duckdb} package from r-universe and CRAN; throws an error if the
+package is still unavailable afterwards.
+}
 \description{
 Install duckdb package with proper handling
 }

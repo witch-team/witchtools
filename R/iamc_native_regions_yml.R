@@ -9,6 +9,11 @@
 #'
 #' @author Lara Aleluia Reis
 #'
+#' @returns Invisibly \code{NULL}. Called for its side effect of writing the
+#' native regions yaml file to \code{filename}, or to
+#' \code{native_regions_<model>.yml} in the working directory when
+#' \code{filename} is \code{NULL}.
+#'
 #' @export
 #'
 iamc_native_regions_yml <- function(filename = NULL,

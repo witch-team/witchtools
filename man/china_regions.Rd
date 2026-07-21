@@ -20,18 +20,18 @@ including Honk Kong and Macao.
 china_regions(region_mappings[["witch17"]])
 }
 \seealso{
-Other misc functions: 
-\code{\link{brazil_regions}()},
-\code{\link{eu27_regions}()},
-\code{\link{eu28_regions}()},
-\code{\link{eu_regions}()},
-\code{\link{europe_regions}()},
-\code{\link{india_regions}()},
-\code{\link{indonesia_regions}()},
-\code{\link{oceania_regions}()},
-\code{\link{oecd_regions}()},
-\code{\link{region_id}()},
-\code{\link{ssa_regions}()},
-\code{\link{usa_regions}()}
+Other misc functions:
+\code{\link[=brazil_regions]{brazil_regions()}},
+\code{\link[=eu27_regions]{eu27_regions()}},
+\code{\link[=eu28_regions]{eu28_regions()}},
+\code{\link[=eu_regions]{eu_regions()}},
+\code{\link[=europe_regions]{europe_regions()}},
+\code{\link[=india_regions]{india_regions()}},
+\code{\link[=indonesia_regions]{indonesia_regions()}},
+\code{\link[=oceania_regions]{oceania_regions()}},
+\code{\link[=oecd_regions]{oecd_regions()}},
+\code{\link[=region_id]{region_id()}},
+\code{\link[=ssa_regions]{ssa_regions()}},
+\code{\link[=usa_regions]{usa_regions()}}
 }
 \concept{misc functions}

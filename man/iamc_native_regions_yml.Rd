@@ -14,6 +14,12 @@ iamc_native_regions_yml(filename = NULL, model = "WITCH 5.0", n = "witch17")
 
 \item{n}{Witch region definition, as defined in witchtools.}
 }
+\value{
+Invisibly \code{NULL}. Called for its side effect of writing the
+native regions yaml file to \code{filename}, or to
+\code{native_regions_<model>.yml} in the working directory when
+\code{filename} is \code{NULL}.
+}
 \description{
 \code{iamc_native_regions_yml} write a yaml file with the native regions.
 }

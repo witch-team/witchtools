@@ -3,9 +3,14 @@
 #' @param pkgs package names as a character vector
 #' @param loading if TRUE, package is loaded
 #'
+#' @returns Invisibly \code{NULL}. Called for its side effects of installing the
+#' missing packages of \code{pkgs} and, when \code{loading} is TRUE, attaching
+#' them to the search path.
+#'
 #' @export
 #' @examples
 #' \dontrun{
+#' # Not run: installs and attaches packages as a side effect.
 #' require_package(c("data.table","gdxtools"), loading = FALSE)
 #' }
 require_package <- function(pkgs, loading = TRUE) {
@@ -54,6 +59,11 @@ require_package <- function(pkgs, loading = TRUE) {
 #' Install a package with proper handling of non-interactive sessions
 #'
 #' @param pkg package name as a character string
+#'
+#' @returns Invisibly \code{NULL}. Called for its side effect of installing
+#' \code{pkg} from CRAN; throws an error if the package is still unavailable
+#' afterwards.
+#'
 #' @keywords internal
 install_package_safe <- function(pkg) {
 
@@ -77,6 +87,10 @@ install_package_safe <- function(pkg) {
 }
 
 #' Install duckdb package with proper handling
+#'
+#' @returns Invisibly \code{NULL}. Called for its side effect of installing the
+#' \code{duckdb} package from r-universe and CRAN; throws an error if the
+#' package is still unavailable afterwards.
 #'
 #' @keywords internal
 install_duckdb_safe <- function() {
@@ -107,9 +121,14 @@ install_duckdb_safe <- function() {
 #'
 #' @param loading if TRUE, package is loaded
 #'
+#' @returns Invisibly \code{NULL}. Called for its side effects of installing
+#' \code{gdxtools} (>= 1.0.0) from GitHub if needed and, when \code{loading} is
+#' TRUE, attaching it to the search path.
+#'
 #' @export
 #' @examples
 #' \dontrun{
+#' # Not run: installs gdxtools from GitHub as a side effect.
 #' require_gdxtools()
 #' }
 require_gdxtools <- function(loading = TRUE) {

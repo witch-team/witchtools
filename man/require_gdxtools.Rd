@@ -9,11 +9,17 @@ require_gdxtools(loading = TRUE)
 \arguments{
 \item{loading}{if TRUE, package is loaded}
 }
+\value{
+Invisibly \code{NULL}. Called for its side effects of installing
+\code{gdxtools} (>= 1.0.0) from GitHub if needed and, when \code{loading} is
+TRUE, attaching it to the search path.
+}
 \description{
 Install, if necessary, and load the gdxtools library
 }
 \examples{
 \dontrun{
+# Not run: installs gdxtools from GitHub as a side effect.
 require_gdxtools()
 }
 }

@@ -20,14 +20,19 @@ witch_results_files(
 
 \item{recursive}{if TRUE, search also in the sub directories.}
 }
+\value{
+A character vector with the unique names of the gdx files found in
+\code{search_path} whose base name matches one of the \code{restrict}
+patterns. Returns \code{NULL} if no file matches.
+}
 \description{
 Returns a vector of WITCH results files. Inspired by witch-plot source code.
 }
 \seealso{
 \link{witch_query}.
 
-Other WITCH helper functions: 
-\code{\link{witch_query}()},
-\code{\link{witch_scen_name}()}
+Other WITCH helper functions:
+\code{\link[=witch_query]{witch_query()}},
+\code{\link[=witch_scen_name]{witch_scen_name()}}
 }
 \concept{WITCH helper functions}

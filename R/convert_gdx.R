@@ -22,9 +22,15 @@
 #' @param default_agg_missing default parameter to handle missing values in
 #' \code{convert_region}
 #' @param default_meta_param default meta_param
+#'
+#' @returns A character string with the path of the input \code{gdxfile}. Called
+#' for its side effect of writing the converted GDX in \code{output_directory},
+#' under the same base name as \code{gdxfile}.
+#'
 #' @export
 #' @examples
 #' \dontrun{
+#' # Not run: needs a GDX file and the gdxtools package.
 #' convert_gdx("input/build/data_climate.gdx", "witch17", "t30", "data_witch17")
 #' }
 #'

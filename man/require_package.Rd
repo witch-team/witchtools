@@ -11,11 +11,17 @@ require_package(pkgs, loading = TRUE)
 
 \item{loading}{if TRUE, package is loaded}
 }
+\value{
+Invisibly \code{NULL}. Called for its side effects of installing the
+missing packages of \code{pkgs} and, when \code{loading} is TRUE, attaching
+them to the search path.
+}
 \description{
 Install, if necessary, and load R libraries
 }
 \examples{
 \dontrun{
+# Not run: installs and attaches packages as a side effect.
 require_package(c("data.table","gdxtools"), loading = FALSE)
 }
 }

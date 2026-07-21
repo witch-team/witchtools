@@ -6,11 +6,16 @@
 #'
 #' @param f Regional WITCH GAMS file
 #'
+#' @returns A \code{data.table} with two columns: the region name, named after
+#' the base name of \code{f} without its extension, and \code{iso3}. Returns
+#' \code{NULL} if no \code{map_*} set is found in the file.
+#'
 #' @export
 #' @examples
-#' \dontrun{
-#' witch_region_mapping("input/regions/witch17.inc")
-#' }
+#' # Read the WITCH 17-region mapping shipped with the package
+#' witch_region_mapping(
+#'   system.file("extdata", "witch17.inc", package = "witchtools")
+#' )
 #'
 witch_region_mapping <- function(f) {
 

@@ -45,6 +45,12 @@ convert_duckdb(
 
 \item{default_meta_param}{default meta_param}
 }
+\value{
+Called for its side effect of writing the converted DuckDB database
+in \code{output_directory}, under the same base name as \code{duckdb}. The
+return value is the (invisible) status of the closing
+\code{DBI::dbDisconnect} call and should not be relied upon.
+}
 \description{
 \code{convert_duckdb} writes a converted DuckDB database
 in the \code{output_directory}.
@@ -55,6 +61,7 @@ are read in the parameter \code{meta_param} also stored in the
 }
 \examples{
 \dontrun{
+# Not run: needs an existing DuckDB database file.
 convert_duckdb("input/build/data_climate.duckdb", "witch17", "t30", "data_witch17")
 }
 
@@ -62,11 +69,11 @@ convert_duckdb("input/build/data_climate.duckdb", "witch17", "t30", "data_witch1
 \seealso{
 \code{\link{convert_table}}, \code{\link{convert_gdx}}, \code{\link{convert_sqlite}}.
 
-Other conversion functions: 
-\code{\link{convert_gdx}()},
-\code{\link{convert_region}()},
-\code{\link{convert_sqlite}()},
-\code{\link{convert_table}()},
-\code{\link{convert_time_period}()}
+Other conversion functions:
+\code{\link[=convert_gdx]{convert_gdx()}},
+\code{\link[=convert_region]{convert_region()}},
+\code{\link[=convert_sqlite]{convert_sqlite()}},
+\code{\link[=convert_table]{convert_table()}},
+\code{\link[=convert_time_period]{convert_time_period()}}
 }
 \concept{conversion functions}

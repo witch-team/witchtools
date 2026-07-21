@@ -28,10 +28,15 @@
 #' @param times optional list of timescale mappings (see Details for format)
 #' @param force logical indicating whether all make files should be processed
 #'
+#' @returns Invisibly \code{NULL}. Called for its side effects of running the
+#' \code{make_data} files, writing the converted gdx, SQLite and DuckDB files in
+#' the output data directory, and generating the associated GAMS files via
+#' \code{witch_write_gams}.
 #'
 #' @export
 #' @examples
 #' \dontrun{
+#' # Not run: needs a WITCH model directory.
 #' witch_translate_data(region = "r5", timescale = "t30")
 #' }
 witch_translate_data <- function(witch_dir = ".",

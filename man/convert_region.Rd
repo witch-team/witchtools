@@ -63,21 +63,22 @@ and another one named as the regional mapping (for region name).
 The name in the list should also be the regional mapping name.
 }
 \examples{
-\dontrun{
+# Aggregate country-level GDP into the 17 WITCH regions
+gdp_iso3 <- data.table::copy(default_weights[["gdp"]])
+data.table::setnames(gdp_iso3, "weight", "value")
 
 convert_region(gdp_iso3, to_reg = "witch17")
-}
 
 }
 \seealso{
 \code{\link{convert_table}},
 \code{\link{convert_gdx}}.
 
-Other conversion functions: 
-\code{\link{convert_duckdb}()},
-\code{\link{convert_gdx}()},
-\code{\link{convert_sqlite}()},
-\code{\link{convert_table}()},
-\code{\link{convert_time_period}()}
+Other conversion functions:
+\code{\link[=convert_duckdb]{convert_duckdb()}},
+\code{\link[=convert_gdx]{convert_gdx()}},
+\code{\link[=convert_sqlite]{convert_sqlite()}},
+\code{\link[=convert_table]{convert_table()}},
+\code{\link[=convert_time_period]{convert_time_period()}}
 }
 \concept{conversion functions}

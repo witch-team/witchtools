@@ -9,6 +9,11 @@ install_package_safe(pkg)
 \arguments{
 \item{pkg}{package name as a character string}
 }
+\value{
+Invisibly \code{NULL}. Called for its side effect of installing
+\code{pkg} from CRAN; throws an error if the package is still unavailable
+afterwards.
+}
 \description{
 Install a package with proper handling of non-interactive sessions
 }

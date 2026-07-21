@@ -12,11 +12,22 @@
 #' @param scenarios vector of scenario names in same order than resgdx
 #' @param keep_gdx keep gdx file name in the result
 #' @param keep_t keep t in the result
-
-#' @param scen_table a conversion function or a mapping table to translate gdx into scenario name
-#' @param add_year convert t into year
-#' @param year_mapping a mapping table to translate t into year
+#' @param valigdx optional gdx file with validation data. Reserved for future
+#' use; currently ignored.
+#' @param histgdx optional gdx file with historical data. Reserved for future
+#' use; currently ignored.
+#' @param add_year convert t into year. Either "t30" or the name of a mapping
+#' in \code{time_mappings}.
+#' @param year_mapping a mapping table to translate t into year. Reserved for
+#' future use; currently ignored, as \code{add_year} selects the mapping.
 #' @param ... additional parameters to send to batch_extract
+#'
+#' @returns A \code{data.table} with the index columns of \code{item} and a
+#' \code{value} column, restricted to \code{filter}. A \code{scenario} column is
+#' added when \code{scenarios} is not \code{NULL}, and a \code{year} column when
+#' \code{add_year} is not \code{NULL} and the item has a \code{t} index. The
+#' \code{gdx} and \code{t} columns are dropped unless \code{keep_gdx},
+#' respectively \code{keep_t}, is TRUE.
 #'
 #' @export
 witch_query <- function(item,
@@ -26,7 +37,6 @@ witch_query <- function(item,
                         add_year = "t30",
                         keep_gdx = FALSE,
                         keep_t = FALSE,
-
                         year_mapping = witch_period_year,
                         valigdx = NULL,
                         histgdx = NULL,

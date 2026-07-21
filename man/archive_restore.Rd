@@ -13,6 +13,11 @@ archive_restore(filename, dir_list, extract_dir = ".")
 
 \item{extract_dir}{the directory where to unzip the archive}
 }
+\value{
+A character string with the path of the first archive found, which
+has been unzipped into \code{extract_dir}; invisibly \code{NULL} if the
+archive was not found in any of the directories of \code{dir_list}.
+}
 \description{
 Try to save the archive in a list of directories.
 }

@@ -4,6 +4,10 @@
 #'
 #' @family WITCH helper functions
 #'
+#' @param gdxfilename path to a results gdx file.
+#'
+#' @returns A character string with the scenario name.
+#'
 #' @export
 witch_scen_name <- function(gdxfilename) {
 

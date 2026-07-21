@@ -5,9 +5,16 @@
 #' the witchtools options, according to the call parameters.
 #' @param file Name of the make data file
 #'
+#' @returns A named list of command-line options as returned by
+#' \code{\link[docopt]{docopt}}, augmented with the elements \code{witch_dir},
+#' \code{idir} and \code{method}. As a side effect, the options
+#' \code{witchtools.idir}, \code{witchtools.method} and
+#' \code{witchtools.noCheck} are set.
+#'
 #' @export
 #' @examples
 #' \dontrun{
+#' # Not run: needs a make_data script.
 #' opts <- witch_data_usage("make_data_validation.R")
 #' }
 witch_data_usage <- function(file) {

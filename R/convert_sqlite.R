@@ -24,9 +24,16 @@
 #' @param default_agg_missing default parameter to handle missing values in
 #' \code{convert_region}
 #' @param default_meta_param default meta_param
+#'
+#' @returns Called for its side effect of writing the converted SQLite database
+#' in \code{output_directory}, under the same base name as \code{sqlitedb}. The
+#' return value is the (invisible) status of the closing
+#' \code{RSQLite::dbDisconnect} call and should not be relied upon.
+#'
 #' @export
 #' @examples
 #' \dontrun{
+#' # Not run: needs an existing SQLite database file.
 #' convert_sqlite("input/build/data_climate.sqlite", "witch17", "t30", "data_witch17")
 #' }
 #'

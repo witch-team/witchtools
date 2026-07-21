@@ -9,6 +9,11 @@
 #' @param restrict vector of filtering patterns on the file names.
 #' @param normalize if TRUE, return canonical form of the file names.
 #' @param recursive if TRUE, search also in the sub directories.
+#'
+#' @returns A character vector with the unique names of the gdx files found in
+#' \code{search_path} whose base name matches one of the \code{restrict}
+#' patterns. Returns \code{NULL} if no file matches.
+#'
 #' @export
 #'
 witch_results_files <- function(search_path,

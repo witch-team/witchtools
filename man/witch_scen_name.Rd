@@ -6,12 +6,18 @@
 \usage{
 witch_scen_name(gdxfilename)
 }
+\arguments{
+\item{gdxfilename}{path to a results gdx file.}
+}
+\value{
+A character string with the scenario name.
+}
 \description{
 Returns a scenario name
 }
 \seealso{
-Other WITCH helper functions: 
-\code{\link{witch_query}()},
-\code{\link{witch_results_files}()}
+Other WITCH helper functions:
+\code{\link[=witch_query]{witch_query()}},
+\code{\link[=witch_results_files]{witch_results_files()}}
 }
 \concept{WITCH helper functions}

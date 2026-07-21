@@ -15,11 +15,16 @@ witch_data_upload(file, version = NULL, method = NULL, repo = NULL)
 
 \item{repo}{NULL}
 }
+\value{
+Invisibly \code{NULL}. The function is deprecated and only emits a
+deprecation warning; it performs no upload.
+}
 \description{
 Upload a file as an asset in a release of a github repository (deprecated).
 }
 \examples{
 \dontrun{
+# Not run: uploads to the witch-data repository (deprecated).
 witch_data_upload("ssp/ssp_population.csv", version = "v0.0.1")
 }
 }

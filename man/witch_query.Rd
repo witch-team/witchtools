@@ -28,25 +28,39 @@ if n contains "world", then the sum of n is computed.}
 
 \item{scenarios}{vector of scenario names in same order than resgdx}
 
-\item{add_year}{convert t into year}
+\item{add_year}{convert t into year. Either "t30" or the name of a mapping
+in \code{time_mappings}.}
 
 \item{keep_gdx}{keep gdx file name in the result}
 
 \item{keep_t}{keep t in the result}
 
-\item{year_mapping}{a mapping table to translate t into year}
+\item{year_mapping}{a mapping table to translate t into year. Reserved for
+future use; currently ignored, as \code{add_year} selects the mapping.}
+
+\item{valigdx}{optional gdx file with validation data. Reserved for future
+use; currently ignored.}
+
+\item{histgdx}{optional gdx file with historical data. Reserved for future
+use; currently ignored.}
 
 \item{...}{additional parameters to send to batch_extract}
-
-\item{scen_table}{a conversion function or a mapping table to translate gdx into scenario name}
+}
+\value{
+A \code{data.table} with the index columns of \code{item} and a
+\code{value} column, restricted to \code{filter}. A \code{scenario} column is
+added when \code{scenarios} is not \code{NULL}, and a \code{year} column when
+\code{add_year} is not \code{NULL} and the item has a \code{t} index. The
+\code{gdx} and \code{t} columns are dropped unless \code{keep_gdx},
+respectively \code{keep_t}, is TRUE.
 }
 \description{
 Returns a formatted data.table from a list of results files.
 It adds a scenario column
 }
 \seealso{
-Other WITCH helper functions: 
-\code{\link{witch_results_files}()},
-\code{\link{witch_scen_name}()}
+Other WITCH helper functions:
+\code{\link[=witch_results_files]{witch_results_files()}},
+\code{\link[=witch_scen_name]{witch_scen_name()}}
 }
 \concept{WITCH helper functions}

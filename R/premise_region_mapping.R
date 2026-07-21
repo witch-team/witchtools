@@ -1,17 +1,20 @@
 #' PREMISE region mapping.
 #'
-#' \code{premise_region_mapping} returns a json containing a regional
-#' mapping to be used be PREMISE. If the filename is not provided, it
-#' will return the json as text.
+#' \code{premise_region_mapping} builds a json containing a regional
+#' mapping to be used by PREMISE. It is written to \code{filename}, or
+#' printed to the console if no filename is provided.
 #'
 #' @param n regional mapping ID
 #' @param filename the name of the file to save the json
 #'
+#' @returns Invisibly \code{NULL}. Called for its side effect of writing the
+#' json mapping to \code{filename}, or of printing it to the console when
+#' \code{filename} is \code{NULL}.
+#'
 #' @export
 #' @examples
-#' \dontrun{
-#' premise_region_mapping(filename = "witch-topology.json")
-#' }
+#' # Write the PREMISE topology for the default region mapping
+#' premise_region_mapping(filename = tempfile(fileext = ".json"))
 #'
 premise_region_mapping <- function(n = 'witch17',
                                    filename = NULL){

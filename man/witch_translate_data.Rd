@@ -32,6 +32,12 @@ witch_translate_data(
 
 \item{force}{logical indicating whether all make files should be processed}
 }
+\value{
+Invisibly \code{NULL}. Called for its side effects of running the
+\code{make_data} files, writing the converted gdx, SQLite and DuckDB files in
+the output data directory, and generating the associated GAMS files via
+\code{witch_write_gams}.
+}
 \description{
 \code{witch_translate_data} generates the input data for the WITCH model.
 First, it will run the R \code{make_data_files} and the gams \code{make_data_files}
@@ -55,6 +61,7 @@ and refyear for interpolation and extrapolation. \code{times} should contain
 }
 \examples{
 \dontrun{
+# Not run: needs a WITCH model directory.
 witch_translate_data(region = "r5", timescale = "t30")
 }
 }

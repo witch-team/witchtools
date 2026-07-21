@@ -9,13 +9,19 @@ witch_time_mapping(f)
 \arguments{
 \item{f}{time mapping csv file}
 }
+\value{
+A \code{data.table} with one row per (t, year) pair and the columns
+\code{t}, \code{year} (numeric), \code{refyear}, \code{pred},
+\code{tperiod}, \code{begyear} and \code{endyear}.
+}
 \description{
 \code{witch_time_mapping} reads a time csv file and returns the
 time mapping as defined in the file. The function scans the csv file.
 }
 \examples{
-\dontrun{
-witch_time_mapping("input/time/t30.csv")
-}
+# Read the t30 time mapping shipped with the package
+witch_time_mapping(
+  system.file("extdata", "t30.csv", package = "witchtools")
+)
 
 }

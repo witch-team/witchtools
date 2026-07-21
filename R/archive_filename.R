@@ -4,6 +4,10 @@
 #' @param reg_id a character for the region id.
 #' @param time_id a character for the time id.
 #' @param ext the extension of the archive file (default:".zip").
+#'
+#' @returns A character string with the archive file name, of the form
+#' \code{data_<reg_id>_<time_id>_<commit_id>_<commit_date><ext>}.
+#'
 #' @export
 #'
 archive_filename <- function(reg_id, time_id, ext = ".zip") {

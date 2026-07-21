@@ -59,20 +59,29 @@ should contain a column "value". All others columns are considered as
 indices.
 }
 \examples{
-\dontrun{
+# Convert a country/year table into WITCH regions and time periods.
+# Note that agg_weight and regions have no default here and must be given.
+dt <- data.table::data.table(
+  iso3 = rep(c("FRA", "DEU", "ITA"), 2),
+  year = rep(c(2005, 2010), each = 3),
+  value = as.numeric(1:6)
+)
 
-convert_table(gdp_iso3, to_reg = "witch17", time_mapping = "t30")
-}
+convert_table(dt,
+              to_reg = "witch17",
+              time_mapping = "t30",
+              agg_weight = default_weights[["gdp"]],
+              regions = region_mappings)
 
 }
 \seealso{
 \code{\link{convert_gdx}} for WITCH gdx files.
 
-Other conversion functions: 
-\code{\link{convert_duckdb}()},
-\code{\link{convert_gdx}()},
-\code{\link{convert_region}()},
-\code{\link{convert_sqlite}()},
-\code{\link{convert_time_period}()}
+Other conversion functions:
+\code{\link[=convert_duckdb]{convert_duckdb()}},
+\code{\link[=convert_gdx]{convert_gdx()}},
+\code{\link[=convert_region]{convert_region()}},
+\code{\link[=convert_sqlite]{convert_sqlite()}},
+\code{\link[=convert_time_period]{convert_time_period()}}
 }
 \concept{conversion functions}

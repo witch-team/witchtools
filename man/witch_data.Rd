@@ -29,6 +29,11 @@ witch_data(
 
 \item{remote}{dvc remote storage}
 }
+\value{
+A character string with the path of the requested file in the input
+data directory. With method \code{dvc} and \code{noCheck = FALSE}, the file
+is pulled from the DVC remote first.
+}
 \description{
 Returns the location of a file from the witch-data repository for processing,
 method (\code{local}) or after checking/downloading it from the DVC remote drive
@@ -36,6 +41,7 @@ method (\code{local}) or after checking/downloading it from the DVC remote drive
 }
 \examples{
 \dontrun{
+# Not run: downloads data from the witch-data repository.
 witch_data("ssp/ssp_population.csv", version = "v0.0.1")
 witch_data("ssp/ssp_population.csv", method = "witch-data")
 witch_data("ssp/ssp_population.csv", noCheck = TRUE)

@@ -11,9 +11,14 @@
 #' @param repo github repository name
 #' @param remote dvc remote storage
 #'
+#' @returns A character string with the path of the requested file in the input
+#' data directory. With method \code{dvc} and \code{noCheck = FALSE}, the file
+#' is pulled from the DVC remote first.
+#'
 #' @export
 #' @examples
 #' \dontrun{
+#' # Not run: downloads data from the witch-data repository.
 #' witch_data("ssp/ssp_population.csv", version = "v0.0.1")
 #' witch_data("ssp/ssp_population.csv", method = "witch-data")
 #' witch_data("ssp/ssp_population.csv", noCheck = TRUE)
@@ -61,9 +66,13 @@ witch_data <- function(file, version = NULL,
 #' @param method NULL.
 #' @param repo NULL
 #'
+#' @returns Invisibly \code{NULL}. The function is deprecated and only emits a
+#' deprecation warning; it performs no upload.
+#'
 #' @export
 #' @examples
 #' \dontrun{
+#' # Not run: uploads to the witch-data repository (deprecated).
 #' witch_data_upload("ssp/ssp_population.csv", version = "v0.0.1")
 #' }
 witch_data_upload <- function(file, version = NULL,

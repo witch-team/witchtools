@@ -14,6 +14,10 @@ archive_filename(reg_id, time_id, ext = ".zip")
 
 \item{ext}{the extension of the archive file (default:".zip").}
 }
+\value{
+A character string with the archive file name, of the form
+\code{data_<reg_id>_<time_id>_<commit_id>_<commit_date><ext>}.
+}
 \description{
 Return a name for a archive name, based on time-region mappings and git commit
 information.

@@ -3,6 +3,11 @@
 #' @param filename the name of the archive to save.
 #' @param dir_list a list of potential directories where to save the archive.
 #' @param extract_dir the directory where to unzip the archive
+#'
+#' @returns A character string with the path of the first archive found, which
+#' has been unzipped into \code{extract_dir}; invisibly \code{NULL} if the
+#' archive was not found in any of the directories of \code{dir_list}.
+#'
 #' @export
 #'
 archive_restore <- function(filename, dir_list, extract_dir = ".") {
