@@ -109,7 +109,7 @@ convert_gdx <- function(gdxfile,
     if (length(colnames(.data)) == 1) {
       names(.data) <- "value"
     } else {
-      indices <- subset(colnames(.data), colnames(.data) != "value")
+      indices <- colnames(.data)[colnames(.data) != "value"]
       indices <- ifelse(indices %in% c(region_name, "t"), indices, "*")
       names(.data) <- c(indices, "value")
     }

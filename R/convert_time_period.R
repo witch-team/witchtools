@@ -128,10 +128,7 @@ convert_time_period <- function(.x,
     }
     .rt <- unique(time_mapping$tperiod)
     missing_t <- .rt[!.rt %in% .x$t]
-    missing_time <- subset(
-      time_mapping,
-      tperiod %in% missing_t & refyear == year
-    )
+    missing_time <- time_mapping[tperiod %in% missing_t & refyear == year]
 
     if (!do_extrap) {
       if (do_past_extrap) {

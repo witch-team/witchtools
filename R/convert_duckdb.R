@@ -113,7 +113,7 @@ convert_duckdb <- function(duckdb,
 
     # add an additional parameter '_info' when using sumby
     if (!is.null(.info_share)) {
-      indices <- subset(colnames(.data), colnames(.data) != "value")
+      indices <- colnames(.data)[colnames(.data) != "value"]
       data.table::setcolorder(.info_share, data_indices)
       names(.info_share) <- c(indices, "value")
       .i <- list(.info_share)
