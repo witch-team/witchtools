@@ -105,7 +105,7 @@ witch_write_gams <- function(region_mapping,
 
   ##############################################################################
 
-  ttt <- time_mappings[[time_id]][year == refyear]
+  ttt <- time_mapping[year == refyear]
 
   # write time mapping
   filename <- file.path(output_directory, "time.inc")
