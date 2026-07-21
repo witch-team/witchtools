@@ -28,8 +28,11 @@ Other misc functions:
 \code{\link[=europe_regions]{europe_regions()}},
 \code{\link[=india_regions]{india_regions()}},
 \code{\link[=indonesia_regions]{indonesia_regions()}},
+\code{\link[=japan_regions]{japan_regions()}},
+\code{\link[=korea_regions]{korea_regions()}},
 \code{\link[=oecd_regions]{oecd_regions()}},
 \code{\link[=region_id]{region_id()}},
+\code{\link[=southafrica_regions]{southafrica_regions()}},
 \code{\link[=ssa_regions]{ssa_regions()}},
 \code{\link[=usa_regions]{usa_regions()}}
 }
