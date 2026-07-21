@@ -98,7 +98,7 @@ witch_query <- function(item,
       .tab[, year := as.numeric(t) * 5 + 2000]
     } else {
       tm <- time_mappings[[add_year]]
-      if (!is.null) {
+      if (!is.null(tm)) {
         .tab <- merge(.tab, tm[, .(t, year = as.numeric(refyear))], by = "t")
       }
     }
