@@ -15,8 +15,12 @@ archive_store <- function(filename, dir_list) {
   # Copy file in the archive
   cp_file <- function(folder, .f) {
     if (dir.exists(folder)) {
-      if (fs::file_exists(fs::path(folder,.f))) {
-        fs::file_delete(fs::path(folder,.f))
+      # The destination is folder/<basename>, not folder/<full source path>;
+      # check and clear that so the copy overwrites on every platform (the
+      # Linux "cp" branch overwrites on its own, fs::file_copy() does not).
+      dest <- fs::path(folder, basename(.f))
+      if (fs::file_exists(dest)) {
+        fs::file_delete(dest)
       }
       if (Sys.info()["sysname"]=="Linux" & !stringr::str_detect(folder, " ")) {
         system(paste("cp", .f, folder))
