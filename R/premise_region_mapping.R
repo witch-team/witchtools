@@ -28,7 +28,7 @@ premise_region_mapping <- function(n = 'witch17',
   )
 
   # Group by region
-  json_data <- split(region_list$iso3, region_list$witch17)
+  json_data <- split(region_list$iso3, region_list[[n]])
 
   # Add world region
   if (is.null(json_data$world)) {
