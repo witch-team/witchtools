@@ -1,5 +1,5 @@
 test_that("read region mapping", {
-  res1 <- witch_region_mapping("witch17.inc")
+  res1 <- witch_region_mapping(system.file("extdata", "witch17.inc", package = "witchtools"))
 
   res2 <- region_mappings[["witch17"]]
   data.table::setindex(res2, NULL)
@@ -8,7 +8,7 @@ test_that("read region mapping", {
 })
 
 test_that("read region mapping with empty lines", {
-  res1 <- witch_region_mapping("ed58.inc")
+  res1 <- witch_region_mapping(system.file("extdata", "ed58.inc", package = "witchtools"))
 
   res2 <- region_mappings[["ed58"]]
   data.table::setindex(res2, NULL)
