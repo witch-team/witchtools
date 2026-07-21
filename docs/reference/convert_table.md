@@ -92,8 +92,21 @@ Other conversion functions:
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
+# Convert a country/year table into WITCH regions and time periods.
+# Note that agg_weight and regions have no default here and must be given.
+dt <- data.table::data.table(
+  iso3 = rep(c("FRA", "DEU", "ITA"), 2),
+  year = rep(c(2005, 2010), each = 3),
+  value = as.numeric(1:6)
+)
 
-convert_table(gdp_iso3, to_reg = "witch17", time_mapping = "t30")
-} # }
+convert_table(dt,
+              to_reg = "witch17",
+              time_mapping = "t30",
+              agg_weight = default_weights[["gdp"]],
+              regions = region_mappings)
+#>         t witch17 value
+#>    <char>  <char> <num>
+#> 1:      1  europe     6
+#> 2:      2  europe    15
 ```

@@ -13,8 +13,8 @@ convert_gdx(
   reg_id,
   time_id,
   output_directory,
-  region_mappings = region_mappings,
-  time_mappings = time_mappings,
+  region_mappings = witchtools::region_mappings,
+  time_mappings = witchtools::time_mappings,
   weights = witchtools::default_weights,
   guess_input_t = "t30",
   region_name = NULL,
@@ -74,6 +74,12 @@ convert_gdx(
 
   default meta_param
 
+## Value
+
+A character string with the path of the input `gdxfile`. Called for its
+side effect of writing the converted GDX in `output_directory`, under
+the same base name as `gdxfile`.
+
 ## See also
 
 [`convert_table`](http://witchtools.witchmodel.org/reference/convert_table.md),
@@ -90,6 +96,7 @@ Other conversion functions:
 
 ``` r
 if (FALSE) { # \dontrun{
+# Not run: needs a GDX file and the gdxtools package.
 convert_gdx("input/build/data_climate.gdx", "witch17", "t30", "data_witch17")
 } # }
 ```

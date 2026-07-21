@@ -31,6 +31,12 @@ iamc_region_mappings_yml(
 
   Additional mappings, which region aggregate, to add.
 
+## Value
+
+Invisibly `NULL`. Called for its side effect of writing the region
+mappings yaml file to `filename`, or to `region_mappings_<model>.yml` in
+the working directory when `filename` is `NULL`.
+
 ## Author
 
 Lara Aleluia Reis

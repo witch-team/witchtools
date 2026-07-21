@@ -22,13 +22,13 @@ Source:
 [`DESCRIPTION`](https://github.com/witch-team/witchtools/blob/HEAD/DESCRIPTION)
 
 Drouet L, Emmerling J (2026). *witchtools: Data Management for
-Integrated Assessment Models*. R package version 0.5.0,
+Integrated Assessment Models*. R package version 0.5.0.9000,
 <http://witchtools.witchmodel.org>.
 
     @Manual{,
       title = {witchtools: Data Management for Integrated Assessment Models},
       author = {Laurent Drouet and Johannes Emmerling},
       year = {2026},
-      note = {R package version 0.5.0},
+      note = {R package version 0.5.0.9000},
       url = {http://witchtools.witchmodel.org},
     }

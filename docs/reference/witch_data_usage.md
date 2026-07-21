@@ -16,10 +16,19 @@ witch_data_usage(file)
 
   Name of the make data file
 
+## Value
+
+A named list of command-line options as returned by
+[`docopt`](https://rdrr.io/pkg/docopt/man/docopt.html), augmented with
+the elements `witch_dir`, `idir` and `method`. As a side effect, the
+options `witchtools.idir`, `witchtools.method` and `witchtools.noCheck`
+are set.
+
 ## Examples
 
 ``` r
 if (FALSE) { # \dontrun{
+# Not run: needs a make_data script.
 opts <- witch_data_usage("make_data_validation.R")
 } # }
 ```

@@ -48,10 +48,17 @@ witch_data(
 
   dvc remote storage
 
+## Value
+
+A character string with the path of the requested file in the input data
+directory. With method `dvc` and `noCheck = FALSE`, the file is pulled
+from the DVC remote first.
+
 ## Examples
 
 ``` r
 if (FALSE) { # \dontrun{
+# Not run: downloads data from the witch-data repository.
 witch_data("ssp/ssp_population.csv", version = "v0.0.1")
 witch_data("ssp/ssp_population.csv", method = "witch-data")
 witch_data("ssp/ssp_population.csv", noCheck = TRUE)

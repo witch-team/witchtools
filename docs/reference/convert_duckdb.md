@@ -74,6 +74,14 @@ convert_duckdb(
 
   default meta_param
 
+## Value
+
+Called for its side effect of writing the converted DuckDB database in
+`output_directory`, under the same base name as `duckdb`. The return
+value is the (invisible) status of the closing
+[`DBI::dbDisconnect`](https://dbi.r-dbi.org/reference/dbDisconnect.html)
+call and should not be relied upon.
+
 ## See also
 
 [`convert_table`](http://witchtools.witchmodel.org/reference/convert_table.md),
@@ -91,6 +99,7 @@ Other conversion functions:
 
 ``` r
 if (FALSE) { # \dontrun{
+# Not run: needs an existing DuckDB database file.
 convert_duckdb("input/build/data_climate.duckdb", "witch17", "t30", "data_witch17")
 } # }
 ```

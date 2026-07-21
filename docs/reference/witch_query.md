@@ -42,7 +42,8 @@ witch_query(
 
 - add_year:
 
-  convert t into year
+  convert t into year. Either "t30" or the name of a mapping in
+  `time_mappings`.
 
 - keep_gdx:
 
@@ -54,16 +55,30 @@ witch_query(
 
 - year_mapping:
 
-  a mapping table to translate t into year
+  a mapping table to translate t into year. Reserved for future use;
+  currently ignored, as `add_year` selects the mapping.
+
+- valigdx:
+
+  optional gdx file with validation data. Reserved for future use;
+  currently ignored.
+
+- histgdx:
+
+  optional gdx file with historical data. Reserved for future use;
+  currently ignored.
 
 - ...:
 
   additional parameters to send to batch_extract
 
-- scen_table:
+## Value
 
-  a conversion function or a mapping table to translate gdx into
-  scenario name
+A `data.table` with the index columns of `item` and a `value` column,
+restricted to `filter`. A `scenario` column is added when `scenarios` is
+not `NULL`, and a `year` column when `add_year` is not `NULL` and the
+item has a `t` index. The `gdx` and `t` columns are dropped unless
+`keep_gdx`, respectively `keep_t`, is TRUE.
 
 ## See also
 

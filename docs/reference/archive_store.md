@@ -17,3 +17,8 @@ archive_store(filename, dir_list)
 - dir_list:
 
   a list of potential directories where to save the archive.
+
+## Value
+
+Invisibly `NULL`. Called for its side effect of copying `filename` into
+each existing directory of `dir_list`.

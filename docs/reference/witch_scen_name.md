@@ -8,6 +8,16 @@ Returns a scenario name
 witch_scen_name(gdxfilename)
 ```
 
+## Arguments
+
+- gdxfilename:
+
+  path to a results gdx file.
+
+## Value
+
+A character string with the scenario name.
+
 ## See also
 
 Other WITCH helper functions:

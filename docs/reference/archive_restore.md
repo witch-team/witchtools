@@ -21,3 +21,9 @@ archive_restore(filename, dir_list, extract_dir = ".")
 - extract_dir:
 
   the directory where to unzip the archive
+
+## Value
+
+A character string with the path of the first archive found, which has
+been unzipped into `extract_dir`; invisibly `NULL` if the archive was
+not found in any of the directories of `dir_list`.

@@ -1,8 +1,8 @@
 # PREMISE region mapping.
 
-`premise_region_mapping` returns a json containing a regional mapping to
-be used be PREMISE. If the filename is not provided, it will return the
-json as text.
+`premise_region_mapping` builds a json containing a regional mapping to
+be used by PREMISE. It is written to `filename`, or printed to the
+console if no filename is provided.
 
 ## Usage
 
@@ -20,10 +20,15 @@ premise_region_mapping(n = "witch17", filename = NULL)
 
   the name of the file to save the json
 
+## Value
+
+Invisibly `NULL`. Called for its side effect of writing the json mapping
+to `filename`, or of printing it to the console when `filename` is
+`NULL`.
+
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
-premise_region_mapping(filename = "witch-topology.json")
-} # }
+# Write the PREMISE topology for the default region mapping
+premise_region_mapping(filename = tempfile(fileext = ".json"))
 ```

@@ -11,6 +11,7 @@ convert_time_period(
   .x,
   time_mapping,
   do_interp = FALSE,
+  interp_method = "linear",
   do_extrap = FALSE,
   do_past_extrap = FALSE,
   year_name = "year",
@@ -33,7 +34,15 @@ convert_time_period(
 
 - do_interp:
 
-  logical indicating whether linear interpolation should be done.
+  logical indicating whether interpolation should be done.
+
+- interp_method:
+
+  character string specifying interpolation method: "linear" (default),
+  "exponential", or "spline" with optional method suffix. For spline
+  interpolation, you can specify the method: "spline" (uses "fmm"),
+  "spline_fmm", "spline_natural", "spline_periodic", "spline_monoH.FC",
+  or "spline_hyman".
 
 - do_extrap:
 
@@ -77,9 +86,9 @@ period, year and value column names can be specified.
 
 The time mapping between year and time period should be provided as a
 data.table with columns "year" and "t", and refyear for interpolation
-and extrapolation. In case of missing periods, these can be linearly
-interpolated or constantly interpolated. If several years are mapped
-into the same period, values are averaged or the function
+and extrapolation. In case of missing periods, these can be interpolated
+using linear, exponential, or spline methods. If several years are
+mapped into the same period, values are averaged or the function
 `fun.aggregate` is used.
 
 ## See also

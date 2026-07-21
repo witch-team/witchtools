@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">witchtools</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.5.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.5.0.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -35,6 +35,33 @@
       <small>Source: <a href="https://github.com/witch-team/witchtools/blob/HEAD/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.5.0.9000" id="witchtools-0509000">witchtools 0.5.0.9000<a class="anchor" aria-label="anchor" href="#witchtools-0509000"></a></h2>
+<div class="section level3">
+<h3 id="bug-fixes-0-5-0-9000">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-5-0-9000"></a></h3>
+<ul><li>
+<code><a href="../reference/convert_gdx.html">convert_gdx()</a></code> could not be called without explicitly passing <code>region_mappings</code> and <code>time_mappings</code>. Both defaults referred to the parameters themselves rather than to the package data, so any other call failed with “promise already under evaluation”. The documented example could not run.</li>
+<li>
+<code><a href="../reference/witch_query.html">witch_query()</a></code> failed for any <code>add_year</code> other than <code>"t30"</code>: a malformed <code>if (!is.null)</code> test (missing its argument) raised “invalid argument type”.</li>
+<li>
+<code><a href="../reference/witch_translate_data.html">witch_translate_data()</a></code> could not generate its GAMS include files. <code>witch_write_gams()</code> ignored the time mapping it was given and read an undefined <code>time_id</code> instead, erroring after writing part of the output.</li>
+<li>
+<code><a href="../reference/premise_region_mapping.html">premise_region_mapping()</a></code> ignored its <code>n</code> argument and always grouped by the <code>witch17</code> column, so any other mapping failed with “group length is 0”.</li>
+<li>
+<code>guess_scenario()</code> returned the whole path as the scenario name when given Windows-style paths on Linux or macOS, where <code>\</code> is not a path separator.</li>
+<li>
+<code><a href="../reference/witch_scen_name.html">witch_scen_name()</a></code> and <code>guess_scenario()</code> treated <code>".gdx"</code> as a regular expression, stripping the first four-character run ending in <code>gdx</code> anywhere in the name instead of the extension.</li>
+<li>
+<code>witch_results_files(normalize = TRUE)</code> resolved file names against the working directory rather than <code>search_path</code>, so it warned and returned un-normalized names whenever the two differed.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="other-changes-0-5-0-9000">Other changes<a class="anchor" aria-label="anchor" href="#other-changes-0-5-0-9000"></a></h3>
+<ul><li>Loading the package no longer overrides <code>witchtools.*</code> options that the user has already set.</li>
+<li>
+<code>remotes</code> moved from <code>Imports</code> to <code>Suggests</code>; it is only needed to install <code>gdxtools</code> from GitHub and was already installed on demand.</li>
+<li>Removed the unused internal <code>paleiee()</code> palette helper, which referenced a <code>witch_regions</code> dataset that does not exist and could not run.</li>
+</ul></div>
+</div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.5.0" id="witchtools-050">witchtools 0.5.0<a class="anchor" aria-label="anchor" href="#witchtools-050"></a></h2>
 <ul><li>Require <code>gdxtools (&gt;= 1.0.0)</code> — the gamstransfer-backed release. <code>require_package("gdxtools")</code> now re-installs from GitHub when the local copy is older than 1.0.0.</li>

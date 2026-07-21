@@ -57,6 +57,13 @@ witch_translate_data(
 
   logical indicating whether all make files should be processed
 
+## Value
+
+Invisibly `NULL`. Called for its side effects of running the `make_data`
+files, writing the converted gdx, SQLite and DuckDB files in the output
+data directory, and generating the associated GAMS files via
+`witch_write_gams`.
+
 ## Details
 
 The regional mappings should be provided in a named list through the
@@ -74,6 +81,7 @@ refyear for interpolation and extrapolation. `times` should contain
 
 ``` r
 if (FALSE) { # \dontrun{
+# Not run: needs a WITCH model directory.
 witch_translate_data(region = "r5", timescale = "t30")
 } # }
 ```

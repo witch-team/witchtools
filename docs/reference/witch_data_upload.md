@@ -27,10 +27,16 @@ witch_data_upload(file, version = NULL, method = NULL, repo = NULL)
 
   NULL
 
+## Value
+
+Invisibly `NULL`. The function is deprecated and only emits a
+deprecation warning; it performs no upload.
+
 ## Examples
 
 ``` r
 if (FALSE) { # \dontrun{
+# Not run: uploads to the witch-data repository (deprecated).
 witch_data_upload("ssp/ssp_population.csv", version = "v0.0.1")
 } # }
 ```

@@ -91,8 +91,28 @@ Other conversion functions:
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
+# Aggregate country-level GDP into the 17 WITCH regions
+gdp_iso3 <- data.table::copy(default_weights[["gdp"]])
+data.table::setnames(gdp_iso3, "weight", "value")
 
 convert_region(gdp_iso3, to_reg = "witch17")
-} # }
+#>         witch17      value
+#>          <char>      <num>
+#>  1:        laca  3811.0076
+#>  2:       sasia  2616.5509
+#>  3:         ssa  3281.0841
+#>  4:      europe 22137.4325
+#>  5:        mena  7253.0736
+#>  6:          te  8156.9139
+#>  7:     oceania  1501.8456
+#>  8:      brazil  2969.7366
+#>  9:      seasia  4873.5174
+#> 10:      canada  1746.1213
+#> 11:       china 22961.7494
+#> 12:   indonesia  3118.3992
+#> 13:       india  8377.0372
+#> 14:      jpnkor  7243.6577
+#> 15:      mexico  2300.2179
+#> 16:         usa 19910.1964
+#> 17: southafrica   749.2962
 ```

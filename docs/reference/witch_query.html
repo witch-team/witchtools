@@ -9,7 +9,7 @@ It adds a scenario column"><meta property="og:image" content="http://witchtools.
 
     <a class="navbar-brand me-2" href="../index.html">witchtools</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.5.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.5.0.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -82,7 +82,8 @@ if n contains "world", then the sum of n is computed.</p></dd>
 
 
 <dt id="arg-add-year">add_year<a class="anchor" aria-label="anchor" href="#arg-add-year"></a></dt>
-<dd><p>convert t into year</p></dd>
+<dd><p>convert t into year. Either "t30" or the name of a mapping
+in <code>time_mappings</code>.</p></dd>
 
 
 <dt id="arg-keep-gdx">keep_gdx<a class="anchor" aria-label="anchor" href="#arg-keep-gdx"></a></dt>
@@ -94,17 +95,33 @@ if n contains "world", then the sum of n is computed.</p></dd>
 
 
 <dt id="arg-year-mapping">year_mapping<a class="anchor" aria-label="anchor" href="#arg-year-mapping"></a></dt>
-<dd><p>a mapping table to translate t into year</p></dd>
+<dd><p>a mapping table to translate t into year. Reserved for
+future use; currently ignored, as <code>add_year</code> selects the mapping.</p></dd>
+
+
+<dt id="arg-valigdx">valigdx<a class="anchor" aria-label="anchor" href="#arg-valigdx"></a></dt>
+<dd><p>optional gdx file with validation data. Reserved for future
+use; currently ignored.</p></dd>
+
+
+<dt id="arg-histgdx">histgdx<a class="anchor" aria-label="anchor" href="#arg-histgdx"></a></dt>
+<dd><p>optional gdx file with historical data. Reserved for future
+use; currently ignored.</p></dd>
 
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
 <dd><p>additional parameters to send to batch_extract</p></dd>
 
-
-<dt id="arg-scen-table">scen_table<a class="anchor" aria-label="anchor" href="#arg-scen-table"></a></dt>
-<dd><p>a conversion function or a mapping table to translate gdx into scenario name</p></dd>
-
 </dl></div>
+    <div class="section level2">
+    <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
+    <p>A <code>data.table</code> with the index columns of <code>item</code> and a
+<code>value</code> column, restricted to <code>filter</code>. A <code>scenario</code> column is
+added when <code>scenarios</code> is not <code>NULL</code>, and a <code>year</code> column when
+<code>add_year</code> is not <code>NULL</code> and the item has a <code>t</code> index. The
+<code>gdx</code> and <code>t</code> columns are dropped unless <code>keep_gdx</code>,
+respectively <code>keep_t</code>, is TRUE.</p>
+    </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p>Other WITCH helper functions:

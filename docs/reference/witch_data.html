@@ -11,7 +11,7 @@ method (local) or after checking/downloading it from the DVC remote drive
 
     <a class="navbar-brand me-2" href="../index.html">witchtools</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.5.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.5.0.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -91,10 +91,17 @@ method (<code>local</code>) or after checking/downloading it from the DVC remote
 <dd><p>dvc remote storage</p></dd>
 
 </dl></div>
+    <div class="section level2">
+    <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
+    <p>A character string with the path of the requested file in the input
+data directory. With method <code>dvc</code> and <code>noCheck = FALSE</code>, the file
+is pulled from the DVC remote first.</p>
+    </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
+<span class="r-in"><span><span class="co"># Not run: downloads data from the witch-data repository.</span></span></span>
 <span class="r-in"><span><span class="fu">witch_data</span><span class="op">(</span><span class="st">"ssp/ssp_population.csv"</span>, version <span class="op">=</span> <span class="st">"v0.0.1"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">witch_data</span><span class="op">(</span><span class="st">"ssp/ssp_population.csv"</span>, method <span class="op">=</span> <span class="st">"witch-data"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">witch_data</span><span class="op">(</span><span class="st">"ssp/ssp_population.csv"</span>, noCheck <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>

@@ -18,10 +18,17 @@ require_package(pkgs, loading = TRUE)
 
   if TRUE, package is loaded
 
+## Value
+
+Invisibly `NULL`. Called for its side effects of installing the missing
+packages of `pkgs` and, when `loading` is TRUE, attaching them to the
+search path.
+
 ## Examples
 
 ``` r
 if (FALSE) { # \dontrun{
+# Not run: installs and attaches packages as a side effect.
 require_package(c("data.table","gdxtools"), loading = FALSE)
 } # }
 ```

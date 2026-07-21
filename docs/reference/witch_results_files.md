@@ -33,6 +33,12 @@ witch_results_files(
 
   if TRUE, search also in the sub directories.
 
+## Value
+
+A character vector with the unique names of the gdx files found in
+`search_path` whose base name matches one of the `restrict` patterns.
+Returns `NULL` if no file matches.
+
 ## See also
 
 [witch_query](http://witchtools.witchmodel.org/reference/witch_query.md).

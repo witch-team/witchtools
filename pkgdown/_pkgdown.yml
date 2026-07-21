@@ -1,3 +1,17 @@
+# NOTE: pkgdown renders every root-level .md file into the site, and
+# .Rbuildignore does not apply to it. Since docs/ is committed and served by
+# GitHub Pages, any stray root .md file gets published to the public site.
+# Local-only notes (e.g. the gitignored CLAUDE.md) must be moved aside before
+# building:
+#
+#   mv CLAUDE.md .CLAUDE.md.tmp
+#   Rscript -e 'pkgdown::build_site(preview = FALSE)'
+#   mv .CLAUDE.md.tmp CLAUDE.md
+#
+# Then check nothing leaked: `grep -rl CLAUDE docs/` must return nothing.
+# Note that search.json embeds page content and sitemap.xml its URL, and both
+# are tracked -- so gitignoring the generated .html alone is not enough.
+
 destination: docs
 
 url: http://witchtools.witchmodel.org
@@ -13,7 +27,10 @@ template:
       btn-border-radius: 0.25rem
 
 development:
-  mode: auto
+  # "release" keeps the site at the docs/ root even when the version carries a
+  # .9000 development suffix. With "auto", pkgdown would build into docs/dev/
+  # and publish a second copy of the whole site alongside the released one.
+  mode: release
 
 reference:
 - title: Conversion

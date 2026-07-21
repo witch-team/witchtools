@@ -74,6 +74,13 @@ convert_sqlite(
 
   default meta_param
 
+## Value
+
+Called for its side effect of writing the converted SQLite database in
+`output_directory`, under the same base name as `sqlitedb`. The return
+value is the (invisible) status of the closing `RSQLite::dbDisconnect`
+call and should not be relied upon.
+
 ## See also
 
 [`convert_table`](http://witchtools.witchmodel.org/reference/convert_table.md),
@@ -90,6 +97,7 @@ Other conversion functions:
 
 ``` r
 if (FALSE) { # \dontrun{
+# Not run: needs an existing SQLite database file.
 convert_sqlite("input/build/data_climate.sqlite", "witch17", "t30", "data_witch17")
 } # }
 ```

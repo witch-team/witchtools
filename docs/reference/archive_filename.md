@@ -22,3 +22,8 @@ archive_filename(reg_id, time_id, ext = ".zip")
 - ext:
 
   the extension of the archive file (default:".zip").
+
+## Value
+
+A character string with the archive file name, of the form
+`data_<reg_id>_<time_id>_<commit_id>_<commit_date><ext>`.

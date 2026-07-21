@@ -9,7 +9,7 @@ time mapping as defined in the file. The function scans the csv file."><meta pro
 
     <a class="navbar-brand me-2" href="../index.html">witchtools</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.5.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.5.0.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -56,12 +56,32 @@ time mapping as defined in the file. The function scans the csv file.</p>
 <dd><p>time mapping csv file</p></dd>
 
 </dl></div>
+    <div class="section level2">
+    <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
+    <p>A <code>data.table</code> with one row per (t, year) pair and the columns
+<code>t</code>, <code>year</code> (numeric), <code>refyear</code>, <code>pred</code>,
+<code>tperiod</code>, <code>begyear</code> and <code>endyear</code>.</p>
+    </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
-<span class="r-in"><span><span class="fu">witch_time_mapping</span><span class="op">(</span><span class="st">"input/time/t30.csv"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Read the t30 time mapping shipped with the package</span></span></span>
+<span class="r-in"><span><span class="fu">witch_time_mapping</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"t30.csv"</span>, package <span class="op">=</span> <span class="st">"witchtools"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           t  year refyear   pred tperiod begyear endyear</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      &lt;char&gt; &lt;num&gt;  &lt;char&gt; &lt;char&gt;  &lt;char&gt;  &lt;char&gt;  &lt;char&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   1:      1  2003    2005              1    2003    2007</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2:      1  2004    2005              1    2003    2007</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   3:      1  2005    2005              1    2003    2007</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   4:      1  2006    2005              1    2003    2007</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   5:      1  2007    2005              1    2003    2007</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  ---                                                    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 146:     30  2148    2150     29      30    2148    2152</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 147:     30  2149    2150     29      30    2148    2152</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 148:     30  2150    2150     29      30    2148    2152</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 149:     30  2151    2150     29      30    2148    2152</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 150:     30  2152    2150     29      30    2148    2152</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
