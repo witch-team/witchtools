@@ -23,7 +23,9 @@ witch_results_files <- function(search_path,
                         recursive = recursive)
 
   if (normalize) {
-    filelist <- normalizePath(filelist)
+    # filelist is relative to search_path, so resolve against it rather than
+    # against the current working directory.
+    filelist <- normalizePath(file.path(search_path, filelist))
   }
 
   # Clean filtering rules
