@@ -61,6 +61,15 @@ Regional mappings are 2-columns data.table with a column named 'iso3'
 (for country ISO3)
 and another one named as the regional mapping (for region name).
 The name in the list should also be the regional mapping name.
+
+Region-to-region conversions use a fast engine that converts through a
+precomputed region-pair coefficient table instead of expanding the data to
+country level, which drastically reduces memory use and run time on large
+tables. Results are identical up to floating-point summation order
+(relative differences below 1e-12). The previous implementation remains
+available with \code{options(witchtools.convert_region_engine = "legacy")}.
+Country-level (iso3) input and the \code{set1} operator always use the
+legacy engine.
 }
 \examples{
 # Aggregate country-level GDP into the 17 WITCH regions

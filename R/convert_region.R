@@ -20,6 +20,15 @@
 #' and another one named as the regional mapping (for region name).
 #' The name in the list should also be the regional mapping name.
 #'
+#' Region-to-region conversions use a fast engine that converts through a
+#' precomputed region-pair coefficient table instead of expanding the data to
+#' country level, which drastically reduces memory use and run time on large
+#' tables. Results are identical up to floating-point summation order
+#' (relative differences below 1e-12). The previous implementation remains
+#' available with \code{options(witchtools.convert_region_engine = "legacy")}.
+#' Country-level (iso3) input and the \code{set1} operator always use the
+#' legacy engine.
+#'
 #' @family conversion functions
 #' @seealso \code{\link{convert_table}},
 #' \code{\link{convert_gdx}}.
@@ -129,9 +138,17 @@ convert_region <- function(.x,
     stop(paste0("to_reg == iso3 is not yet implemented."))
   }
 
-  # Convert via the legacy iso3-explosion engine.
-  # A pair-coefficient "fast" engine is added in a later commit; until then
-  # every route goes through the reference implementation.
+  # Engine dispatch. The "fast" engine converts region->region input through
+  # a small pair-coefficient table instead of the iso3 explosion; iso3-level
+  # input is already linear-size and stays on the legacy engine. "set1" also
+  # stays on the legacy engine: its round() is discontinuous, so the summation
+  # reassociation of the fast engine could flip a value sitting exactly on a
+  # .5 boundary, and set1 tables are tiny anyway.
+  engine <- getOption("witchtools.convert_region_engine", "fast")
+  if (identical(engine, "fast") && rname0 != "iso3" && agg_operator != "set1") {
+    return(convert_region_fast(.x, rmap0, rname0, rmap1, rname1,
+                               agg_operator, agg_weight, agg_missing, info))
+  }
   convert_region_via_iso3(.x, rmap0, rname0, rmap1, rname1,
                           agg_operator, agg_weight, agg_missing, info)
 }
