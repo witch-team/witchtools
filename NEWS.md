@@ -1,4 +1,12 @@
-# witchtools (development version)
+# witchtools 0.6.0
+
+## New features
+
+- New region sets `japan_regions()`, `korea_regions()` and
+  `southafrica_regions()`, emitted as `is_japan`, `is_korea` and
+  `is_southafrica` in the generated `regions.inc`. Selection uses the same
+  GDP-majority rule as the other region sets, so under `witch17` the
+  `jpnkor` region belongs to `is_japan` and `is_korea` is empty.
 
 ## Performance
 
