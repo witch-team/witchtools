@@ -43,7 +43,7 @@ test_that("witch_write_gams writes regions.inc with the iso3 and region sets", {
   # every declared set is closed
   n_open <- sum(grepl("^set .*/$", lines))
   expect_equal(n_open, sum(lines == "/;"))
-  expect_equal(n_open, 14L)
+  expect_equal(n_open, 17L)
 
   # a few membership checks against the region_sets helpers
   block <- function(header) {
@@ -53,6 +53,8 @@ test_that("witch_write_gams writes regions.inc with the iso3 and region sets", {
   }
   expect_setequal(block("set is_usa(n) 'USA regions' /"), usa_regions(rm))
   expect_setequal(block("set eu27(n) 'EU27 regions' /"), eu27_regions(rm))
+  expect_setequal(block("set is_japan(n) 'Japan regions' /"),
+                  japan_regions(rm))
 })
 
 test_that("witch_write_gams writes the coalition config and include", {

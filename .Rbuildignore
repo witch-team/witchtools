@@ -10,3 +10,4 @@
 ^\.github$
 ^CLAUDE\.md$
 ^\.claude$
+^benchmarks$

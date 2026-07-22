@@ -1,4 +1,28 @@
-# witchtools (development version)
+# witchtools 0.6.0
+
+## New features
+
+- New region sets `japan_regions()`, `korea_regions()` and
+  `southafrica_regions()`, emitted as `is_japan`, `is_korea` and
+  `is_southafrica` in the generated `regions.inc`. Selection uses the same
+  GDP-majority rule as the other region sets, so under `witch17` the
+  `jpnkor` region belongs to `is_japan` and `is_korea` is empty.
+
+## Performance
+
+- Region-to-region conversion (`convert_region()`, and `convert_table()` /
+  `convert_gdx()` / `convert_duckdb()` / `convert_sqlite()` through it) no
+  longer expands the data to country level. A new engine converts through a
+  precomputed region-pair coefficient table: on 1M-row tables it is ~5x
+  faster with up to ~10x lower peak memory, and it converts the 2.1M-row
+  GLOBIOM reporting tables witch17->witch20 in ~6s within 1 GB where the
+  previous implementation exhausted 6 GB (see `benchmarks/results/`).
+  Results are identical up to floating-point summation order (< 1e-12).
+  The previous engine remains available with
+  `options(witchtools.convert_region_engine = "legacy")`; country-level
+  (iso3) input and the `set1` operator always use it (`set1`'s rounding is
+  discontinuous, so summation reassociation could flip values at .5).
+- `subset()` replaced by direct indexing in the conversion hot paths.
 
 # witchtools 0.5.1
 

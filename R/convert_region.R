@@ -20,6 +20,15 @@
 #' and another one named as the regional mapping (for region name).
 #' The name in the list should also be the regional mapping name.
 #'
+#' Region-to-region conversions use a fast engine that converts through a
+#' precomputed region-pair coefficient table instead of expanding the data to
+#' country level, which drastically reduces memory use and run time on large
+#' tables. Results are identical up to floating-point summation order
+#' (relative differences below 1e-12). The previous implementation remains
+#' available with \code{options(witchtools.convert_region_engine = "legacy")}.
+#' Country-level (iso3) input and the \code{set1} operator always use the
+#' legacy engine.
+#'
 #' @family conversion functions
 #' @seealso \code{\link{convert_table}},
 #' \code{\link{convert_gdx}}.
@@ -129,123 +138,17 @@ convert_region <- function(.x,
     stop(paste0("to_reg == iso3 is not yet implemented."))
   }
 
-  # Add iso3 and data_reg mapping
-  if (rname0 == "iso3") {
-    .x <- merge(.x, rmap1, by = "iso3")
-  } else {
-    .r <- merge(rmap0, rmap1, by = "iso3")
-    .x <- merge(.x, .r, by = rname0, allow.cartesian = TRUE)
+  # Engine dispatch. The "fast" engine converts region->region input through
+  # a small pair-coefficient table instead of the iso3 explosion; iso3-level
+  # input is already linear-size and stays on the legacy engine. "set1" also
+  # stays on the legacy engine: its round() is discontinuous, so the summation
+  # reassociation of the fast engine could flip a value sitting exactly on a
+  # .5 boundary, and set1 tables are tiny anyway.
+  engine <- getOption("witchtools.convert_region_engine", "fast")
+  if (identical(engine, "fast") && rname0 != "iso3" && agg_operator != "set1") {
+    return(convert_region_fast(.x, rmap0, rname0, rmap1, rname1,
+                               agg_operator, agg_weight, agg_missing, info))
   }
-
-  # Add weight
-  .x <- merge(.x, agg_weight, by = "iso3")
-  .x <- .x[!is.na(get(rname1))]
-
-  dkeys <- function(dd) {
-    return(c(colnames(dd)[!colnames(dd) %in% c(
-      "value",
-      "weight", "sum_weight",
-      "iso3", rname0, rname1
-    )]))
-  }
-
-  # Disaggregation
-  if (rname0 != "iso3") {
-    if (agg_operator %in% c("sum","sumby")) {
-      # total weights are computed because of missing zeros values
-      .w <- merge(rmap0, agg_weight, by = "iso3")
-      .w <- .w[iso3 %in% unique(.x$iso3)]
-      .w <- .w[, list(sum_weight = sum(weight)), by = rname0]
-      .x <- merge(.x, .w, by = rname0)
-      .x <- .x[, list(iso3,
-        rname1 = get(rname1),
-        value = value * weight / sum_weight,
-        weight
-      ),
-      by = c(dkeys(.x), rname0)
-      ]
-      if (agg_operator %in% c("sum")) {
-        .x[, weight := NULL]
-      }
-    } else {
-      if (agg_operator %in% c("mean", "set1", "min", "minw", "max", "maxw")) {
-        .x <- .x[, .(iso3,
-          rname1 = get(rname1),
-          value,
-          weight
-        ),
-        by = c(dkeys(.x), rname0)
-        ]
-      } else {
-        stop(paste("Operator ", agg_operator, "not implemented"))
-      }
-    }
-  } else {
-    data.table::setnames(.x, rname1, "rname1")
-  }
-
-  # informed share
-  .info_share <- NULL
-  if (agg_operator %in% c("sumby")) {
-    .w <- merge(rmap1, agg_weight, by = "iso3")
-    .w <- .w[, .(sum_weight = sum(weight)), by = rname1]
-    data.table::setnames(.w, rname1, "rname1")
-    .x <- merge(.x, .w, by = "rname1")
-    .info_share <- .x[, .(value = sum(weight) / mean(sum_weight)),
-      by = c(dkeys(.x))
-    ]
-    data.table::setnames(.info_share, "rname1", rname1)
-  }
-
-  # Aggregation
-  if (agg_operator %in% c("sum", "sumby")) {
-    .x <- .x[, .(value = sum(value)), by = c(dkeys(.x))]
-  } else {
-    .w <- merge(rmap1, agg_weight, by = "iso3")
-    .w <- .w[, .(sum_weight = sum(weight)), by = rname1]
-    data.table::setnames(.w, rname1, "rname1")
-    .x <- merge(.x, .w, by = "rname1")
-    if (agg_operator == "mean") {
-      if (agg_missing == "zero") {
-        .x <- .x[, .(value = sum(value * weight / sum_weight)),
-          by = c(dkeys(.x))
-        ]
-      }
-      if (agg_missing == "NA") {
-        .x <- .x[!is.na(value), .(value = sum(value * weight / sum(weight))),
-          by = c(dkeys(.x))
-        ]
-      }
-    } else if (agg_operator == "set1") {
-      if (agg_missing == "zero") {
-        .x <- .x[, .(value = round(sum(value * weight / sum_weight))),
-          by = c(dkeys(.x))
-        ]
-      }
-      if (agg_missing == "NA") {
-        .x <- .x[, .(value = round(sum(value * weight / sum(weight)))),
-          by = c(dkeys(.x))
-        ]
-      }
-    } else if (agg_operator %in% c("min", "minw")) {
-      .x <- .x[, .(value = min(value[which(weight == min(weight))])),
-        by = c(dkeys(.x))
-      ]
-    } else if (agg_operator %in% c("max", "maxw")) {
-      .x <- .x[, .(value = max(value[which(weight == max(weight))])),
-        by = c(dkeys(.x))
-      ]
-    } else {
-      stop(paste("Operator", agg_operator, "not implemented"))
-    }
-  }
-
-  # Change the region column name
-  data.table::setnames(.x, "rname1", rname1)
-
-  if (info) {
-    return(list(data = .x, info = .info_share))
-  } else {
-    return(.x)
-  }
+  convert_region_via_iso3(.x, rmap0, rname0, rmap1, rname1,
+                          agg_operator, agg_weight, agg_missing, info)
 }

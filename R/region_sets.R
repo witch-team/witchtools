@@ -91,6 +91,58 @@ usa_regions <- function(region_mapping) {
   return(any_regions(usa_iso3,region_mapping))
 }
 
+#' Japan regions for a given region mapping.
+#'
+#' \code{japan_regions} returns a vector of region representing Japan.
+#'
+#' @family misc functions
+#'
+#' @param region_mapping a data.table of regional mapping.
+#' @return a vector of region name.
+#'
+#' @export
+#' @examples
+#' japan_regions(region_mappings[["witch17"]])
+japan_regions <- function(region_mapping) {
+  japan_iso3 <- c("JPN")
+  return(any_regions(japan_iso3,region_mapping))
+}
+
+#' Korea regions for a given region mapping.
+#'
+#' \code{korea_regions} returns a vector of region representing South Korea.
+#'
+#' @family misc functions
+#'
+#' @param region_mapping a data.table of regional mapping.
+#' @return a vector of region name.
+#'
+#' @export
+#' @examples
+#' korea_regions(region_mappings[["witch17"]])
+korea_regions <- function(region_mapping) {
+  korea_iso3 <- c("KOR")
+  return(any_regions(korea_iso3,region_mapping))
+}
+
+#' South Africa regions for a given region mapping.
+#'
+#' \code{southafrica_regions} returns a vector of region representing
+#' South Africa.
+#'
+#' @family misc functions
+#'
+#' @param region_mapping a data.table of regional mapping.
+#' @return a vector of region name.
+#'
+#' @export
+#' @examples
+#' southafrica_regions(region_mappings[["witch17"]])
+southafrica_regions <- function(region_mapping) {
+  southafrica_iso3 <- c("ZAF")
+  return(any_regions(southafrica_iso3,region_mapping))
+}
+
 #' China regions for a given region mapping.
 #'
 #' \code{china_regions} returns a vector of region representing China,
