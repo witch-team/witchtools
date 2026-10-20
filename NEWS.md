@@ -1,3 +1,18 @@
+# witchtools 0.7.0
+
+## New features
+
+- `witch_translate_data()` also runs the Julia `input/make_data_*.jl`
+  files (after the R ones, before the GAMS ones) with
+  `julia --project=input`, instantiating the input Julia project first.
+  They take the same `-i`, `-w`, `-m` and `--noCheck` options as the R
+  scripts and write `input/build/data_*.gdx`.
+
+## Other changes
+
+- Requires gdxtools >= 1.2.0 and no longer calls the deprecated
+  `gdxtools::igdx()`.
+
 # witchtools 0.6.0
 
 ## New features

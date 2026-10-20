@@ -1,6 +1,6 @@
 Package: witchtools
 Title: Data Management for Integrated Assessment Models
-Version: 0.6.0
+Version: 0.7.0
 Authors@R: 
     c(person(given = "Laurent",
            family = "Drouet",
@@ -59,7 +59,7 @@ Suggests:
     DBI,
     RSQLite,
     duckdb,
-    gdxtools (>= 1.0.0),
+    gdxtools (>= 1.2.0),
     ggplot2,
     knitr,
     remotes,
