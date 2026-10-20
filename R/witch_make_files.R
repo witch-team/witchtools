@@ -65,3 +65,38 @@ make_data_R <- function(Rfile, idir, witch_dir, force = FALSE) {
 
   return(Rfile)
 }
+
+# Julia make_data files are run with the Julia project of the input folder
+# (input/Project.toml), which provides their package dependencies.
+make_data_jl <- function(jlfile, idir, witch_dir, force = FALSE) {
+
+  # generated gdx
+  gengdx <- file.path(
+    witch_dir, "input", "build",
+    paste0(stringr::str_sub(basename(jlfile), 6, -4), ".gdx")
+  )
+
+  # check if the generated gdx is older than the make_data julia file
+  if (file.exists(gengdx)) {
+    if (!force & (file.mtime(gengdx) > file.mtime(jlfile))) {
+      return()
+    }
+  }
+
+  cat(crayon::blue$bold(paste("Compiling", basename(jlfile), "\n")))
+  cmd <- paste0(
+    'julia --project="', normalizePath(file.path(witch_dir, "input")),
+    '" "', jlfile,
+    '" -i "', normalizePath(idir),
+    '" -w "', normalizePath(witch_dir),
+    '" -m ', getOption("witchtools.method")
+  )
+  if (getOption("witchtools.noCheck", TRUE)) {
+    cmd <- paste0(cmd, " --noCheck")
+  }
+
+  res <- system(cmd)
+  stopifnot(res == 0)
+
+  return(jlfile)
+}

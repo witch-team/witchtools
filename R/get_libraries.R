@@ -15,16 +15,16 @@
 #' }
 require_package <- function(pkgs, loading = TRUE) {
   # Special handling for gdxtools (installed from GitHub).
-  # witchtools requires gdxtools >= 1.0.0 (gamstransfer backend); install
+  # witchtools requires gdxtools >= 1.2.0 (gamstransfer backend); install
   # or upgrade from GitHub if the local copy is missing or too old.
   if ("gdxtools" %in% pkgs) {
-    if (!rlang::is_installed("gdxtools", version = "1.0.0")) {
+    if (!rlang::is_installed("gdxtools", version = "1.2.0")) {
       # First ensure remotes is available
       if (!rlang::is_installed("remotes")) {
         install_package_safe("remotes")
       }
 
-      message("Installing gdxtools (>= 1.0.0) from GitHub...")
+      message("Installing gdxtools (>= 1.2.0) from GitHub...")
       remotes::install_github("lolow/gdxtools", quiet = !interactive())
     }
   }

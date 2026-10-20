@@ -1,7 +1,7 @@
 #' Translate WITCH data (run make_data files and convert data).
 #'
 #' \code{witch_translate_data} generates the input data for the WITCH model.
-#' First, it will run the R `make_data_files` and the gams `make_data_files`
+#' First, it will run the R, Julia and gams `make_data_files`
 #' usually located in the input folder of WITCH. These make_data_files produce
 #' gdx, sqlite, and duckdb files in the `build` folder. Time-series should be yearly.
 #' Spatial data should be preferably described at ISO3 level, but the script
@@ -49,11 +49,6 @@ witch_translate_data <- function(witch_dir = ".",
                                  force = FALSE) {
   cat(crayon::silver$bold("\U26AB Initialisation\n"))
 
-  # Check if gdxtool is available and working
-  if (requireNamespace("gdxtools", quietly = TRUE)) {
-    gdxtools::igdx(dirname(Sys.which("gams"))) # Please have gams in your PATH!
-  }
-
   # Region mapping
   reg_id <- stringr::str_replace(as.character(region), ".inc", "")
 
@@ -99,6 +94,21 @@ witch_translate_data <- function(witch_dir = ".",
   Rfiles <- Sys.glob(file.path(witch_dir, "input", "make_data_*.R"))
   res <- for (Rfile in Rfiles) {
     make_data_R(Rfile, idir, witch_dir)
+  }
+
+  # Julia files make_data_*.jl
+  jlfiles <- Sys.glob(file.path(witch_dir, "input", "make_data_*.jl"))
+  if (length(jlfiles) > 0 && !nzchar(Sys.which("julia"))) {
+    stop("julia not found in the PATH, needed to run make_data_*.jl files")
+  }
+  if (length(jlfiles) > 0) {
+    cmd <- paste0('julia --project="',
+                  normalizePath(file.path(witch_dir, "input")),
+                  '" -e "using Pkg; Pkg.instantiate()"')
+    stopifnot(system(cmd) == 0)
+  }
+  res <- for (jlfile in jlfiles) {
+    make_data_jl(jlfile, idir, witch_dir)
   }
 
   # GAMS files make_data_*.gms
