@@ -40,7 +40,7 @@ the output data directory, and generating the associated GAMS files via
 }
 \description{
 \code{witch_translate_data} generates the input data for the WITCH model.
-First, it will run the R \code{make_data_files} and the gams \code{make_data_files}
+First, it will run the R, Julia and gams \code{make_data_files}
 usually located in the input folder of WITCH. These make_data_files produce
 gdx, sqlite, and duckdb files in the \code{build} folder. Time-series should be yearly.
 Spatial data should be preferably described at ISO3 level, but the script
